@@ -1,0 +1,29 @@
+<mat-toolbar color="primary">
+    <span>Omega Academy</span>
+    <div class="menuItems">
+      <a mat-button routerLink="admins">Admins<mat-icon>verified_user</mat-icon></a>
+      <a mat-button routerLink="students">Students<mat-icon>school</mat-icon></a>
+      <a mat-button routerLink="teachers">Teachers<mat-icon>cast_for_education</mat-icon></a>
+      <a mat-button routerLink="courses">Courses<mat-icon>history_edu</mat-icon></a>
+      <a mat-button routerLink="groups">Groups<mat-icon>diversity_3</mat-icon></a>
+      <a mat-button routerLink="messages">Messages<mat-icon>mark_email_unread</mat-icon></a>
+      <a mat-button routerLink="homeWorks">HomeWorks<mat-icon>library_books</mat-icon></a>
+      <!-- <a mat-button>About Us<mat-icon>contact_support</mat-icon></a> -->
+      <button class="btnSmallMenu" mat-fab (click)="drawer.toggle()">
+          <mat-icon class="mat-18">menu</mat-icon>
+      </button>
+    </div>
+</mat-toolbar>
+<mat-drawer-container [hasBackdrop]="true">
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <a mat-button>Admins<mat-icon>verified_user</mat-icon></a>
+      <a mat-button>Students<mat-icon>school</mat-icon></a>
+      <a mat-button>Teachers<mat-icon>cast_for_education</mat-icon></a>
+      <a mat-button>Courses<mat-icon>history_edu</mat-icon></a>
+      <a mat-button>Groups<mat-icon>diversity_3</mat-icon></a>
+      <a mat-button>Messages<mat-icon>mark_email_unread</mat-icon></a>
+      <a mat-button>HomeWorks<mat-icon>library_books</mat-icon></a>
+  </mat-drawer>
+</mat-drawer-container>
+
+

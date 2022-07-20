@@ -1,0 +1,48 @@
+<h1 matDialogTitle>Editing This Group</h1>
+
+<div matDialogContent>
+  <form [formGroup]="EditGroupForm">
+
+  <mat-form-field class="m-1" appearance="fill">
+    <mat-label>Name</mat-label>
+    <input formControlName="name"  matInput >
+    <mat-error *ngIf="EditGroupForm.get('name')!.errors?.['required']">
+      Please Fill this Field</mat-error>
+  </mat-form-field>
+
+  <mat-divider></mat-divider>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Choose a an Opening Date</mat-label>
+    <input formControlName="openingDate" matInput [matDatepicker]="picker">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-divider></mat-divider>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Choose a an Closing Date</mat-label>
+    <input formControlName="closingDate" matInput [matDatepicker]="picker2">
+    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker #picker2></mat-datepicker>
+  </mat-form-field>
+  <mat-divider></mat-divider>
+
+<mat-form-field appearance="fill">
+  <mat-label>Select a Course</mat-label>
+  <mat-select formControlName="courseId"  placeholder="">
+      <mat-option *ngFor="let item of courses" [value]="item.id">{{item.name}}</mat-option>
+  </mat-select>
+  <mat-error *ngIf="EditGroupForm.get('courseId')!.hasError('required')">
+    Please Select a Course</mat-error>
+</mat-form-field>
+
+
+  <div style="text-align: center;">
+    <button style="margin-right: 10px;" mat-raised-button (click)="SaveGroup()"  color="accent">Save</button>
+  <button mat-raised-button [mat-dialog-close]="false" color="primary">Cancel</button>
+  </div>
+</form>
+
+</div>
+

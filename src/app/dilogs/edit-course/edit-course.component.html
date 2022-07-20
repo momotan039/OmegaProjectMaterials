@@ -1,0 +1,20 @@
+<h1 matDialogTitle>Create New Group</h1>
+
+<div matDialogContent>
+  <form [formGroup]="EditCourseForm">
+
+  <mat-form-field class="m-1" appearance="fill">
+    <mat-label>Name</mat-label>
+    <input formControlName="name"  matInput >
+    <mat-error *ngIf="EditCourseForm.get('name')!.errors?.['required']">
+      Please Fill this Field</mat-error>
+  </mat-form-field>
+
+  <div style="text-align: center;">
+    <button style="margin-right: 10px;" mat-raised-button (click)="SaveGroup()"  color="accent">Save</button>
+  <button mat-raised-button [mat-dialog-close]="false" color="primary">Cancel</button>
+  </div>
+</form>
+
+</div>
+
