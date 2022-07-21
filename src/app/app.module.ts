@@ -1,6 +1,8 @@
+import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { HttpUsersService } from './services/httpUsers/http-users.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,7 +15,6 @@ import { DeleteUserComponent } from './dilogs/delete-user/delete-user.component'
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { AddUserComponent } from './dilogs/add-user/add-user.component';
 import { HeaderComponent } from './header/header.component';
-import { UsersComponent } from './Components/users/users.component';
 import { TeachersComponent } from './Components/teachers/teachers.component';
 import { AdminsComponent } from './Components/admins/admins.component';
 import { GroupsComponent } from './Components/groups/groups.component';
@@ -26,6 +27,10 @@ import { AddCourseComponent } from './dilogs/add-course/add-course.component';
 import { EditCourseComponent } from './dilogs/edit-course/edit-course.component';
 import { LogInComponent } from './Components/log-in/log-in.component';
 import { HomeComponent } from './Components/home/home.component';
+import { AuthGuardService } from './services/auth-guard.service';
+import { StudentsComponent } from './Components/students/students.component';
+import { MessagesComponent } from './Components/messages/messages.component';
+import { HomeworksComponent } from './Components/homeworks/homeworks.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +41,6 @@ import { HomeComponent } from './Components/home/home.component';
     EditUserComponent,
     DeleteUserComponent,
     HeaderComponent,
-    UsersComponent,
     TeachersComponent,
     AdminsComponent,
     GroupsComponent,
@@ -49,6 +53,9 @@ import { HomeComponent } from './Components/home/home.component';
     EditCourseComponent,
     LogInComponent,
     HomeComponent,
+    StudentsComponent,
+    MessagesComponent,
+    HomeworksComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,7 +66,13 @@ import { HomeComponent } from './Components/home/home.component';
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide:HTTP_INTERCEPTORS,
+      useClass:AuthInterceptorService,
+      multi:true,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

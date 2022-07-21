@@ -1,3 +1,7 @@
+import { HomeworksComponent } from './Components/homeworks/homeworks.component';
+import { MessagesComponent } from './Components/messages/messages.component';
+import { TeachersComponent } from './Components/teachers/teachers.component';
+import { StudentsComponent } from './Components/students/students.component';
 import { HomeComponent } from './Components/home/home.component';
 import { LogInComponent } from './Components/log-in/log-in.component';
 import { CoursesComponent } from './Components/courses/courses.component';
@@ -5,21 +9,23 @@ import { GroupsComponent } from './Components/groups/groups.component';
 import { AdminsComponent } from './Components/admins/admins.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuardService } from './services/auth-guard.service';
 
 const routes: Routes = [
-  {"component":AdminsComponent,"path":"admins"},
-  {"component":AdminsComponent,"path":"students"},
-  {"component":AdminsComponent,"path":"teachers"},
-  {"component":CoursesComponent,"path":"courses"},
-  {"component":GroupsComponent,"path":"groups"},
-  {"component":AdminsComponent,"path":"messages"},
-  {"component":AdminsComponent,"path":"homeWorks"},
+  {"component":AdminsComponent,"path":"admins",canActivate:[AuthGuardService]},
+  {"component":StudentsComponent,"path":"students",canActivate:[AuthGuardService]},
+  {"component":TeachersComponent,"path":"teachers",canActivate:[AuthGuardService]},
+  {"component":CoursesComponent,"path":"courses",canActivate:[AuthGuardService]},
+  {"component":GroupsComponent,"path":"groups",canActivate:[AuthGuardService]},
+  {"component":MessagesComponent,"path":"messages",canActivate:[AuthGuardService]},
+  {"component":HomeworksComponent,"path":"homeWorks",canActivate:[AuthGuardService]},
   {"component":LogInComponent,"path":"login"},
-  {"component":HomeComponent,"path":"home"},
+  {"component":HomeComponent,"path":"home",canActivate:[AuthGuardService]},
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule { }

@@ -30,7 +30,9 @@ mat-drawer{
 .example-sidenav {
 
 }
-
+.justyCenter{
+  justify-content: center;
+}
 
 @media screen and (max-width:992px) {
   .menuItems>*{

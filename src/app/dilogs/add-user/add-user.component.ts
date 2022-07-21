@@ -1,9 +1,9 @@
 import { MessageDialogComponent } from './../message-dialog/message-dialog.component';
 import { MyTools } from './../../constants/MyTools';
 import { HttpUsersService } from './../../services/httpUsers/http-users.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { User } from 'src/app/models/User';
 import { UsersTableComponent } from 'src/app/users-table/users-table.component';
 
@@ -17,14 +17,16 @@ export class AddUserComponent implements OnInit {
   constructor(
     private httpUsers:HttpUsersService,
     private dialogRef:MatDialogRef<UsersTableComponent>,
-    private fb:FormBuilder) { }
+    private fb:FormBuilder,
+    @Inject (MAT_DIALOG_DATA) public dataRecived:any
+    ) { }
   AddUserForm=this.fb.group({
     firstName:['',Validators.required],
     lastName:['',Validators.required],
     email:['',Validators.required],
     phone:['',Validators.required],
-    role:['',Validators.required],
-    idCard:['',Validators.required]
+    idCard:['',Validators.required],
+    role:[this.dataRecived.roleBy,Validators.required],
   })
   ngOnInit(): void {
 
@@ -33,7 +35,6 @@ export class AddUserComponent implements OnInit {
 SaveUser(){
   if(!this.AddUserForm.valid)
   return;
-
   this.httpUsers.PostUser(this.AddUserForm.value).subscribe(data=>{
     MyTools.Dialog.open(MessageDialogComponent,{
       data:{
@@ -52,5 +53,14 @@ SaveUser(){
   },)
 }
 
+GetNameOfRole(){
+  let role=this.dataRecived.roleBy
+if(role==1)
+return "Admin"
+if(role==2)
+return "Teacher"
+
+return "Student"
+}
 
 }

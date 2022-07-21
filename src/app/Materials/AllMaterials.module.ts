@@ -12,6 +12,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatSelectModule} from '@angular/material/select';
 import { MatNativeDateModule} from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatCardModule} from '@angular/material/card';
 
 const materials=[
   MatTableModule,
@@ -26,7 +27,8 @@ const materials=[
   MatSidenavModule,
   MatSelectModule,
   MatNativeDateModule,
-  MatDatepickerModule
+  MatDatepickerModule,
+  MatCardModule
 ]
 @NgModule({
   imports:[materials],

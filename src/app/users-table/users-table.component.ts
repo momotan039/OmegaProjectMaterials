@@ -4,7 +4,7 @@ import { DeleteUserComponent } from './../dilogs/delete-user/delete-user.compone
 import { EditUserComponent } from './../dilogs/edit-user/edit-user.component';
 import { MessageDialogComponent } from './../dilogs/message-dialog/message-dialog.component';
 import { User } from './../models/User';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
@@ -17,6 +17,8 @@ import { AddUserComponent } from '../dilogs/add-user/add-user.component';
   styleUrls: ['./users-table.component.css']
 })
 export class UsersTableComponent implements OnInit {
+  @Input() roleBy=-1
+
   dataSource:any;
   displayedColumns:any;
   @ViewChild("refpag") paginator:MatPaginator | undefined;
@@ -25,7 +27,7 @@ export class UsersTableComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.displayedColumns=["firstName","lastName","email","password","phone","idCard","role","operations"]
+    this.displayedColumns=["firstName","lastName","email","password","phone","idCard","operations"]
     this.FillTableData()
   }
 
@@ -35,8 +37,7 @@ export class UsersTableComponent implements OnInit {
   }
 
   FillTableData(){
-    this.usersService.GetUsers().subscribe(data=>{
-
+    this.usersService.GetUsersByRole(this.roleBy).subscribe(data=>{
       this.dataSource=new MatTableDataSource(data)
       this.dataSource.paginator=this.paginator
      this.dataSource.sort=this.sort
@@ -84,6 +85,9 @@ export class UsersTableComponent implements OnInit {
 
   AddUser(){
     let dialogRef=MyTools.Dialog.open(AddUserComponent,{
+      data:{
+        "roleBy":this.roleBy
+      },
       disableClose:true
     })
     dialogRef.afterClosed().subscribe(success=>{

@@ -1,5 +1,6 @@
+import { MyLocalStorage } from './../MyLocalStorage';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpResponse, HttpResponseBase } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpResponseBase, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from 'src/app/models/User';
 
@@ -7,17 +8,14 @@ import { User } from 'src/app/models/User';
   providedIn: 'root'
 })
 export class HttpUsersService {
-
+ headers=new HttpHeaders()
   constructor(private http:HttpClient) { }
 
-   GetUsers(id:number=-1):Observable<User[]>{
-    if(id==-1)
+   GetUsers():Observable<User[]>{
     return   this.http.get<User[]>("https://localhost:44327/api/Users/GetUsers/");
-
-    return   this.http.get<User[]>("https://localhost:44327/api/Users/GetUsers/"+id);
   }
-  async GetUsersByRole(role:number){
-    return await this.http.get("https://localhost:44327/api/Users/GetUsersByRole/"+role).toPromise();
+   GetUsersByRole(role:number):Observable<User[]>{
+    return  this.http.get<User[]>("https://localhost:44327/api/Users/GetUsersByRole/"+role);
   }
   async GetUsersByGroupId(id:number){
     return await this.http.get("  https://localhost:44327/api/Users/GetUsersByGroupId/"+id).toPromise();

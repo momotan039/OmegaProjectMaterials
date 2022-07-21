@@ -1,3 +1,4 @@
+import { AuthService } from './services/auth.service';
 import { MyTools } from './constants/MyTools';
 import { HttpUsersService } from './services/httpUsers/http-users.service';
 import { Component } from '@angular/core';
@@ -11,7 +12,11 @@ import { MatDialog } from '@angular/material/dialog';
 export class AppComponent {
   title = 'app';
 
-  constructor(private dialog:MatDialog){
+  constructor(
+    private dialog:MatDialog,
+    auth:AuthService
+    ){
     MyTools.Dialog=dialog
+    auth.LoadUserByToken();
   }
 }

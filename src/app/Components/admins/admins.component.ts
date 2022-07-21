@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { MyLocalStorage } from './../../services/MyLocalStorage';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
+import { User } from 'src/app/models/User';
 
 @Component({
   selector: 'app-admins',
@@ -7,9 +11,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminsComponent implements OnInit {
 
-  constructor() { }
+
+  constructor(
+    private http:HttpClient
+  ) { }
 
   ngOnInit(): void {
   }
+
 
 }

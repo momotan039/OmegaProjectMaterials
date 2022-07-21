@@ -1,10 +1,22 @@
-<mat-form-field class="example-full-width" appearance="fill">
-<mat-label>User Name</mat-label>
-<input matInput placeholder="Enter your name" name="usename"
->
-</mat-form-field>
-<mat-form-field class="example-full-width" appearance="fill">
-<mat-label>Password</mat-label>
-<input matInput placeholder="Enter your password" value="" name="password" type="password" >
-</mat-form-field>
-<button mat-raised-button color="primary" (click)="{}">Submit</button>
+<div  class="mainContainer">
+  <form [formGroup]="fg">
+    <div  class="flex">
+      <h1 class="header">LogIn</h1>
+      <mat-form-field color="primary" class="example-full-width" appearance="fill">
+        <mat-label >Email</mat-label>
+        <input formControlName="email" matInput placeholder="Enter your Email">
+        <mat-error *ngIf="fg.get('email')!.errors?.['required']">
+          Please Fill this Field</mat-error>
+        </mat-form-field>
+        <mat-form-field color="primary" class="example-full-width" appearance="fill">
+        <mat-label>Password</mat-label>
+        <input formControlName="password"  matInput placeholder="Enter your password" value="" type="password" >
+        <mat-error *ngIf="fg.get('password')!.errors?.['required']">
+          Please Fill this Field</mat-error>
+      </mat-form-field>
+        <button mat-raised-button color="primary" (click)="LogIn()">Submit</button>
+    </div>
+  </form>
+</div>
+
+

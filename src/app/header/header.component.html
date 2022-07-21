@@ -1,6 +1,6 @@
-<mat-toolbar color="primary">
-    <span>Omega Academy</span>
-    <div class="menuItems">
+<mat-toolbar [ngClass]="{'justyCenter':!authService.IsLogIn()}" color="primary">
+    <a mat-button routerLink="home" >Omega Academy</a>
+    <div *ngIf="authService.IsLogIn()"  class="menuItems">
       <a mat-button routerLink="admins">Admins<mat-icon>verified_user</mat-icon></a>
       <a mat-button routerLink="students">Students<mat-icon>school</mat-icon></a>
       <a mat-button routerLink="teachers">Teachers<mat-icon>cast_for_education</mat-icon></a>
@@ -8,6 +8,7 @@
       <a mat-button routerLink="groups">Groups<mat-icon>diversity_3</mat-icon></a>
       <a mat-button routerLink="messages">Messages<mat-icon>mark_email_unread</mat-icon></a>
       <a mat-button routerLink="homeWorks">HomeWorks<mat-icon>library_books</mat-icon></a>
+      <a mat-button (click)="authService.LogOut()" routerLink="login">Logout<mat-icon>logout</mat-icon></a>
       <!-- <a mat-button>About Us<mat-icon>contact_support</mat-icon></a> -->
       <button class="btnSmallMenu" mat-fab (click)="drawer.toggle()">
           <mat-icon class="mat-18">menu</mat-icon>
@@ -23,7 +24,7 @@
       <a mat-button>Groups<mat-icon>diversity_3</mat-icon></a>
       <a mat-button>Messages<mat-icon>mark_email_unread</mat-icon></a>
       <a mat-button>HomeWorks<mat-icon>library_books</mat-icon></a>
+      <a mat-button>HomeWorks<mat-icon>library_books</mat-icon></a>
   </mat-drawer>
 </mat-drawer-container>
-
 

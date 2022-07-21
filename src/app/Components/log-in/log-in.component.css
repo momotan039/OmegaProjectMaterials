@@ -1,0 +1,17 @@
+.flex{
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+}
+
+.mainContainer{
+  height: calc(100vh - 100px);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header{
+  text-align: center;
+}
