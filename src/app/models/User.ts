@@ -1,3 +1,4 @@
+import { Role } from './Role';
 import { Message } from "./Message";
 
 export class User{
@@ -5,7 +6,7 @@ export class User{
   firstName?:string;
   lastName?:string;
   phone?:string;
-  role?:number;
+  role?:Role;
   email?:string;
   password?:string;
   id?:number

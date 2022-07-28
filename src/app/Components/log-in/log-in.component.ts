@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MessageDialogComponent } from './../../dilogs/message-dialog/message-dialog.component';
 import { MyTools } from './../../constants/MyTools';
 import { MyLocalStorage } from './../../services/MyLocalStorage';
@@ -17,10 +17,15 @@ export class LogInComponent implements OnInit {
   constructor(
     private auth:AuthService,
     private fb:FormBuilder,
-    private router:Router
+    private router:Router,
     ) { }
 
   ngOnInit(): void {
+    if(!MyLocalStorage.IsExpiredToken())
+    {
+      this.router.navigate(['/home']);
+      return
+    }
 this.fg=this.fb.group({
   email:['',Validators.required],
   password:['',Validators.required]

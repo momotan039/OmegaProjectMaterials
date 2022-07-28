@@ -1,1 +1,76 @@
-<p>messages works!</p>
+<div class="mainContainer">
+  <div class="left ">
+        <mat-list >
+          <mat-list-item *ngFor="let user of freinds">
+              <button mat-button (click)="SetResiver(user)">
+                <mat-card class="example-card">
+                  <mat-card-header>
+                    <div mat-card-avatar class="avatar-image"></div>
+                    <mat-card-title>{{user.firstName+" "+user.lastName}}</mat-card-title>
+                    <mat-card-subtitle>{{user.email}}</mat-card-subtitle>
+                  </mat-card-header>
+                </mat-card>
+              </button>
+        </mat-list-item>
+        <mat-list-item *ngFor="let group of groups">
+          <button mat-button (click)="SetResiver(group)">
+            <mat-card class="example-card">
+              <mat-card-header>
+                <div mat-card-avatar class="avatar-image"></div>
+                <mat-card-title>{{group.name}}</mat-card-title>
+                <mat-card-subtitle>{{group.course!.name}}</mat-card-subtitle>
+              </mat-card-header>
+            </mat-card>
+          </button>
+    </mat-list-item>
+        </mat-list>
+  </div>
+  <div *ngIf="receiver" class="right">
+   <form [formGroup]="fg">
+    <div class="messages">
+      <mat-card>
+          <mat-card-header>
+              <mat-card-title>{{title}}</mat-card-title>
+              <mat-card-subtitle>{{subTitle}}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content #refListMessages class="listMessages">
+            <div  [ngStyle]="{'direction':msg.senderId==httpAuth.currentUser.id?'rtl':'ltr'}" *ngFor="let msg of msgs" class="containerMessage">
+              <mat-card [ngClass]="msg.senderId==httpAuth.currentUser.id?'sender-message':'reciver-message'" class="message">
+                <h2 *ngIf="msg.senderId!=httpAuth.currentUser.id">
+                  {{msg.sender!.firstName+"~"+msg.sender!.email}}
+                </h2>
+                <h3>
+                  {{msg.contents}}
+                </h3>
+                <mat-card-subtitle>
+                  {{GetCustomDate(msg.sendingDate!)}}
+                </mat-card-subtitle>
+                <div class="arrow" [ngClass]="msg.senderId==httpAuth.currentUser.id?'sender-arrow':'reciver-arrow'" ></div>
+              </mat-card>
+            </div>
+            <div *ngIf="msgs.length==0">
+              Start Chat Now
+            </div>
+          </mat-card-content>
+          <mat-card-actions class="actions">
+            <mat-form-field appearance="outline">
+              <mat-label>Write A Message Here</mat-label>
+              <input  #inputMessage formControlName="message" class="inputSend" matInput placeholder="Message">
+                <mat-icon  (click)="SendMessage(inputMessage,refListMessages)" matPrefix>
+                    send
+                  </mat-icon>
+            </mat-form-field>
+
+          </mat-card-actions>
+      </mat-card>
+    </div>
+   </form>
+  </div>
+<div *ngIf="!receiver" class="welcomeContainer">
+  <mat-card>
+    <h2>Welcome to Chat Room</h2>
+    <h3>Select Member To Start Chating</h3>
+    <mat-icon>chat_bubble</mat-icon>
+   </mat-card>
+</div>
+</div>

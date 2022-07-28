@@ -1,4 +1,7 @@
+<div class="flex">
 <h1 mat-dialog-title>{{Message.title}}</h1>
+<mat-icon *ngIf="Message.icon">{{Message.icon}}</mat-icon>
+</div>
 <div mat-dialog-content>
   <h3>{{Message.content}}</h3>
   <button mat-raised-button mat-dialog-close >Ok</button>

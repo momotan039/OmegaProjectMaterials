@@ -72,8 +72,9 @@ DeleteCourse(id:any){
       },err=>{
         MyTools.Dialog.open(MessageDialogComponent,{
           data:{
-            "title":"Faild",
-            "content":`${err.error}`
+            "title":"Session Expired",
+            "content":"Failed Deletetion..Please Sign in Again",
+            "icon":"alarm"
           }
         })
       })

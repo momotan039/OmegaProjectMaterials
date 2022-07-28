@@ -24,6 +24,9 @@
         <button (click)="DeleteCourse(element.id)"  mat-fab color="accent" >
           <mat-icon>delete</mat-icon>
         </button>
+        <a mat-button routerLink="/courseDetails/{{element.id}}"  mat-fab color="accent" >
+          <mat-icon>visibility</mat-icon>
+        </a>
       </td>
     </ng-container>
 

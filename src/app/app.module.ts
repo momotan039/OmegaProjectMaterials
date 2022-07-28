@@ -31,7 +31,8 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { StudentsComponent } from './Components/students/students.component';
 import { MessagesComponent } from './Components/messages/messages.component';
 import { HomeworksComponent } from './Components/homeworks/homeworks.component';
-import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { CourseDetailsComponent } from './Components/Details/course-details/course-details.component';
+import { AddUserToGroupComponent } from './dilogs/add-user-to-group/add-user-to-group.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,8 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
     StudentsComponent,
     MessagesComponent,
     HomeworksComponent,
+    CourseDetailsComponent,
+    AddUserToGroupComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,6 +69,7 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
     AllMaterialsModule,
     FormsModule,
     ReactiveFormsModule,
+
   ],
   providers: [
     {
@@ -73,8 +77,7 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
       useClass:AuthInterceptorService,
       multi:true,
     },
-    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
-    JwtHelperService
+
   ],
   bootstrap: [AppComponent]
 })

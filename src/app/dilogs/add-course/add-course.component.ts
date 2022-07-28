@@ -39,8 +39,9 @@ this.httpCourse.PostCourse(this.AddCourseForm.value).subscribe(data=>{
 },err=>{
   MyTools.Dialog.open(MessageDialogComponent,{
     data:{
-      "title":"Faild Creating",
-      "content":`${err.error}`
+      "title":"Session Expired",
+      "content":"Failed Createion..Please Sign in Again",
+      "icon":"alarm"
     }
   })
 },)

@@ -1,5 +1,7 @@
+import { interval, Observable, Subscription } from 'rxjs';
+import { HttpUsersService } from './../../services/httpUsers/http-users.service';
 import { AuthService } from './../../services/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -7,13 +9,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
+  obs:Subscription | undefined
   constructor(
-    public auth:AuthService
+    public auth:AuthService,
+    public http:HttpUsersService
   ) { }
 
+
   ngOnInit(): void {
-    // this.auth.LoadUserByToken();
+
   }
+
 
 }

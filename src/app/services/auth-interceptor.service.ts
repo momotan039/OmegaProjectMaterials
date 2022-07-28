@@ -16,6 +16,11 @@ export class AuthInterceptorService implements HttpInterceptor {
       const cloned=req.clone({
         headers:req.headers.set("Authorization",token)
       })
+      //  if(MyLocalStorage.IsExpiredToken())
+      //  {
+      //   alert("token end")
+      //   return next.handle(new HttpRequest("GET",""))
+      //  }
       return next.handle(cloned)
     }
     else

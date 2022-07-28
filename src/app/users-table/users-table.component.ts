@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { MyTools } from './../constants/MyTools';
 import { HttpUsersService } from './../services/httpUsers/http-users.service';
 import { DeleteUserComponent } from './../dilogs/delete-user/delete-user.component';
@@ -96,5 +97,4 @@ export class UsersTableComponent implements OnInit {
         this.FillTableData();
     })
   }
-
 }

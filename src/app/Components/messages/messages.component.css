@@ -1,0 +1,100 @@
+:host{
+  --sender-message-color:#f2b427;
+  --reciver-message-color:#7583d1;
+}
+
+.mainContainer{
+  display: flex;
+  width: 100%;
+  height: 67vh;
+}
+.mainContainer .welcomeContainer{
+  width: 100%;
+}
+.mainContainer .left,.mainContainer .right .listMessages{
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.mainContainer .right .listMessages{
+  height: 67vh;
+  padding: 0.6rem;
+}
+
+.mainContainer .welcomeContainer mat-card{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.mainContainer .left mat-list mat-list-item{
+  margin-bottom: 3rem;
+}
+
+.mainContainer .left mat-list mat-list-item mat-card{
+  padding: 9px 10px;
+  width: 100%;
+}
+.mainContainer .left mat-list mat-list-item mat-card .avatar-image{
+  background-color: red;
+}
+
+.mainContainer .left mat-list mat-list-item button{
+  line-height: 1;
+  width: 100%;
+}
+
+
+.mainContainer .right{
+  width: 100%;
+}
+.mainContainer .right .inputSend{
+width: 100%;
+}
+.mainContainer .right .messages .containerMessage{
+  padding: 0px 10px;
+}
+.mainContainer .right .messages .message{
+  margin-bottom: 10px;
+  width: 37%;
+  position: relative;
+  padding: 0 16px;
+}
+.mainContainer .right .messages .message .arrow{
+  position: absolute;
+  content: '';
+}
+.mainContainer .right .messages .message .reciver-arrow{
+  bottom: 1px;
+  left: -38px;
+  border: solid 19px var(--reciver-message-color);
+  border-bottom-color: transparent;
+  border-top-color: transparent;
+  border-left-color: transparent;
+}
+  .mainContainer .right .messages .message .sender-arrow{
+  bottom: 1px;
+  right: -38px;
+  border: solid 19px var(--sender-message-color);
+  border-bottom-color: transparent;
+  border-top-color: transparent;
+  border-right-color: transparent;
+}
+.sender-message{
+  background-color: var(--sender-message-color);
+}
+.reciver-message{
+  background-color: var(--reciver-message-color);
+}
+
+.mainContainer .right .actions mat-form-field{
+  width: 100%;
+}
+.mainContainer .right .actions mat-icon{
+  cursor: pointer;
+}
+
+

@@ -7,4 +7,9 @@ export class UserGroup {
   groupId!:number;
   user!:User;
   group!:Group;
+
+  constructor(userId:number,groupId:number){
+this.groupId=groupId
+this.userId=userId
+  }
 }

@@ -10,6 +10,8 @@
 
   <table  #table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
+
+
     <ng-container matColumnDef="firstName">
       <th mat-header-cell mat-sort-header *matHeaderCellDef>FirstName</th>
       <td mat-cell *matCellDef="let element">{{element.firstName}} </td>
@@ -52,6 +54,9 @@
         <button (click)="DeleteUser(element.id)"  mat-fab color="accent" >
           <mat-icon>delete</mat-icon>
         </button>
+        <a mat-button routerLink="/userDetails/{{element.id}}"  mat-fab color="accent" >
+          <mat-icon>visibility</mat-icon>
+        </a>
       </td>
     </ng-container>
 

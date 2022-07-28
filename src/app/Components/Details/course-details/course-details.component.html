@@ -1,0 +1,6 @@
+<h3>All Related Groups</h3>
+<mat-selection-list [multiple]="false">
+  <mat-list-option *ngFor="let group of groups" [value]="group.name">
+    <a mat-button routerLink="/groupDetails/{{group.id}}">{{group.name}}</a>
+  </mat-list-option>
+</mat-selection-list>

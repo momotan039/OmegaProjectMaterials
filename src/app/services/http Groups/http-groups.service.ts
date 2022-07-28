@@ -1,3 +1,4 @@
+import { Course } from './../../models/Course';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -14,8 +15,11 @@ export class HttpGroupsService {
     GetGroups():Observable<Group[]>{
     return  this.http.get<Group[]>("https://localhost:44327/api/Groups/GetGroups");
   }
-    GetGroupsByUserId(id:number):Observable<Group[]>{
-    return  this.http.get<Group[]>("https://localhost:44327/api/Groups/GetGroupsByUserId/"+id);
+  GetGroupByID(id:string){
+    return this.http.get<Group>("https://localhost:44327/api/Groups/GetGroupByID/"+id);
+  }
+    GetGroupsByUserId(){
+    return  this.http.get<Group[]>("https://localhost:44327/api/Groups/GetGroupsByUserId");
   }
 
     GetUsersGroups(groupId:number){
@@ -38,5 +42,8 @@ export class HttpGroupsService {
 
    AddUserToGroup(ug:UserGroup){
     return  this.http.post("https://localhost:44327/api/UsersGroups/AddUserToGroup",ug)
+  }
+  GetGroupsByCourseId(id:number){
+    return this.http.get<Group[]>("https://localhost:44327/api/Groups/GetGroupsByCourseId/"+id)
   }
 }

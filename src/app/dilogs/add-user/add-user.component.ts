@@ -26,7 +26,7 @@ export class AddUserComponent implements OnInit {
     email:['',Validators.required],
     phone:['',Validators.required],
     idCard:['',Validators.required],
-    role:[this.dataRecived.roleBy,Validators.required],
+    roleId:[this.dataRecived.roleBy,Validators.required],
   })
   ngOnInit(): void {
 
@@ -54,13 +54,7 @@ SaveUser(){
 }
 
 GetNameOfRole(){
-  let role=this.dataRecived.roleBy
-if(role==1)
-return "Admin"
-if(role==2)
-return "Teacher"
-
-return "Student"
+return MyTools.GetNameOfRole(this.dataRecived.roleBy)
 }
 
 }

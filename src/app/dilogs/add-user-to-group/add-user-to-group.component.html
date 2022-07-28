@@ -1,0 +1,17 @@
+<h3>Add New Member</h3>
+
+<mat-form-field>
+  <mat-select [multiple]="true" placeholder="User" #singleSelect>
+    <mat-option *ngFor="let user of _users" [value]="user.id">
+      {{user.firstName}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<button mat-fab (click)="AddMember(singleSelect.value)">
+    <mat-icon >add</mat-icon>
+</button>
+
+<button mat-fab [matDialogClose]="false">
+  <mat-icon >cancel</mat-icon>
+</button>

@@ -13,6 +13,9 @@ export class HttpCoursesService {
   GetCourses():Observable<Course[]>{
   return  this.http.get<Course[]>("https://localhost:44327/api/Courses/GetCourses/");
 }
+GetCourseById(id:string){
+  return this.http.get<Course>("https://localhost:44327/api/Courses/GetCourseById/"+id);
+}
   GetCoursesByUserId(id:number):Observable<Course>{
   return  this.http.get<Course>("https://localhost:44327/api/Courses/GetCoursesByUserId/"+id);
 }

@@ -23,8 +23,8 @@ export class HttpUsersService {
   async GetFreindsByUser(Id:number){
     return await this.http.get("https://localhost:44327/api/Users/GetFreindsByUser/"+Id).toPromise();
   }
-  async GetUsersNotInThisGroup(GroupId:number){
-    return await this.http.get("https://localhost:44327/api/Users/GetUsersNotInThisGroup/"+GroupId).toPromise();
+   GetUsersNotInThisGroup(GroupId:number){
+    return  this.http.get<User[]>("https://localhost:44327/api/Users/GetUsersNotInThisGroup/"+GroupId);
   }
    PostUser(user:User){
     //return await this.http.post("https://localhost:44327/api/Users/PostUser",user).toPromise();
@@ -35,5 +35,12 @@ export class HttpUsersService {
     return  this.http.delete("https://localhost:44327/api/Users/DeleteUser/"+id)
 }
  EditingUser(user:User){
-  return  this.http.put("https://localhost:44327/api/Users/EditUser",user)
-}}
+  return this.http.put("https://localhost:44327/api/Users/EditUser",user)
+}
+GetUsersById(id:string){
+  return  this.http.get<User>("https://localhost:44327/api/Users/GetUsersById/"+id);
+}
+
+}
+
+
