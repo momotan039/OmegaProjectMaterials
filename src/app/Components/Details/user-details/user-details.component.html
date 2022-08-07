@@ -1,1 +1,11 @@
 <h1>Page Details {{user.firstName}}</h1>
+
+<h1 *ngIf="user.roleId==2">Teaching In:</h1>
+<h1 *ngIf="user.roleId==3">Studying In:</h1>
+
+<h2 mat-button  *ngFor="let item of groups;let i=index">
+<a mat-button routerLink="/groupDetails/{{item.id}}">Group:{{item.name}}</a>
+<a mat-button routerLink="/courseDetails/{{item.course!.id}}">Cource:{{item.course!.name}}</a>
+<mat-divider *ngIf="i-1!=groups.length"></mat-divider>
+</h2>
+

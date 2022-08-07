@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "By Ip": "ng serve --host 192.168.1.113 -o"
+    "By Ip": "ng serve --host 192.168.1.116 -o"
   },
   "private": true,
   "dependencies": {

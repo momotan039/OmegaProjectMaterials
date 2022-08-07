@@ -1,1 +1,5 @@
-<p>homeworks works!</p>
+<div style="text-align: center;" >
+  <h1>Home Works</h1>
+</div>
+<app-homework-teacher *ngIf="authService.currentUser.roleId==2"></app-homework-teacher>
+<app-homework-student *ngIf="authService.currentUser.roleId==3"></app-homework-student>

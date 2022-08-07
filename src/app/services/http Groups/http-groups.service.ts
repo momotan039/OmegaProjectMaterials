@@ -18,8 +18,8 @@ export class HttpGroupsService {
   GetGroupByID(id:string){
     return this.http.get<Group>("https://localhost:44327/api/Groups/GetGroupByID/"+id);
   }
-    GetGroupsByUserId(){
-    return  this.http.get<Group[]>("https://localhost:44327/api/Groups/GetGroupsByUserId");
+    GetGroupsByUserId(id=-1){
+    return  this.http.get<Group[]>("https://localhost:44327/api/Groups/GetGroupsByUserId/"+id);
   }
 
     GetUsersGroups(groupId:number){

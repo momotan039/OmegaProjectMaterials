@@ -1,0 +1,31 @@
+.flexContainer{
+  display: flex;
+  margin-bottom: 10px;
+  height: 178px;
+  column-gap: 30px;
+}
+
+
+.flexContainer>*{
+  width: 100%;
+}
+
+
+.flexContainer textarea{
+  color: black;
+  max-height: 150px;
+  resize: none;
+}
+
+@media (max-width:992px) {
+  .flexContainer{
+    display: block;
+    height: auto;
+  }
+  .flexContainer>:nth-child(2){
+    margin: 20px 0;
+  }
+  :host > *{
+    text-align: center;
+  }
+}

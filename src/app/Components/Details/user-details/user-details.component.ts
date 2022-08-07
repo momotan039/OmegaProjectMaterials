@@ -1,3 +1,5 @@
+import { HttpGroupsService } from './../../../services/http Groups/http-groups.service';
+import { Group } from './../../../models/Group';
 import { HttpUsersService } from './../../../services/httpUsers/http-users.service';
 import { User } from './../../../models/User';
 import { Component, OnInit } from '@angular/core';
@@ -9,10 +11,11 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./user-details.component.css']
 })
 export class UserDetailsComponent implements OnInit {
-
+  groups:Group[]=[]
   constructor(
     private route:ActivatedRoute,
-    private httpUsersService:HttpUsersService
+    private httpUsersService:HttpUsersService,
+    private httpGroupsService:HttpGroupsService,
     ) { }
   user=new User();
   ngOnInit(): void {
@@ -20,6 +23,9 @@ export class UserDetailsComponent implements OnInit {
   this.httpUsersService.GetUsersById(id!).subscribe(user=>{
   this.user=user;
 })
+  this.httpGroupsService.GetGroupsByUserId(Number(id)).subscribe(data=>{
+    this.groups=data
+  })
   }
 
 }

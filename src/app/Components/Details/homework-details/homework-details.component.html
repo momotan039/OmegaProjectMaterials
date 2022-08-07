@@ -1,0 +1,37 @@
+<div style="text-align:center">
+  <h1>{{homeWork.title}}</h1>
+</div>
+
+<div class="flexContainer">
+  <mat-card>
+    <mat-card-title>HomeWork Details</mat-card-title>
+    <mat-divider>
+    </mat-divider>
+    <h2>Group:{{homeWork.group!.name}}</h2>
+    <mat-divider>
+    </mat-divider>
+    <h2>Teacher:{{homeWork.teacher!.firstName+" "+homeWork.teacher!.lastName}}</h2>
+    <mat-divider>
+    </mat-divider>
+    <h2>Sending Date:{{homeWork.sendingDate}}</h2>
+  </mat-card>
+
+  <mat-form-field ngClass="FullHeight" appearance="fill">
+    <mat-label>Textarea</mat-label>
+    <textarea  placeholder="asf" disabled rows="9"  matInput [value]="homeWork.contents"></textarea>
+  </mat-form-field>
+</div>
+
+<mat-card>
+  <mat-card-title>
+    File List
+  </mat-card-title>
+  <mat-divider></mat-divider>
+  <h1 style="padding:5px" *ngFor="let i=index;let path of convertPathsToArray(this.homeWork.filesPath)">
+    {{getFileName(path)}}
+    <button (click)="donwloadFile(path)" mat-button>
+      <mat-icon>file_download</mat-icon>
+    </button>
+    <mat-divider *ngIf="i<convertPathsToArray(this.homeWork.filesPath).length-1"></mat-divider>
+  </h1>
+</mat-card>

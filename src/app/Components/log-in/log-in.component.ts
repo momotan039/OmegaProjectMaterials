@@ -1,11 +1,11 @@
 import { Router, ActivatedRoute } from '@angular/router';
-import { MessageDialogComponent } from './../../dilogs/message-dialog/message-dialog.component';
 import { MyTools } from './../../constants/MyTools';
 import { MyLocalStorage } from './../../services/MyLocalStorage';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserAuth } from './../../models/UserAuth';
 import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
+import { MessageDialogComponent } from '../dilogs/message-dialog/message-dialog.component';
 @Component({
   selector: 'app-log-in',
   templateUrl: './log-in.component.html',

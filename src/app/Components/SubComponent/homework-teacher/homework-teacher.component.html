@@ -1,0 +1,66 @@
+
+<form [formGroup]="fg">
+
+<div class="PostHomeWork">
+  <mat-form-field appearance="fill">
+    <mat-label>Title</mat-label>
+    <input formControlName="title" matInput>
+    <mat-error *ngIf="fg.get('title')!.errors?.['required']">
+      Please Fill this Field</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>
+      Choose Group to Send
+    </mat-label>
+    <mat-select #refSelect formControlName="groupId" placeholder="">
+      <mat-option *ngFor="let group of groups" [value]="group.id">
+                {{ group.name }}
+            </mat-option>
+    </mat-select>
+    <mat-error *ngIf="fg.get('groupId')!.errors?.['required']">
+      Please Fill this Field</mat-error>
+  </mat-form-field>
+
+
+  <mat-form-field appearance="fill">
+    <mat-label>Textarea</mat-label>
+    <textarea formControlName="content" [rows]="15"  matInput></textarea>
+    <mat-error *ngIf="fg.get('content')!.errors?.['required']">
+      Please Fill this Field</mat-error>
+  </mat-form-field>
+
+  <div  style="text-align:center">
+    <input formControlName="files" #refFiles multiple type="file">
+  <button color="primary" mat-button (click)="AddHomeWork(refFiles.files)">
+      <mat-icon>add</mat-icon>
+      Add
+  </button>
+  </div>
+  <!-- <button (click)="AddHomeWork(refSelect.value,refFiles.files)" class="btn btn-primary mt-2 mb-2">Add new Home Work</button> -->
+
+</div>
+</form>
+
+<div>
+  <h1>HomeWork List:</h1>
+  <mat-divider>
+  </mat-divider>
+<div class="SendedHomeWork">
+  <mat-card *ngFor="let hw of homeworks">
+    <mat-card-header>
+        <mat-card-title>{{hw.title}}</mat-card-title>
+        <mat-card-subtitle>{{hw.sendingDate}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        {{hw.contents}}
+    </mat-card-content>
+    <mat-card-actions>
+      <button color="primary" mat-button [routerLink]="'/HomeWorkDetails/'+hw.id">
+        Show Details
+      </button>
+    </mat-card-actions>
+</mat-card>
+</div>
+</div>
+

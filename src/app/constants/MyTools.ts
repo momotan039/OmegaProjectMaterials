@@ -1,10 +1,11 @@
 import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
-import { MessageDialogComponent } from "../dilogs/message-dialog/message-dialog.component";
+import { MessageDialogComponent } from "../Components/dilogs/message-dialog/message-dialog.component";
+import { User } from "../models/User";
 
 export class MyTools {
   static Dialog:MatDialog
-
+  static currentUser=new User()
   constructor(
     public router:Router
   ){

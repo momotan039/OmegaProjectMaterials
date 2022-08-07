@@ -1,3 +1,4 @@
+import { MyTools } from 'src/app/constants/MyTools';
 import { MyLocalStorage } from './MyLocalStorage';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -11,7 +12,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
   providedIn: 'root'
 })
 export class AuthService {
-   currentUser=new User()
+    currentUser=new User()
+    currentUserSub:BehaviorSubject<any>=new BehaviorSubject(false)
   constructor(private http:HttpClient) {
    }
 
@@ -27,7 +29,8 @@ export class AuthService {
  LoadUserByToken(){
    let token=MyLocalStorage.GetToken()!
      this.http.get<User>("https://localhost:44327/api/Authentication/GetUserByToken").subscribe(u=>{
-      this.currentUser=u;
+      this.currentUser=u
+      this.currentUserSub.next(u)
     })
  }
 

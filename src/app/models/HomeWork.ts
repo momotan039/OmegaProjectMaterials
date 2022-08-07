@@ -1,3 +1,5 @@
+import { User } from './User';
+import { Group } from './Group';
 export class HomeWork {
   id=0
   title=""
@@ -6,4 +8,6 @@ export class HomeWork {
   teacherID=0
   filesPath=""
   sendingDate?:Date
+  group?:Group
+  teacher?:User
 }

@@ -1,3 +1,4 @@
+import { MessageGroup } from './../models/MessageGroup';
 import { Observable } from 'rxjs';
 import { Message } from './../models/Message';
 import { HttpClient } from '@angular/common/http';
@@ -14,7 +15,23 @@ SendMessageToFreind(msg:Message){
 return this.http.post("https://localhost:44327/api/Messages/SendMessage",msg)
 }
 GetMessagesByReciver(idReciver:number){
-  return this.http.get<Message[]>('https://localhost:44327/api/Messages/GetMessagesByReciver/'+idReciver)
+  return this.http.get('https://localhost:44327/api/Messages/GetMessagesByReciver/'+idReciver)
 }
+
+DeleteMessage(id:number){
+  return this.http.delete('https://localhost:44327/api/Messages/DeleteMessage/'+id)
+}
+
+
+SendGroupMessage(msg:MessageGroup){
+  return this.http.post("https://localhost:44327/api/GroupMessages/SendMessage",msg)
+  }
+  GetGroupMessagesByReciver(idReciver:number){
+    return this.http.get('https://localhost:44327/api/GroupMessages/GetMessagesByReciver/'+idReciver)
+  }
+
+  DeleteGroupMessage(id:number){
+    return this.http.delete('https://localhost:44327/api/GroupMessages/DeleteMessage/'+id)
+  }
 
 }

@@ -1,0 +1,13 @@
+.PostHomeWork {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+.SendedHomeWork{
+  display: flex;
+  column-gap: 15px;
+  flex-wrap: wrap;
+  row-gap: 12px;
+}

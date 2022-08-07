@@ -14,10 +14,9 @@
 .mainContainer .left,.mainContainer .right .listMessages{
   overflow-y: auto;
   overflow-x: hidden;
-}
-.mainContainer .right .listMessages{
   height: 67vh;
   padding: 0.6rem;
+  padding: 12px 9px;
 }
 
 .mainContainer .welcomeContainer mat-card{
@@ -38,9 +37,11 @@
   padding: 9px 10px;
   width: 100%;
 }
-.mainContainer .left mat-list mat-list-item mat-card .avatar-image{
-  background-color: red;
+.mainContainer .left mat-list mat-list-item mat-card .avatar-image img{
+  height: 100%;
+  width: 100%;
 }
+
 
 .mainContainer .left mat-list mat-list-item button{
   line-height: 1;
@@ -59,10 +60,37 @@ width: 100%;
 }
 .mainContainer .right .messages .message{
   margin-bottom: 10px;
-  width: 37%;
+  width: max-content;
   position: relative;
-  padding: 0 16px;
+  padding: 0 16px  0 30px;
+
 }
+.mainContainer .right .messages .message .deleteMessage{
+  width: 30px !important;
+  height: 30px !important;
+  position: absolute;
+  top: -12px;
+  left: -7px;
+}
+.mainContainer .right .messages .message .deleteMessage mat-icon{
+  font-size: 17px;
+  font-weight: bold;
+}
+.mainContainer .right .messages .message .deleteMessage .mat-button-wrapper{
+  display: none;
+}
+.mainContainer .right .messages .message .content{
+margin:0
+}
+.mainContainer .right .messages .message .mail{
+  font-weight: bold;
+  margin: 0;
+}
+/* .mainContainer .right .messages .message .time{
+  line-height: 1;
+  margin: -15px;
+  margin-right: -3px;
+} */
 .mainContainer .right .messages .message .arrow{
   position: absolute;
   content: '';
@@ -98,3 +126,18 @@ width: 100%;
 }
 
 
+@media (max-width:992px) {
+  .mainContainer{
+    display: unset;
+  }
+  .mainContainer .left{
+    height: auto;
+  }
+  .mainContainer .left mat-list{
+    display: flex;
+    overflow: auto;
+  }
+  .mainContainer .right mat-card mat-card-content{
+    height: 42vh;
+  }
+}

@@ -1,7 +1,4 @@
 import { HttpUserGroupService } from './../../../services/http-user-group.service';
-import { AddUserToGroupComponent } from './../../../dilogs/add-user-to-group/add-user-to-group.component';
-import { AddUserComponent } from 'src/app/dilogs/add-user/add-user.component';
-import { MessageDialogComponent } from './../../../dilogs/message-dialog/message-dialog.component';
 import { MyTools } from './../../../constants/MyTools';
 import { Group } from './../../../models/Group';
 import { HttpGroupsService } from './../../../services/http Groups/http-groups.service';
@@ -12,6 +9,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { User } from 'src/app/models/User';
 import { Role } from 'src/app/models/Role';
+import { AddUserToGroupComponent } from '../../dilogs/add-user-to-group/add-user-to-group.component';
+import { MessageDialogComponent } from '../../dilogs/message-dialog/message-dialog.component';
 
 @Component({
   selector: 'app-groups-details',
