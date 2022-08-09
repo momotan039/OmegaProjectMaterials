@@ -33,6 +33,8 @@ import { MyGroupsComponent } from './Components/my-groups/my-groups.component';
 import { HomeworkDetailsComponent } from './Components/Details/homework-details/homework-details.component';
 import { HomeworkTeacherComponent } from './Components/SubComponent/homework-teacher/homework-teacher.component';
 import { HomeworkStudentComponent } from './Components/SubComponent/homework-student/homework-student.component';
+import { MyTableComponent } from './Components/SubComponent/my-table/my-table.component';
+import { GradesComponent } from './Components/grades/grades.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +68,8 @@ import { HomeworkStudentComponent } from './Components/SubComponent/homework-stu
     HomeworkDetailsComponent,
     HomeworkTeacherComponent,
     HomeworkStudentComponent,
+    MyTableComponent,
+    GradesComponent,
   ],
   imports: [
     BrowserModule,

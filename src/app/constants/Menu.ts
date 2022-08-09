@@ -51,6 +51,12 @@ export class Menu {
       roles: [2,3],
     },
     {
+      title: 'Grades',
+      icon: 'grade',
+      href: 'grades',
+      roles: [1,2,3],
+    },
+    {
       title: 'Messages',
       icon: 'mark_email_unread',
       href: 'messages',

@@ -1,0 +1,44 @@
+
+  <div style="text-align: center;">
+    <button mat-raised-button (click)="AddRow()" color="accent">
+      <mat-icon class="mat-18">add</mat-icon>
+      Add New Row</button>
+  </div>
+
+  <mat-form-field  class="input-full-width" appearance="fill">
+    <mat-label>Search for...</mat-label>
+    <input #refSearch (keyup)="FilterDataTable(refSearch)" matInput >
+  </mat-form-field>
+  <table  #table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <ng-container *ngFor="let col of displayedNameColumns;let i=index"  matColumnDef="{{col}}">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef>{{col}}</th>
+      <td mat-cell *matCellDef="let elm">{{GetdataByProp(elm,displayedColumns[i])}}</td>
+    </ng-container>
+
+     <!-- operations Column
+     <ng-container matColumnDef="operations" *ngFor="let col of displayedColumns;let i=index">
+      <th mat-header-cell *matHeaderCellDef>Operations</th>
+      <td mat-cell *matCellDef="let element">
+        <button *ngIf="operations[0]" (click)="EditRow(element)"  mat-fab color="primary" >
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button *ngIf="operations[1]" (click)="DeleteRow(element.id)"  mat-fab color="accent" >
+          <mat-icon>delete</mat-icon>
+        </button>
+        <a *ngIf="operations[2]" mat-button routerLink="/userDetails/{{element.id}}"  mat-fab color="accent" >
+          <mat-icon>visibility</mat-icon>
+        </a>
+      </td>
+    </ng-container> -->
+
+    <tr mat-header-row *matHeaderRowDef="displayedNameColumns;sticky:true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedNameColumns;"></tr>
+
+  </table>
+  <mat-paginator #refpag [length]="100"
+  [pageSize]="10"
+  [pageSizeOptions]="[5,20,50,100]"
+  aria-label="Select page">
+</mat-paginator>
+

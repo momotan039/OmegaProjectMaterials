@@ -11,3 +11,8 @@
   flex-wrap: wrap;
   row-gap: 12px;
 }
+
+
+.SendedHomeWork > * {
+  flex: auto;
+}

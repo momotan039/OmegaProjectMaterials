@@ -1,3 +1,4 @@
+import { GradesComponent } from './Components/grades/grades.component';
 import { HomeworkDetailsComponent } from './Components/Details/homework-details/homework-details.component';
 import { MyGroupsComponent } from './Components/my-groups/my-groups.component';
 import { CourseDetailsComponent } from './Components/Details/course-details/course-details.component';
@@ -55,6 +56,11 @@ const routes: Routes = [
   {
     component: HomeworksComponent,
     path: 'homeWorks',
+    canActivate: [AuthGuardService],
+  },
+  {
+    component: GradesComponent,
+    path: 'grades',
     canActivate: [AuthGuardService],
   },
   {

@@ -1,0 +1,16 @@
+<app-my-table
+[displayedColumns]="['testName','sumGrade','group.name','note']"
+[displayedNameColumns]="['Test Name','Grade','Group','Note','Operations']"
+[getDataTable]="httpGradesService.GetGrades()"
+[operations]="[true,true,false]"
+>
+</app-my-table>
+
+
+<!--
+   "sumGrade": 666.0,
+        "studentId": 1098,
+        "groupID": 6063,
+        "testName": null,
+        "note": "mish sgheer enta",
+ -->

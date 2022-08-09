@@ -30,13 +30,14 @@ export class MessagesComponent implements OnInit, OnDestroy {
   fg = new FormGroup({});
   title = '';
   subTitle = '';
+  image=""
   // receiverUser=new User()
   // receiverGroup=new Group()
   receiver: any;
   groups: Group[] = [];
   freinds: User[] = [];
   msgs: any = [];
-
+  msgObs?: Subscription;
   constructor(
     private fb: FormBuilder,
     private httpGroupsService: HttpGroupsService,
@@ -80,16 +81,17 @@ export class MessagesComponent implements OnInit, OnDestroy {
       });
     }, 300);
   }
-  ChangeTitle_SubTitle() {
+  ChangeTitle_SubTitle_Image() {
     if ('courseId' in this.receiver) {
       this.title = this.receiver.name;
       this.subTitle = this.receiver.course.name;
+      this.image="./../../assets/images/group.png"
     } else {
       this.title = this.receiver.firstName + ' ' + this.receiver.lastName;
       this.subTitle = this.receiver.email;
+      this.image="./../../assets/images/profile.svg"
     }
   }
-  msgObs?: Subscription;
   ShowConversation() {
     this.msgObs?.unsubscribe();
     let getMessagesFun: Observable<Object>;
@@ -115,7 +117,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
   SetResiver(obj: any) {
     this.receiver = obj;
-    this.ChangeTitle_SubTitle();
+    this.ChangeTitle_SubTitle_Image();
     this.ShowConversation();
   }
 
