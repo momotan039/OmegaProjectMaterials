@@ -1,7 +1,13 @@
+import { Group } from 'src/app/models/Group';
+import { User } from 'src/app/models/User';
 export class Grade {
-  GradID?:number
-  GroupID?:number
-  UserID?:string
-  Grade?:number
-  Note?:string
+  id?:number
+  studentId?:number
+  sumGrade?:number
+  groupId?:number
+  testId?:number
+  note?:string
+  student?:User
+  group?:Group
 }
+

@@ -1,0 +1,60 @@
+<h1 matDialogTitle>Edit This Grade</h1>
+<div matDialogContent>
+  <form [formGroup]="fg">
+
+    <mat-form-field appearance="fill">
+      <mat-label>Select a Group</mat-label>
+      <mat-select (valueChange)="ChangeStudentsList($event)" formControlName="groupId"  placeholder="">
+          <mat-option *ngFor="let item of groups" [value]="item.id">{{item.name}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="fg.get('groupId')!.hasError('required')">
+        Please Select a Group</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Select a Student</mat-label>
+      <mat-select  formControlName="studentId"  placeholder="">
+          <mat-option  *ngFor="let item of students" [value]="item.id">
+            {{item.firstName}} ~
+            <span>{{item.idCard}}</span>
+          </mat-option>
+      </mat-select>
+      <mat-error *ngIf="fg.get('studentId')!.hasError('required')">
+        Please Select a Group</mat-error>
+        <mat-error *ngIf="students.length==0">
+          Theres No Students in This Group</mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field appearance="fill">
+      <mat-label>Select a Test</mat-label>
+      <mat-select formControlName="testId"  placeholder="">
+          <mat-option *ngFor="let item of tests" [value]="item.id">{{item.name}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="fg.get('testId')!.hasError('required')">
+        Please Select a Test</mat-error>
+    </mat-form-field>
+
+  <mat-form-field class="m-1" appearance="fill">
+    <mat-label>Grade</mat-label>
+    <input formControlName="sumGrade"  matInput >
+    <mat-error *ngIf="fg.get('sumGrade')!.errors?.['required']">
+      Please Fill this Field</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="m-1" appearance="fill">
+    <mat-label>Note</mat-label>
+    <input formControlName="note"  matInput >
+    <mat-error *ngIf="fg.get('note')!.errors?.['required']">
+      Please Fill this Field</mat-error>
+  </mat-form-field>
+
+
+  <div style="text-align: center;">
+    <button style="margin-right: 10px;" mat-raised-button (click)="SaveRecord()"  color="accent">Save</button>
+  <button mat-raised-button [mat-dialog-close]="false" color="primary">Cancel</button>
+  </div>
+</form>
+
+</div>
+

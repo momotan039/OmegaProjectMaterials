@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { HttpCoursesService } from 'src/app/services/Http Courses/http-courses.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -17,6 +18,7 @@ export class AddCourseComponent implements OnInit {
     private dialogRef:MatDialogRef<GroupsComponent>,
     private fb:FormBuilder,
     private httpCourse:HttpCoursesService,
+
   ) { }
 
   ngOnInit(): void {
@@ -29,21 +31,8 @@ export class AddCourseComponent implements OnInit {
     if(!this.AddCourseForm.valid)
 return;
 this.httpCourse.PostCourse(this.AddCourseForm.value).subscribe(data=>{
-  MyTools.Dialog.open(MessageDialogComponent,{
-    data:{
-      "title":"Success",
-      "content":"Course Created Successfully"
-    }
-  })
-  this.dialogRef.close();
-},err=>{
-  MyTools.Dialog.open(MessageDialogComponent,{
-    data:{
-      "title":"Session Expired",
-      "content":"Failed Createion..Please Sign in Again",
-      "icon":"alarm"
-    }
-  })
-},)
+  MyTools.ShowResult200Message(data)
+  this.dialogRef.close(true);
+})
 }
 }

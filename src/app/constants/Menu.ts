@@ -51,6 +51,12 @@ export class Menu {
       roles: [2,3],
     },
     {
+      title: 'Tests',
+      icon: 'quiz',
+      href: 'tests',
+      roles: [1,2,3],
+    },
+    {
       title: 'Grades',
       icon: 'grade',
       href: 'grades',

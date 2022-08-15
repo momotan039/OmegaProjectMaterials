@@ -154,14 +154,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
         this.ShowConversation();
       },
       error: () => {
-        MyTools.Dialog.open(MessageDialogComponent, {
-          data: {
-            title: 'Session Expired',
-            content: 'Failed Sending..Please Sign in Again',
-            icon: 'alarm',
-          },
-        });
-        this.router.navigate(['/login']);
+        MyTools.ShowExpiredSessionMessage(this.router)
       },
     });
 

@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { Router } from "@angular/router";
 import { MyTools } from "src/app/constants/MyTools";
 import { HttpUsersService } from "src/app/services/httpUsers/http-users.service";
 import { UsersTableComponent } from "../../admin/users-table/users-table.component";
@@ -17,43 +18,28 @@ export class AddUserComponent implements OnInit {
     private httpUsers:HttpUsersService,
     private dialogRef:MatDialogRef<UsersTableComponent>,
     private fb:FormBuilder,
+    private router:Router,
     @Inject (MAT_DIALOG_DATA) public dataRecived:any
     ) { }
-  AddUserForm=this.fb.group({
+  fg=this.fb.group({
     firstName:['',Validators.required],
     lastName:['',Validators.required],
     email:['',Validators.required],
     phone:['',Validators.required],
     idCard:['',Validators.required],
-    roleId:[this.dataRecived.roleBy,Validators.required],
+    roleId:[this.dataRecived.roleBy+"",Validators.required],
   })
   ngOnInit(): void {
 
   }
 
 SaveUser(){
-  if(!this.AddUserForm.valid)
+  if(!this.fg.valid)
   return;
-  this.httpUsers.PostUser(this.AddUserForm.value).subscribe(data=>{
-    MyTools.Dialog.open(MessageDialogComponent,{
-      data:{
-        "title":"Success",
-        "content":"User Added Successfully"
-      }
-    })
+  this.httpUsers.PostUser(this.fg.value).subscribe(data=>{
+    MyTools.ShowResult200Message(data)
     this.dialogRef.close();
-  },err=>{
-    MyTools.Dialog.open(MessageDialogComponent,{
-      data:{
-        "title":"Faild Adding",
-        "content":`${err.error}`
-      }
-    })
-  },)
-}
-
-GetNameOfRole(){
-return MyTools.GetNameOfRole(this.dataRecived.roleBy)
+  })
 }
 
 }

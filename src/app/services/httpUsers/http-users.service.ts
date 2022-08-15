@@ -28,14 +28,20 @@ export class HttpUsersService {
   }
    PostUser(user:User){
     //return await this.http.post("https://localhost:44327/api/Users/PostUser",user).toPromise();
-      return this.http.post("https://localhost:44327/api/Users/PostUser",user);
+      return this.http.post("https://localhost:44327/api/Users/PostUser",user,{
+        responseType:"text"
+      });
   }
 
    DeleteUser(id:number){
-    return  this.http.delete("https://localhost:44327/api/Users/DeleteUser/"+id)
+    return  this.http.delete("https://localhost:44327/api/Users/DeleteUser/"+id,{
+      responseType:"text"
+    })
 }
  EditingUser(user:User){
-  return this.http.put("https://localhost:44327/api/Users/EditUser",user)
+  return this.http.put("https://localhost:44327/api/Users/EditUser",user,{
+    responseType:"text"
+  })
 }
 GetUsersById(id:string){
   return  this.http.get<User>("https://localhost:44327/api/Users/GetUsersById/"+id);

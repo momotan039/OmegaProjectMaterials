@@ -1,3 +1,6 @@
+import { IMyTable } from './../../../models/InterFace/IMyTable';
+import { MyTableComponent } from './../../SubComponent/my-table/my-table.component';
+import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
@@ -15,45 +18,32 @@ import { MessageDialogComponent } from "../../dilogs/message-dialog/message-dial
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.css']
 })
-export class CoursesComponent implements OnInit {
+export class CoursesComponent implements OnInit,IMyTable {
   dataSource:any;
   displayedColumns:any;
-  @ViewChild("refpag") paginator:MatPaginator | undefined;
-  @ViewChild(MatSort) sort: MatSort | undefined;
+
+  @ViewChild(MyTableComponent) myTable: MyTableComponent | undefined;
   constructor(
-    private courseService:HttpCoursesService,
+    public courseService:HttpCoursesService,
+
   ) { }
 
+
   ngOnInit(): void {
-    this.displayedColumns=["name","operations"]
-    this.FillTableData()
+
   }
 
-  FillTableData(){
-    this.courseService.GetCourses().subscribe(data=>{
-      this.dataSource=new MatTableDataSource<Course>(data)
-      this.dataSource.paginator=this.paginator
-     this.dataSource.sort=this.sort
-    })
-  }
-
-  FilterDataTable(input:any){
-    let val=input.value+"";
-    this.dataSource.filter=val
-}
-
-EditCourse(course:Course){
+  EditRow=()=>{
   let dialogRef=MyTools.Dialog.open(EditCourseComponent,{
-    data:course,
+    data:this.myTable?.selectedRow,
     disableClose:true
   })
   dialogRef.afterClosed().subscribe(success=>{
-    if(success==false)
-    return
-      this.FillTableData();
+    if(success)
+      this.myTable!.FillTableData();
   })
 }
-DeleteCourse(id:any){
+DeleteRow=()=>{
   let dialogRef = MyTools.Dialog.open(DeleteUserComponent, {
     disableClose:true
   });
@@ -61,34 +51,21 @@ DeleteCourse(id:any){
   dialogRef.afterClosed().subscribe((success: any)=>{
     if(success)
     {
-      this.courseService.DeleteCourse(id).subscribe(d=>{
-        this.FillTableData();
-        MyTools.Dialog.open(MessageDialogComponent,{
-          data:{
-            "title":"Success",
-            "content":"Course Deleted Successfully"
-          }
-        })
-      },err=>{
-        MyTools.Dialog.open(MessageDialogComponent,{
-          data:{
-            "title":"Session Expired",
-            "content":"Failed Deletetion..Please Sign in Again",
-            "icon":"alarm"
-          }
-        })
+      this.courseService.DeleteCourse(this.myTable?.selectedRow.id).subscribe(d=>{
+        this.myTable!.FillTableData();
+        MyTools.ShowResult200Message(d)
       })
     }
   })
 }
-AddCourse(){
-  let dialogRef=MyTools.Dialog.open(AddCourseComponent,{
+AddRow=()=>{
+  debugger
+  MyTools.Dialog.open(AddCourseComponent,{
     disableClose:true
-  })
-  dialogRef.afterClosed().subscribe(success=>{
-    if(success==false)
-    return
-      this.FillTableData();
+   })
+  .afterClosed().subscribe(success=>{
+    if(success)
+      this.myTable?.FillTableData();
   })
 }
 

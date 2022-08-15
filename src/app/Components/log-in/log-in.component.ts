@@ -43,12 +43,7 @@ this.fg=this.fb.group({
       this.auth.LoadUserByToken()
       this.router.navigate(["/home"]);
     },err=>{
-      MyTools.Dialog.open(MessageDialogComponent,{
-        data:{
-          "title":"Faild LogIn",
-          "content":"This User Not Exist"
-        }
-      });
+      MyTools.ShowFialdMessage(err)
     })
   }
 }

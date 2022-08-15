@@ -35,6 +35,12 @@ import { HomeworkTeacherComponent } from './Components/SubComponent/homework-tea
 import { HomeworkStudentComponent } from './Components/SubComponent/homework-student/homework-student.component';
 import { MyTableComponent } from './Components/SubComponent/my-table/my-table.component';
 import { GradesComponent } from './Components/grades/grades.component';
+import { AddGradeComponent } from './Components/dilogs/add-grade/add-grade.component';
+import { EditGradeComponent } from './Components/dilogs/edit-grade/edit-grade.component';
+import { AddUserComponent } from './Components/dilogs/add-user/add-user.component';
+import { TestsComponent } from './Components/tests/tests.component';
+import { AddTestComponent } from './Components/dilogs/add-test/add-test.component';
+import { EditTestComponent } from './Components/dilogs/edit-test/edit-test.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +76,12 @@ import { GradesComponent } from './Components/grades/grades.component';
     HomeworkStudentComponent,
     MyTableComponent,
     GradesComponent,
+    AddGradeComponent,
+    EditGradeComponent,
+    AddUserComponent,
+    TestsComponent,
+    AddTestComponent,
+    EditTestComponent,
   ],
   imports: [
     BrowserModule,

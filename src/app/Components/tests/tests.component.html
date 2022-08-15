@@ -1,0 +1,12 @@
+<app-my-table
+#myTable
+[detailsComonentUrl]="'testDetails'"
+[AddRowParent]="AddRow"
+[DeleteRowParent]="DeleteRow"
+[EditRowParent]="EditRow"
+[displayedColumns]="['name','date']"
+[displayedNameColumns]="['Name','Date','Operations']"
+[operations]="[true,true,true]"
+[getDataTable]="this.httpTestsService.GetTests()"
+[title]="'Test'"
+></app-my-table>

@@ -1,0 +1,73 @@
+table thead tr{
+  /* background: grey !important; */
+}
+table tr{
+  /* background: crimson; */
+}
+table tr:hover{
+  /* background: cornflowerblue;
+  cursor: pointer; */
+}
+table td textarea{
+  color: black;
+  resize: none;
+  max-width: calc(100% - 160px);
+}
+@media (max-width:992px) {
+ /* remove hover  */
+ table tr:hover{
+
+}
+  ::ng-deep table thead {
+      display: none !important;
+  }
+  ::ng-deep table tbody tr,
+  ::ng-deep table tbody td{
+      display: block;
+  }
+  ::ng-deep table tbody td{
+    position: relative;
+  }
+  ::ng-deep table tbody tr{
+    /* position: relative; */
+    height: auto !important;
+    border: grey solid;
+    border-radius: 5px;
+    padding: 10px;
+  }
+  /* show title before td */
+  ::ng-deep table tbody tr td::before{
+    content: attr(data-title);
+    position: absolute;
+    left: 0;
+    width: 120px;
+    text-align: start;
+    font-weight: bold;
+  }
+  ::ng-deep table tbody tr td{
+      padding: 0 !important;
+      text-align: center;
+  }
+  ::ng-deep table tbody tr td button *,
+  ::ng-deep table tbody tr td button,
+  ::ng-deep table tbody tr td a {
+    width: 30px !important;
+    height: 30px !important;
+    /* line-height: 0 !important; */
+  }
+  ::ng-deep  table tbody tr td .mat-fab .mat-button-wrapper{
+    display: inline;
+  }
+  ::ng-deep table tbody tr td a span{
+    padding: 0 !important;
+  }
+  ::ng-deep table tbody tr:not(table tbody tr:last-child) {
+      margin-bottom: 1rem;
+  }
+}
+
+
+@media (max-width:768px){
+  table{
+  }
+}

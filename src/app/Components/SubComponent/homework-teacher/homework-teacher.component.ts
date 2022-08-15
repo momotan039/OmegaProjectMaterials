@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MyTools } from 'src/app/constants/MyTools';
@@ -25,6 +26,7 @@ export class HomeworkTeacherComponent implements OnInit {
     private httpGroupsService:HttpGroupsService,
     private authService:AuthService,
     private homeWorkService:HomeWorkService,
+
   private fb:FormBuilder,
   ) { }
 
@@ -58,12 +60,7 @@ export class HomeworkTeacherComponent implements OnInit {
 
      this.homeWorkService.SendHomeWork(fd).subscribe(d=>{
 
-      MyTools.Dialog.open(MessageDialogComponent,{
-        data:{
-          "title":"Success",
-          "content":"HomeWork Saved Successfully!!"
-        }
-      })
+      MyTools.ShowResult200Message(d)
 
       this.homeWorkService.GetHomeWorkByTeacherId(this.authService.currentUser.id!)
       .subscribe(data=>{
@@ -71,12 +68,7 @@ export class HomeworkTeacherComponent implements OnInit {
        })
 
      },(error)=>{
-        MyTools.Dialog.open(MessageDialogComponent,{
-          data:{
-            "title":"Faild",
-            "content":error
-          }
-        })
-     })
-   }
-}
+      MyTools.ShowFialdMessage(error)
+   })
+
+  }}

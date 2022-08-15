@@ -13,6 +13,8 @@ import { EditGroupComponent } from '../../dilogs/edit-group/edit-group.component
 import { DeleteUserComponent } from '../../dilogs/delete-user/delete-user.component';
 import { MessageDialogComponent } from '../../dilogs/message-dialog/message-dialog.component';
 import { AddGroupComponent } from '../../dilogs/add-group/add-group.component';
+import { Router } from '@angular/router';
+import { MyTableComponent } from '../../SubComponent/my-table/my-table.component';
 
 @Component({
   selector: 'app-groups',
@@ -22,81 +24,50 @@ import { AddGroupComponent } from '../../dilogs/add-group/add-group.component';
 export class GroupsComponent implements OnInit {
   dataSource:any;
   displayedColumns:any;
-  @ViewChild("refpag") paginator:MatPaginator | undefined;
-  @ViewChild(MatSort) sort: MatSort | undefined;
+  displayedNameColumns:any;
+  @ViewChild(MyTableComponent) myTable: MyTableComponent | undefined;
   constructor(
-    private groupService:HttpGroupsService,
-    private courseService:HttpCoursesService
+    public groupService:HttpGroupsService,
+    private courseService:HttpCoursesService,
+    private router:Router,
     ) { }
 
   ngOnInit(): void {
-    this.displayedColumns=["name","course","openingDate","closingDate","operations"]
-    this.FillTableData()
-
+    this.displayedColumns=["name","course.name","openingDate","closingDate"]
+    this.displayedNameColumns=["Name","Course","Opening Date","Closing Date","Operations"]
   }
 
-  CustomDate(data:Date){
-    return MyTools.CustomDate(data)
-  }
-  FillTableData(){
-    this.groupService.GetGroups().subscribe(data=>{
-      this.dataSource=new MatTableDataSource(data)
-      this.dataSource.paginator=this.paginator
-     this.dataSource.sort=this.sort
-    })
-  }
 
-  FilterDataTable(input:any){
-    let val=input.value+"";
-    this.dataSource.filter=val
-}
-  EditGroup(group:Group){
-    let dialogRef=MyTools.Dialog.open(EditGroupComponent,{
-      data:group,
+  EditRow=()=>{
+    MyTools.Dialog.open(EditGroupComponent,{
+      data:this.myTable?.selectedRow,
       disableClose:true
-    })
-    dialogRef.afterClosed().subscribe(success=>{
-      if(success==false)
-      return
-        this.FillTableData();
+    }).
+    afterClosed().subscribe(success=>{
+      if(success)
+        this.myTable!.FillTableData();
     })
   }
-  DeleteGroup(id:any){
-    let dialogRef = MyTools.Dialog.open(DeleteUserComponent, {
+  DeleteRow=()=>{
+    MyTools.Dialog.open(DeleteUserComponent, {
       disableClose:true
-    });
-
-    dialogRef.afterClosed().subscribe((success: any)=>{
+    }).afterClosed().subscribe((success: any)=>{
       if(success)
       {
-        this.groupService.DeleteGroups(id).subscribe(d=>{
-          this.FillTableData();
-          MyTools.Dialog.open(MessageDialogComponent,{
-            data:{
-              "title":"Success",
-              "content":"Group Deleted Successfully"
-            }
-          })
-        },err=>{
-          MyTools.Dialog.open(MessageDialogComponent,{
-            data:{
-              "title":"Session Expired",
-              "content":"Failed Deletetion..Please Sign in Again",
-              "icon":"alarm"
-            }
-          })
+        this.groupService.DeleteGroups(this.myTable?.selectedRow.id).subscribe(d=>{
+          this.myTable!.FillTableData();
+          MyTools.ShowResult200Message(d)
         })
       }
     })
   }
-  AddGroup(){
-    let dialogRef=MyTools.Dialog.open(AddGroupComponent,{
+  AddRow=()=>{
+    MyTools.Dialog.open(AddGroupComponent,{
       disableClose:true
-    })
-    dialogRef.afterClosed().subscribe(success=>{
-      if(success==false)
-      return
-        this.FillTableData();
+     })
+    .afterClosed().subscribe(success=>{
+      if(success)
+        this.myTable?.FillTableData();
     })
   }
 }

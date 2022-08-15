@@ -1,6 +1,9 @@
-import { Observable, Subscription } from 'rxjs';
-import { Component, Input, OnInit } from '@angular/core';
+import { MatSort } from '@angular/material/sort';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { Data } from '@angular/router';
 
 @Component({
   selector: 'app-my-table',
@@ -8,40 +11,51 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./my-table.component.css']
 })
 export class MyTableComponent implements OnInit {
-  paginator: any;
-  sort: any;
+  @ViewChild("refpag") paginator:MatPaginator | undefined;
+  @ViewChild(MatSort) sort: MatSort | undefined;
   constructor() { }
   @Input() displayedColumns:string[]=[]
   @Input() displayedNameColumns:string[]=[]
   @Input() getDataTable:Observable<any> | undefined
+  @Input() AddRowParent:(() => void) | undefined
+  @Input() EditRowParent:(() => void) | undefined
+  @Input() DeleteRowParent:(() => void) | undefined
   @Input() operations:boolean[]=[]
+  @Input() detailsComonentUrl=""
+  @Input() title=""
+  selectedRow:any
   dataSource:any
+
   ngOnInit(): void {
-   this.FillTableData();
+    this.FillTableData();
   }
+
   GetdataByProp(elm:any,prop:string){
-    debugger
     const arr=prop.split('.')
+    let _prop="";
     for(let i=0;i<arr.length;i++)
     {
-      if(arr.length>1)
-      debugger
       if(arr[i] in elm)
-      {
         elm=elm[arr[i]]
-      }
+        _prop=arr[i];
+    }
+    if(_prop.includes("date")||_prop.includes("Date")){
+      return new Date(elm).toDateString()
     }
     return elm
     }
-  AddRow(){
-    alert("add")
 
+  AddRow(){
+    this.AddRowParent?.();
   }
+
 EditRow(elm:any){
-  alert("edit")
+  this.selectedRow=elm
+  this.EditRowParent?.();
 }
-DeleteRow(id:number){
-  alert("delete")
+DeleteRow(row:any){
+  this.selectedRow=row
+  this.DeleteRowParent?.();
 }
 
 FilterDataTable(input:any){
@@ -51,10 +65,10 @@ FilterDataTable(input:any){
 
 FillTableData(){
 this.getDataTable!.subscribe((data: any)=>{
-  console.log(data)
   this.dataSource=new MatTableDataSource(data)
   this.dataSource.paginator=this.paginator
  this.dataSource.sort=this.sort
+
 })
 }
 }

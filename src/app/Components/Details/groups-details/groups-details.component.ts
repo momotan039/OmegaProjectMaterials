@@ -95,7 +95,7 @@ export class GroupsDetailsComponent implements OnInit {
       MyTools.Dialog.open(MessageDialogComponent,{
         data:{
           "title":"Success",
-          "content":"Success Delete User from Group",
+          "content":data,
         }
       }).afterClosed().subscribe(()=>{
           this.FillTableData()

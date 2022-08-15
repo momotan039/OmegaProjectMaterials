@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -20,6 +21,7 @@ export class EditUserComponent implements OnInit {
   constructor(
     private httpUsers:HttpUsersService,
     private fb:FormBuilder,
+
     private dialogRef:MatDialogRef<UsersTableComponent>,
     @Inject(MAT_DIALOG_DATA) public data:User) {
     this.receiveData=data
@@ -48,22 +50,10 @@ export class EditUserComponent implements OnInit {
     }
 
     this.httpUsers.EditingUser(this.EditUserForm.value).subscribe(data=>{
-      MyTools.Dialog.open(MessageDialogComponent,{
-        data:{
-          "title":"Success",
-          "content":"User Edited Successfully"
-        }
-      })
+      MyTools.ShowResult200Message(data)
+
       this.dialogRef.close();
-    },err=>{
-      MyTools.Dialog.open(MessageDialogComponent,{
-        data:{
-          "title":"Faild Editing",
-          "content":`${err.error}`
-        }
-      })
-      console.warn(err)
-    },)
+    })
 
   }
   ChangedInputs() {

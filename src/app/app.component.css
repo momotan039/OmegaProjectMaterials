@@ -19,7 +19,17 @@
   }
 }
 
+/* Start Dialog style */
+::ng-deep mat-dialog-container {
+  width: 500px;
+}
 
-
+::ng-deep mat-dialog-container mat-form-field{
+width: 100%;
+}
+/* Start Dialog style */
+::ng-deep mat-select mat-option{
+  color: red;
+}
 
 

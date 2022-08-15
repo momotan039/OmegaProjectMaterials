@@ -10,25 +10,32 @@ import { AddUserComponent } from '../../dilogs/add-user/add-user.component';
 import { DeleteUserComponent } from '../../dilogs/delete-user/delete-user.component';
 import { MessageDialogComponent } from '../../dilogs/message-dialog/message-dialog.component';
 import { EditUserComponent } from '../../dilogs/edit-user/edit-user.component';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-users-table',
   templateUrl: './users-table.component.html',
-  styleUrls: ['./users-table.component.css']
+  styleUrls: ['./users-table.component.css','../../SubComponent/my-table/my-table.component.css']
 })
 export class UsersTableComponent implements OnInit {
   @Input() roleBy=-1
-
+  user:User | undefined
   dataSource:any;
   displayedColumns:any;
   @ViewChild("refpag") paginator:MatPaginator | undefined;
   @ViewChild(MatSort) sort: MatSort | undefined;
-  constructor(private usersService:HttpUsersService,private dialog:MatDialog) { }
+  constructor(
+    private usersService:HttpUsersService,
+    private dialog:MatDialog,
+    public authService:AuthService
+    ) { }
 
 
   ngOnInit(): void {
-    this.displayedColumns=["firstName","lastName","email","password","phone","idCard","operations"]
+    this.displayedColumns=["firstName","lastName","email","phone","idCard","operations"]
     this.FillTableData()
+
   }
 
   FilterDataTable(input:any){
@@ -44,6 +51,7 @@ export class UsersTableComponent implements OnInit {
     })
   }
   DeleteUser(userId:number){
+
     let dialogRef = MyTools.Dialog.open(DeleteUserComponent, {
       disableClose:true
     });
@@ -53,19 +61,7 @@ export class UsersTableComponent implements OnInit {
       {
         this.usersService.DeleteUser(userId).subscribe(d=>{
           this.FillTableData();
-          MyTools.Dialog.open(MessageDialogComponent,{
-            data:{
-              "title":"Success",
-              "content":"User Deleted Successfully"
-            }
-          })
-        },err=>{
-          MyTools.Dialog.open(MessageDialogComponent,{
-            data:{
-              "title":"Faild",
-              "content":`${err.error}`
-            }
-          })
+          MyTools.ShowResult200Message(d)
         })
       }
     })

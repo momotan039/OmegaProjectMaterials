@@ -43,21 +43,11 @@ export class EditGroupComponent implements OnInit {
     debugger
     this.httpGroups.EditingGroups(this.EditGroupForm.value).subscribe(
       (data) => {
-        MyTools.Dialog.open(MessageDialogComponent, {
-          data: {
-            title: 'Success',
-            content: 'Group Edited Successfully',
-          },
-        });
-        this.dialogRef.close();
+       MyTools.ShowResult200Message(data)
+        this.dialogRef.close(true);
       },
       (err) => {
-        MyTools.Dialog.open(MessageDialogComponent, {
-          data: {
-            title: 'Faild Editing',
-            content: `${err.error}`,
-          },
-        });
+       MyTools.ShowFialdMessage(err)
       }
     );
   }

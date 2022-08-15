@@ -1,44 +1,11 @@
-<div  class="container">
-  <div style="text-align: center;">
-    <button mat-raised-button (click)="AddCourse()" color="accent">
-      <mat-icon class="mat-18">add</mat-icon>Create New Course
-    </button>
-  </div>
-  <mat-form-field  class="input-full-width" appearance="fill">
-    <mat-label>Search for...</mat-label>
-    <input #refSearch (keyup)="FilterDataTable(refSearch)" matInput >
-  </mat-form-field>
-
-  <table  #table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-    <ng-container matColumnDef="name">
-      <th mat-header-cell mat-sort-header *matHeaderCellDef>Name</th>
-      <td mat-cell *matCellDef="let element">{{element.name}}</td>
-    </ng-container>
-
-     <!-- operations Column -->
-     <ng-container matColumnDef="operations">
-      <th mat-header-cell *matHeaderCellDef>Operations</th>
-      <td mat-cell *matCellDef="let element">
-        <button (click)="EditCourse(element)"  mat-fab color="primary" >
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button (click)="DeleteCourse(element.id)"  mat-fab color="accent" >
-          <mat-icon>delete</mat-icon>
-        </button>
-        <a mat-button routerLink="/courseDetails/{{element.id}}"  mat-fab color="accent" >
-          <mat-icon>visibility</mat-icon>
-        </a>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    <td mat-footer-cell *matFooterCellDef> {{1}}</td>
-  </table>
-  <mat-paginator #refpag [length]="100"
-  [pageSize]="10"
-  [pageSizeOptions]="[5,20,50,100]"
-  aria-label="Select page">
-</mat-paginator>
-</div>
+<app-my-table
+[detailsComonentUrl]="'courseDetails'"
+[AddRowParent]="AddRow"
+[DeleteRowParent]="DeleteRow"
+[EditRowParent]="EditRow"
+[displayedColumns]="['name']"
+[displayedNameColumns]="['Name','Operations']"
+[operations]="[true,true,true]"
+[getDataTable]="this.courseService.GetCourses()"
+[title]="'Course'"
+></app-my-table>

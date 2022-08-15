@@ -1,3 +1,4 @@
+import { Route, Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
 import { MyTools } from './constants/MyTools';
 import { HttpUsersService } from './services/httpUsers/http-users.service';
@@ -13,10 +14,12 @@ export class AppComponent {
   title = 'app';
 
   constructor(
-    private dialog:MatDialog,
-    auth:AuthService
+     dialog:MatDialog,
+    auth:AuthService,
+      router:Router
     ){
     MyTools.Dialog=dialog
+    MyTools.router=router
     auth.LoadUserByToken();
   }
 }

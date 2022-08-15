@@ -9,3 +9,6 @@ export class Group {
  course?:Course
  userGroups:UserGroup[]=[]
 }
+Group.prototype.toString=()=>{
+return "walad"
+}

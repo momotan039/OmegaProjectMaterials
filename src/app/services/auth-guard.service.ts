@@ -13,8 +13,8 @@ import { MessageDialogComponent } from '../Components/dilogs/message-dialog/mess
 export class AuthGuardService implements CanActivate {
 currentUser=new User()
   constructor(
-    private router:Router,
     private authService:AuthService,
+    private router:Router,
   ) { }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot){
 
@@ -22,23 +22,9 @@ currentUser=new User()
     if(this.authService.IsLogIn())
        {
          if(MyLocalStorage.IsExpiredToken()){
-           MyTools.Dialog.open(MessageDialogComponent,{
-             data:{
-               "title":"Session Expired",
-               "content":"Please Sign in Again",
-               "icon":"alarm"
-             }
-           })
-           this.router.navigate(['/login']);
+           MyTools.ShowExpiredSessionMessage(this.router)
            return false
          }
-
-        //   if(!this.CanAccess(state))
-        //  {
-        //  this.router.navigate(['/home']);
-        //   return false
-        //  }
-
         return true;
        }
        this.router.navigate(['/login']);

@@ -7,6 +7,7 @@ import { formatDate } from '@angular/common';
 import { HttpGroupsService } from 'src/app/services/http Groups/http-groups.service';
 import { HttpCoursesService } from 'src/app/services/Http Courses/http-courses.service';
 import { GroupsComponent } from '../../admin/groups/groups.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-group',
@@ -20,6 +21,7 @@ export class AddGroupComponent implements OnInit {
     private courseService:HttpCoursesService,
     private dialogRef:MatDialogRef<GroupsComponent>,
     private fb:FormBuilder,
+
     ) { }
     AddGroupForm=this.fb.group({
       name:['',Validators.required],
@@ -38,21 +40,8 @@ export class AddGroupComponent implements OnInit {
       if(!this.AddGroupForm.valid)
   return;
   this.httpGroups.PostGroups(this.AddGroupForm.value).subscribe(data=>{
-    MyTools.Dialog.open(MessageDialogComponent,{
-      data:{
-        "title":"Success",
-        "content":"Group Created Successfully"
-      }
-    })
-    this.dialogRef.close();
-  },err=>{
-    MyTools.Dialog.open(MessageDialogComponent,{
-      data:{
-        "title":"Session Expired",
-        "content":"Failed Createion..Please Sign in Again",
-        "icon":"alarm"
-      }
-    })
-  },)
+    MyTools.ShowResult200Message(data)
+    this.dialogRef.close(true);
+  })
   }
 }

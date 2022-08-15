@@ -21,14 +21,20 @@ GetCourseById(id:string){
 }
 
  PostCourse(course:Course){
-    return this.http.post("https://localhost:44327/api/Courses/PostCourse",course)
+    return this.http.post("https://localhost:44327/api/Courses/PostCourse",course,{
+      responseType:"text"
+    })
 }
  DeleteCourse(id:number){
-  return  this.http.delete("https://localhost:44327/api/Courses/DeleteCourse/"+id)
+  return  this.http.delete("https://localhost:44327/api/Courses/DeleteCourse/"+id,{
+    responseType:"text"
+  })
 }
 
  EditingCourse(course:Course){
-  return  this.http.put("https://localhost:44327/api/Courses/EditCourse",course)
+  return  this.http.put("https://localhost:44327/api/Courses/EditCourse",course,{
+    responseType:"text"
+  })
 }
 
 }

@@ -26,22 +26,32 @@ export class HttpGroupsService {
     return  this.http.get("https://localhost:44327/api/UsersGroups/GetUserGroups/"+groupId);
   }
    PostGroups(group:Group){
-     return this.http.post("https://localhost:44327/api/Groups/PostGroup",group)
+     return this.http.post("https://localhost:44327/api/Groups/PostGroup",group,{
+      responseType:"text"
+    })
   }
    DeleteGroups(id:number){
-    return  this.http.delete("https://localhost:44327/api/Groups/DeleteGroup/"+id)
+    return  this.http.delete("https://localhost:44327/api/Groups/DeleteGroup/"+id,{
+      responseType:"text"
+    })
   }
 
    EditingGroups(group:Group){
-    return  this.http.put("https://localhost:44327/api/Groups/EditGroup",group)
+    return  this.http.put("https://localhost:44327/api/Groups/EditGroup",group,{
+      responseType:"text"
+    })
   }
 
    DeleteUserFromGroup(id:number){
-    return  this.http.delete("https://localhost:44327/api/UsersGroups/DeleteUserFromGroup/"+id)
+    return  this.http.delete("https://localhost:44327/api/UsersGroups/DeleteUserFromGroup/"+id,{
+      responseType:"text"
+    })
   }
 
    AddUserToGroup(ug:UserGroup){
-    return  this.http.post("https://localhost:44327/api/UsersGroups/AddUserToGroup",ug)
+    return  this.http.post("https://localhost:44327/api/UsersGroups/AddUserToGroup",ug,{
+      responseType:"text"
+    })
   }
   GetGroupsByCourseId(id:number){
     return this.http.get<Group[]>("https://localhost:44327/api/Groups/GetGroupsByCourseId/"+id)

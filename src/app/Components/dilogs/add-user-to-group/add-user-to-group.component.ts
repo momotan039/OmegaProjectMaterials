@@ -9,6 +9,7 @@ import { HttpUserGroupService } from 'src/app/services/http-user-group.service';
 import { GroupsDetailsComponent } from '../../Details/groups-details/groups-details.component';
 import { User } from 'src/app/models/User';
 import { MyTools } from 'src/app/constants/MyTools';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class AddUserToGroupComponent implements OnInit {
     private http:HttpUsersService,
     private httpUserGroup:HttpUserGroupService,
     private dialogRef:MatDialogRef<GroupsDetailsComponent>,
+
     @Inject(MAT_DIALOG_DATA) public group:Group
     ) { }
     users:User[]=[]
@@ -51,13 +53,8 @@ export class AddUserToGroupComponent implements OnInit {
    elms.forEach(id => {
     temp.push(new UserGroup(id,this.group.id!))
    });
-   this.httpUserGroup.AddUsersToGroup(temp).subscribe(() =>{
-     MyTools.Dialog.open(MessageDialogComponent,{
-       data:{
-         "title":"Success",
-         "content":"Added Members Successfully"
-       }
-     })
+   this.httpUserGroup.AddUsersToGroup(temp).subscribe((data) =>{
+    MyTools.ShowResult200Message(data)
      this.dialogRef.close(true)
    });
 

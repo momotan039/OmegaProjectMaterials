@@ -1,16 +1,11 @@
-<app-my-table
-[displayedColumns]="['testName','sumGrade','group.name','note']"
-[displayedNameColumns]="['Test Name','Grade','Group','Note','Operations']"
+<app-my-table #refTable
+[displayedColumns]="['test.name','sumGrade','student.idCard','group.name','note']"
+[displayedNameColumns]="['Test','Grade','Id Card Student','Group','Note','Operations']"
 [getDataTable]="httpGradesService.GetGrades()"
+[AddRowParent]="AddRow"
+[DeleteRowParent]="DeleteRow"
+[EditRowParent]="EditRow"
 [operations]="[true,true,false]"
+[title]="'Grade'"
 >
 </app-my-table>
-
-
-<!--
-   "sumGrade": 666.0,
-        "studentId": 1098,
-        "groupID": 6063,
-        "testName": null,
-        "note": "mish sgheer enta",
- -->

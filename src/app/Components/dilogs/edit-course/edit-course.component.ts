@@ -6,6 +6,7 @@ import { Course } from 'src/app/models/Course';
 import { MessageDialogComponent } from '../message-dialog/message-dialog.component';
 import { MyTools } from 'src/app/constants/MyTools';
 import { CoursesComponent } from '../../admin/courses/courses.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-course',
@@ -18,6 +19,7 @@ export class EditCourseComponent implements OnInit {
     private dialogRef:MatDialogRef<CoursesComponent>,
     private fb:FormBuilder,
     private httpCourse:HttpCoursesService,
+
     @Inject(MAT_DIALOG_DATA) private data:Course
   ) {
     this.EditCourseForm=this.fb.group({
@@ -32,20 +34,8 @@ export class EditCourseComponent implements OnInit {
     if(!this.EditCourseForm.valid)
 return;
 this.httpCourse.EditingCourse(this.EditCourseForm.value).subscribe(data=>{
-  MyTools.Dialog.open(MessageDialogComponent,{
-    data:{
-      "title":"Success",
-      "content":"Course Created Successfully"
-    }
-  })
-  this.dialogRef.close();
-},err=>{
-  MyTools.Dialog.open(MessageDialogComponent,{
-    data:{
-      "title":"Faild Creating",
-      "content":`${err.error}`
-    }
-  })
-},)
+  MyTools.ShowResult200Message(data)
+  this.dialogRef.close(true);
+})
 }
 }

@@ -4,11 +4,14 @@ import { MessageDialogComponent } from "../Components/dilogs/message-dialog/mess
 import { User } from "../models/User";
 
 export class MyTools {
+
   static Dialog:MatDialog
   static currentUser=new User()
+  static router:Router
   constructor(
     public router:Router
   ){
+
   }
 
 
@@ -18,29 +21,39 @@ export class MyTools {
     dataSource.filter=val
 }
 
- static CustomDate(date:any){
+  CustomDate(date:any){
   return new Date(Date.parse(date+"")).toLocaleDateString()
 }
 
-static GetNameOfRole(role:number){
-if(role==1)
-return "Admin"
-if(role==2)
-return "Teacher"
 
-return "Student"
-}
-
-
-
- ShowExpiredSessionMessage(){
+  static ShowExpiredSessionMessage(router:Router){
   MyTools.Dialog.open(MessageDialogComponent,{
     data:{
       "title":"Session Expired",
-      "content":"Failed Sending..Please Sign in Again",
+      "content":"Please Sign in Again",
       "icon":"alarm"
     }
   })
-  this.router.navigate(["/login"])
+  router.navigate(["/login"])
+}
+
+static ShowFialdMessage(error:any){
+  MyTools.Dialog.open(MessageDialogComponent,{
+    data:{
+      "title":"Faild Process",
+      "content":`${error.error}`,
+      "icon":"error"
+    }
+  })
+}
+
+static ShowResult200Message(content:any){
+  MyTools.Dialog.open(MessageDialogComponent,{
+    data:{
+      "title":"Success",
+      "content":`${content}`,
+      "icon":"error"
+    }
+  })
 }
 }

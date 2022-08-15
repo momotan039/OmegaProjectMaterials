@@ -1,14 +1,18 @@
+import { Router } from '@angular/router';
+import { MyTools } from 'src/app/constants/MyTools';
 import { MyLocalStorage } from './MyLocalStorage';
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, EMPTY, map, Observable, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthInterceptorService implements HttpInterceptor {
 
-  constructor() { }
+  constructor(
+    private router:Router
+  ) { }
   //make any request header contain current token
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token =MyLocalStorage.GetToken();
@@ -16,14 +20,28 @@ export class AuthInterceptorService implements HttpInterceptor {
       const cloned=req.clone({
         headers:req.headers.set("Authorization",token)
       })
-      //  if(MyLocalStorage.IsExpiredToken())
-      //  {
-      //   alert("token end")
-      //   return next.handle(new HttpRequest("GET",""))
-      //  }
+
       return next.handle(cloned)
+      .pipe(
+        catchError((error:HttpResponse<any>) => {
+          //token expired or invalid
+          if(error.status==0 || error.status==401)
+          {
+          MyTools.Dialog.closeAll()
+          MyTools.ShowExpiredSessionMessage(this.router)
+          }
+          else if(error.status==400 || error.status==400)
+          MyTools.ShowFialdMessage(error)
+
+          return EMPTY;
+        })
+      )
     }
     else
     return next.handle(req)
   }
 }
+function err(err: any): unknown {
+  throw new Error('Function not implemented.');
+}
+
