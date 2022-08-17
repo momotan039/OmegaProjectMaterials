@@ -1,7 +1,9 @@
+import { HttpGroupsService } from 'src/app/services/http Groups/http-groups.service';
+import { DeleteUserComponent } from './../../dilogs/delete-user/delete-user.component';
+import { HttpUsersService } from 'src/app/services/httpUsers/http-users.service';
 import { HttpUserGroupService } from './../../../services/http-user-group.service';
 import { MyTools } from './../../../constants/MyTools';
 import { Group } from './../../../models/Group';
-import { HttpGroupsService } from './../../../services/http Groups/http-groups.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
@@ -11,6 +13,7 @@ import { User } from 'src/app/models/User';
 import { Role } from 'src/app/models/Role';
 import { AddUserToGroupComponent } from '../../dilogs/add-user-to-group/add-user-to-group.component';
 import { MessageDialogComponent } from '../../dilogs/message-dialog/message-dialog.component';
+import { MyTableComponent } from '../../SubComponent/my-table/my-table.component';
 
 @Component({
   selector: 'app-groups-details',
@@ -19,88 +22,65 @@ import { MessageDialogComponent } from '../../dilogs/message-dialog/message-dial
 })
 export class GroupsDetailsComponent implements OnInit {
   group = new Group();
-   id="-1";
-  countStudents = 0;
-  countTeacher = 0;
   dataSource: any;
   displayedColumns: any;
-  @ViewChild('refpag') paginator: MatPaginator | undefined;
-  @ViewChild(MatSort) sort: MatSort | undefined;
+  displayedNameColumns: any;
+  @ViewChild(MyTableComponent) myTable: MyTableComponent | undefined;
+
   constructor(
     private route: ActivatedRoute,
-     private http: HttpGroupsService,
-     private httpUserGroup: HttpUserGroupService
+     public httpUsersService: HttpUsersService,
+     private httpUserGroupService: HttpUserGroupService,
+     private HttpGroupsService: HttpGroupsService,
      ) {}
   ngOnInit() {
-     this.id= this.route.snapshot.paramMap.get('id')!;
+     this.group.id= Number(this.route.snapshot.paramMap.get('id')!);
     this.displayedColumns = [
-      'role',
+      'role.description',
       'firstName',
       'lastName',
       'email',
       'phone',
       'idCard',
-      'operations',
     ];
-    this.FillTableData();
-  }
-  FilterDataTable(input: any) {
-    let val = input.value + '';
-    this.dataSource.filter = val;
-  }
-
-  getUsersFromGroup(){
-    let users: User[]=[];
-    this.group.userGroups.forEach(ug=>{
-      users.push(ug.user)
+    this.displayedNameColumns = [
+      'Role',
+      'First Name',
+      'Last Name',
+      'Email',
+      'Phone',
+      'Id Card',
+      'Operations',
+    ];
+    this.HttpGroupsService.GetGroupByID(this.group.id+"").subscribe(data=>{
+      this.group=data
     })
-    return users
   }
-
-  FillTableData() {
-    this.http.GetGroupByID(this.id).subscribe((g) => {
-      this.group = g;
-      this.dataSource = new MatTableDataSource<User>(this.getUsersFromGroup());
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sortingDataAccessor = (item:User, property:Role) => {
-        switch(property) {
-          case 'role.description': return item.role?.description;
-          default: return item.role?.description;
-        }
-      };
-      this.dataSource.sort = this.sort;
-
-      this.countStudents = this.group.userGroups.filter(
-        (ug) => ug.user.role?.numberRole == 3
-      ).length;
-      this.countTeacher = this.group.userGroups.filter(
-        (ug) => ug.user.role?.numberRole == 2
-      ).length;
-    });
-
+  DeleteRow=()=>{
+    MyTools.Dialog.open(DeleteUserComponent, {
+      disableClose:true
+    }).afterClosed().subscribe((success: any)=>{
+      if(success)
+      {
+        this.httpUserGroupService.
+        DeleteUserFromGroup(this.myTable?.selectedRow.id).
+        subscribe(d=>{
+          this.myTable!.FillTableData();
+          MyTools.ShowResult200Message(d)
+        })
+      }
+    })
   }
-
-  AddUser(){
+  AddRow=()=>{
     MyTools.Dialog.open(AddUserToGroupComponent,{
-      data:this.group
-    }).afterClosed().subscribe((success)=>{
-      if(!success)
-      return
-      this.FillTableData()
+      data:this.group,
+      disableClose:true
+     })
+    .afterClosed().subscribe(success=>{
+      if(success)
+        this.myTable?.FillTableData();
     })
   }
 
-  DeleteUser(id:number){
-    this.httpUserGroup.DeleteUserFromGroup(this.group.userGroups.find(f=>f.userId==id)?.id!).subscribe(data=>{
-      MyTools.Dialog.open(MessageDialogComponent,{
-        data:{
-          "title":"Success",
-          "content":data,
-        }
-      }).afterClosed().subscribe(()=>{
-          this.FillTableData()
-      })
-    })
-  }
 
 }

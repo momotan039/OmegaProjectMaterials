@@ -1,4 +1,4 @@
-<h1>Page Details {{user.firstName}}</h1>
+<!-- <h1>Page Details {{user.firstName}}</h1>
 
 <h1 *ngIf="user.roleId==2">Teaching In:</h1>
 <h1 *ngIf="user.roleId==3">Studying In:</h1>
@@ -8,4 +8,52 @@
 <a mat-button routerLink="/courseDetails/{{item.course!.id}}">Cource:{{item.course!.name}}</a>
 <mat-divider *ngIf="i-1!=groups.length"></mat-divider>
 </h2>
+ -->
+ <div class="mainContainer">
+<div class="imgContainer">
+  <mat-card>
+      <mat-card-header style="text-align:center">
+        <img mat-card-lg-image matCardAvatar src="../../../../assets/images/profile.svg">
+      </mat-card-header>
+      <mat-divider>
+      </mat-divider>
+      <mat-card-content>
+        <div class="left">
+          <mat-card-title>Basic Info:</mat-card-title>
+          <h2>Id Card:{{user.idCard}}</h2>
+          <mat-divider>
+          </mat-divider>
+          <h2>Role:{{user.role?.description}}</h2>
+          <mat-divider>
+          </mat-divider>
+          <h2>Groups:
+            <button routerLink="/groupDetails/{{item.id}}" mat-button *ngFor="let item of groups">
+              {{item.name}}
+            </button>
+          </h2>
+          <mat-divider>
+          </mat-divider>
+          <h2>Courses:
+            <button routerLink="/courseDetails/{{item.id}}" mat-button *ngFor="let item of courses">
+              {{item.name}}
+            </button>
+          </h2>
+        </div>
+         <div  class="right">
+          <mat-card-title>General Info:</mat-card-title>
+          <h2>First Name:{{user.firstName}}</h2>
+          <mat-divider>
+          </mat-divider>
+          <h2>Last Name:{{user.lastName}}</h2>
+          <mat-divider>
+          </mat-divider>
+          <h2>Email:{{user.email}}</h2>
+          <mat-divider>
+          </mat-divider>
+          <h2>Phone:{{user.phone}}</h2>
+         </div>
+        </mat-card-content>
+  </mat-card>
+</div>
 
+ </div>

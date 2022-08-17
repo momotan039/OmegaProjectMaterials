@@ -17,8 +17,8 @@ export class HttpUsersService {
    GetUsersByRole(role:number):Observable<User[]>{
     return  this.http.get<User[]>("https://localhost:44327/api/Users/GetUsersByRole/"+role);
   }
-  async GetUsersByGroupId(id:number){
-    return await this.http.get("  https://localhost:44327/api/Users/GetUsersByGroupId/"+id).toPromise();
+   GetUsersByGroupId(id:number){
+    return  this.http.get<User[]>("  https://localhost:44327/api/Users/GetUsersByGroupId/"+id)
   }
   async GetFreindsByUser(Id:number){
     return await this.http.get("https://localhost:44327/api/Users/GetFreindsByUser/"+Id).toPromise();

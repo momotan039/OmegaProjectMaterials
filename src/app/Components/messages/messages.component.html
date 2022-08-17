@@ -2,8 +2,8 @@
   <div class="left ">
     <mat-list>
       <mat-list-item *ngFor="let user of freinds">
-        <button mat-button (click)="SetResiver(user)">
           <mat-card class="example-card">
+        <button mat-button (click)="SetResiver(user)">
             <mat-card-header>
               <div mat-card-avatar class="avatar-image">
                 <img src="./../../assets/images/profile.svg" alt="User Avatar">
@@ -11,12 +11,12 @@
               <mat-card-title>{{user.firstName+" "+user.lastName}}</mat-card-title>
               <mat-card-subtitle>{{user.email}}</mat-card-subtitle>
             </mat-card-header>
-          </mat-card>
         </button>
+          </mat-card>
       </mat-list-item>
       <mat-list-item *ngFor="let group of groups">
-        <button mat-button (click)="SetResiver(group)">
           <mat-card class="example-card">
+        <button mat-button (click)="SetResiver(group)">
             <mat-card-header>
               <div mat-card-avatar class="avatar-image">
                 <img src="./../../../assets/images/group.png" alt="User Avatar">
@@ -24,8 +24,8 @@
               <mat-card-title>{{group.name}}</mat-card-title>
               <mat-card-subtitle>{{group.course!.name}}</mat-card-subtitle>
             </mat-card-header>
-          </mat-card>
         </button>
+          </mat-card>
       </mat-list-item>
     </mat-list>
   </div>

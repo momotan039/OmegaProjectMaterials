@@ -1,5 +1,5 @@
 
-  <h1>{{title}}s</h1>
+  <h1 *ngIf="title">{{title}}s</h1>
   <div style="text-align: center;margin-bottom: 10px;">
     <button mat-raised-button (click)="AddRow()" color="accent">
       <mat-icon class="mat-18">add</mat-icon>
@@ -44,6 +44,7 @@
     <tr mat-header-row *matHeaderRowDef="displayedNameColumns;sticky:true"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedNameColumns;"></tr>
   </table>
+  
   <mat-paginator #refpag [length]="100"
   [pageSize]="10"
   [pageSizeOptions]="[5,20,50,100]"
