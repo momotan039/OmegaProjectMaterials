@@ -1,5 +1,5 @@
 import { MyTools } from '../../../constants/MyTools';
-import { HttpUsersService } from '../../../services/httpUsers/http-users.service';
+import { HttpUsersService } from '../../../services/http-users.service';
 import { User } from '../../../models/User';
 import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
@@ -67,7 +67,6 @@ export class UsersTableComponent implements OnInit {
     })
   }
   EditUser(row:User){
-
     let dialogRef=MyTools.Dialog.open(EditUserComponent,{
       data:row,
       disableClose:true

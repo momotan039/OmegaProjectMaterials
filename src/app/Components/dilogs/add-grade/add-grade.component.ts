@@ -4,7 +4,7 @@ import { Grade } from './../../../models/Grade';
 import { HttpGradesService } from './../../../services/http-grades.service';
 import { User } from 'src/app/models/User';
 import { Group } from 'src/app/models/Group';
-import { HttpGroupsService } from 'src/app/services/http Groups/http-groups.service';
+import { HttpGroupsService } from 'src/app/services/http-groups.service';
 import { GradesComponent } from './../../grades/grades.component';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';

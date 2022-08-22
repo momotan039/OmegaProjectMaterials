@@ -41,6 +41,10 @@ import { AddUserComponent } from './Components/dilogs/add-user/add-user.componen
 import { TestsComponent } from './Components/tests/tests.component';
 import { AddTestComponent } from './Components/dilogs/add-test/add-test.component';
 import { EditTestComponent } from './Components/dilogs/edit-test/edit-test.component';
+import { ConfirmRegistrationComponent } from './Components/Account/confirm-registration/confirm-registration.component';
+import { ForgetPasswordDialogComponent } from './Components/Account/forget-password-dialog/forget-password-dialog.component';
+import { ResetPasswordDialogComponent } from './Components/Account/reset-password-dialog/reset-password-dialog.component';
+import { TestComponent } from './test/test.component';
 
 @NgModule({
   declarations: [
@@ -82,6 +86,10 @@ import { EditTestComponent } from './Components/dilogs/edit-test/edit-test.compo
     TestsComponent,
     AddTestComponent,
     EditTestComponent,
+    ConfirmRegistrationComponent,
+    ForgetPasswordDialogComponent,
+    ResetPasswordDialogComponent,
+    TestComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,13 +1,20 @@
 <h1 matDialogTitle>Add New User</h1>
-
 <div matDialogContent>
   <form [formGroup]="fg!">
 
   <mat-form-field class="m-1" appearance="fill">
     <mat-label>Id Card</mat-label>
-    <input formControlName="idCard"  matInput >
+    <input type="text" formControlName="idCard"  matInput >
+
     <mat-error *ngIf="fg.get('idCard')!.errors?.['required']">
       Please Fill this Field</mat-error>
+
+    <mat-error *ngIf="fg.get('idCard')!.errors?.['maxlength']">
+      Length Must Be 9 Digits</mat-error>
+
+    <mat-error *ngIf="fg.get('idCard')!.errors?.['minlength']">
+      Length Must Be 9 Digits</mat-error>
+
   </mat-form-field>
 
   <mat-form-field appearance="fill">
@@ -15,6 +22,8 @@
     <input formControlName="email"  matInput>
     <mat-error *ngIf="fg.get('email')!.errors?.['required']">
       Please Fill this Field</mat-error>
+    <mat-error *ngIf="fg.get('email')!.errors?.['email']">
+      Invalid Email</mat-error>
   </mat-form-field>
 
   <mat-divider></mat-divider>

@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { MyTools } from "src/app/constants/MyTools";
-import { HttpUsersService } from "src/app/services/httpUsers/http-users.service";
+import { HttpUsersService } from "src/app/services/http-users.service";
 import { UsersTableComponent } from "../../admin/users-table/users-table.component";
 import { MessageDialogComponent } from "../message-dialog/message-dialog.component";
 
@@ -24,9 +24,9 @@ export class AddUserComponent implements OnInit {
   fg=this.fb.group({
     firstName:['',Validators.required],
     lastName:['',Validators.required],
-    email:['',Validators.required],
+    email:['',Validators.compose([Validators.required,Validators.email])],
     phone:['',Validators.required],
-    idCard:['',Validators.required],
+    idCard:['',Validators.compose([Validators.required,Validators.minLength(9),Validators.maxLength(9)])],
     roleId:[this.dataRecived.roleBy+"",Validators.required],
   })
   ngOnInit(): void {
@@ -34,6 +34,7 @@ export class AddUserComponent implements OnInit {
   }
 
 SaveUser(){
+  console.warn(this.fg.get('email')!.errors)
   if(!this.fg.valid)
   return;
   this.httpUsers.PostUser(this.fg.value).subscribe(data=>{

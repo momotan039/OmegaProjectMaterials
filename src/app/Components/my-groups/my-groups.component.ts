@@ -1,5 +1,5 @@
 import { AuthService } from './../../services/auth.service';
-import { HttpGroupsService } from './../../services/http Groups/http-groups.service';
+import { HttpGroupsService } from '../../services/http-groups.service';
 import { Component, OnInit } from '@angular/core';
 import { Group } from 'src/app/models/Group';
 

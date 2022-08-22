@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageDialogComponent } from '../message-dialog/message-dialog.component';
 import { MyTools } from 'src/app/constants/MyTools';
 import { User } from 'src/app/models/User';
-import { HttpUsersService } from 'src/app/services/httpUsers/http-users.service';
+import { HttpUsersService } from 'src/app/services/http-users.service';
 import { UsersTableComponent } from '../../admin/users-table/users-table.component';
 
 @Component({
@@ -30,7 +30,7 @@ export class EditUserComponent implements OnInit {
     lastName:[this.receiveData.lastName,Validators.required],
     email:[this.receiveData.email,Validators.required],
     phone:[this.receiveData.phone,Validators.required],
-    role:[this.receiveData.role+"",Validators.required],
+    roleId:[this.receiveData.roleId+"",Validators.required],
     idCard:[this.receiveData.idCard,Validators.required],
     id:[this.receiveData.id,Validators.required]
   })
@@ -44,7 +44,6 @@ export class EditUserComponent implements OnInit {
     debugger
     if(!this.EditUserForm.valid || !this.ChangedInputs())
     {
-      debugger
       this.dialogRef.close();
        return;
     }
@@ -67,7 +66,8 @@ export class EditUserComponent implements OnInit {
     return true
     if(this.EditUserForm.value.idCard!=this.receiveData.idCard)
     return true
-
+    if(this.EditUserForm.value.roleId!=this.receiveData.roleId)
+    return true
     return false;
   }
 

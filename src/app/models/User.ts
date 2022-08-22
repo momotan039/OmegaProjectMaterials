@@ -11,5 +11,6 @@ export class User{
   password?:string;
   id?:number
   roleId?:number
+  confirmPassword?:boolean
   messages?:Message[]
 }

@@ -4,23 +4,20 @@ import { HttpMessagesService } from './../../services/HttpMessages.service';
 import { HttpUserGroupService } from './../../services/http-user-group.service';
 import { User } from 'src/app/models/User';
 import { MyTools } from 'src/app/constants/MyTools';
-import { HttpGroupsService } from 'src/app/services/http Groups/http-groups.service';
 import { Group } from 'src/app/models/Group';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  ViewChild,
-  AfterViewInit,
-  ElementRef,
-} from '@angular/core';
+
 import { AuthService } from 'src/app/services/auth.service';
 import { Message } from 'src/app/models/Message';
 import { interval, Subscription, Observable } from 'rxjs';
 import { MessageDialogComponent } from '../dilogs/message-dialog/message-dialog.component';
 import { DeleteUserComponent } from '../dilogs/delete-user/delete-user.component';
-
+import { HttpGroupsService } from 'src/app/services/http-groups.service';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+} from '@angular/core';
 @Component({
   selector: 'app-messages',
   templateUrl: './messages.component.html',
@@ -30,7 +27,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
   fg = new FormGroup({});
   title = '';
   subTitle = '';
-  image=""
+  image = '';
   // receiverUser=new User()
   // receiverGroup=new Group()
   receiver: any;
@@ -85,11 +82,11 @@ export class MessagesComponent implements OnInit, OnDestroy {
     if ('courseId' in this.receiver) {
       this.title = this.receiver.name;
       this.subTitle = this.receiver.course.name;
-      this.image="./../../assets/images/group.png"
+      this.image = './../../assets/images/group.png';
     } else {
       this.title = this.receiver.firstName + ' ' + this.receiver.lastName;
       this.subTitle = this.receiver.email;
-      this.image="./../../assets/images/profile.svg"
+      this.image = './../../assets/images/profile.svg';
     }
   }
   ShowConversation() {
@@ -103,15 +100,15 @@ export class MessagesComponent implements OnInit, OnDestroy {
       getMessagesFun = this.httpMessagesService.GetMessagesByReciver(
         this.receiver.id
       );
-    getMessagesFun.subscribe((data:any) => {
-        this.msgs = data;
-        this.ScrollingDownListMessage();
-      });
+    getMessagesFun.subscribe((data: any) => {
+      this.msgs = data;
+      this.ScrollingDownListMessage();
+    });
 
     this.msgObs = interval(1000).subscribe(() => {
       getMessagesFun.subscribe((data) => {
-          this.msgs = data;
-        });
+        this.msgs = data;
+      });
     });
   }
 
@@ -134,19 +131,19 @@ export class MessagesComponent implements OnInit, OnDestroy {
     if (!this.fg.valid) return;
     let SendMessageFun;
     if (this.isReciverGroup()) {
-       let msg = new MessageGroup(
+      let msg = new MessageGroup(
         this.receiver.id,
         this.httpAuth.currentUser.id!,
         this.fg.value.message
       );
-      SendMessageFun=this.httpMessagesService.SendGroupMessage(msg)
+      SendMessageFun = this.httpMessagesService.SendGroupMessage(msg);
     } else {
       let msg = new Message(
         this.receiver.id,
         this.httpAuth.currentUser.id!,
         this.fg.value.message
       );
-      SendMessageFun=this.httpMessagesService.SendMessageToFreind(msg)
+      SendMessageFun = this.httpMessagesService.SendMessageToFreind(msg);
     }
 
     SendMessageFun.subscribe({
@@ -154,7 +151,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
         this.ShowConversation();
       },
       error: () => {
-        MyTools.ShowExpiredSessionMessage(this.router)
+        MyTools.ShowExpiredSessionMessage(this.router);
       },
     });
 

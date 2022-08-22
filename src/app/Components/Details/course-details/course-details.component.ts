@@ -1,6 +1,6 @@
 import { Group } from './../../../models/Group';
-import { HttpGroupsService } from './../../../services/http Groups/http-groups.service';
-import { HttpCoursesService } from 'src/app/services/Http Courses/http-courses.service';
+import { HttpGroupsService } from '../../../services/http-groups.service';
+import { HttpCoursesService } from 'src/app/services/http-courses.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Course } from 'src/app/models/Course';

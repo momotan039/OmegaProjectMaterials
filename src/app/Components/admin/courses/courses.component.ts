@@ -7,7 +7,7 @@ import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { MyTools } from "src/app/constants/MyTools";
 import { Course } from "src/app/models/Course";
-import { HttpCoursesService } from "src/app/services/Http Courses/http-courses.service";
+import { HttpCoursesService } from "src/app/services/http-courses.service";
 import { AddCourseComponent } from "../../dilogs/add-course/add-course.component";
 import { DeleteUserComponent } from "../../dilogs/delete-user/delete-user.component";
 import { EditCourseComponent } from "../../dilogs/edit-course/edit-course.component";

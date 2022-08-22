@@ -3,8 +3,8 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MyTools } from 'src/app/constants/MyTools';
 import { Group } from 'src/app/models/Group';
-import { HttpCoursesService } from 'src/app/services/Http Courses/http-courses.service';
-import { HttpGroupsService } from 'src/app/services/http Groups/http-groups.service';
+import { HttpCoursesService } from 'src/app/services/http-courses.service';
+import { HttpGroupsService } from 'src/app/services/http-groups.service';
 import { GroupsComponent } from '../../admin/groups/groups.component';
 import { MessageDialogComponent } from '../message-dialog/message-dialog.component';
 
@@ -47,7 +47,7 @@ export class EditGroupComponent implements OnInit {
         this.dialogRef.close(true);
       },
       (err) => {
-       MyTools.ShowFialdMessage(err)
+       MyTools.ShowFialdMessage(err,"Save Group")
       }
     );
   }

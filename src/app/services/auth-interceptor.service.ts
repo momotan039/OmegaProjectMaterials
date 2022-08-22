@@ -30,8 +30,8 @@ export class AuthInterceptorService implements HttpInterceptor {
           MyTools.Dialog.closeAll()
           MyTools.ShowExpiredSessionMessage(this.router)
           }
-          else if(error.status==400 || error.status==400)
-          MyTools.ShowFialdMessage(error)
+          // else if(error.status==400 || error.status==400)
+          // MyTools.ShowFialdMessage(error,"")
 
           return EMPTY;
         })

@@ -1,3 +1,5 @@
+import { TestComponent } from './test/test.component';
+import { ResetPasswordDialogComponent } from './Components/Account/reset-password-dialog/reset-password-dialog.component';
 import { TestsComponent } from './Components/tests/tests.component';
 import { GradesComponent } from './Components/grades/grades.component';
 import { HomeworkDetailsComponent } from './Components/Details/homework-details/homework-details.component';
@@ -17,6 +19,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuardService } from './services/auth-guard.service';
 import { CoursesComponent } from './Components/admin/courses/courses.component';
+import { ConfirmRegistrationComponent } from './Components/Account/confirm-registration/confirm-registration.component';
 
 const routes: Routes = [
   {
@@ -69,6 +72,20 @@ const routes: Routes = [
     path: 'tests',
     canActivate: [AuthGuardService],
   },
+  {
+    component: ConfirmRegistrationComponent,
+    path: 'ConfirmRegistration/:id',
+  },
+
+  {
+    component: ResetPasswordDialogComponent,
+    path: 'ResetPassword',
+  },
+  {
+    component: TestComponent,
+    path: 'test',
+  },
+
   {
     component: UserDetailsComponent,
     path: 'userDetails/:id',

@@ -1,5 +1,5 @@
 .flex{
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   width: 500px;
 }
@@ -15,3 +15,9 @@
 .header{
   text-align: center;
 }
+
+.forget_password{
+  margin-top: 10px;
+  }
+
+

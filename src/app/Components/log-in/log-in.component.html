@@ -1,5 +1,5 @@
+<form [formGroup]="fg">
 <div  class="mainContainer">
-  <form [formGroup]="fg">
     <div  class="flex">
       <h1 class="header">LogIn</h1>
       <mat-form-field color="primary" class="example-full-width" appearance="fill">
@@ -10,13 +10,19 @@
         </mat-form-field>
         <mat-form-field color="primary" class="example-full-width" appearance="fill">
         <mat-label>Password</mat-label>
-        <input formControlName="password"  matInput placeholder="Enter your password" value="" type="password" >
+        <input #ref2 formControlName="password"  matInput placeholder="Enter your password" type="password" >
+        <span matSuffix><button mat-icon-button (click)="ShowPass(ref2)">
+          <mat-icon>visibility</mat-icon>
+        </button></span>
         <mat-error *ngIf="fg.get('password')!.errors?.['required']">
           Please Fill this Field</mat-error>
       </mat-form-field>
         <button mat-raised-button color="primary" (click)="LogIn()">Submit</button>
+        <div class="forget_password">
+          <button (click)="ForgetPassWord()" color="accent"  mat-raised-button>Forgot your password?</button>
+        </div>
     </div>
-  </form>
 </div>
+</form>
 
 

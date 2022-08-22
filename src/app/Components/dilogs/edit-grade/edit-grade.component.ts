@@ -1,4 +1,4 @@
-import { HttpUsersService } from 'src/app/services/httpUsers/http-users.service';
+import { HttpUsersService } from 'src/app/services/http-users.service';
 import { Test } from './../../../models/Test';
 import { HttpTestsService } from './../../../services/HttpTests.service';
 import { Router } from '@angular/router';
@@ -9,7 +9,7 @@ import { MyTools } from 'src/app/constants/MyTools';
 import { Grade } from 'src/app/models/Grade';
 import { Group } from 'src/app/models/Group';
 import { User } from 'src/app/models/User';
-import { HttpGroupsService } from 'src/app/services/http Groups/http-groups.service';
+import { HttpGroupsService } from 'src/app/services/http-groups.service';
 import { HttpGradesService } from 'src/app/services/http-grades.service';
 import { GradesComponent } from '../../grades/grades.component';
 import { MessageDialogComponent } from '../message-dialog/message-dialog.component';

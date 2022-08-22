@@ -1,4 +1,4 @@
-import { HttpCoursesService } from '../../../services/Http Courses/http-courses.service';
+import { HttpCoursesService } from '../../../services/http-courses.service';
 import { Course } from '../../../models/Course';
 import { MyTools } from 'src/app/constants/MyTools';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
@@ -8,7 +8,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Group } from 'src/app/models/Group';
 import { UserGroup } from 'src/app/models/UsersGroups';
-import { HttpGroupsService } from 'src/app/services/http Groups/http-groups.service';
+import { HttpGroupsService } from 'src/app/services/http-groups.service';
 import { EditGroupComponent } from '../../dilogs/edit-group/edit-group.component';
 import { DeleteUserComponent } from '../../dilogs/delete-user/delete-user.component';
 import { MessageDialogComponent } from '../../dilogs/message-dialog/message-dialog.component';

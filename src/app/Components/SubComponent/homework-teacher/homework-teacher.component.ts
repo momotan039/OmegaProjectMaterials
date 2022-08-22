@@ -6,7 +6,7 @@ import { Group } from 'src/app/models/Group';
 import { HomeWork } from 'src/app/models/HomeWork';
 import { AuthService } from 'src/app/services/auth.service';
 import { HomeWorkService } from 'src/app/services/HomeWork.service';
-import { HttpGroupsService } from 'src/app/services/http Groups/http-groups.service';
+import { HttpGroupsService } from 'src/app/services/http-groups.service';
 import { MessageDialogComponent } from '../../dilogs/message-dialog/message-dialog.component';
 
 @Component({
@@ -68,7 +68,7 @@ export class HomeworkTeacherComponent implements OnInit {
        })
 
      },(error)=>{
-      MyTools.ShowFialdMessage(error)
+      MyTools.ShowFialdMessage(error,"Adding Home Work")
    })
 
   }}

@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { HttpCoursesService } from 'src/app/services/Http Courses/http-courses.service';
+import { HttpCoursesService } from 'src/app/services/http-courses.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';

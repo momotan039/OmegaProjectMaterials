@@ -1,4 +1,4 @@
-import { HttpCoursesService } from 'src/app/services/Http Courses/http-courses.service';
+import { HttpCoursesService } from 'src/app/services/http-courses.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Component, Inject, OnInit } from '@angular/core';

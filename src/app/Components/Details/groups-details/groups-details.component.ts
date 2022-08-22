@@ -1,6 +1,6 @@
-import { HttpGroupsService } from 'src/app/services/http Groups/http-groups.service';
+import { HttpGroupsService } from 'src/app/services/http-groups.service';
 import { DeleteUserComponent } from './../../dilogs/delete-user/delete-user.component';
-import { HttpUsersService } from 'src/app/services/httpUsers/http-users.service';
+import { HttpUsersService } from 'src/app/services/http-users.service';
 import { HttpUserGroupService } from './../../../services/http-user-group.service';
 import { MyTools } from './../../../constants/MyTools';
 import { Group } from './../../../models/Group';

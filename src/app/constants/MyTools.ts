@@ -8,13 +8,12 @@ export class MyTools {
   static Dialog:MatDialog
   static currentUser=new User()
   static router:Router
+  static UrlRootApi="https://localhost:44327/api"
+  static passwordValidationRegex="^[A-Z](?=.*\d)(?=.*[a-z]).{7,}$"
   constructor(
-    public router:Router
   ){
 
   }
-
-
 
   FilterDataTable(input:any,dataSource:any){
     let val=input.value+"";
@@ -37,10 +36,10 @@ export class MyTools {
   router.navigate(["/login"])
 }
 
-static ShowFialdMessage(error:any){
+static ShowFialdMessage(error:any,title:string){
   MyTools.Dialog.open(MessageDialogComponent,{
     data:{
-      "title":"Faild Process",
+      "title":"Faild "+title,
       "content":`${error.error}`,
       "icon":"error"
     }

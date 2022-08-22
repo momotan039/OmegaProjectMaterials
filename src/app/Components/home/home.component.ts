@@ -1,6 +1,6 @@
 import { User } from './../../models/User';
 import { interval, Observable, Subscription, BehaviorSubject } from 'rxjs';
-import { HttpUsersService } from './../../services/httpUsers/http-users.service';
+import { HttpUsersService } from '../../services/http-users.service';
 import { AuthService } from './../../services/auth.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 

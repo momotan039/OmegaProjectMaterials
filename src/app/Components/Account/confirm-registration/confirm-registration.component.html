@@ -1,0 +1,51 @@
+<div class="dark_layer"></div>
+
+  <form [formGroup]="fg">
+    <div class="center flex">
+    <mat-card class="flex">
+      <h1 class="title">Set New Passowrd</h1>
+        <mat-card-content>
+            <mat-form-field class="m-1" appearance="fill">
+              <mat-label>Password</mat-label>
+              <input #refInput type="password" formControlName="password"  matInput>
+              <span matSuffix><button mat-icon-button (click)="ShowPass(refInput)">
+                  <mat-icon >visibility</mat-icon>
+              </button></span>
+
+              <mat-error *ngIf=" fg.get('password')!.hasError('required')">
+                Please Fill this Field</mat-error>
+
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Confirm Password</mat-label>
+              <input #refInput2 type="password" formControlName="confPassword" matInput>
+              <span matSuffix><button mat-icon-button (click)="ShowPass(refInput2)">
+                <mat-icon >visibility</mat-icon>
+            </button></span>
+
+              <mat-error *ngIf="fg.get('confPassword')!.hasError('required')">
+                Please Fill this Field</mat-error>
+
+            </mat-form-field>
+
+        </mat-card-content>
+        <mat-card-actions >
+          <button (click)="Confirm()"  color="primary" mat-raised-button>Confirm Registration</button>
+          <h2 *ngIf="fg.get('confPassword')!.value!=fg.get('password')!.value" class="errorMessage">Not Match Password</h2>
+
+          <mat-error style="margin-top:5px" *ngIf="fg.get('password')!.errors?.['pattern']">
+            - The first letter must be uppercase
+            <br>
+            - At least 8 characters
+            <br>
+            - Must contain at least , 1 lowercase letter, and 1 number
+            <br>
+            - Can contain special characters
+          </mat-error>
+
+        </mat-card-actions>
+    </mat-card>
+</div>
+</form>
+

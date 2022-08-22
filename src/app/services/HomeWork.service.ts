@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HomeWork } from './../models/HomeWork';
 import { HttpClient, HttpParams, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MyTools } from '../constants/MyTools';
 
 @Injectable({
   providedIn: 'root'
@@ -15,24 +16,24 @@ constructor(
 
 
  SendHomeWork(homeWork:FormData){
-   return this.http.post("https://localhost:44327/api/HomeWork/SendHomeWork",homeWork,{withCredentials:false})
+   return this.http.post(MyTools.UrlRootApi+"/HomeWork/SendHomeWork",homeWork,{withCredentials:false})
 }
 
  GetHomeWorks(id=-1):Observable<HomeWork|HomeWork[]>{
   if(id==-1)
-  return  this.http.get<HomeWork[]>("https://localhost:44327/api/HomeWork/GetHomeWork")
-  return  this.http.get<HomeWork>("https://localhost:44327/api/HomeWork/GetHomeWork/"+id)
+  return  this.http.get<HomeWork[]>(MyTools.UrlRootApi+"/HomeWork/GetHomeWork")
+  return  this.http.get<HomeWork>(MyTools.UrlRootApi+"/HomeWork/GetHomeWork/"+id)
 }
 GetHomeWorkByTeacherId(id:number){
-return this.http.get<HomeWork[]>("https://localhost:44327/api/HomeWork/GetHomeWorkByTeacherId/"+id)
+return this.http.get<HomeWork[]>(MyTools.UrlRootApi+"/HomeWork/GetHomeWorkByTeacherId/"+id)
 }
 GetHomeWorkByStudentId(id:number){
-  return this.http.get<HomeWork[]>("https://localhost:44327/api/HomeWork/GetHomeWorkByStudentId/"+id)
+  return this.http.get<HomeWork[]>(MyTools.UrlRootApi+"/HomeWork/GetHomeWorkByStudentId/"+id)
   }
 
 
   DownloadHomeWorkFile(hwf:HomeWorkFile){
-    return this.http.get("https://localhost:44327/api/HomeWork/DownloadHomeWorkFile",{
+    return this.http.get(MyTools.UrlRootApi+"/HomeWork/DownloadHomeWorkFile",{
       params:{
         "name":hwf.name,
         "groupId":hwf.groupId,

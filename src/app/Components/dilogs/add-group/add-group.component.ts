@@ -4,8 +4,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MyTools } from 'src/app/constants/MyTools';
 import { MessageDialogComponent } from '../message-dialog/message-dialog.component';
 import { formatDate } from '@angular/common';
-import { HttpGroupsService } from 'src/app/services/http Groups/http-groups.service';
-import { HttpCoursesService } from 'src/app/services/Http Courses/http-courses.service';
+import { HttpGroupsService } from 'src/app/services/http-groups.service';
+import { HttpCoursesService } from 'src/app/services/http-courses.service';
 import { GroupsComponent } from '../../admin/groups/groups.component';
 import { Router } from '@angular/router';
 

@@ -1,3 +1,4 @@
+import { ForgetPasswordDialogComponent } from './../Account/forget-password-dialog/forget-password-dialog.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MyTools } from './../../constants/MyTools';
 import { MyLocalStorage } from './../../services/MyLocalStorage';
@@ -43,7 +44,21 @@ this.fg=this.fb.group({
       this.auth.LoadUserByToken()
       this.router.navigate(["/home"]);
     },err=>{
-      MyTools.ShowFialdMessage(err)
+      MyTools.ShowFialdMessage(err,"LogIn")
     })
+  }
+
+  ForgetPassWord(){
+    MyTools.Dialog.open(ForgetPasswordDialogComponent)
+  }
+
+
+  ShowPass(input:HTMLInputElement){
+    let type=input.type
+    if(type=="text")
+      type="password"
+      else
+      type="text"
+    input.type=type
   }
 }

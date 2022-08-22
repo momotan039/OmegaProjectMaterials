@@ -4,7 +4,7 @@ import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatSelect } from '@angular/material/select';
 import { Group } from 'src/app/models/Group';
 import { MessageDialogComponent } from '../message-dialog/message-dialog.component';
-import { HttpUsersService } from 'src/app/services/httpUsers/http-users.service';
+import { HttpUsersService } from 'src/app/services/http-users.service';
 import { HttpUserGroupService } from 'src/app/services/http-user-group.service';
 import { GroupsDetailsComponent } from '../../Details/groups-details/groups-details.component';
 import { User } from 'src/app/models/User';
