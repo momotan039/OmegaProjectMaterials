@@ -8,9 +8,16 @@ import { MyTools } from '../constants/MyTools';
 })
 export class HttpTestsService {
 
+
+
 constructor(
   private httpClient:HttpClient
 ) { }
+
+GetTestById(id: number) {
+  return this.httpClient.get<Test>(MyTools.UrlRootApi+"/Tests/GetTestById/"+id)
+}
+
 
 GetTests(){
   return this.httpClient.get<Test[]>(MyTools.UrlRootApi+"/Tests/GetTests")

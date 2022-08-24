@@ -56,7 +56,9 @@ export class AddUserToGroupComponent implements OnInit {
    this.httpUserGroup.AddUsersToGroup(temp).subscribe((data) =>{
     MyTools.ShowResult200Message(data)
      this.dialogRef.close(true)
-   });
+   },(err)=>{
+    MyTools.ShowFialdMessage(err,"Adding User to Group")
+    });
 
   }
 }

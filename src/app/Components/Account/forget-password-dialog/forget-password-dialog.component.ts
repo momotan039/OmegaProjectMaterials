@@ -34,7 +34,7 @@ export class ForgetPasswordDialogComponent implements OnInit {
 
   }
   ForgetPassword(){
-
+    this.httpAcountService.ResetPassword
   }
 
 }

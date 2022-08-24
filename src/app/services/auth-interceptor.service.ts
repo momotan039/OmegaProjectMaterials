@@ -3,7 +3,7 @@ import { MyTools } from 'src/app/constants/MyTools';
 import { MyLocalStorage } from './MyLocalStorage';
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, EMPTY, map, Observable, switchMap } from 'rxjs';
+import { catchError, EMPTY, map, Observable, switchMap, observable, ObservableInput, empty, of, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +17,7 @@ export class AuthInterceptorService implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token =MyLocalStorage.GetToken();
     if(token){
+
       const cloned=req.clone({
         headers:req.headers.set("Authorization",token)
       })
@@ -24,16 +25,24 @@ export class AuthInterceptorService implements HttpInterceptor {
       return next.handle(cloned)
       .pipe(
         catchError((error:HttpResponse<any>) => {
+
           //token expired or invalid
           if(error.status==0 || error.status==401)
           {
           MyTools.Dialog.closeAll()
           MyTools.ShowExpiredSessionMessage(this.router)
           }
+
+          // else if(error.status==404)
+          // {
+          // MyTools.ShowFialdMessage(error,"Log In")
+          // }
+
           // else if(error.status==400 || error.status==400)
           // MyTools.ShowFialdMessage(error,"")
 
-          return EMPTY;
+          //send this error to function that sending this request
+         return throwError(()=>error)
         })
       )
     }
@@ -41,7 +50,5 @@ export class AuthInterceptorService implements HttpInterceptor {
     return next.handle(req)
   }
 }
-function err(err: any): unknown {
-  throw new Error('Function not implemented.');
-}
+
 

@@ -42,6 +42,8 @@ export class AddGroupComponent implements OnInit {
   this.httpGroups.PostGroups(this.AddGroupForm.value).subscribe(data=>{
     MyTools.ShowResult200Message(data)
     this.dialogRef.close(true);
-  })
+  },(err)=>{
+    MyTools.ShowFialdMessage(err,"Adding Group")
+    })
   }
 }

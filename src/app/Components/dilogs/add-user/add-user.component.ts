@@ -40,7 +40,9 @@ SaveUser(){
   this.httpUsers.PostUser(this.fg.value).subscribe(data=>{
     MyTools.ShowResult200Message(data)
     this.dialogRef.close();
-  })
+  },(err)=>{
+    MyTools.ShowFialdMessage(err,"Adding User")
+    })
 }
 
 }

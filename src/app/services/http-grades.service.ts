@@ -11,9 +11,15 @@ export class HttpGradesService {
   constructor(
     private http:HttpClient
   ) { }
+
+  GetGradesByTest(id:number){
+  return this.http.get<any>(MyTools.UrlRootApi+"/Grades/GetGradesByTest/"+id);
+ }
+
  GetGrades(){
   return this.http.get<any>(MyTools.UrlRootApi+"/Grades/GetGrades");
  }
+
  PostGrades(g:Grade){
   return this.http.post(MyTools.UrlRootApi+"/Grades/SendGrade",g,{
     responseType:"text"

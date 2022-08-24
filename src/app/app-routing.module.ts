@@ -1,3 +1,4 @@
+import { TestDetailsComponent } from './Components/Details/test-details/test-details.component';
 import { TestComponent } from './test/test.component';
 import { ResetPasswordDialogComponent } from './Components/Account/reset-password-dialog/reset-password-dialog.component';
 import { TestsComponent } from './Components/tests/tests.component';
@@ -104,6 +105,11 @@ const routes: Routes = [
   {
     component: HomeworkDetailsComponent,
     path: 'HomeWorkDetails/:id',
+    canActivate: [AuthGuardService],
+  },
+  {
+    component: TestDetailsComponent,
+    path: 'testDetails/:id',
     canActivate: [AuthGuardService],
   },
   { component: LogInComponent, path: 'login' },

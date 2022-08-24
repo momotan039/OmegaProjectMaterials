@@ -1,3 +1,4 @@
+import { catchError, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpCoursesService } from 'src/app/services/http-courses.service';
 import { Component, OnInit } from '@angular/core';
@@ -30,9 +31,12 @@ export class AddCourseComponent implements OnInit {
   SaveGroup(){
     if(!this.AddCourseForm.valid)
 return;
-this.httpCourse.PostCourse(this.AddCourseForm.value).subscribe(data=>{
+this.httpCourse.PostCourse(this.AddCourseForm.value).
+subscribe(data=>{
   MyTools.ShowResult200Message(data)
   this.dialogRef.close(true);
+},(err)=>{
+MyTools.ShowFialdMessage(err,"Adding Course")
 })
 }
 }

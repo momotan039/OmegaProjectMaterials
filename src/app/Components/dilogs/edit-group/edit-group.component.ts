@@ -40,7 +40,6 @@ export class EditGroupComponent implements OnInit {
 
   SaveGroup() {
     if (!this.EditGroupForm.valid) return;
-    debugger
     this.httpGroups.EditingGroups(this.EditGroupForm.value).subscribe(
       (data) => {
        MyTools.ShowResult200Message(data)

@@ -55,7 +55,9 @@ export class HomeworkDetailsComponent implements OnInit {
       this.homeWork.group?.id!,
       this.homeWork.teacher?.id!
       )
+
       this.homeWorkService.DownloadHomeWorkFile(hwf)
+
       .subscribe(data => {
           const blob = new Blob([data as BlobPart]);
           const url= window.URL.createObjectURL(blob);
@@ -66,6 +68,7 @@ export class HomeworkDetailsComponent implements OnInit {
           link.href=url
           link.download=hwf.name
           link.click()
+
       },(error)=>{
        MyTools.Dialog.open(MessageDialogComponent
         ,{

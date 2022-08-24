@@ -31,8 +31,8 @@ export class AuthService {
  LoadUserByToken(){
    let token=MyLocalStorage.GetToken()!
      this.http.get<User>(MyTools.UrlRootApi+"/Authentication/GetUserByToken").subscribe(u=>{
-      this.currentUser=u
-      this.currentUserSub.next(u)
+     this.currentUser=u
+     this.currentUserSub.next(u)
     })
  }
 

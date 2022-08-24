@@ -45,6 +45,7 @@ import { ConfirmRegistrationComponent } from './Components/Account/confirm-regis
 import { ForgetPasswordDialogComponent } from './Components/Account/forget-password-dialog/forget-password-dialog.component';
 import { ResetPasswordDialogComponent } from './Components/Account/reset-password-dialog/reset-password-dialog.component';
 import { TestComponent } from './test/test.component';
+import { TestDetailsComponent } from './Components/Details/test-details/test-details.component';
 
 @NgModule({
   declarations: [
@@ -90,6 +91,7 @@ import { TestComponent } from './test/test.component';
     ForgetPasswordDialogComponent,
     ResetPasswordDialogComponent,
     TestComponent,
+    TestDetailsComponent,
   ],
   imports: [
     BrowserModule,

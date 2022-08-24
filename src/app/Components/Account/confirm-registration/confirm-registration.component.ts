@@ -52,6 +52,7 @@ export class ConfirmRegistrationComponent implements OnInit {
         }
       });
   }
+
   Confirm() {
     if (this.fg.valid) {
 

@@ -35,6 +35,8 @@ return;
 this.httpTestsService.EditTest(this.fg.value).subscribe(data=>{
   MyTools.ShowResult200Message(data)
   this.dialogRef.close(true);
-})
+},(err)=>{
+  MyTools.ShowFialdMessage(err,"Editing Test")
+  })
 }
 }

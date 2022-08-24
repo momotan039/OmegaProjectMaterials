@@ -59,7 +59,7 @@ DeleteRow=()=>{
   })
 }
 AddRow=()=>{
-  debugger
+
   MyTools.Dialog.open(AddCourseComponent,{
     disableClose:true
    })

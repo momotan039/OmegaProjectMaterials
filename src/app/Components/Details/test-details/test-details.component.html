@@ -1,0 +1,14 @@
+<app-my-table *ngIf="test" #refTable
+
+[displayedColumns]="['student.idCard','group.name','sumGrade']"
+
+[displayedNameColumns]="['Student Id Card','Group\'s Name','Grade']"
+
+[getDataTable]="httpGradesService.GetGradesByTest(test.id)"
+
+[title]="test.name"
+
+[enableAddRow]="false"
+>
+
+</app-my-table>

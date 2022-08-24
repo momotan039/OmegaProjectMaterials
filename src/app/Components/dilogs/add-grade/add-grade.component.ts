@@ -55,11 +55,12 @@ export class AddGradeComponent implements OnInit {
     grade.sumGrade=this.fg.get('sumGrade')?.value;
     grade.testId=this.fg.get('testId')?.value;
     grade.note=this.fg.get('note')?.value;
-    this.httpGradesService.PostGrades(grade).pipe(
-    )
+    this.httpGradesService.PostGrades(grade)
     .subscribe((response: any) => {
       MyTools.ShowResult200Message(response)
       this.dialogRef.close(true);
+      },(error)=>{
+        MyTools.ShowFialdMessage(error,"Adding Grade");
       })
   }
 

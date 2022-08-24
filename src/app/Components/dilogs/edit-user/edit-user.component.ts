@@ -52,7 +52,9 @@ export class EditUserComponent implements OnInit {
       MyTools.ShowResult200Message(data)
 
       this.dialogRef.close();
-    })
+    },(err)=>{
+      MyTools.ShowFialdMessage(err,"Editing User")
+      })
 
   }
   ChangedInputs() {
