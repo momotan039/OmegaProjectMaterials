@@ -1,4 +1,5 @@
-import { MatDialog } from "@angular/material/dialog";
+import { MyLocalStorage } from './../services/MyLocalStorage';
+import { MatDialog, MatDialogContainer, _MatDialogBase } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { MessageDialogComponent } from "../Components/dilogs/message-dialog/message-dialog.component";
 import { User } from "../models/User";
@@ -25,7 +26,7 @@ export class MyTools {
 }
 
 
-  static ShowExpiredSessionMessage(router:Router){
+  static ShowExpiredSessionMessage(){
   MyTools.Dialog.open(MessageDialogComponent,{
     data:{
       "title":"Session Expired",
@@ -33,7 +34,7 @@ export class MyTools {
       "icon":"alarm"
     }
   })
-  router.navigate(["/login"])
+  MyTools.router.navigate(["/login"])
 }
 
 static ShowFialdMessage(error:any,title:string){
@@ -56,3 +57,4 @@ static ShowResult200Message(content:any){
   })
 }
 }
+

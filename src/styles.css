@@ -4,7 +4,9 @@
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
+a{
+  text-decoration: none !important;
+}
 table,.input-full-width{
   width: 100%;
 }
@@ -31,3 +33,23 @@ table,.input-full-width{
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+
+
+/* Start Title Style */
+.title{
+  background: #ff6d00;
+  padding: 20px 5px;
+  font-weight: bold !important;
+  color: white;
+  border-radius: 5px;
+  text-align: center;
+}
+
+@media (max-width:768px) {
+  .title{
+    margin: 15px !important;
+  }
+}
+
+/* End Title Style */

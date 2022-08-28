@@ -16,7 +16,9 @@ constructor(
 
 
  SendHomeWork(homeWork:FormData){
-   return this.http.post(MyTools.UrlRootApi+"/HomeWork/SendHomeWork",homeWork,{withCredentials:false})
+   return this.http.post(MyTools.UrlRootApi+"/HomeWork/SendHomeWork",
+   homeWork,
+   {withCredentials:false,responseType:"text"})
 }
 
  GetHomeWorks(id=-1):Observable<HomeWork|HomeWork[]>{

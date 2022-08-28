@@ -14,6 +14,7 @@ import { MatNativeDateModule} from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatCardModule} from '@angular/material/card';
 import {MatListModule} from '@angular/material/list';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { NgxMatSelectSearchModule } from "ngx-mat-select-search";
 
 const materials=[
@@ -32,6 +33,7 @@ const materials=[
   MatDatepickerModule,
   MatCardModule,
   MatListModule,
+  MatProgressBarModule,
   NgxMatSelectSearchModule
 ]
 @NgModule({

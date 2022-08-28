@@ -83,4 +83,12 @@ export class GroupsDetailsComponent implements OnInit {
   }
 
 
+  FilterPredicateParent=(data: any, filter: string)=>{
+    return data.role.description.toLowerCase().includes(filter) ||
+          data.firstName.toLowerCase().includes(filter)||
+          data.lastName.toLowerCase().includes(filter)||
+          data.email.toLowerCase().includes(filter)||
+          data.phone.toLowerCase().includes(filter)||
+          data.idCard.toLowerCase().includes(filter)
+}
 }

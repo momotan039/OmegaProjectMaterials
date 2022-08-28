@@ -57,4 +57,15 @@ export class TestsComponent implements OnInit {
         this.myTable?.FillTableData();
     })
   }
+
+  FilterPredicateParent=(data: any, filter: string)=>{
+    return data.name.includes(filter) ||
+          data.date.includes(filter)
+  }
+  sortingDataAccessorParent=(item: any,property: any)=>{
+    switch (property) {
+      case 'Name': return item.name;
+      default: return item[property];
+    }
+  }
 }

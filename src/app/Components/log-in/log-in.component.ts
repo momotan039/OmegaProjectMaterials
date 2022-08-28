@@ -36,7 +36,7 @@ this.fg=this.fb.group({
     // this.auth.Login()
     if(!this.fg.valid)
     return
-    this.user.email=this.fg.get("email")?.value
+    this.user.email=this.fg.get("email")?.value.trim()
     this.user.password=this.fg.get("password")?.value
 
     this.auth.Login(this.user).subscribe(token=>{

@@ -36,6 +36,8 @@ return;
 this.httpCourse.EditingCourse(this.EditCourseForm.value).subscribe(data=>{
   MyTools.ShowResult200Message(data)
   this.dialogRef.close(true);
-})
+},(err)=>{
+  MyTools.ShowFialdMessage(err,"Editing Course")
+  })
 }
 }

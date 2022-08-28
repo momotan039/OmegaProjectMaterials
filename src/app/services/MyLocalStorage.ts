@@ -10,8 +10,10 @@ export class MyLocalStorage {
   static RemoveToken(){
     localStorage.removeItem("token");
   }
-  static IsExpiredToken(){
-    let token=MyLocalStorage.GetToken()?.replace("Bearer","")
+  static IsExpiredToken(token=""){
+    if(token=="")
+    token=MyLocalStorage.GetToken()?.replace("Bearer","")!
+
     const helper = new JwtHelperService();
     return helper.isTokenExpired(token)
   }

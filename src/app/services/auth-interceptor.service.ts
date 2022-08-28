@@ -1,3 +1,4 @@
+import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
 import { MyTools } from 'src/app/constants/MyTools';
 import { MyLocalStorage } from './MyLocalStorage';
@@ -11,7 +12,8 @@ import { catchError, EMPTY, map, Observable, switchMap, observable, ObservableIn
 export class AuthInterceptorService implements HttpInterceptor {
 
   constructor(
-    private router:Router
+    private router:Router,
+    private authService:AuthService
   ) { }
   //make any request header contain current token
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -30,7 +32,8 @@ export class AuthInterceptorService implements HttpInterceptor {
           if(error.status==0 || error.status==401)
           {
           MyTools.Dialog.closeAll()
-          MyTools.ShowExpiredSessionMessage(this.router)
+          this.authService.LogOut()
+          MyTools.ShowExpiredSessionMessage()
           }
 
           // else if(error.status==404)

@@ -19,8 +19,10 @@ currentUser=new User()
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot){
     if(this.authService.IsLogIn())
        {
+        //cheak current token
          if(MyLocalStorage.IsExpiredToken()){
-           MyTools.ShowExpiredSessionMessage(this.router)
+           MyTools.ShowExpiredSessionMessage()
+           this.authService.LogOut();
            return false
          }
         return true;

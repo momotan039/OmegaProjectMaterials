@@ -1,6 +1,6 @@
 import { MatSort } from '@angular/material/sort';
 import { BehaviorSubject, filter, Observable, Subscription } from 'rxjs';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { Data } from '@angular/router';
@@ -12,7 +12,7 @@ import { Test } from 'src/app/models/Test';
   styleUrls: ['./my-table.component.css']
 })
 export class MyTableComponent implements OnInit {
-  @ViewChild("refpag") paginator:MatPaginator | undefined;
+ @ViewChild("refpag") paginator:MatPaginator | undefined;
   @ViewChild(MatSort) sort: MatSort | undefined;
   constructor() {
   }
@@ -22,6 +22,8 @@ export class MyTableComponent implements OnInit {
   @Input() AddRowParent:(() => void) | undefined
   @Input() EditRowParent:(() => void) | undefined
   @Input() DeleteRowParent:(() => void) | undefined
+  @Input() FilterPredicateParent:((data: any, filter: string) => any) | undefined
+  @Input() sortingDataAccessorParent:((item:any, property:any) => any) | undefined
   @Input() operations:boolean[]=[]
   @Input() detailsComonentUrl=""
   @Input() title=""
@@ -73,15 +75,39 @@ this.getDataTable!.subscribe((data: any)=>{
   this.dataSource.paginator=this.paginator
  this.dataSource.sort=this.sort
 
+//search by current object properties
  this.dataSource.filterPredicate = (data: any, filter: string) => {
-  return  data.student.idCard.includes(filter) ||
-          data.group.name.includes(filter)||
-          data.sumGrade.toString().includes(filter);
+   return this.FilterPredicateParent?.(data,filter) ;
 }
+
+this.dataSource.sortingDataAccessor = (item:any, property:any) => {
+
+
+  var _item=item
+
+  for(let i=0;i<this.displayedNameColumns.length;i++){
+     //get path prop
+      //student.idCard
+
+    if(property==this.displayedNameColumns[i])
+    {
+      this.displayedColumns[i].split('.').forEach(_prop=>{
+        _item=_item[_prop]
+      })
+      console.warn(_item)
+     return _item
+    }
+  }
+
+  return item.test.name
+};
 
 })
-
 }
+
+
+
+
 }
 
 

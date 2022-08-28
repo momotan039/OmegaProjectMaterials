@@ -1,6 +1,7 @@
 <div  class="container">
+  <h1 class="title">{{role.description}}s</h1>
   <div style="text-align: center;">
-    <button mat-raised-button (click)="AddUser()" color="accent"><mat-icon class="mat-18">add</mat-icon>Add New User</button>
+    <button class="btn_add_row_table" mat-raised-button (click)="AddUser()" color="accent"><mat-icon class="mat-18">add</mat-icon>Add New User</button>
   </div>
   <mat-form-field  class="input-full-width" appearance="fill">
     <mat-label>Search for...</mat-label>
@@ -51,7 +52,7 @@
         <button (click)="DeleteUser(element.id)"  mat-fab color="accent" >
           <mat-icon>delete</mat-icon>
         </button>
-        <a *ngIf="roleBy!=1" mat-button routerLink="/userDetails/{{element.id}}"  mat-fab color="accent" >
+        <a *ngIf="roleBy!=1" mat-button routerLink="/userDetails/{{element.id}}"  mat-fab color="primary" >
           <mat-icon>visibility</mat-icon>
         </a>
       </td>

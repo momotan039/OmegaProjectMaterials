@@ -80,7 +80,7 @@ const routes: Routes = [
 
   {
     component: ResetPasswordDialogComponent,
-    path: 'ResetPassword',
+    path: 'ResetPassword/:token',
   },
   {
     component: TestComponent,

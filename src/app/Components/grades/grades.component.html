@@ -1,10 +1,11 @@
 <app-my-table #refTable
-[displayedColumns]="['test.name','sumGrade','student.idCard','group.name','note']"
-[displayedNameColumns]="['Test','Grade','Id Card Student','Group','Note','Operations']"
+[displayedColumns]="displayedColumns"
+[displayedNameColumns]="displayedNameColumns"
 [getDataTable]="httpGradesService.GetGrades()"
 [AddRowParent]="AddRow"
 [DeleteRowParent]="DeleteRow"
 [EditRowParent]="EditRow"
+[FilterPredicateParent]="FilterPredicateParent"
 [operations]="[true,true,false]"
 [title]="'Grade'"
 >

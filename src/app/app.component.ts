@@ -1,7 +1,8 @@
+import { MyLocalStorage } from './services/MyLocalStorage';
 import { Route, Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
 import { MyTools } from './constants/MyTools';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -13,12 +14,15 @@ export class AppComponent {
   title = 'app';
 
   constructor(
-     dialog:MatDialog,
-    auth:AuthService,
-      router:Router
+    private dialog:MatDialog,
+    private auth:AuthService,
+    private router:Router
     ){
-    MyTools.Dialog=dialog
     MyTools.router=router
     auth.LoadUserByToken();
+      //Inintialize Dialog object &
+      // handel function after opened Dialogs
+      MyTools.Dialog=dialog
   }
+
 }

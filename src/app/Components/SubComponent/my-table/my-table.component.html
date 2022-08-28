@@ -1,8 +1,8 @@
 
-  <h1 *ngIf="title">{{title}}s</h1>
+  <h1 class="title" *ngIf="title">{{title}}s</h1>
 
   <div *ngIf="enableAddRow" style="text-align: center;margin-bottom: 10px;">
-    <button mat-raised-button (click)="AddRow()" color="accent">
+    <button class="btn_add_row_table" mat-raised-button (click)="AddRow()" color="accent">
       <mat-icon class="mat-18">add</mat-icon>
       Add New {{title}}</button>
       <mat-divider>
@@ -37,7 +37,7 @@
     <button *ngIf="operations[1]" (click)="DeleteRow(element)"  mat-fab color="accent" >
       <mat-icon>delete</mat-icon>
     </button>
-    <a *ngIf="operations[2]" mat-button routerLink="/{{detailsComonentUrl}}/{{element.id}}"  mat-fab color="accent" >
+    <a *ngIf="operations[2]" mat-button routerLink="/{{detailsComonentUrl}}/{{element.id}}"  mat-fab color="primary" >
       <mat-icon>visibility</mat-icon>
     </a>
   </td>

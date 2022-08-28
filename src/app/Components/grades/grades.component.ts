@@ -17,6 +17,9 @@ import { Router } from '@angular/router';
 export class GradesComponent implements OnInit{
   @ViewChild("refTable") myTable: MyTableComponent | undefined;
 
+  displayedColumns=['test.name','sumGrade','student.idCard','group.name','note']
+  displayedNameColumns=['Test','Grade','Id Card Student','Group','Note','Operations']
+
   constructor(
     public httpGradesService:HttpGradesService,
     public router:Router,
@@ -36,7 +39,7 @@ export class GradesComponent implements OnInit{
   }
 
   EditRow=() =>{
-    MyTools.Dialog.open(EditGradeComponent,{
+   MyTools.Dialog.open(EditGradeComponent,{
       data:this.myTable?.selectedRow
     }).afterClosed()
     .subscribe(success=>{
@@ -55,6 +58,18 @@ export class GradesComponent implements OnInit{
         this.myTable?.FillTableData();
       })
     })
+  }
+
+  FilterPredicateParent=(data: any, filter: string)=>{
+    return data.test.name.includes(filter) ||
+          data.student.idCard.includes(filter)||
+          data.group.name.includes(filter)||
+          data.sumGrade.toString().includes(filter)||
+          data.note.includes(filter)
+  }
+
+  sortingDataAccessorParent=(item: any,property: any)=>{
+
   }
 
 }

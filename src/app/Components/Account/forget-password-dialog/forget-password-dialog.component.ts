@@ -3,9 +3,11 @@ import { LogInComponent } from './../../log-in/log-in.component';
 import { Router } from '@angular/router';
 import { HttpAcountService } from './../../../services/http-acount.service';
 import { MyTools } from 'src/app/constants/MyTools';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserAuth } from 'src/app/models/UserAuth';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-forget-password-dialog',
@@ -14,7 +16,7 @@ import { UserAuth } from 'src/app/models/UserAuth';
 })
 export class ForgetPasswordDialogComponent implements OnInit {
   fg=new FormGroup({})
-
+  showprogressBar=false
   constructor(
     private fb:FormBuilder,
     private router:Router,
@@ -25,16 +27,19 @@ export class ForgetPasswordDialogComponent implements OnInit {
   ngOnInit(): void {
     this.fg=this.fb.group({
       email:['',Validators.compose([Validators.required,Validators.email])],
-      password:['',Validators.compose([
-        Validators.required,
-        Validators.pattern(MyTools.passwordValidationRegex)
-      ])],
-      confPassword:['',Validators.compose([Validators.required])],
     })
-
   }
-  ForgetPassword(){
-    this.httpAcountService.ResetPassword
+  ForgetPassword(refButton:MatButton){
+    this.showprogressBar=true
+    refButton.disabled=true
+    this.httpAcountService.ForgetPassword(this.fg.get('email')?.value).subscribe((data)=>{
+      this.matDialog.close()
+      MyTools.ShowResult200Message(data)
+    },(err)=>{
+      MyTools.ShowFialdMessage(err,"Reset Password")
+      refButton.disabled=false
+      this.showprogressBar=false
+    })
   }
 
 }

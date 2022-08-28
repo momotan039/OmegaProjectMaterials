@@ -3,6 +3,10 @@
   display: flex;
   width: 100%;
   flex-direction: row-reverse;
+  color: white;
+}
+.menuItems a{
+  font-weight: bold;
 }
 .menuItems .btnSmallMenu{
 display: none;
@@ -11,13 +15,23 @@ display: none;
 mat-drawer-container{
   position: absolute;
   height: 100%;
-  width: 50%;
+  width: 100%;
   visibility: hidden;
   z-index: 999;
 }
-mat-drawer{
-  width: 100%;
+mat-drawer {
+  width: 250px;
   height: 100%;
+}
+mat-drawer .mat-drawer-backdrop{
+width: 100%;
+}
+::ng-deep mat-drawer .mat-drawer-inner-container{
+  display: flex;
+    flex-direction: column;
+}
+::ng-deep mat-drawer .mat-drawer-inner-container a{
+  text-align: end;
 }
 .example-sidenav-content {
   display: flex;
@@ -30,6 +44,19 @@ mat-drawer{
 
 .justyCenter{
   justify-content: center;
+}
+
+.logo{
+  /* background: white;
+  border-radius: 10px;
+  padding: 0 20px;
+  cursor: pointer; */
+}
+h1.logo{
+  font-family: 'Rubik Mono One', sans-serif;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
 }
 
 @media screen and (max-width:1200px) {

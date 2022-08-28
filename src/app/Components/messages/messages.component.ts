@@ -105,11 +105,11 @@ export class MessagesComponent implements OnInit, OnDestroy {
       this.ScrollingDownListMessage();
     });
 
-    this.msgObs = interval(1000).subscribe(() => {
-      getMessagesFun.subscribe((data) => {
-        this.msgs = data;
-      });
-    });
+    // this.msgObs = interval(1000).subscribe(() => {
+    //   getMessagesFun.subscribe((data) => {
+    //     this.msgs = data;
+    //   });
+    // });
   }
 
   SetResiver(obj: any) {
@@ -151,7 +151,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
         this.ShowConversation();
       },
       error: () => {
-        MyTools.ShowExpiredSessionMessage(this.router);
+        MyTools.ShowExpiredSessionMessage();
       },
     });
 

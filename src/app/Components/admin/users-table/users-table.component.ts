@@ -1,3 +1,5 @@
+import { Role } from './../../../models/Role';
+import { HttpClient } from '@angular/common/http';
 import { MyTools } from '../../../constants/MyTools';
 import { HttpUsersService } from '../../../services/http-users.service';
 import { User } from '../../../models/User';
@@ -28,14 +30,18 @@ export class UsersTableComponent implements OnInit {
   constructor(
     private usersService:HttpUsersService,
     private dialog:MatDialog,
-    public authService:AuthService
+    public authService:AuthService,
+    public httpClient:HttpClient,
     ) { }
 
-
+role=new Role()
   ngOnInit(): void {
     this.displayedColumns=["firstName","lastName","email","phone","idCard","operations"]
     this.FillTableData()
 
+    this.httpClient.get(MyTools.UrlRootApi+"/Role/GetRoles/"+this.roleBy).subscribe(data=>{
+      this.role=data
+    })
   }
 
   FilterDataTable(input:any){

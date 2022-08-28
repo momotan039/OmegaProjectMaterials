@@ -1,3 +1,5 @@
+import { AuthService } from './../../../services/auth.service';
+import { MyLocalStorage } from './../../../services/MyLocalStorage';
 import { HttpTestsService } from './../../../services/HttpTests.service';
 import { catchError, map } from 'rxjs';
 import { Grade } from './../../../models/Grade';
@@ -29,6 +31,7 @@ export class AddGradeComponent implements OnInit {
     private httpTestsService:HttpTestsService,
     private dialogRef:MatDialogRef<GradesComponent>,
     private fb:FormBuilder,
+    private auth:AuthService,
 
   ) { }
   fg=this.fb.group({
@@ -39,6 +42,7 @@ export class AddGradeComponent implements OnInit {
     note:['']
   })
   ngOnInit(): void {
+
     this.httpGroupsService.GetGroups().subscribe(data=>{
       this.groups=data;
     })

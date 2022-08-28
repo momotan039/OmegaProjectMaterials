@@ -70,4 +70,12 @@ export class GroupsComponent implements OnInit {
         this.myTable?.FillTableData();
     })
   }
+//    this.displayedColumns=["name","course.name","openingDate","closingDate"]
+
+  FilterPredicateParent=(data: any, filter: string)=>{
+    return (data.name.toLowerCase().includes(filter) ||
+          data.course.name.toLowerCase().includes(filter)||
+          data.openingDate.toLowerCase().includes(filter)||
+          data.closingDate.toLowerCase().includes(filter))
+  }
 }

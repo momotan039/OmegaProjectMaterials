@@ -69,4 +69,8 @@ AddRow=()=>{
   })
 }
 
+FilterPredicateParent=(data: any, filter: string)=>{
+  return data.name.toLowerCase().includes(filter)
+}
+
 }

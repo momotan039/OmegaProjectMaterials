@@ -2,6 +2,12 @@
   transition: all .3s;
 }
 
+::ng-deep .btn_add_row_table{
+  font-weight: bold;
+}
+
+
+/* Start Container Style */
 .container{
   padding: 50px;
 }
@@ -18,6 +24,7 @@
     padding: 0;
   }
 }
+/* End Container Style */
 
 /* Start Dialog style */
 ::ng-deep mat-dialog-container {

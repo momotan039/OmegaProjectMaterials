@@ -27,5 +27,12 @@ test:any
       this.test=data
     })
   }
+   FilterPredicateParent=(data: any, filter: string)=>{
+
+    return data.student.idCard.includes(filter) ||
+          data.group.name.toLowerCase().includes(filter)||
+          data.sumGrade.toString().includes(filter)
+
+  }
 
 }
