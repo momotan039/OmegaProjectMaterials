@@ -1,5 +1,12 @@
-<div style="text-align: center;" >
-  <h1>Home Works</h1>
-</div>
+  <h1 class="title">Home Works</h1>
 <app-homework-teacher *ngIf="authService.currentUser.roleId==2"></app-homework-teacher>
 <app-homework-student *ngIf="authService.currentUser.roleId==3"></app-homework-student>
+
+
+<h1>{{str}}</h1>
+
+<mat-radio-group [(ngModel)]="str" aria-label="Select an option">
+  <mat-radio-button value="0">Without Submit</mat-radio-button>
+  <br>
+  <mat-radio-button value="1">Required Submit</mat-radio-button>
+</mat-radio-group>

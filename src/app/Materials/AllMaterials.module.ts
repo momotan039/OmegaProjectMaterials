@@ -16,6 +16,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatListModule} from '@angular/material/list';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { NgxMatSelectSearchModule } from "ngx-mat-select-search";
+import {MatRadioModule} from '@angular/material/radio';
 
 const materials=[
   MatTableModule,
@@ -34,6 +35,7 @@ const materials=[
   MatCardModule,
   MatListModule,
   MatProgressBarModule,
+  MatRadioModule,
   NgxMatSelectSearchModule
 ]
 @NgModule({

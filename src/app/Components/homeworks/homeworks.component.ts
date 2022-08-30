@@ -14,7 +14,7 @@ import { Group } from 'src/app/models/Group';
   styleUrls: ['./homeworks.component.css']
 })
 export class HomeworksComponent implements OnInit {
-
+  str=""
   constructor(
     public authService:AuthService,
   ) { }
