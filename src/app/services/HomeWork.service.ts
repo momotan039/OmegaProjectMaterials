@@ -16,9 +16,10 @@ constructor(
   private http:HttpClient
 ) { }
 
-DeleteHomeWork(id: any) {
-  return this.http.delete(MyTools.UrlRootApi+"/HomeWork/DeleteHomeWork/"+id,{
-    responseType:"text"
+DeleteHomeWork(hw: HomeWork) {
+  return this.http.delete(MyTools.UrlRootApi+"/HomeWork/DeleteHomeWork/",{
+    responseType:"text",
+    body:hw
   })
 }
 

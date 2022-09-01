@@ -33,7 +33,9 @@ export class HomeworkTeacherComponent implements OnInit {
   }
 
   addRowParent=()=>{
-    MyTools.Dialog.open(AddHomeworkComponent)
+    MyTools.Dialog.open(AddHomeworkComponent,{
+      width:"600px"
+    })
     .afterClosed().subscribe(success=>{
       if(success==false)
       return
@@ -52,11 +54,11 @@ export class HomeworkTeacherComponent implements OnInit {
   //  }
 
    DeleteRow=()=>{
-     const id=this.myTable?.selectedRow.id;
+     const hw=this.myTable?.selectedRow;
      MyTools.Dialog.open(DeleteUserComponent).afterClosed()
      .subscribe(success=>{
        if(success)
-       this.homeWorkService.DeleteHomeWork(id).subscribe(message=>{
+       this.homeWorkService.DeleteHomeWork(hw).subscribe(message=>{
          MyTools.ShowResult200Message(message)
          this.myTable?.FillTableData();
        })

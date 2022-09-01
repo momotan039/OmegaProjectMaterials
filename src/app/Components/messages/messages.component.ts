@@ -43,14 +43,14 @@ export class MessagesComponent implements OnInit, OnDestroy {
     private httpMessagesService: HttpMessagesService,
     private router: Router
   ) {
-    //remove scroller body
-    document.body.classList.add('removeScroller');
+    // //remove scroller body
+    // document.body.classList.add('removeScroller');
   }
 
   ngOnDestroy(): void {
     this.msgObs?.unsubscribe();
     //remove scroller body
-    document.body.classList.remove('removeScroller');
+    // document.body.classList.remove('removeScroller');
   }
 
   ngOnInit(): void {
@@ -105,11 +105,11 @@ export class MessagesComponent implements OnInit, OnDestroy {
       this.ScrollingDownListMessage();
     });
 
-    // this.msgObs = interval(1000).subscribe(() => {
-    //   getMessagesFun.subscribe((data) => {
-    //     this.msgs = data;
-    //   });
-    // });
+    this.msgObs = interval(1000).subscribe(() => {
+      getMessagesFun.subscribe((data) => {
+        this.msgs = data;
+      });
+    });
   }
 
   SetResiver(obj: any) {
