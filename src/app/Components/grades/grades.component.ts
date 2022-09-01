@@ -68,8 +68,8 @@ export class GradesComponent implements OnInit{
           data.note.includes(filter)
   }
 
-  sortingDataAccessorParent=(item: any,property: any)=>{
+  // sortingDataAccessorParent=(item: any,property: any)=>{
 
-  }
+  // }
 
 }

@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
-:root{
 
+:root{
+--primary:#ff6d00;
+--warn:#1868d8
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
@@ -53,3 +55,17 @@ table,.input-full-width{
 }
 
 /* End Title Style */
+
+/* Start Sub Title */
+.subTitle{
+  background-color: var(--warn);
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  color: white;
+}
+/* End Sub Title */
+
+ mat-error{
+color: red !important;
+}

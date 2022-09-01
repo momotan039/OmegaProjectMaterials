@@ -1,48 +1,21 @@
 
-<form [formGroup]="fg">
-
-<div class="PostHomeWork">
-  <mat-form-field appearance="fill">
-    <mat-label>Title</mat-label>
-    <input formControlName="title" matInput>
-    <mat-error *ngIf="fg.get('title')!.errors?.['required']">
-      Please Fill this Field</mat-error>
-  </mat-form-field>
-
-  <mat-form-field appearance="fill">
-    <mat-label>
-      Choose Group to Send
-    </mat-label>
-    <mat-select #refSelect formControlName="groupId" placeholder="">
-      <mat-option *ngFor="let group of groups" [value]="group.id">
-                {{ group.name }}
-            </mat-option>
-    </mat-select>
-    <mat-error *ngIf="fg.get('groupId')!.errors?.['required']">
-      Please Fill this Field</mat-error>
-  </mat-form-field>
 
 
-  <mat-form-field appearance="fill">
-    <mat-label>Textarea</mat-label>
-    <textarea formControlName="content" [rows]="15"  matInput></textarea>
-    <mat-error *ngIf="fg.get('content')!.errors?.['required']">
-      Please Fill this Field</mat-error>
-  </mat-form-field>
 
-  <div  style="text-align:center">
-    <input formControlName="files" #refFiles multiple type="file">
-  <button color="primary" mat-button (click)="AddHomeWork(refFiles.files)">
-      <mat-icon>add</mat-icon>
-      Add
-  </button>
-  </div>
-  <!-- <button (click)="AddHomeWork(refSelect.value,refFiles.files)" class="btn btn-primary mt-2 mb-2">Add new Home Work</button> -->
-
-</div>
-</form>
-
-<div>
+<app-my-table
+#refTable
+[title]="'HomeWork'"
+[AddRowParent]="addRowParent"
+[DeleteRowParent]="DeleteRow"
+[FilterPredicateParent]="FilterPredicateParent"
+[getDataTable]="this.homeWorkService
+.GetHomeWorkByTeacherId(this.authService.currentUser.id!)"
+[displayedColumns]="displayedColumns"
+[displayedNameColumns]="displayedNameColumns"
+[operations]="[true,true,true]"
+>
+</app-my-table>
+<!-- <div>
   <h1>HomeWork List:</h1>
   <mat-divider>
   </mat-divider>
@@ -62,5 +35,5 @@
     </mat-card-actions>
 </mat-card>
 </div>
-</div>
+</div> -->
 

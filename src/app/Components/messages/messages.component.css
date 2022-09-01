@@ -33,6 +33,10 @@
 .mainContainer .welcomeContainer mat-card mat-card-container{
   height: 70%;
 }
+.mainContainer .left{
+  overflow-y: auto;
+  overflow-x: hidden;
+}
 .mainContainer .left mat-list{
   gap: 10px;
 }

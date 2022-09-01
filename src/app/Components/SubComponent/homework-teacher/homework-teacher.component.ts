@@ -1,5 +1,6 @@
+import { AddHomeworkComponent } from './../../dilogs/add-homework/add-homework.component';
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MyTools } from 'src/app/constants/MyTools';
 import { Group } from 'src/app/models/Group';
@@ -8,6 +9,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { HomeWorkService } from 'src/app/services/HomeWork.service';
 import { HttpGroupsService } from 'src/app/services/http-groups.service';
 import { MessageDialogComponent } from '../../dilogs/message-dialog/message-dialog.component';
+import { MyTableComponent } from '../my-table/my-table.component';
+import { DeleteUserComponent } from '../../dilogs/delete-user/delete-user.component';
 
 @Component({
   selector: 'app-homework-teacher',
@@ -15,60 +18,58 @@ import { MessageDialogComponent } from '../../dilogs/message-dialog/message-dial
   styleUrls: ['./homework-teacher.component.css']
 })
 export class HomeworkTeacherComponent implements OnInit {
-  homeworks:HomeWork[]=[]
-    groups:Group[]=[]
-    fg=this.fb.group({
-      title:['',Validators.required],
-      content:['',Validators.required],
-      groupId:['',Validators.required],
-    })
+  @ViewChild("refTable") myTable: MyTableComponent | undefined;
+
+  displayedColumns=['title','group.name','sendingDate','requiredSubmit']
+  displayedNameColumns=['Title','Group','Sending Date','Required Submit','Operations']
   constructor(
-    private httpGroupsService:HttpGroupsService,
-    private authService:AuthService,
-    private homeWorkService:HomeWorkService,
+    public authService:AuthService,
+    public homeWorkService:HomeWorkService,
+  ){
 
-  private fb:FormBuilder,
-  ) { }
-
+  }
   ngOnInit(): void {
-    this.httpGroupsService.GetGroupsByUserId().subscribe(data=>{
-      this.groups=data
-    })
 
-    this.authService.currentUserSub.subscribe(user=>{
-      this.homeWorkService.GetHomeWorkByTeacherId(user.id!)
-      .subscribe((data)=>{
-        this.homeworks=data as HomeWork[]
-      })
+  }
+
+  addRowParent=()=>{
+    MyTools.Dialog.open(AddHomeworkComponent)
+    .afterClosed().subscribe(success=>{
+      if(success==false)
+      return
+      this.myTable?.FillTableData();
     })
   }
 
-  AddHomeWork(Files:any){
-    if(!this.fg.valid)
-      return
+  // EditRow=() =>{
+  //   MyTools.Dialog.open(EditGradeComponent,{
+  //      data:this.myTable?.selectedRow
+  //    }).afterClosed()
+  //    .subscribe(success=>{
+  //      if(success)
+  //        this.myTable?.FillTableData();
+  //    })
+  //  }
 
-      let files=Files as File[]
-     let fd=new FormData();
-    fd.append("title",this.fg.get("title")?.value)
-    fd.append("contents",this.fg.get("content")?.value)
-    fd.append("groupId",this.fg.get("groupId")?.value)
-
-    fd.append("teacherId",+this.authService.currentUser.id!+"")
-
-    for(let i=0;i<files.length;i++)
-     fd.append("files",files[i])
-
-     this.homeWorkService.SendHomeWork(fd).subscribe(d=>{
-
-      MyTools.ShowResult200Message(d)
-
-      this.homeWorkService.GetHomeWorkByTeacherId(this.authService.currentUser.id!)
-      .subscribe(data=>{
-         this.homeworks=data as HomeWork[]
+   DeleteRow=()=>{
+     const id=this.myTable?.selectedRow.id;
+     MyTools.Dialog.open(DeleteUserComponent).afterClosed()
+     .subscribe(success=>{
+       if(success)
+       this.homeWorkService.DeleteHomeWork(id).subscribe(message=>{
+         MyTools.ShowResult200Message(message)
+         this.myTable?.FillTableData();
        })
+     })
+   }
 
-     },(error)=>{
-      MyTools.ShowFialdMessage(error,"Adding Home Work")
-   })
 
-  }}
+   FilterPredicateParent=(data: any, filter: string)=>{
+    return data.test.name.includes(filter) ||
+          data.student.idCard.includes(filter)||
+          data.group.name.includes(filter)||
+          data.sumGrade.toString().includes(filter)||
+          data.note.includes(filter)
+  }
+
+}

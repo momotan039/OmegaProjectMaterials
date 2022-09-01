@@ -14,8 +14,7 @@ import { Test } from 'src/app/models/Test';
 export class MyTableComponent implements OnInit {
  @ViewChild("refpag") paginator:MatPaginator | undefined;
   @ViewChild(MatSort) sort: MatSort | undefined;
-  constructor() {
-  }
+
   @Input() displayedColumns:string[]=[]
   @Input() displayedNameColumns:string[]=[]
   @Input() getDataTable:Observable<any> | undefined
@@ -28,6 +27,8 @@ export class MyTableComponent implements OnInit {
   @Input() detailsComonentUrl=""
   @Input() title=""
   @Input() enableAddRow=true
+  @Input() disableFilterOverride=false
+  @Input() disableSortOverride=false
   selectedRow:any
   dataSource:any
 
@@ -69,20 +70,19 @@ FilterDataTable(input:any){
 }
 
 FillTableData(){
-
 this.getDataTable!.subscribe((data: any)=>{
+  console.warn(data)
+  debugger
   this.dataSource=new MatTableDataSource(data)
   this.dataSource.paginator=this.paginator
- this.dataSource.sort=this.sort
-
+  this.dataSource.sort=this.sort
+ if(!this.disableFilterOverride)
 //search by current object properties
  this.dataSource.filterPredicate = (data: any, filter: string) => {
    return this.FilterPredicateParent?.(data,filter) ;
 }
-
+if(!this.disableSortOverride)
 this.dataSource.sortingDataAccessor = (item:any, property:any) => {
-
-
   var _item=item
 
   for(let i=0;i<this.displayedNameColumns.length;i++){

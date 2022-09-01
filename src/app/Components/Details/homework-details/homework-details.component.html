@@ -1,7 +1,4 @@
-<div style="text-align:center">
-  <h1>{{homeWork.title}}</h1>
-</div>
-
+  <h1 class="title">{{homeWork.title}}</h1>
 <div class="flexContainer">
   <mat-card>
     <mat-card-title>HomeWork Details</mat-card-title>
@@ -13,25 +10,59 @@
     <h2>Teacher:{{homeWork.teacher!.firstName+" "+homeWork.teacher!.lastName}}</h2>
     <mat-divider>
     </mat-divider>
-    <h2>Sending Date:{{homeWork.sendingDate}}</h2>
+    <h2>Sending Date:{{homeWork.sendingDate|date}}</h2>
   </mat-card>
 
-  <mat-form-field ngClass="FullHeight" appearance="fill">
-    <mat-label>Textarea</mat-label>
+  <mat-form-field *ngIf="homeWork.contents" ngClass="FullHeight" appearance="fill">
+    <mat-label>HomeWork Content</mat-label>
     <textarea  placeholder="asf" disabled rows="9"  matInput [value]="homeWork.contents"></textarea>
   </mat-form-field>
 </div>
 
-<mat-card>
-  <mat-card-title>
-    File List
-  </mat-card-title>
+<br>
+
+<mat-card *ngIf="this.homeWork.filesPath">
+
+  <h2 class="subTitle">
+    File List:
+  </h2>
+
   <mat-divider></mat-divider>
-  <h1 style="padding:5px" *ngFor="let i=index;let path of convertPathsToArray(this.homeWork.filesPath)">
+  <h3 style="padding:5px" *ngFor="let i=index;let path of convertPathsToArray(this.homeWork.filesPath)">
     {{getFileName(path)}}
     <button (click)="donwloadFile(path)" mat-button>
       <mat-icon>file_download</mat-icon>
     </button>
     <mat-divider *ngIf="i<convertPathsToArray(this.homeWork.filesPath).length-1"></mat-divider>
-  </h1>
+  </h3>
 </mat-card>
+
+<br>
+
+<div
+*ngIf="homeWork.requiredSubmit"
+class="submitedStudents"
+>
+<mat-card>
+    <h2 class="subTitle">
+       Submited Students:{{submitedStudents}}/{{students.length}}
+    </h2>
+    <mat-divider>
+    </mat-divider>
+    <mat-card-content>
+
+  <app-my-table
+  [enableAddRow]="false"
+  [displayedColumns]='["idCard","firstName","lastName","email","submited"]'
+  [displayedNameColumns]='["Id Card","First Name","Last Name","Email","Submited"]'
+  [getDataTable]="students_behavior"
+  [disableFilterOverride]="true"
+  [disableSortOverride]="true"
+  >
+  </app-my-table>
+    </mat-card-content>
+</mat-card>
+
+</div>
+
+

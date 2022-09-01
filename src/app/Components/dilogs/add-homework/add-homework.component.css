@@ -1,0 +1,64 @@
+.PostHomeWork {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.PostHomeWork mat-radio-group {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  padding: 10px;
+  margin-bottom: 10px;
+  background: #1868d8;
+  color: white;
+  font-weight: bold;
+}
+.PostHomeWork mat-radio-group > mat-radio-button{
+}
+.Actions{
+  display: flex;
+  gap: 20px;
+}
+.Actions button{
+  flex: 1;
+  font-weight: bold;
+  font-size: 1rem;
+  color: white;
+}
+
+
+.BtnFiles{
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 5px;
+  padding: 20px;
+  color: white;
+  background: var(--primary);
+  text-align-last: center;
+  position: relative;
+  cursor: pointer;
+  flex: 1;
+}
+.BtnFiles::after{
+  position: absolute;
+  content: "Choose Files To Send";
+  color: white;
+  text-align: center;
+  font-size: 1rem;
+  left: 0;
+  background: #1868d8;
+  width: 100%;
+  top: 0;
+}
+
+.BtnFiles::file-selector-button{
+  color: white;
+  font-size: 1rem;
+  background: #1868d8;
+  padding: 10px;
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+}

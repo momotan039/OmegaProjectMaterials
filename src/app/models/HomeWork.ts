@@ -4,9 +4,10 @@ export class HomeWork {
   id=0
   title=""
   contents=""
-  groupID=0
-  teacherID=0
+  groupId=0
+  teacherId=0
   filesPath=""
+  requiredSubmit=false
   sendingDate?:Date
   group?:Group
   teacher?:User

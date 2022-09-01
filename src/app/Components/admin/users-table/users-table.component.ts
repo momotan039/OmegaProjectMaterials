@@ -56,6 +56,7 @@ role=new Role()
      this.dataSource.sort=this.sort
     })
   }
+
   DeleteUser(userId:number){
 
     let dialogRef = MyTools.Dialog.open(DeleteUserComponent, {

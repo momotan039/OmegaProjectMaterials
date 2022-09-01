@@ -10,10 +10,17 @@ import { MyTools } from '../constants/MyTools';
 })
 export class HomeWorkService {
 
+
+
 constructor(
   private http:HttpClient
 ) { }
 
+DeleteHomeWork(id: any) {
+  return this.http.delete(MyTools.UrlRootApi+"/HomeWork/DeleteHomeWork/"+id,{
+    responseType:"text"
+  })
+}
 
  SendHomeWork(homeWork:FormData){
    return this.http.post(MyTools.UrlRootApi+"/HomeWork/SendHomeWork",
