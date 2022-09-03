@@ -14,4 +14,24 @@ export class HomeWorkStudentService {
   GetSubmitedHomeworkById(id:number){
     return this.http.get<any[]>(MyTools.UrlRootApi+"/HomeWorkStudents/GetSubmitedHomeworkById/"+id)
   }
+
+  Submit(data:FormData){
+    return this.http.post(MyTools.UrlRootApi+"/HomeWorkStudents/SubmitFiles/"
+    ,data,{
+      responseType:"text"
+    })
+
+  }
+
+  DownloadFile(name:string,groupId:number,studentId:number,homeworkId:number){
+    return this.http.get(MyTools.UrlRootApi+"/HomeWorkStudents/DownloadFile/",{
+      params:{
+        "name":name,
+        "groupId":groupId,
+        "studentId":studentId,
+        "homeworkId":homeworkId
+      },
+      responseType:"arraybuffer"
+    })
+  }
 }

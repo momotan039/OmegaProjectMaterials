@@ -47,7 +47,8 @@ GetHomeWorkByStudentId(id:number){
       params:{
         "name":hwf.name,
         "groupId":hwf.groupId,
-        "teacherId":hwf.teacherId
+        "teacherId":hwf.teacherId,
+        "homeworkId":hwf.id
       },
       responseType:"arraybuffer"
     })

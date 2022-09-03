@@ -1,3 +1,4 @@
+import { AuthService } from './../../../services/auth.service';
 import { HomeWorkStudentService } from './../../../services/home-work-student.service';
 import { HttpUsersService } from './../../../services/http-users.service';
 import { MessageDialogComponent } from './../../dilogs/message-dialog/message-dialog.component';
@@ -22,14 +23,16 @@ export class HomeworkDetailsComponent implements OnInit {
   students:Array<any>=[]
   submitedStudents=0
   homeWork=new HomeWork()
+  currentStudent?:any
   constructor(
     private route:ActivatedRoute,
     private homeWorkService:HomeWorkService,
     public homeWorkStudentService:HomeWorkStudentService,
-    public httpUsersService:HttpUsersService,
+    public authService:AuthService
   ) { }
 
   ngOnInit(): void {
+
     this.id=this.route.snapshot.params['id'];
 
     this.homeWorkService.GetHomeWorks(this.id).subscribe(data=>{
@@ -39,6 +42,7 @@ export class HomeworkDetailsComponent implements OnInit {
       .subscribe(data=>{
         this.students_behavior.next(data)
         this.students=data
+        this.currentStudent=data.find(f=>f.idCard==this.authService.currentUser.idCard)
         this.submitedStudents=this.students.filter(f=>f.submited=="Yes").length
       })
     })
@@ -56,16 +60,27 @@ export class HomeworkDetailsComponent implements OnInit {
   }
 
 
-  donwloadFile(path:any){
+  donwloadFile(path:any,isStudentFile=false){
     let hwf=new HomeWorkFile(
+      this.homeWork.id,
       this.getFileName(path),
       this.homeWork.group?.id!,
       this.homeWork.teacher?.id!
       )
 
-      this.homeWorkService.DownloadHomeWorkFile(hwf)
+      let fun:Observable<any>;
 
-      .subscribe(data => {
+      if(!isStudentFile)
+      fun=this.homeWorkService.DownloadHomeWorkFile(hwf)
+      else
+      fun=this.homeWorkStudentService.DownloadFile(
+        this.getFileName(path),
+        hwf.groupId,
+        this.authService.currentUser.id!,
+        hwf.id
+        )
+
+      fun.subscribe(data => {
           const blob = new Blob([data as BlobPart]);
           const url= window.URL.createObjectURL(blob);
           const link = document.createElement( 'a' );
@@ -86,5 +101,27 @@ export class HomeworkDetailsComponent implements OnInit {
       })
   }
 
+  SendStudentFiles(Files:any){
+
+    let files=Files as File[]
+
+    if(files.length==0)
+    return
+
+  let fd=new FormData();
+  fd.append("homeWorkId",this.homeWork.id+"")
+  fd.append("groupId",this.homeWork.groupId+"")
+  fd.append("studentId",this.authService.currentUser.id+"")
+
+  for(let i=0;i<files.length;i++)
+   fd.append("files",files[i])
+
+   this.homeWorkStudentService.Submit(fd).subscribe(d=>{
+    MyTools.ShowResult200Message(d)
+   },(error)=>{
+    MyTools.ShowFialdMessage(error,"Submiting Home Work")
+ })
+
+  }
 }
 

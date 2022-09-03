@@ -37,10 +37,10 @@
   </h3>
 </mat-card>
 
-<br>
 
+<!-- Show all Sumbited Homework students -->
 <div
-*ngIf="homeWork.requiredSubmit"
+*ngIf="homeWork.requiredSubmit && this.authService.currentUser.roleId==2"
 class="submitedStudents"
 >
 <mat-card>
@@ -64,5 +64,33 @@ class="submitedStudents"
 </mat-card>
 
 </div>
+<!-- Show all Sumbited Homework students -->
 
+
+<!-- Submit Files for Students -->
+<div *ngIf="this.authService.currentUser.roleId==3 &&
+homeWork.requiredSubmit" class="submitFiles">
+<br>
+<mat-card>
+      <h1 class="subTitle">Submited Files</h1>
+    <mat-card-content>
+      <div *ngIf="!this.currentStudent.pathFiles">
+        <input class="BtnFiles" #refFiles multiple type="file" value="Send Files">
+        <button color="primary" mat-raised-button (click)="SendStudentFiles(refFiles.files)">Submit</button>
+        <button color="warn" mat-raised-button (click)="{}">Cancel Submitation</button>
+      </div>
+      <!-- <button *ngIf="this.currentStudent.pathFiles" mat-raised-button (click)="{}">Cancel Submitation</button> -->
+      <mat-divider></mat-divider>
+      <h3 style="padding:5px" *ngFor="let i=index;let path of convertPathsToArray(currentStudent.pathFiles)">
+        {{getFileName(path)}}
+        <button (click)="donwloadFile(path,true)" mat-button>
+          <mat-icon>file_download</mat-icon>
+        </button>
+        <mat-divider *ngIf="i<convertPathsToArray(currentStudent.pathFiles).length-1"></mat-divider>
+      </h3>
+    </mat-card-content>
+</mat-card>
+</div>
+
+<!-- Submit Files for Students -->
 
