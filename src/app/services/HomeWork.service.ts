@@ -29,6 +29,12 @@ DeleteHomeWork(hw: HomeWork) {
    {withCredentials:false,responseType:"text"})
 }
 
+EditHomeWork(homeWork:FormData){
+  return this.http.put(MyTools.UrlRootApi+"/HomeWork/EditHomeWork",
+   homeWork,
+   {withCredentials:false,responseType:"text"})
+}
+
  GetHomeWorks(id=-1):Observable<HomeWork|HomeWork[]>{
   if(id==-1)
   return  this.http.get<HomeWork[]>(MyTools.UrlRootApi+"/HomeWork/GetHomeWork")

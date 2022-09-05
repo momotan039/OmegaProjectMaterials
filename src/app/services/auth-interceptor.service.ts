@@ -27,9 +27,11 @@ export class AuthInterceptorService implements HttpInterceptor {
       return next.handle(cloned)
       .pipe(
         catchError((error:HttpResponse<any>) => {
-
+          console.warn(error)
+          debugger
           //token expired or invalid
-          if(error.status==0 || error.status==401)
+          // if(error.status==0 || error.status==401)
+          if( error.status==401)
           {
           MyTools.Dialog.closeAll()
           this.authService.LogOut()

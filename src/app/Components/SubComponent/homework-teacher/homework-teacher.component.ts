@@ -1,3 +1,4 @@
+import { EditHomeworkComponent } from './../../dilogs/edit-homework/edit-homework.component';
 import { AddHomeworkComponent } from './../../dilogs/add-homework/add-homework.component';
 import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -43,17 +44,18 @@ export class HomeworkTeacherComponent implements OnInit {
     })
   }
 
-  // EditRow=() =>{
-  //   MyTools.Dialog.open(EditGradeComponent,{
-  //      data:this.myTable?.selectedRow
-  //    }).afterClosed()
-  //    .subscribe(success=>{
-  //      if(success)
-  //        this.myTable?.FillTableData();
-  //    })
-  //  }
+  EditRow=() =>{
+    MyTools.Dialog.open(EditHomeworkComponent,{
+       data:this.myTable?.selectedRow
+     }).afterClosed()
+     .subscribe(success=>{
+       if(success)
+         this.myTable?.FillTableData();
+     })
+   }
 
    DeleteRow=()=>{
+    debugger
      const hw=this.myTable?.selectedRow;
      MyTools.Dialog.open(DeleteUserComponent).afterClosed()
      .subscribe(success=>{

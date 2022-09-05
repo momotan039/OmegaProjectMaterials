@@ -1,5 +1,5 @@
 <form [formGroup]="fg">
-
+<h1 class="title">Add New Homework</h1>
   <div class="PostHomeWork">
     <mat-form-field appearance="fill">
       <mat-label>Title</mat-label>
@@ -38,7 +38,10 @@
       Please Fill this Field</mat-error>
   </mat-radio-group>
 
-  <input class="BtnFiles" formControlName="files" #refFiles multiple type="file">
+  <div class="BtnFilesContainer">
+    <input class="BtnFiles" formControlName="files" #refFiles multiple type="file">
+
+  </div>
 
     <div class="Actions">
       <button color="accent"  mat-raised-button (click)="AddHomeWork(refFiles.files)">

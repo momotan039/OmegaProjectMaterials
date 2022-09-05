@@ -34,14 +34,14 @@ mat-card-title{
   }
 }
 
-.flex
-{
+.BtnFilesContainer{
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
 
-.BtnFiles{
+
+.BtnFilesContainer .BtnFiles{
   margin-bottom: 10px;
   font-weight: bold;
   font-size: 1rem;
@@ -54,7 +54,7 @@ mat-card-title{
   cursor: pointer;
   flex: 1;
 }
-.BtnFiles::after{
+.BtnFilesContainer .BtnFiles::after{
   position: absolute;
   content: "Choose Files To Send";
   color: white;
@@ -66,7 +66,7 @@ mat-card-title{
   top: 0;
 }
 
-.BtnFiles::file-selector-button{
+.BtnFilesContainer .BtnFiles::file-selector-button{
   color: white;
   font-size: 1rem;
   background: #1868d8;
@@ -75,8 +75,11 @@ mat-card-title{
   padding: 20px;
   border-radius: 10px;
 }
-.submitedStudents{
 
+.cancelSubmitation{
+  width: 600px;
+  margin: 0;
 }
+
 
 

@@ -1,0 +1,55 @@
+<form [formGroup]="fg">
+  <h1 class="title">Edit This Homework</h1>
+    <div class="PostHomeWork">
+      <mat-form-field appearance="fill">
+        <mat-label>Title</mat-label>
+        <input formControlName="title" matInput>
+        <mat-error *ngIf="fg.get('title')!.errors?.['required']">
+          Please Fill this Field</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>
+          Choose Group to Send
+        </mat-label>
+        <mat-select #refSelect formControlName="groupId" placeholder="">
+          <mat-option *ngFor="let group of groups" [value]="group.id">
+                    {{ group.name }}
+                </mat-option>
+        </mat-select>
+        <mat-error *ngIf="fg.get('groupId')!.errors?.['required']">
+          Please Fill this Field</mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="fill">
+        <mat-label>Content</mat-label>
+        <textarea formControlName="content" [rows]="15"  matInput></textarea>
+        <mat-error *ngIf="fg.get('content')!.errors?.['required']">
+          Please Fill this Field</mat-error>
+      </mat-form-field>
+
+
+
+    <mat-radio-group  color="primary" (change)="ChangeRadioGroupOption($event)"  formControlName="requiredSubmit" >
+      <mat-radio-button [value]="false">Without Submit</mat-radio-button>
+      <mat-radio-button [value]="true">Required Submit</mat-radio-button>
+      <mat-error *ngIf="fg.get('requiredSubmit')!.errors?.['required']">
+        Please Fill this Field</mat-error>
+    </mat-radio-group>
+
+    <div class="BtnFilesContainer">
+      <input class="BtnFiles" formControlName="files" #refFiles multiple type="file">
+
+    </div>
+
+      <div class="Actions">
+        <button color="accent"  mat-raised-button (click)="EditHomeWork(refFiles.files)">
+          <mat-icon>save</mat-icon>
+          Save
+      </button>
+     <button color="primary"  mat-raised-button [matDialogClose]="false" >Cancel</button>
+      </div>
+      <!-- <button (click)="AddHomeWork(refSelect.value,refFiles.files)" class="btn btn-primary mt-2 mb-2">Add new Home Work</button> -->
+    </div>
+    </form>
