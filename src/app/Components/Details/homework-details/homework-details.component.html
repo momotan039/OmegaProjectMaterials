@@ -56,12 +56,16 @@ class="submitedStudents"
     <mat-card-content>
       <br>
   <app-my-table
+  #refTable
   [enableAddRow]="false"
   [displayedColumns]='["idCard","firstName","lastName","email","submited"]'
-  [displayedNameColumns]='["Id Card","First Name","Last Name","Email","Submited"]'
+  [displayedNameColumns]='["Id Card","First Name","Last Name","Email","Submited","Operations"]'
   [getDataTable]="students_behavior"
   [disableFilterOverride]="true"
   [disableSortOverride]="true"
+  [EnableShowViewDialog]="true"
+  [ShowViewDialogParent]="ShowViewDialogParent"
+  [operations]="[false,false,true]"
   >
   </app-my-table>
     </mat-card-content>

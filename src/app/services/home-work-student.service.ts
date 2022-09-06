@@ -56,5 +56,15 @@ export class HomeWorkStudentService {
     })
   }
 
+  DownloadFileByPath(path:string){
+    return this.http.get(MyTools.UrlRootApi+"/HomeWorkStudents/DownloadFileByPath/",{
+      params:{
+        "url":path
+      },
+      reportProgress:true,
+      observe:"events",
+    })
+  }
+
 
 }

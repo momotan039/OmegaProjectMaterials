@@ -1,3 +1,4 @@
+import { ShowSubmitedFilesStudentComponent } from './../../dilogs/show-submited-files-student/show-submited-files-student.component';
 import { AuthService } from './../../../services/auth.service';
 import { HomeWorkStudentService } from './../../../services/home-work-student.service';
 import { HttpUsersService } from './../../../services/http-users.service';
@@ -7,12 +8,12 @@ import { Group } from './../../../models/Group';
 import { HomeWorkFile } from './../../../models/HomeWorkFile';
 import { HomeWorkService } from 'src/app/services/HomeWork.service';
 import { Route, ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HomeWork } from 'src/app/models/HomeWork';
 import { filter, Observable, Observer, BehaviorSubject } from 'rxjs';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { HttpEventType } from '@angular/common/http';
-import { saveAs } from 'file-saver';
+import { MyTableComponent } from '../../SubComponent/my-table/my-table.component';
 
 
 @Component({
@@ -21,6 +22,8 @@ import { saveAs } from 'file-saver';
   styleUrls: ['./homework-details.component.css'],
 })
 export class HomeworkDetailsComponent implements OnInit {
+  @ViewChild("refTable") myTable: MyTableComponent | undefined;
+
   id = 0;
   students_behavior = new BehaviorSubject<any>({});
   students: Array<any> = [];
@@ -188,6 +191,14 @@ export class HomeworkDetailsComponent implements OnInit {
       }
     );
   }
+
+  ShowViewDialogParent=()=>{
+    let pathFiles=this.myTable?.selectedRow.pathFiles
+    MyTools.Dialog.open(ShowSubmitedFilesStudentComponent,{
+      data:pathFiles
+    })
+  }
+
 }
 
 

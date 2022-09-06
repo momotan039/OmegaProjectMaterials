@@ -21,6 +21,7 @@ export class MyTableComponent implements OnInit {
   @Input() AddRowParent:(() => void) | undefined
   @Input() EditRowParent:(() => void) | undefined
   @Input() DeleteRowParent:(() => void) | undefined
+  @Input() ShowViewDialogParent:(() => void) | undefined
   @Input() FilterPredicateParent:((data: any, filter: string) => any) | undefined
   @Input() sortingDataAccessorParent:((item:any, property:any) => any) | undefined
   @Input() operations:boolean[]=[]
@@ -29,6 +30,7 @@ export class MyTableComponent implements OnInit {
   @Input() enableAddRow=true
   @Input() disableFilterOverride=false
   @Input() disableSortOverride=false
+  @Input() EnableShowViewDialog=false
   selectedRow:any
   dataSource:any
 
@@ -105,7 +107,10 @@ this.dataSource.sortingDataAccessor = (item:any, property:any) => {
 })
 }
 
-
+ShowViewDialog(row:any){
+  this.selectedRow=row
+  this.ShowViewDialogParent?.();
+}
 
 
 }

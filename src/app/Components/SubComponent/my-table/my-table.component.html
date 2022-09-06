@@ -37,9 +37,17 @@
     <button *ngIf="operations[1]" (click)="DeleteRow(element)"  mat-fab color="accent" >
       <mat-icon>delete</mat-icon>
     </button>
-    <a *ngIf="operations[2]" mat-button routerLink="/{{detailsComonentUrl}}/{{element.id}}"  mat-fab color="primary" >
+
+    <div (click)="EnableShowViewDialog?ShowViewDialog(element):null">
+      <a *ngIf="operations[2]" mat-button
+      [routerLink]="detailsComonentUrl?detailsComonentUrl:null"
+       mat-fab color="primary"
+        >
       <mat-icon>visibility</mat-icon>
     </a>
+    </div>
+
+
   </td>
 </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedNameColumns;sticky:true"></tr>
