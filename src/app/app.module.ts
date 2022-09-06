@@ -48,6 +48,7 @@ import { TestComponent } from './test/test.component';
 import { TestDetailsComponent } from './Components/Details/test-details/test-details.component';
 import { AddHomeworkComponent } from './Components/dilogs/add-homework/add-homework.component';
 import { EditHomeworkComponent } from './Components/dilogs/edit-homework/edit-homework.component';
+import { ShowSubmitedFilesStudentComponent } from './Components/dilogs/show-submited-files-student/show-submited-files-student.component';
 
 @NgModule({
   declarations: [
@@ -96,6 +97,7 @@ import { EditHomeworkComponent } from './Components/dilogs/edit-homework/edit-ho
     TestDetailsComponent,
     AddHomeworkComponent,
     EditHomeworkComponent,
+    ShowSubmitedFilesStudentComponent,
   ],
   imports: [
     BrowserModule,

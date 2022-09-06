@@ -74,14 +74,14 @@ export class HomeworkDetailsComponent implements OnInit {
     return path.split('\n');
   }
 
-  getFileName(path: string) {
+  getFileNameFromPath(path: string) {
     return path.replace(/^.*[\\\/]/, '');
   }
 
   donwloadFile(path: any, isStudentFile = false) {
     let hwf = new HomeWorkFile(
       this.homeWork.id,
-      this.getFileName(path),
+      this.getFileNameFromPath(path),
       this.homeWork.group?.id!,
       this.homeWork.teacher?.id!
     );
@@ -91,7 +91,7 @@ export class HomeworkDetailsComponent implements OnInit {
     if (!isStudentFile) fun = this.homeWorkService.DownloadHomeWorkFile(hwf);
     else
       fun = this.homeWorkStudentService.DownloadFile(
-        this.getFileName(path),
+        this.getFileNameFromPath(path),
         hwf.groupId,
         this.authService.currentUser.id!,
         hwf.id
@@ -106,14 +106,14 @@ export class HomeworkDetailsComponent implements OnInit {
         }
         if (data.type === HttpEventType.Response) {
           const blob = new Blob([data as BlobPart]);
-          saveAs(blob, hwf.name);
-          // const url = window.URL.createObjectURL(blob);
-          // const link = document.createElement('a');
-          // link.style.display = 'none';
-          // document.body.appendChild(link);
-          // link.href = url;
-          // link.download = hwf.name;
-          // link.click();
+          // saveAs(blob, hwf.name);
+          const url = window.URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.style.display = 'none';
+          document.body.appendChild(link);
+          link.href = url;
+          link.download = hwf.name;
+          link.click();
         }
       },
       (error) => {

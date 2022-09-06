@@ -8,7 +8,9 @@
   background: #1868d8;
   color: white;
   font-weight: bold;
+  overflow-y: auto;
 }
+
 
 .BtnFilesContainer{
   margin-bottom: 10px;
@@ -44,7 +46,36 @@
   padding: 20px;
   border-radius: 10px;
 }
+.FilesList .removeFile{
+  text-decoration: line-through wavy 2px red
+}
+.FilesList button{
 
+}
+.my-fab{
+  position: absolute;
+  right: 11px;
+}
+::ng-deep .my-fab{
+  width: 28px;
+  height: 28px;
+}
+::ng-deep .my-fab .mat-button-wrapper {
+  padding: 2px 0 !important;
+  line-height: 16px !important;
+  width: 24px !important;
+  height: 16px !important;
+}
+::ng-deep .my-fab .mat-button-wrapper .mat-icon {
+  font-size: 16px;
+  padding-right: 4px;
+  line-height: 16px;
+}
+.FilesList mat-list{
+  max-height: 200px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
 .Actions{
   display: flex;
   gap: 20px;

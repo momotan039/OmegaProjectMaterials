@@ -28,7 +28,7 @@
 
 /* Start Dialog style */
 ::ng-deep mat-dialog-container {
-  width: 500px;
+  height: auto !important;
 }
 
 ::ng-deep mat-dialog-container mat-form-field{
@@ -38,5 +38,24 @@ width: 100%;
 ::ng-deep mat-select mat-option{
   color: red;
 }
+
+/* Start List Style */
+::ng-deep mat-list{
+  background: gray;
+  border-radius: 4px;
+  margin-bottom: 6px;
+  padding: 0;
+  font-weight: bold;
+}
+::ng-deep mat-list mat-list-item:not(
+  ::ng-deep mat-list mat-list-item:last-child
+  ):after{
+  content: "";
+  width: 100%;
+  border: solid 1px white;
+  bottom: 0;
+  position: absolute;
+}
+/* End List Style */
 
 

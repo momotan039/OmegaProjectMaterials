@@ -31,7 +31,7 @@
 
   <mat-divider></mat-divider>
   <h3 style="padding:5px" *ngFor="let i=index;let path of convertPathsToArray(this.homeWork.filesPath)">
-    {{getFileName(path)}}
+    {{getFileNameFromPath(path)}}
     <button (click)="donwloadFile(path)" mat-button>
       <mat-icon>file_download</mat-icon>
     </button>
@@ -46,6 +46,7 @@
 *ngIf="homeWork.requiredSubmit && this.authService.currentUser.roleId==2"
 class="submitedStudents"
 >
+<br>
 <mat-card>
     <h2 class="subTitle">
        Submited Students:{{submitedStudents}}/{{students.length}}
@@ -53,6 +54,7 @@ class="submitedStudents"
     <mat-divider>
     </mat-divider>
     <mat-card-content>
+      <br>
   <app-my-table
   [enableAddRow]="false"
   [displayedColumns]='["idCard","firstName","lastName","email","submited"]'
@@ -72,10 +74,8 @@ class="submitedStudents"
 <!-- Show Files of Current Student if login -->
 <div *ngIf="this.authService.currentUser.roleId==3 &&
 homeWork.requiredSubmit" class="submitFiles">
-<br>
 <mat-card>
       <h1 class="subTitle">Submited Files</h1>
-
 
       <mat-card-content>
         <div *ngIf="showProgressBarContainer" class="progressBarContainer">
@@ -100,7 +100,7 @@ homeWork.requiredSubmit" class="submitFiles">
 
         <!-- Show all files list -->
       <h3 style="padding:5px" *ngFor="let i=index;let path of convertPathsToArray(currentStudent.pathFiles)">
-        {{getFileName(path)}}
+        {{getFileNameFromPath(path)}}
         <button (click)="donwloadFile(path,true)" mat-button>
           <mat-icon>file_download</mat-icon>
         </button>

@@ -38,6 +38,19 @@
         Please Fill this Field</mat-error>
     </mat-radio-group>
 
+    <div *ngIf="data.filesPath" class="FilesList">
+      <h1 class="subTitle">Uploaded Files</h1>
+      <mat-list>
+        <mat-list-item #ref *ngFor="let path of convertPathsToArray(data.filesPath)">
+           {{getFileNameFromPath(path)}}
+           <button class="my-fab" mat-mini-fab (click)="RemoveFile(ref)">
+               <mat-icon >close</mat-icon>
+           </button>
+          </mat-list-item>
+      </mat-list>
+    </div>
+
+
     <div class="BtnFilesContainer">
       <input class="BtnFiles" formControlName="files" #refFiles multiple type="file">
 

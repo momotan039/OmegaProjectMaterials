@@ -1,39 +1,12 @@
-<table  mat-table #table [dataSource]="dataSource">
+<app-my-table #refTable
+[displayedColumns]="displayedColumns"
+[displayedNameColumns]="displayedNameColumns"
+[getDataTable]="this.homeWorkService.GetHomeWorkByStudentId(this.authService.currentUser.id!)"
+[operations]="[false,false,true]"
+[title]="'Homework'"
+[detailsComonentUrl]="'HomeWorkDetails'"
+[enableAddRow]="false"
+[FilterPredicateParent]="FilterPredicateParent"
+>
+</app-my-table>
 
-  <ng-container  matColumnDef="colTitle">
-    <th mat-header-cell *matHeaderCellDef> Title </th>
-    <td mat-cell *matCellDef="let row"> {{row.title}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="colGroup">
-    <th mat-header-cell *matHeaderCellDef> Group </th>
-    <td mat-cell *matCellDef="let row"> {{row.group.name}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="colTeacher">
-    <th mat-header-cell *matHeaderCellDef> Teacher </th>
-    <td mat-cell *matCellDef="let row"> {{row.teacher.firstName+" "+row.teacher.lastName}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="colDate">
-    <th mat-header-cell *matHeaderCellDef> Sending Date </th>
-    <td mat-cell *matCellDef="let row"> {{row.sendingDate}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="colView">
-    <th mat-header-cell *matHeaderCellDef> View </th>
-    <td mat-cell *matCellDef="let row">
-      <a mat-fab routerLink="/HomeWorkDetails/{{row.id}}">
-          <mat-icon >visibility</mat-icon>
-      </a>
-    </td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="['colTitle','colGroup','colTeacher','colDate','colView']"></tr>
-  <tr mat-row *matRowDef="let row; columns: ['colTitle','colGroup','colTeacher','colDate','colView'];"></tr>
-</table>
-<mat-paginator #refpag [length]="100"
-  [pageSize]="10"
-  [pageSizeOptions]="[5,20,50,100]"
-  aria-label="Select page">
-</mat-paginator>

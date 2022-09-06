@@ -56,7 +56,9 @@ GetHomeWorkByStudentId(id:number){
         "teacherId":hwf.teacherId,
         "homeworkId":hwf.id
       },
-      responseType:"arraybuffer"
+      responseType:"arraybuffer",
+      reportProgress:true,
+      observe:"response",
     })
   }
 
