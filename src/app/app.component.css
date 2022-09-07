@@ -40,15 +40,18 @@ width: 100%;
 }
 
 /* Start List Style */
-::ng-deep mat-list{
-  background: gray;
+::ng-deep mat-list.file-list{
+  /* background: gray; */
   border-radius: 4px;
   margin-bottom: 6px;
   padding: 0;
   font-weight: bold;
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
-::ng-deep mat-list mat-list-item:not(
-  ::ng-deep mat-list mat-list-item:last-child
+::ng-deep mat-list.file-list mat-list-item:not(
+  ::ng-deep mat-list.file-list mat-list-item:last-child
   ):after{
   content: "";
   width: 100%;
@@ -56,6 +59,23 @@ width: 100%;
   bottom: 0;
   position: absolute;
 }
+
+
+::ng-deep mat-list.file-list mat-list-item{
+  height: auto !important;
+}
+
+::ng-deep mat-list.file-list mat-list-item .progress{
+  width: 100%;
+    text-align: center;
+}
+
+::ng-deep mat-list.file-list mat-list-item .mat-list-item-content{
+  flex-direction: column !important;
+  }
+
+ 
+
 /* End List Style */
 
 

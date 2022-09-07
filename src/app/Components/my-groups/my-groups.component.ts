@@ -11,7 +11,7 @@ import { Group } from 'src/app/models/Group';
 export class MyGroupsComponent implements OnInit {
   groups:Group[]=[]
   constructor(
-    private httpGroupsService:HttpGroupsService,
+    public httpGroupsService:HttpGroupsService,
     public authService:AuthService
   ) { }
 
@@ -21,5 +21,10 @@ export class MyGroupsComponent implements OnInit {
     })
   }
 
+  FilterPredicateParent=(data: any, filter: string)=>{
+    return (data.name.toLowerCase().includes(filter) ||
+          data.course.name.toLowerCase().includes(filter)||
+          data.openingDate.toLowerCase().includes(filter))
+  }
 
 }

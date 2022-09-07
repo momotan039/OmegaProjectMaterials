@@ -30,13 +30,20 @@
   </h2>
 
   <mat-divider></mat-divider>
-  <h3 style="padding:5px" *ngFor="let i=index;let path of convertPathsToArray(this.homeWork.filesPath)">
-    {{getFileNameFromPath(path)}}
-    <button (click)="donwloadFile(path)" mat-button>
-      <mat-icon>file_download</mat-icon>
-    </button>
-    <mat-divider *ngIf="i<convertPathsToArray(this.homeWork.filesPath).length-1"></mat-divider>
-  </h3>
+  <mat-list class="file-list">
+    <mat-list-item *ngFor="let item of convertPathsToArray(homeWork.filesPath)">
+      <div #refContainer class="progress">
+        <mat-progress-bar [value]="90" color="accent" #ref></mat-progress-bar>
+        <span>{{90}}%</span>
+      </div>
+        <h3 class="subTitle">
+          {{getFileNameFromPath(item)}}
+          <button color="accent" mat-icon-button (click)="donwloadFile(item,refContainer,ref)">
+            <mat-icon>file_download</mat-icon>
+          </button>
+        </h3>
+    </mat-list-item>
+  </mat-list>
 </mat-card>
 <!-- Show files of Homework -->
 
@@ -65,7 +72,6 @@ class="submitedStudents"
   [disableSortOverride]="true"
   [EnableShowViewDialog]="true"
   [ShowViewDialogParent]="ShowViewDialogParent"
-  [operations]="[false,false,true]"
   >
   </app-my-table>
     </mat-card-content>
@@ -75,6 +81,7 @@ class="submitedStudents"
 <!-- Show all Sumbited Homework students -->
 
 
+
 <!-- Show Files of Current Student if login -->
 <div *ngIf="this.authService.currentUser.roleId==3 &&
 homeWork.requiredSubmit" class="submitFiles">
@@ -82,34 +89,44 @@ homeWork.requiredSubmit" class="submitFiles">
       <h1 class="subTitle">Submited Files</h1>
 
       <mat-card-content>
-        <div *ngIf="showProgressBarContainer" class="progressBarContainer">
-          <h1>Uploaded {{progress}}%</h1>
-          <mat-progress-bar
-          mode="determinate"
-          [value]="progress">
-        </mat-progress-bar>
-        </div>
 
    <!-- Show Add Files -->
         <div class="BtnFilesContainer" *ngIf="!this.currentStudent else showCancel">
-
           <input class="BtnFiles" #refFiles multiple type="file" value="Send Files">
+          <h3 *ngIf="showFilesSizeErorr" class="error-message">Size Files Must Be < 2Gb</h3>
           <button color="primary" mat-raised-button (click)="SendStudentFiles(refFiles.files)">Submit</button>
         </div>
-
+        
+        
       <mat-divider></mat-divider>
       <ng-template #showCancel>
          <!-- Show Cancel submitation -->
-         <button class="cancelSubmitation" color="accent"  mat-raised-button (click)="CancelSubmitation()">Cancel Submitation</button>
+         <button  class="cancelSubmitation" color="accent"  mat-raised-button (click)="CancelSubmitation()">Cancel Submitation</button>
 
         <!-- Show all files list -->
-      <h3 style="padding:5px" *ngFor="let i=index;let path of convertPathsToArray(currentStudent.pathFiles)">
+      <!-- <h3 style="padding:5px" *ngFor="let i=index;let path of convertPathsToArray(currentStudent.pathFiles)">
         {{getFileNameFromPath(path)}}
         <button (click)="donwloadFile(path,true)" mat-button>
           <mat-icon>file_download</mat-icon>
         </button>
         <mat-divider *ngIf="i<convertPathsToArray(currentStudent.pathFiles).length-1"></mat-divider>
-      </h3>
+      </h3> -->
+
+      <mat-list class="file-list">
+        <mat-list-item *ngFor="let item of convertPathsToArray(currentStudent.pathFiles)">
+          <div #refContainer class="progress hidden">
+            <mat-progress-bar color="accent" #ref></mat-progress-bar>
+            <span>{{ref.value}}%</span>
+          </div>
+            <h3 class="subTitle">
+              {{getFileNameFromPath(item)}}
+              <button color="accent" mat-icon-button (click)="donwloadFile(item,refContainer,ref)">
+                <mat-icon>file_download</mat-icon>
+              </button>
+            </h3>
+        </mat-list-item>
+      </mat-list>
+
         </ng-template>
     </mat-card-content>
 </mat-card>

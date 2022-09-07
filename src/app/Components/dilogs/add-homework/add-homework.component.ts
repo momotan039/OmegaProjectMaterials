@@ -8,6 +8,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { HomeWorkService } from 'src/app/services/HomeWork.service';
 import { HttpGroupsService } from 'src/app/services/http-groups.service';
 import { HomeworkTeacherComponent } from '../../SubComponent/homework-teacher/homework-teacher.component';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-homework',
@@ -48,7 +50,7 @@ export class AddHomeworkComponent implements OnInit {
   }
 
 
-  AddHomeWork(Files:any){
+  AddHomeWork(Files:any,containerProgress:HTMLElement,refProgress:MatProgressBar){
     if(!this.fg.valid)
       return
 
@@ -64,11 +66,18 @@ export class AddHomeworkComponent implements OnInit {
     for(let i=0;i<files.length;i++)
      fd.append("files",files[i])
 
-     this.homeWorkService.SendHomeWork(fd).subscribe(d=>{
+     containerProgress.classList.remove("hidden")
+     
+     this.homeWorkService.SendHomeWork(fd).subscribe(data=>{
 
-      MyTools.ShowResult200Message(d)
-      this.MatDialogRef.close()
-
+      if (data.type === HttpEventType.DownloadProgress) {
+        console.warn(data)
+        refProgress.value=Math.round((100 * data.loaded) / data.total!);
+      }
+      if (data.type === HttpEventType.Response) {
+        MyTools.ShowResult200Message(data.body)
+        this.MatDialogRef.close()
+      }
      },(error)=>{
       MyTools.ShowFialdMessage(error,"Adding Home Work")
    })

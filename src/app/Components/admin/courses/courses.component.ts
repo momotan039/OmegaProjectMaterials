@@ -44,9 +44,19 @@ export class CoursesComponent implements OnInit,IMyTable {
   })
 }
 DeleteRow=()=>{
-  let dialogRef = MyTools.Dialog.open(DeleteUserComponent, {
-    disableClose:true
-  });
+
+  let dialogRef = MyTools.Dialog.open(MessageDialogComponent,{
+    data:{
+      'title':"Warning",
+      'icon':"warning",
+      "content":"All Related Groups will Deleted !!",
+      'cancel':true
+    }
+  })
+
+  // let dialogRef = MyTools.Dialog.open(DeleteUserComponent, {
+  //   disableClose:true
+  // });
 
   dialogRef.afterClosed().subscribe((success: any)=>{
     if(success)
@@ -72,5 +82,6 @@ AddRow=()=>{
 FilterPredicateParent=(data: any, filter: string)=>{
   return data.name.toLowerCase().includes(filter)
 }
+
 
 }

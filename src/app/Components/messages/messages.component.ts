@@ -152,6 +152,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
       },
       error: () => {
         MyTools.ShowExpiredSessionMessage();
+        this.httpAuth.LogOut()
       },
     });
 

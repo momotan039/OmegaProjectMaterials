@@ -62,6 +62,7 @@ export class HomeWorkStudentService {
         "url":path
       },
       reportProgress:true,
+      responseType:"arraybuffer",
       observe:"events",
     })
   }

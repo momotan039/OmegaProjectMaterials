@@ -25,6 +25,8 @@ export class HttpGroupsService {
     GetUsersGroups(groupId:number){
     return  this.http.get(MyTools.UrlRootApi+"/UsersGroups/GetUserGroups/"+groupId);
   }
+
+
    PostGroups(group:Group){
      return this.http.post(MyTools.UrlRootApi+"/Groups/PostGroup",group,{
       responseType:"text"

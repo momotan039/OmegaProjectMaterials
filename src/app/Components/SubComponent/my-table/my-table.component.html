@@ -34,19 +34,25 @@
     <button *ngIf="operations[0]" (click)="EditRow(element)"  mat-fab color="primary" >
       <mat-icon>edit</mat-icon>
     </button>
+
     <button *ngIf="operations[1]" (click)="DeleteRow(element)"  mat-fab color="accent" >
       <mat-icon>delete</mat-icon>
     </button>
 
-    <div (click)="EnableShowViewDialog?ShowViewDialog(element):null">
-      <a *ngIf="operations[2]" mat-button
-      [routerLink]="detailsComonentUrl?detailsComonentUrl:null"
+      <a *ngIf="operations[2]"   mat-button
+      [routerLink]="'/'+detailsComonentUrl+'/'+element.id"
        mat-fab color="primary"
         >
       <mat-icon>visibility</mat-icon>
     </a>
-    </div>
 
+    <button *ngIf="EnableShowViewDialog"
+    (click)="ShowViewDialog(element)"
+      mat-fab color="primary"
+      [disabled]="!element.pathFiles"
+      >
+      <mat-icon>visibility</mat-icon>
+    </button>
 
   </td>
 </ng-container>

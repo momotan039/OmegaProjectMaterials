@@ -26,7 +26,12 @@ DeleteHomeWork(hw: HomeWork) {
  SendHomeWork(homeWork:FormData){
    return this.http.post(MyTools.UrlRootApi+"/HomeWork/SendHomeWork",
    homeWork,
-   {withCredentials:false,responseType:"text"})
+   {
+    withCredentials:false,
+    responseType:"text",
+    observe:"events",
+    reportProgress:true
+  })
 }
 
 EditHomeWork(homeWork:FormData){
@@ -58,7 +63,7 @@ GetHomeWorkByStudentId(id:number){
       },
       responseType:"arraybuffer",
       reportProgress:true,
-      observe:"response",
+      observe:"events",
     })
   }
 

@@ -1,3 +1,11 @@
-<h1>My Groups</h1>
+<h1 class="title">My Groups</h1>
 
-<h1 *ngFor="let item of groups">{{item.name}}</h1>
+<app-my-table
+[enableAddRow]="false"
+[displayedNameColumns]="['Group','Opening Date','Course','Members']"
+[displayedColumns]="['name','openingDate','course.name','userGroups.length']"
+[getDataTable]="this.httpGroupsService.GetGroupsByUserId()"
+[FilterPredicateParent]="FilterPredicateParent"
+>
+
+</app-my-table>

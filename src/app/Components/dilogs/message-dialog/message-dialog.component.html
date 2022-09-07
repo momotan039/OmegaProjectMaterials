@@ -4,5 +4,6 @@
 </div>
 <div mat-dialog-content>
   <h3>{{Message.content}}</h3>
-  <button mat-raised-button mat-dialog-close >Ok</button>
+  <button color="primary" mat-raised-button [matDialogClose]="true" >Ok</button>
+  <button color="accent" *ngIf="Message.cancel" mat-raised-button [mat-dialog-close]="false" >Cancel</button>
 </div>

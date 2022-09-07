@@ -1,18 +1,35 @@
 /* You can add global styles to this file, and also import other style files */
 
-:root{
---primary:#ff6d00;
---warn:#1868d8
+:root {
+  --primary: #ff6d00;
+  --warn: #1868d8
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-a{
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-image:url("../src/assets/images/background.jpg") ;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+a {
   text-decoration: none !important;
 }
-table,.input-full-width{
+
+table,
+.input-full-width {
   width: 100%;
 }
-.removeScroller{
+
+.removeScroller {
   overflow-y: hidden;
 }
 
@@ -39,8 +56,8 @@ table,.input-full-width{
 
 
 /* Start Title Style */
-.title{
-  background: #ff6d00;
+.title {
+  background-color: var(--warn);
   padding: 20px 5px;
   font-weight: bold !important;
   color: white;
@@ -49,7 +66,7 @@ table,.input-full-width{
 }
 
 @media (max-width:768px) {
-  .title{
+  .title {
     margin: 15px !important;
   }
 }
@@ -57,16 +74,31 @@ table,.input-full-width{
 /* End Title Style */
 
 /* Start Sub Title */
-.subTitle{
-  background-color: var(--warn);
+.subTitle {
+  background: var(--primary);
   padding: 10px;
   border-radius: 5px;
   font-weight: bold;
   color: white;
   margin-bottom: 3px !important;
 }
+
 /* End Sub Title */
 
- mat-error{
-color: red !important;
+/* Start Erorr Message */
+mat-error {
+  color: red !important;
+}
+
+.error-message {
+  font-weight: bold !important;
+  background: #e32525;
+  text-align: center;
+  color: white;
+}
+
+/* End Erorr Message */
+
+.hidden {
+  display: none;
 }

@@ -1,3 +1,5 @@
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { MatListItem } from '@angular/material/list';
 import { HomeWorkStudentService } from './../../../services/home-work-student.service';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Component, Inject, OnInit } from '@angular/core';
@@ -11,7 +13,6 @@ import { MyTools } from 'src/app/constants/MyTools';
   styleUrls: ['./show-submited-files-student.component.css']
 })
 export class ShowSubmitedFilesStudentComponent implements OnInit {
- valueProgress:any
   showProgressBarContainer: boolean | undefined;
   constructor(
     @Inject(MAT_DIALOG_DATA)public data:any,
@@ -30,16 +31,17 @@ export class ShowSubmitedFilesStudentComponent implements OnInit {
     return path.replace(/^.*[\\\/]/, '');
   }
 
-  donwloadFile(path: any) {
+  donwloadFile(path: any,containerProgress:HTMLElement,refProgress:MatProgressBar) {
+    //show Progress Bar
+   containerProgress.classList.remove("hidden")
 
     this.homeWorkStudentService.DownloadFileByPath(path).subscribe(
       (data) => {
-        this.showProgressBarContainer = true;
         if (data.type === HttpEventType.DownloadProgress) {
-          this.valueProgress=Math.round((100 * data.loaded) / data.total!);
-          console.warn(data.loaded)
+          refProgress.value=Math.round((100 * data.loaded) / data.total!);
         }
         if (data.type === HttpEventType.Response) {
+          //Create link to download
           const blob = new Blob([data.body as BlobPart]);
           // saveAs(blob, hwf.name);
           const url = window.URL.createObjectURL(blob);

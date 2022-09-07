@@ -27,6 +27,9 @@
   color: white;
 }
 
+.hidden-progress{
+  display: none;
+}
 
 .BtnFilesContainer{
   margin-bottom: 10px;

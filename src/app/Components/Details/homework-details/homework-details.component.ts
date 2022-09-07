@@ -14,6 +14,7 @@ import { filter, Observable, Observer, BehaviorSubject } from 'rxjs';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { HttpEventType } from '@angular/common/http';
 import { MyTableComponent } from '../../SubComponent/my-table/my-table.component';
+import { MatProgressBar } from '@angular/material/progress-bar';
 
 
 @Component({
@@ -40,7 +41,7 @@ export class HomeworkDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
-
+debugger
     this.homeWorkService.GetHomeWorks(this.id).subscribe((data) => {
       this.homeWork = data as HomeWork;
 
@@ -50,6 +51,7 @@ export class HomeworkDetailsComponent implements OnInit {
           .GetSubmitStudentByself(
             this.authService.currentUser.id!,
             this.homeWork.id
+            
           )
           .subscribe((data) => {
             this.currentStudent = data;
@@ -81,7 +83,7 @@ export class HomeworkDetailsComponent implements OnInit {
     return path.replace(/^.*[\\\/]/, '');
   }
 
-  donwloadFile(path: any, isStudentFile = false) {
+  donwloadFile(path: any,containerProgress:HTMLElement,refProgress:MatProgressBar) {
     let hwf = new HomeWorkFile(
       this.homeWork.id,
       this.getFileNameFromPath(path),
@@ -89,18 +91,8 @@ export class HomeworkDetailsComponent implements OnInit {
       this.homeWork.teacher?.id!
     );
 
-    let fun: Observable<any>;
 
-    if (!isStudentFile) fun = this.homeWorkService.DownloadHomeWorkFile(hwf);
-    else
-      fun = this.homeWorkStudentService.DownloadFile(
-        this.getFileNameFromPath(path),
-        hwf.groupId,
-        this.authService.currentUser.id!,
-        hwf.id
-      );
-
-    fun.subscribe(
+    this.homeWorkStudentService.DownloadFileByPath(path).subscribe(
       (data) => {
         this.showProgressBarContainer = true;
         if (data.type === HttpEventType.DownloadProgress) {
@@ -108,7 +100,7 @@ export class HomeworkDetailsComponent implements OnInit {
           console.warn(data.loaded)
         }
         if (data.type === HttpEventType.Response) {
-          const blob = new Blob([data as BlobPart]);
+          const blob = new Blob([data.body as BlobPart]);
           // saveAs(blob, hwf.name);
           const url = window.URL.createObjectURL(blob);
           const link = document.createElement('a');
@@ -130,10 +122,18 @@ export class HomeworkDetailsComponent implements OnInit {
     );
   }
   progress?: number;
+  showFilesSizeErorr=false;
   SendStudentFiles(Files: any) {
     let files = Files as File[];
-
+    this.showFilesSizeErorr=false;
     if (files.length == 0) return;
+
+     //Check Size of files
+     if(!this.IsValidSizeFiles(files))
+     {
+      this.showFilesSizeErorr=true;
+     return ;
+     }
 
     let fd = new FormData();
     fd.append('homeWorkId', this.homeWork.id + '');
@@ -199,6 +199,18 @@ export class HomeworkDetailsComponent implements OnInit {
     })
   }
 
+  IsValidSizeFiles(files: File[]) {
+    let size=0;
+    for (let i = 0; i < files.length; i++)
+      size+=files[i].size
+
+    //conver it to gigabytes
+    size=size/1000000000;
+    return Math.floor(size)<2;
+  }
+
 }
+
+
 
 
