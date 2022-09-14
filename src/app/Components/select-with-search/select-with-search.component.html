@@ -1,0 +1,11 @@
+ <mat-form-field aria-disabled="true" appearance="fill">
+      <mat-label>{{label}}</mat-label>
+      <input [value]="GetSelectedOptionName()" class="inputStudent" #refInput matInput [formControl]="myControl" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option  *ngFor="let option of filteredOptions | async" [value]="option[value]">
+          {{option[displayBy]}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error *ngIf="myControl!.hasError('required')">
+       {{messageError}}</mat-error>
+    </mat-form-field> 

@@ -25,7 +25,7 @@ export class TestsComponent implements OnInit {
   EditRow=()=>{
     let dialogRef=MyTools.Dialog.open(EditTestComponent,{
       data:this.myTable?.selectedRow,
-      disableClose:true
+      disableClose:true,
     })
     dialogRef.afterClosed().subscribe(success=>{
       if(success)

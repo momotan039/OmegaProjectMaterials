@@ -4,7 +4,7 @@
 
   <mat-form-field class="m-1" appearance="fill">
     <mat-label>Id Card</mat-label>
-    <input type="text" formControlName="idCard"  matInput >
+    <input  formControlName="idCard"  matInput >
 
     <mat-error *ngIf="fg.get('idCard')!.errors?.['required']">
       Please Fill this Field</mat-error>
@@ -48,6 +48,11 @@
     <input formControlName="phone"  matInput >
     <mat-error *ngIf="fg.get('phone')!.hasError('required')">
       Please Fill this Field</mat-error>
+      <mat-error *ngIf="fg.get('phone')!.errors?.['maxlength']">
+        Length Must Be 9 Digits</mat-error>
+  
+      <mat-error *ngIf="fg.get('phone')!.errors?.['minlength']">
+        Length Must Be 9 Digits</mat-error>
   </mat-form-field>
 
 <mat-form-field appearance="fill">

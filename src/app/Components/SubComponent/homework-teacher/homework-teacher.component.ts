@@ -46,7 +46,8 @@ export class HomeworkTeacherComponent implements OnInit {
 
   EditRow=() =>{
     MyTools.Dialog.open(EditHomeworkComponent,{
-       data:this.myTable?.selectedRow
+       data:this.myTable?.selectedRow,
+      disableClose:true
      }).afterClosed()
      .subscribe(success=>{
        if(success)

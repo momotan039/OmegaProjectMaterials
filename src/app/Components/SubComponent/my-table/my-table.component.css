@@ -1,42 +1,69 @@
-table thead tr{
+:host {
+  background-color: red;
+}
+
+.titleContainer{
+  padding: 30px !important;
+  background-color: var(--warn);
+  margin-top: 30px;
+}
+.titleContainer h1{
+float: left;
+line-height: 0;
+font-weight: bold ;
+}
+.titleContainer button{
+  float:right;
+  top: -29px;
+  color: white;
+}
+table thead tr {
   /* background: grey !important; */
 }
-table tr{
+
+table tr {
   /* background: crimson; */
 }
-table tr:hover{
+
+table tr:hover {
   /* background: cornflowerblue;
   cursor: pointer; */
 }
-table td textarea{
+
+table td textarea {
   color: black;
   resize: none;
   max-width: calc(100% - 160px);
 }
-@media (max-width:992px) {
- /* remove hover  */
- table tr:hover{
 
-}
+@media (max-width:992px) {
+
+  /* remove hover  */
+  table tr:hover {}
+
   ::ng-deep table thead {
-      display: none !important;
+    display: none !important;
   }
+
   ::ng-deep table tbody tr,
-  ::ng-deep table tbody td{
-      display: block;
+  ::ng-deep table tbody td {
+    display: block;
   }
-  ::ng-deep table tbody td{
+
+  ::ng-deep table tbody td {
     position: relative;
   }
-  ::ng-deep table tbody tr{
+
+  ::ng-deep table tbody tr {
     /* position: relative; */
     height: auto !important;
     border: grey solid;
     border-radius: 5px;
     padding: 10px;
   }
+
   /* show title before td */
-  ::ng-deep table tbody tr td::before{
+  ::ng-deep table tbody tr td::before {
     content: attr(data-title);
     position: absolute;
     left: 0;
@@ -44,10 +71,12 @@ table td textarea{
     text-align: start;
     font-weight: bold;
   }
-  ::ng-deep table tbody tr td{
-      padding: 0 !important;
-      text-align: center;
+
+  ::ng-deep table tbody tr td {
+    padding: 0 !important;
+    text-align: center;
   }
+
   ::ng-deep table tbody tr td button *,
   ::ng-deep table tbody tr td button,
   ::ng-deep table tbody tr td a {
@@ -55,19 +84,21 @@ table td textarea{
     height: 30px !important;
     /* line-height: 0 !important; */
   }
-  ::ng-deep  table tbody tr td .mat-fab .mat-button-wrapper{
+
+  ::ng-deep table tbody tr td .mat-fab .mat-button-wrapper {
     display: inline;
   }
-  ::ng-deep table tbody tr td a span{
+
+  ::ng-deep table tbody tr td a span {
     padding: 0 !important;
   }
+
   ::ng-deep table tbody tr:not(table tbody tr:last-child) {
-      margin-bottom: 1rem;
+    margin-bottom: 1rem;
   }
 }
 
 
-@media (max-width:768px){
-  table{
-  }
+@media (max-width:768px) {
+  table {}
 }

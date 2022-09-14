@@ -17,8 +17,11 @@ import {MatListModule} from '@angular/material/list';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { NgxMatSelectSearchModule } from "ngx-mat-select-search";
 import {MatRadioModule} from '@angular/material/radio';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 const materials=[
+  FontAwesomeModule,
   MatTableModule,
   MatInputModule,
   MatPaginatorModule,
@@ -36,6 +39,7 @@ const materials=[
   MatListModule,
   MatProgressBarModule,
   MatRadioModule,
+  MatAutocompleteModule,
   NgxMatSelectSearchModule
 ]
 @NgModule({

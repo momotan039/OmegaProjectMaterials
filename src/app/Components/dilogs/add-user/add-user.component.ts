@@ -25,13 +25,13 @@ export class AddUserComponent implements OnInit {
     firstName:['',Validators.required],
     lastName:['',Validators.required],
     email:['',Validators.compose([Validators.required,Validators.email])],
-    phone:['',Validators.required],
+    phone:['',Validators.compose([Validators.required,Validators.minLength(10),Validators.maxLength(10)])],
     idCard:['',Validators.compose([Validators.required,Validators.minLength(9),Validators.maxLength(9)])],
     roleId:[this.dataRecived.roleBy+"",Validators.required],
   })
   ngOnInit(): void {
-
   }
+
 
 SaveUser(){
   console.warn(this.fg.get('email')!.errors)

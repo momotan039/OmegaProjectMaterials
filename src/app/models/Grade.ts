@@ -1,3 +1,4 @@
+import { Test } from './Test';
 import { Group } from 'src/app/models/Group';
 import { User } from 'src/app/models/User';
 export class Grade {
@@ -9,5 +10,6 @@ export class Grade {
   note?:string
   student?:User
   group?:Group
+  test?:Test
 }
 

@@ -4,7 +4,6 @@ import { AuthService } from './services/auth.service';
 import { MyTools } from './constants/MyTools';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -12,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class AppComponent {
   title = 'app';
+  // faCoffee = faCoffee;
 
   constructor(
     private dialog:MatDialog,

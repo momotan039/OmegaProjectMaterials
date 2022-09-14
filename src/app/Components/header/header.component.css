@@ -47,11 +47,18 @@ width: 100%;
 }
 
 .logo{
-  /* background: white;
+  background: white;
   border-radius: 10px;
   padding: 0 20px;
-  cursor: pointer; */
+  cursor: pointer;
+  transition: height 2s;
 }
+@media screen and (max-width:599px) {
+  .logo{
+    height: 3rem;
+  }
+}
+
 h1.logo{
   font-family: 'Rubik Mono One', sans-serif;
   color: white;
@@ -67,3 +74,5 @@ h1.logo{
     display: unset;
   }
 }
+
+

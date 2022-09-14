@@ -1,3 +1,4 @@
+import { SelectWithSearchComponent } from './Components/select-with-search/select-with-search.component';
 import { TestDetailsComponent } from './Components/Details/test-details/test-details.component';
 import { TestComponent } from './test/test.component';
 import { ResetPasswordDialogComponent } from './Components/Account/reset-password-dialog/reset-password-dialog.component';
@@ -87,6 +88,7 @@ const routes: Routes = [
     path: 'test',
   },
 
+
   {
     component: UserDetailsComponent,
     path: 'userDetails/:id',
@@ -107,6 +109,7 @@ const routes: Routes = [
     path: 'HomeWorkDetails/:id',
     canActivate: [AuthGuardService],
   },
+  
   {
     component: TestDetailsComponent,
     path: 'testDetails/:id',
@@ -120,6 +123,12 @@ const routes: Routes = [
     path: '**',
     canActivate: [AuthGuardService],
   },
+
+  {
+    component: SelectWithSearchComponent,
+    path: "select",
+  },
+
 ];
 
 @NgModule({

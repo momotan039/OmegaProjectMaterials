@@ -2,7 +2,7 @@ import { HttpUsersService } from 'src/app/services/http-users.service';
 import { Test } from './../../../models/Test';
 import { HttpTestsService } from './../../../services/HttpTests.service';
 import { Router } from '@angular/router';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MyTools } from 'src/app/constants/MyTools';
@@ -13,17 +13,23 @@ import { HttpGroupsService } from 'src/app/services/http-groups.service';
 import { HttpGradesService } from 'src/app/services/http-grades.service';
 import { GradesComponent } from '../../grades/grades.component';
 import { MessageDialogComponent } from '../message-dialog/message-dialog.component';
+import { SelectWithSearchComponent } from '../../select-with-search/select-with-search.component';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-edit-grade',
   templateUrl: './edit-grade.component.html',
   styleUrls: ['./edit-grade.component.css']
 })
-export class EditGradeComponent implements OnInit {
+export class EditGradeComponent implements OnInit,AfterViewInit {
   groups:Group[]=[]
   students:User[]=[]
   tests:Test[]=[]
   fg=new FormGroup({})
+  @ViewChild("refSelectTest") selectTest=new SelectWithSearchComponent()
+  @ViewChild("refSelectGroup") selectGroup=new SelectWithSearchComponent()
+  @ViewChild("refSelectStudent") selectStudent=new SelectWithSearchComponent()
+  studentsObserv: any;
   constructor(
     private httpGroupsService:HttpGroupsService,
     private httpGradesService:HttpGradesService,
@@ -34,38 +40,59 @@ export class EditGradeComponent implements OnInit {
 
     @Inject(MAT_DIALOG_DATA) private data:Grade
   ) {
+
     this.fg=this.fb.group({
-      groupId:[data.groupId,Validators.required],
-      studentId:[data.studentId,Validators.required],
       sumGrade:[data.sumGrade,Validators.required],
-      testId:[data.testId,Validators.required],
       note:[data.note]
     })
+
+  }
+  ngAfterViewInit(): void {
+    //set value of controls by passed data 
+    this.selectTest.myControl.setValue(this.data.testId)
+    this.selectGroup.myControl.setValue(this.data.groupId)
+    this.selectStudent.myControl.setValue(this.data.studentId)
+    //append select controls to my form group controls
+    this.fg.addControl("testId",this.selectTest.myControl)
+    this.fg.addControl("groupId",this.selectGroup.myControl)
+    this.fg.addControl("studentId",this.selectStudent.myControl)
+
+    //get students when change group
+    this.fg.get("groupId")?.valueChanges.subscribe(data=>{
+      debugger
+      this.ChangeStudentsList(data)
+      this.selectStudent.RefreshData();
+      //Start clear Student selection
+      this.selectStudent.myControl.setValue("");
+      let inputStudent=document.querySelectorAll(".inputStudent")[1] as any
+      inputStudent.value=""
+      //End clear Student selection
+     })
+
   }
 
   ngOnInit(): void {
-    this.httpGroupsService.GetGroups().subscribe(data=>{
-      this.groups=data;
-    })
-    this.httpUsersService.GetUsersByRole(3).subscribe(data=>{
-      this.students=data
-    })
-    this.httpTestsService.GetTests().subscribe(data=>{
-      this.tests=data
-    })
+    
   }
+  
   ChangeStudentsList(val:any){
     this.students=[]
-    this.groups.find(f=>f.id==val)?.userGroups.forEach(ug=>{
+    this.studentsObserv=new BehaviorSubject<User[]>([]);
+
+    this.selectGroup.options.find(f=>f.id==val)?.userGroups.forEach((ug: { user: User; })=>{
       if(ug.user.roleId==3)
+       {
         this.students.push(ug.user)
+       }
     })
-    this.httpTestsService.GetTests().subscribe(data=>{
-      this.tests=data
-    })
+    debugger
+    this.studentsObserv.next(this.students)
   }
 
   SaveRecord(){
+    // console.warn(this.fg.value)
+    // console.warn(this.selectStudent.autocomplete)
+    // return
     if(!this.fg.valid)
     return;
     let grade=new Grade();
@@ -84,4 +111,16 @@ export class EditGradeComponent implements OnInit {
       })
 
   }
+  
+
+  GetStudents=()=>{
+    return  this.studentsObserv.asObservable();
+   }
+   GetTests=()=>{
+    return this.httpTestsService.GetTests()
+   }
+   GetGroups=()=>{
+    return this.httpGroupsService.GetGroups()
+   }
+
 }

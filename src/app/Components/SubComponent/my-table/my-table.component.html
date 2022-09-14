@@ -1,13 +1,19 @@
+<div class="mainContainer">
+  
+  <!-- <h1 class="title" *ngIf="title">{{title}}s</h1> -->
 
-  <h1 class="title" *ngIf="title">{{title}}s</h1>
+  <div class="titleContainer">
+    <h1 *ngIf="title">{{title}}s</h1>
+    <button *ngIf="enableAddRow" (click)="AddRow()" color="primary" mat-fab><mat-icon>add</mat-icon></button>
+  </div>
 
-  <div *ngIf="enableAddRow" style="text-align: center;margin-bottom: 10px;">
+  <!-- <div *ngIf="enableAddRow" class="btnAddRowContainer">
     <button class="btn_add_row_table" mat-raised-button (click)="AddRow()" color="accent">
       <mat-icon class="mat-18">add</mat-icon>
       Add New {{title}}</button>
       <mat-divider>
       </mat-divider>
-  </div>
+  </div> -->
 
   <mat-form-field  class="input-full-width" appearance="fill">
     <mat-label>Search for...</mat-label>
@@ -66,3 +72,5 @@
   aria-label="Select page">
 </mat-paginator>
 
+
+</div>

@@ -96,7 +96,7 @@ debugger
       (data) => {
         this.showProgressBarContainer = true;
         if (data.type === HttpEventType.DownloadProgress) {
-          this.progress=Math.round((100 * data.loaded) / data.total!);
+          refProgress.value=Math.round((100 * data.loaded) / data.total!);
           console.warn(data.loaded)
         }
         if (data.type === HttpEventType.Response) {

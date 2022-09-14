@@ -1,59 +1,84 @@
 <h1 class="title" matDialogTitle>Edit This Grade</h1>
-<div matDialogContent>
+<div class="matDialogContent" matDialogContent>
   <form [formGroup]="fg">
 
-    <mat-form-field appearance="fill">
-      <mat-label>Select a Group</mat-label>
-      <mat-select (valueChange)="ChangeStudentsList($event)" formControlName="groupId" placeholder="">
-        <mat-option *ngFor="let item of groups" [value]="item.id">{{item.name}}</mat-option>
-      </mat-select>
-      <mat-error *ngIf="fg.get('groupId')!.hasError('required')">
-        Please Select a Group</mat-error>
-    </mat-form-field>
+    <app-select-with-search
+    #refSelectGroup
+      [label]="'Select a Group'"
+      [config]="{'value':'id',
+                'displayBy':'name'}"
+      [getDataParent]="GetGroups"
+      [messageError]="'Please Select a Group'"
+    >
+    </app-select-with-search>
 
-    <mat-form-field appearance="fill">
+    <app-select-with-search
+    #refSelectStudent
+      [label]="'Select a Student'"
+      [config]="{'value':'id',
+                'displayBy':'firstName'}"
+      [getDataParent]="GetStudents"
+      [messageError]="'Please Select a Student'"
+    >
+    </app-select-with-search>
+
+    <!-- <mat-form-field appearance="fill">
       <mat-label>Select a Student</mat-label>
-      <mat-select [disabled]="true"  formControlName="studentId" placeholder="">
-        <mat-option *ngFor="let item of students" [value]="item.id">
-          {{item.firstName}} ~
-          <span>{{item.idCard}}</span>
-        </mat-option>
+      <mat-select [disabled]="students.length==0" formControlName="studentId"  placeholder="">
+          <mat-option *ngFor="let item of students" [value]="item.id">{{item.firstName}}</mat-option>
       </mat-select>
       <mat-error *ngIf="fg.get('studentId')!.hasError('required')">
         Please Select a Group</mat-error>
-      <mat-error *ngIf="students.length==0">
-        Theres No Students in This Group</mat-error>
-    </mat-form-field>
+        <mat-error *ngIf="students.length==0">
+          Theres No Students in This Group</mat-error>
+    </mat-form-field> -->
 
 
-    <mat-form-field appearance="fill">
+    <app-select-with-search
+    #refSelectTest
+      [label]="'Select a Test'"
+      [config]="{'value':'id',
+                'displayBy':'name'}"
+      [getDataParent]="GetTests"
+      [messageError]="'Please Select a Test'"
+    >
+    </app-select-with-search>
+
+    <!-- <mat-form-field appearance="fill">
       <mat-label>Select a Test</mat-label>
-      <mat-select formControlName="testId" placeholder="">
-        <mat-option *ngFor="let item of tests" [value]="item.id">{{item.name}}</mat-option>
+      <mat-select formControlName="testId"  placeholder="">
+          <mat-option *ngFor="let item of tests" [value]="item.id">{{item.name}}</mat-option>
       </mat-select>
       <mat-error *ngIf="fg.get('testId')!.hasError('required')">
         Please Select a Test</mat-error>
-    </mat-form-field>
-
-    <mat-form-field class="m-1" appearance="fill">
-      <mat-label>Grade</mat-label>
-      <input formControlName="sumGrade" matInput>
-      <mat-error *ngIf="fg.get('sumGrade')!.errors?.['required']">
-        Please Fill this Field</mat-error>
-    </mat-form-field>
+    </mat-form-field> -->
 
 
-    <mat-form-field  appearance="fill">
-      <mat-label>Textarea</mat-label>
-      <textarea formControlName="note" matInput required placeholder="Write some Notes Here.."></textarea>
-    </mat-form-field>
+  <mat-form-field class="m-1" appearance="fill">
+    <mat-label>Grade</mat-label>
+    <input type="number" formControlName="sumGrade"  matInput >
+    <mat-error *ngIf="fg.get('sumGrade')!.errors?.['required']">
+      Please Fill this Field</mat-error>
+      <mat-error *ngIf="fg.get('sumGrade')!.errors?.['max']">
+        Grade Must Be less than or equal 800</mat-error>
+      <mat-error *ngIf="fg.get('sumGrade')!.errors?.['min']">
+        Grade Must Be bigger than or equal 0</mat-error>
+  </mat-form-field>
+
+
+  <mat-form-field class="m-1" appearance="fill">
+    <mat-label>Note</mat-label>
+    <input formControlName="note"  matInput >
+    <mat-error *ngIf="fg.get('note')!.errors?.['required']">
+      Please Fill this Field</mat-error>
+  </mat-form-field>
 
 
 
-    <div style="text-align: center;">
-      <button style="margin-right: 10px;" mat-raised-button (click)="SaveRecord()" color="accent">Save</button>
-      <button mat-raised-button [mat-dialog-close]="false" color="primary">Cancel</button>
-    </div>
-  </form>
+  <div style="text-align: center;">
+    <button style="margin-right: 10px;" mat-raised-button (click)="SaveRecord()"  color="accent">Save</button>
+  <button mat-raised-button [mat-dialog-close]="false" color="primary">Cancel</button>
+  </div>
+</form>
 
 </div>

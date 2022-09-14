@@ -1,14 +1,15 @@
+import { SelectWithSearchComponent } from './../../select-with-search/select-with-search.component';
 import { AuthService } from './../../../services/auth.service';
 import { MyLocalStorage } from './../../../services/MyLocalStorage';
 import { HttpTestsService } from './../../../services/HttpTests.service';
-import { catchError, map } from 'rxjs';
+import { catchError, map, startWith, Observable, BehaviorSubject } from 'rxjs';
 import { Grade } from './../../../models/Grade';
 import { HttpGradesService } from './../../../services/http-grades.service';
 import { User } from 'src/app/models/User';
 import { Group } from 'src/app/models/Group';
 import { HttpGroupsService } from 'src/app/services/http-groups.service';
 import { GradesComponent } from './../../grades/grades.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MyTools } from 'src/app/constants/MyTools';
@@ -21,36 +22,48 @@ import { Test } from 'src/app/models/Test';
   templateUrl: './add-grade.component.html',
   styleUrls: ['./add-grade.component.css']
 })
-export class AddGradeComponent implements OnInit {
-  groups:Group[]=[]
+export class AddGradeComponent implements OnInit,AfterViewInit {
   students:User[]=[]
-  tests:Test[]=[]
+  studentsObserv= new BehaviorSubject<User[]>([]);
+  @ViewChild("refSelectTest") selectTest=new SelectWithSearchComponent()
+  @ViewChild("refSelectGroup") selectGroup=new SelectWithSearchComponent()
+  @ViewChild("refSelectStudent") selectStudent=new SelectWithSearchComponent()
   constructor(
     private httpGroupsService:HttpGroupsService,
     private httpGradesService:HttpGradesService,
     private httpTestsService:HttpTestsService,
     private dialogRef:MatDialogRef<GradesComponent>,
     private fb:FormBuilder,
-    private auth:AuthService,
-
   ) { }
+  ngAfterViewInit(): void {
+ this.fg.addControl("testId",this.selectTest.myControl)
+ this.fg.addControl("groupId",this.selectGroup.myControl)
+ this.fg.addControl("studentId",this.selectStudent.myControl)
+
+ this.fg.get("groupId")?.valueChanges.subscribe(data=>{
+  this.ChangeStudentsList(data)
+  this.selectStudent.RefreshData();
+  //Start clear Student selection
+  this.selectStudent.myControl.setValue("");
+  let inputStudent=document.querySelectorAll(".inputStudent")[1] as any
+  inputStudent.value=""
+  //End clear Student selection
+ })
+  }
   fg=this.fb.group({
-    groupId:['',Validators.required],
-    studentId:['',Validators.required],
-    sumGrade:['',Validators.required],
-    testId:['',Validators.required],
+    sumGrade:['',Validators.compose(
+      [Validators.required,
+      Validators.maxLength(3),
+      Validators.min(0),
+      Validators.max(800)])],
     note:['']
   })
   ngOnInit(): void {
-
-    this.httpGroupsService.GetGroups().subscribe(data=>{
-      this.groups=data;
-    })
-    this.httpTestsService.GetTests().subscribe(data=>{
-      this.tests=data
-    })
+    
   }
   SaveRecord(){
+    console.log(this.fg.value)
+    console.warn(this.selectStudent.myControl.value)
     if(!this.fg.valid)
     return;
     let grade=new Grade();
@@ -70,10 +83,26 @@ export class AddGradeComponent implements OnInit {
 
   ChangeStudentsList(val:any){
     this.students=[]
-    this.groups.find(f=>f.id==val)?.userGroups.forEach(ug=>{
-      if(ug.user.roleId==3)
-        this.students.push(ug.user)
-    })
+    this.studentsObserv=new BehaviorSubject<User[]>([]);
 
+    this.selectGroup.options.find(f=>f.id==val)?.userGroups.forEach((ug: { user: User; })=>{
+      if(ug.user.roleId==3)
+       {
+        this.students.push(ug.user)
+       }
+    })
+    this.studentsObserv.next(this.students)
   }
+
+ 
+
+ GetStudents=()=>{
+  return  this.studentsObserv.asObservable();
+ }
+ GetTests=()=>{
+  return this.httpTestsService.GetTests()
+ }
+ GetGroups=()=>{
+  return this.httpGroupsService.GetGroups()
+ }
 }

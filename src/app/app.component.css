@@ -2,6 +2,10 @@
   transition: all .3s;
 }
 
+.main{
+  padding-bottom: 150px;
+}
+
 ::ng-deep .btn_add_row_table{
   font-weight: bold;
 }
@@ -78,4 +82,23 @@ width: 100%;
 
 /* End List Style */
 
+/* Start Form Field Style */
+::ng-deep .mat-form-field-appearance-fill
+ .mat-form-field-flex{
+  background-color: white;
+  color: black;
+ }
+/* End Form Field Style */
 
+
+/* Start Paginator Style */
+::ng-deep .mat-paginator-container{
+justify-content: center !important;
+}
+/* End Paginator Style */
+
+
+
+  ::ng-deep .mat-form-field.mat-focused .mat-form-field-ripple {
+    /* background-color: #46a35e !important; */
+  }

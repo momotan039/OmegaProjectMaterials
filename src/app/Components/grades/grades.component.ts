@@ -30,7 +30,8 @@ export class GradesComponent implements OnInit{
 
   AddRow=()=>{
     MyTools.Dialog.open(AddGradeComponent,{
-      disableClose:true
+      disableClose:true,
+      autoFocus:false
     }).afterClosed()
     .subscribe(success=>{
       if(success)
@@ -40,7 +41,9 @@ export class GradesComponent implements OnInit{
 
   EditRow=() =>{
    MyTools.Dialog.open(EditGradeComponent,{
-      data:this.myTable?.selectedRow
+      data:this.myTable?.selectedRow,
+      disableClose:true,
+      autoFocus:false
     }).afterClosed()
     .subscribe(success=>{
       if(success)
