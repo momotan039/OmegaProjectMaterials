@@ -73,12 +73,15 @@ table,
   font-weight: bold !important;
   color: white;
   border-radius: 5px;
+  font-size: 24px !important;
   text-align: center;
 }
 
 @media (max-width:768px) {
-  .title {
+  .title,.subTitle {
     margin: 15px !important;
+    padding: 5px 0;
+    font-size: 16px !important;
   }
 }
 
@@ -91,6 +94,7 @@ table,
   border-radius: 5px;
   font-weight: bold;
   color: white;
+  font-size: 24px !important;
   margin-bottom: 3px !important;
 }
 

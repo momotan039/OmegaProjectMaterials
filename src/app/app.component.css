@@ -33,12 +33,14 @@
 /* Start Dialog style */
 ::ng-deep mat-dialog-container {
   height: auto !important;
+  width: 100%;
 }
 
 ::ng-deep mat-dialog-container mat-form-field{
 width: 100%;
 }
-/* Start Dialog style */
+/* End Dialog style */
+
 ::ng-deep mat-select mat-option{
   color: red;
 }

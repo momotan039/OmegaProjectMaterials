@@ -14,7 +14,7 @@ display: none;
 
 mat-drawer-container{
   position: absolute;
-  height: 100%;
+  height: fill-available;
   width: 100%;
   visibility: hidden;
   z-index: 999;

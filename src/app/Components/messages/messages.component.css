@@ -34,11 +34,17 @@
   height: 70%;
 }
 .mainContainer .left{
-  overflow-y: auto;
-  overflow-x: hidden;
+  height: auto;
+}
+.mainContainer .left .contacts{
+  padding: 8px;
+  border-bottom: 1px solid;
 }
 .mainContainer .left mat-list{
   gap: 10px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
 }
 .mainContainer .left mat-list mat-list-item{
   margin-bottom: 3rem;
