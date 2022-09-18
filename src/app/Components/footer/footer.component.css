@@ -7,7 +7,7 @@
     justify-content: space-evenly;
     align-items: center;
     /* position: fixed;
-    bottom: 0; 
+    bottom: 0;
     height: 150px;
     */
 }
@@ -27,7 +27,7 @@ padding: 15px;
     color: #ffffff;
     background-color: var(--warn);
     padding: 2px 10px;
-    font-size: 4rem;
+    font-size: 2.5rem;
     border-radius: 10px;
     transition: all .3s;
     margin-right: 15px;

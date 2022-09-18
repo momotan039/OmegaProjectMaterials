@@ -24,6 +24,10 @@ body {
   background-attachment: fixed;
 }
 
+.mainContainer{
+  min-height: 70vh;
+}
+
 a {
   text-decoration: none !important;
 }
