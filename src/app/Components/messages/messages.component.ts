@@ -18,6 +18,7 @@ import {
   OnInit,
   OnDestroy,
 } from '@angular/core';
+import { MatIcon } from '@angular/material/icon';
 @Component({
   selector: 'app-messages',
   templateUrl: './messages.component.html',
@@ -32,9 +33,12 @@ export class MessagesComponent implements OnInit, OnDestroy {
   // receiverGroup=new Group()
   receiver: any;
   groups: Group[] = [];
+  filteredGroups: Group[] = [];
   freinds: User[] = [];
+  filteredFreinds: User[] = [];
   msgs: any = [];
   msgObs?: Subscription;
+
   constructor(
     private fb: FormBuilder,
     private httpGroupsService: HttpGroupsService,
@@ -60,10 +64,12 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
     this.httpGroupsService.GetGroupsByUserId().subscribe((data) => {
       this.groups = data;
+      this.filteredGroups=this.groups
     });
 
     this.httpUserGroupService.GetFreindsByUser().subscribe((data) => {
       this.freinds = data;
+      this.filteredFreinds=this.freinds
     });
   }
   isReciverGroup() {
@@ -198,5 +204,52 @@ export class MessagesComponent implements OnInit, OnDestroy {
         );
       }
     });
+  }
+
+  FilterContacts(input:HTMLInputElement,clearIcon:MatIcon,serachIcon:MatIcon){
+    let value=input.value.toLowerCase();
+    // show clear icon if not empty value
+    if(!value)
+       {
+        clearIcon._elementRef.nativeElement.classList.add("hidden")
+        serachIcon._elementRef.nativeElement.classList.remove("hidden")
+       }
+    else
+     {
+      clearIcon._elementRef.nativeElement.classList.remove("hidden")
+      serachIcon._elementRef.nativeElement.classList.add("hidden")
+     }
+    //  filter user by value
+    let _filteredFreinds:User[]=[];
+    this.freinds.forEach(f=>{
+    const nameContact=f.firstName+" "+f.lastName;
+      if(f.email?.toLowerCase().includes(value)||
+         nameContact.toLowerCase().includes(value) )
+      {
+        _filteredFreinds.push(f)
+      }
+    })
+    this.filteredFreinds=_filteredFreinds
+
+    //  filter user by value
+    let _filteredGroups:Group[]=[];
+    this.groups.forEach(f=>{
+      if(f.course?.name?.toLowerCase().includes(value)||
+         f.name?.toLowerCase().includes(value) )
+      {
+        _filteredGroups.push(f)
+      }
+    })
+    this.filteredGroups=_filteredGroups
+  }
+
+  ClearSearchContact(input:HTMLInputElement,clearIcon:MatIcon,serachIcon:MatIcon){
+      input.value=""
+      // show search icon and hide clear icon
+      clearIcon._elementRef.nativeElement.classList.add("hidden")
+      serachIcon._elementRef.nativeElement.classList.remove("hidden")
+
+     this.filteredFreinds=this.freinds
+     this.filteredGroups=this.groups
   }
 }

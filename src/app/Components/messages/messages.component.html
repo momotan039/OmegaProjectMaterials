@@ -2,11 +2,18 @@
 
 <div class="mainContainer">
   <div class="left ">
-    <h1 class="contacts">Contacts</h1>
+    <mat-form-field  class="input-full-width" appearance="fill">
+      <mat-label>Search for Contact...</mat-label>
+      <input #refSearch (keyup)="FilterContacts(refSearch,refClearIcon,refSearchIcon)" matInput >
+      <mat-icon #refSearchIcon matPrefix >search</mat-icon>
+      <mat-icon (click)="ClearSearchContact(refSearch,refClearIcon,refSearchIcon)" class="hidden" #refClearIcon matPrefix >clear</mat-icon>
+
+    </mat-form-field>
+
     <mat-divider></mat-divider>
     <mat-list>
-      <mat-list-item *ngFor="let user of freinds">
-          <mat-card class="example-card">
+      <mat-list-item *ngFor="let user of filteredFreinds">
+          <mat-card >
         <button mat-button (click)="SetResiver(user)">
             <mat-card-header>
               <div mat-card-avatar class="avatar-image">
@@ -18,8 +25,8 @@
         </button>
           </mat-card>
       </mat-list-item>
-      <mat-list-item *ngFor="let group of groups">
-          <mat-card class="example-card">
+      <mat-list-item *ngFor="let group of filteredGroups">
+          <mat-card >
         <button mat-button (click)="SetResiver(group)">
             <mat-card-header>
               <div mat-card-avatar class="avatar-image">

@@ -1,8 +1,11 @@
-<div  class="mainContainer ">
+<div  class="mainContainer">
+
   <h1 class="title">{{role.description}}s</h1>
+
   <div class="btnAddRowContainer">
     <button  mat-raised-button (click)="AddUser()" color="primary"><mat-icon class="mat-18">add</mat-icon>Add New User</button>
   </div>
+
   <mat-form-field  class="input-full-width" appearance="fill">
     <mat-label>Search for...</mat-label>
     <input #refSearch (keyup)="FilterDataTable(refSearch)" matInput >
@@ -61,6 +64,7 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+  
   <mat-paginator #refpag [length]="100"
   [pageSize]="10"
   [pageSizeOptions]="[5,20,50,100]"

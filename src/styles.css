@@ -119,5 +119,5 @@ mat-error {
 /* End Erorr Message */
 
 .hidden {
-  display: none;
+  display: none !important;
 }

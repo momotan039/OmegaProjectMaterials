@@ -2,13 +2,13 @@
 <div  class="mainContainer">
     <div  class="flex">
       <h1 class="header">LogIn</h1>
-      <mat-form-field color="primary" class="example-full-width" appearance="fill">
+      <mat-form-field color="primary"  appearance="fill">
         <mat-label >Email</mat-label>
         <input formControlName="email" matInput placeholder="Enter your Email">
         <mat-error *ngIf="fg.get('email')!.errors?.['required']">
           Please Fill this Field</mat-error>
         </mat-form-field>
-        <mat-form-field color="primary" class="example-full-width" appearance="fill">
+        <mat-form-field color="primary"  appearance="fill">
         <mat-label>Password</mat-label>
         <input #ref2 formControlName="password"  matInput placeholder="Enter your password" type="password" >
         <span matSuffix><button mat-icon-button (click)="ShowPass(ref2)">
