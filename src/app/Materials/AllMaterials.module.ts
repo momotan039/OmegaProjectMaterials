@@ -20,6 +20,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { EmojiModule } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 
 
 const materials=[
@@ -43,6 +44,7 @@ const materials=[
   MatRadioModule,
   MatAutocompleteModule,
   PickerModule,
+  EmojiModule,
   NgxMatSelectSearchModule
 ]
 @NgModule({

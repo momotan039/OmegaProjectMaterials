@@ -1,20 +1,20 @@
 <h1 class="title">Messages</h1>
-
 <div class="mainContainer">
   <div class="left ">
-    <mat-form-field  class="input-full-width" appearance="fill">
+    <mat-form-field class="input-full-width" appearance="fill">
       <mat-label>Search for Contact...</mat-label>
-      <input #refSearch (keyup)="FilterContacts(refSearch,refClearIcon,refSearchIcon)" matInput >
-      <mat-icon #refSearchIcon matPrefix >search</mat-icon>
-      <mat-icon (click)="ClearSearchContact(refSearch,refClearIcon,refSearchIcon)" class="hidden" #refClearIcon matPrefix >clear</mat-icon>
+      <input #refSearch (keyup)="FilterContacts(refSearch,refClearIcon,refSearchIcon)" matInput>
+      <mat-icon #refSearchIcon matPrefix>search</mat-icon>
+      <mat-icon (click)="ClearSearchContact(refSearch,refClearIcon,refSearchIcon)" class="hidden" #refClearIcon
+        matPrefix>clear</mat-icon>
 
     </mat-form-field>
 
     <mat-divider></mat-divider>
     <mat-list>
       <mat-list-item *ngFor="let user of filteredFreinds">
-          <mat-card >
-        <button mat-button (click)="SetResiver(user)">
+        <mat-card>
+          <button mat-button (click)="SetResiver(user)">
             <mat-card-header>
               <div mat-card-avatar class="avatar-image">
                 <img src="./../../assets/images/profile.svg" alt="User Avatar">
@@ -22,12 +22,12 @@
               <mat-card-title>{{user.firstName+" "+user.lastName}}</mat-card-title>
               <mat-card-subtitle>{{user.email}}</mat-card-subtitle>
             </mat-card-header>
-        </button>
-          </mat-card>
+          </button>
+        </mat-card>
       </mat-list-item>
       <mat-list-item *ngFor="let group of filteredGroups">
-          <mat-card >
-        <button mat-button (click)="SetResiver(group)">
+        <mat-card>
+          <button mat-button (click)="SetResiver(group)">
             <mat-card-header>
               <div mat-card-avatar class="avatar-image">
                 <img src="./../../../assets/images/group.png" alt="User Avatar">
@@ -35,8 +35,8 @@
               <mat-card-title>{{group.name}}</mat-card-title>
               <mat-card-subtitle>{{group.course!.name}}</mat-card-subtitle>
             </mat-card-header>
-        </button>
-          </mat-card>
+          </button>
+        </mat-card>
       </mat-list-item>
     </mat-list>
   </div>
@@ -62,7 +62,8 @@
               <h3 class="mail" *ngIf="msg.senderId!=httpAuth.currentUser.id">
                 {{msg.sender!.firstName+"~"+msg.sender!.email}}
               </h3>
-              <h3 class="content" *ngFor="let content of msg.contents?.split('\n')">
+              <h3 [ngStyle]="{'direction':msg.senderId==httpAuth.currentUser.id?'ltr':'ltr'}" class="content"
+                *ngFor="let content of msg.contents?.split('\n')">
                 {{content}}
               </h3>
               <mat-card-subtitle>
@@ -81,15 +82,23 @@
               <mat-label>Write A Message Here</mat-label>
               <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" #inputMessage
                 formControlName="message" class="inputSend" matInput></textarea>
-              <mat-icon (click)="SendMessage(inputMessage)" matPrefix>
-                send
-              </mat-icon>
+              <div class="sendMessageIcon">
+                <mat-icon (click)="SendMessage(inputMessage)" matPrefix>
+                  send
+                </mat-icon>
+                <mat-icon (click)="ShowEmogiTable(refemojiTable)" matPrefix>
+                  face
+                </mat-icon>
+              </div>
             </mat-form-field>
           </form>
         </mat-card-actions>
+        <emoji-mart [ngClass]="hideEmojiTable?'hidden':''" [showPreview]="false" #refemojiTable set="google"
+          (emojiClick)="ShowImogy($event,inputMessage)"></emoji-mart>
       </mat-card>
     </div>
   </div>
+
   <div *ngIf="!receiver" class="welcomeContainer">
     <mat-card>
       <h2>Welcome to Chat Room</h2>
@@ -97,4 +106,5 @@
       <mat-icon>chat_bubble</mat-icon>
     </mat-card>
   </div>
+
 </div>

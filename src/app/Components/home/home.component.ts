@@ -1,3 +1,4 @@
+import { Emoji } from './../../../../node_modules/@ctrl/ngx-emoji-mart/ngx-emoji/emoji.component.d';
 import { User } from './../../models/User';
 import { interval, Observable, Subscription, BehaviorSubject } from 'rxjs';
 import { HttpUsersService } from '../../services/http-users.service';
@@ -11,6 +12,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
   user=new User()
+  emoji:any
   constructor(
     public auth:AuthService,
     public http:HttpUsersService
@@ -19,6 +21,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+ 
   
 }

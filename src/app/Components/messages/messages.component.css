@@ -1,6 +1,6 @@
 :host{
-  --sender-message-color:#f2b427;
-  --reciver-message-color:#7583d1;
+  --sender-message-color:var(--primary);
+  --reciver-message-color:var(--warn);
 }
 
 .mainContainer{
@@ -16,9 +16,13 @@
   overflow-y: auto;
   overflow-x: hidden;
   height: 50vh;
-  padding: 9px 9px ;
+  padding: 16px 9px ;
 }
-
+.mainContainer .right .listMessages mat-card h3,
+.mainContainer .right .listMessages mat-card mat-card-subtitle
+{
+  color: white;
+}
 .mainContainer .welcomeContainer mat-card{
   width: 100%;
   height: 100%;
@@ -72,12 +76,36 @@ padding: 0 !important
 /* Start right container Message */
 .mainContainer .right {
   width: 100%;
+  height: 100%;
 }
 
 .mainContainer .right .inputSend {
   width: 100%;
 }
 
+.mainContainer .right .messages{
+  height: 100%;
+}
+.mainContainer .right .messages mat-card{
+  height: 100%;
+}
+.mainContainer .right .messages mat-card mat-card-header{
+  background-color: #e3e3e3;
+  padding: 5px 0 0 5px;
+  border-radius: 15px;
+  color: var(--warn);
+}
+.mainContainer .right .messages mat-card mat-card-actions{
+  padding: 0 !important;
+  margin: 0 !important;
+}
+.mainContainer .right .messages mat-card mat-card-actions textarea{
+  max-height: 45px !important;
+  min-height: 42px !important;
+}
+.mainContainer .right .messages mat-card mat-card-actions mat-form-field{
+ margin-top: -16px;
+}
 .mainContainer .right .messages .containerMessage {
   padding: 0px 10px;
 }
@@ -91,11 +119,11 @@ padding: 0 !important
 }
 
 .mainContainer .right .messages .message .deleteMessage {
-  width: 30px !important;
-  height: 30px !important;
+  width: 24px !important;
+  height: 23px !important;
   position: absolute;
-  top: -12px;
-  left: -7px;
+  top: -13px;
+  left: -8px;
 }
 
 .mainContainer .right .messages .message .deleteMessage mat-icon {
@@ -152,6 +180,22 @@ padding: 0 !important
 .mainContainer .right .actions mat-icon {
   cursor: pointer;
 }
+.mainContainer .right .actions .sendMessageIcon{
+  display: flex;
+  flex-direction: row-reverse;
+}
+/* Start Emoji Tables */
+.mainContainer .right emoji-mart{
+  position: absolute;
+  bottom: 88px;
+  padding: 10px;
+  right: 0;
+}
+::ng-deep .mainContainer .right emoji-mart .emoji-mart{
+  width: 100% !important;
+}
+/* End Emoji Tables */
+
 /* End right container Message */
 
 
@@ -180,6 +224,8 @@ padding: 0 !important
   }
   .mainContainer .right mat-card mat-card-content{
     height: 42vh;
-
+  }
+  .mainContainer .right emoji-mart{
+    bottom: 129px;
   }
 }

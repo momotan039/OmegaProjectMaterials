@@ -19,6 +19,9 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
+import { EmojiService } from '@ctrl/ngx-emoji-mart/ngx-emoji';
+import { PickerComponent } from '@ctrl/ngx-emoji-mart';
+import { style } from '@angular/animations';
 @Component({
   selector: 'app-messages',
   templateUrl: './messages.component.html',
@@ -38,6 +41,8 @@ export class MessagesComponent implements OnInit, OnDestroy {
   filteredFreinds: User[] = [];
   msgs: any = [];
   msgObs?: Subscription;
+  emoji:EmojiService | undefined;
+  hideEmojiTable=true
 
   constructor(
     private fb: FormBuilder,
@@ -111,11 +116,11 @@ export class MessagesComponent implements OnInit, OnDestroy {
       this.ScrollingDownListMessage();
     });
 
-    this.msgObs = interval(1000).subscribe(() => {
-      getMessagesFun.subscribe((data) => {
-        this.msgs = data;
-      });
-    });
+    // this.msgObs = interval(1000).subscribe(() => {
+    //   getMessagesFun.subscribe((data) => {
+    //     this.msgs = data;
+    //   });
+    // });
   }
 
   SetResiver(obj: any) {
@@ -167,6 +172,8 @@ export class MessagesComponent implements OnInit, OnDestroy {
     this.fg = this.fb.group({
       message: ['', Validators.required],
     });
+    // hide Emoji Tables
+        this.hideEmojiTable=true
   }
 
   DeleteMesssage(id: number) {
@@ -251,5 +258,18 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
      this.filteredFreinds=this.freinds
      this.filteredGroups=this.groups
+  }
+
+  ShowImogy($event:any,textarea:HTMLTextAreaElement){
+    // $event is from (emojiClick)
+    const Imogy=$event.emoji.native
+    textarea.value+=$event.emoji.native
+    this.fg.controls['message'].setValue(textarea.value)
+  }
+
+  ShowEmogiTable(emojiTable:PickerComponent){
+   if(this.hideEmojiTable)
+    this.hideEmojiTable=false
+    else this.hideEmojiTable=true
   }
 }
