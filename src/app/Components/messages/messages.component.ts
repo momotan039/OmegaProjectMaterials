@@ -1,3 +1,4 @@
+import { MatList } from '@angular/material/list';
 import { MessageGroup } from './../../models/MessageGroup';
 import { Router, Data } from '@angular/router';
 import { HttpMessagesService } from './../../services/HttpMessages.service';
@@ -54,7 +55,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
     // //remove scroller body
     // document.body.classList.add('removeScroller');
   }
- 
+
 
   ngOnDestroy(): void {
     this.msgObs?.unsubscribe();
@@ -63,7 +64,6 @@ export class MessagesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    console.warn(MyTools.unreadMsgs)
     this.fg = this.fb.group({
       message: ['', Validators.required],
     });
@@ -78,23 +78,36 @@ export class MessagesComponent implements OnInit, OnDestroy {
       this.filteredFreinds=this.freinds
     });
 
-    
+    this.HandelScrollingMessages();
   }
   isReciverGroup() {
     return 'courseId' in this.receiver;
   }
   ScrollingDownListMessage() {
-    const offsetTopMessage=(document.querySelector('.scroll-to-this-message') as HTMLElement).offsetTop
-    const offsetHeightParent=(document.querySelector('.listMessages') as HTMLElement).offsetHeight
-    console.warn(offsetTopMessage-offsetHeightParent)
     //scroll down to bottom list Message
-    setTimeout(() => {
-       document.querySelector('.listMessages')?.scrollTo({
-        top: offsetTopMessage-offsetHeightParent,
-        behavior: 'smooth',
-      });
-    }, 300);
+    if(!this.CountUnreadMessages(this.receiver.id))
+    {
+      setTimeout(() => {
+         document.querySelector('.listMessages')?.scrollTo({
+          top: document.querySelector('.listMessages')?.scrollHeight,
+          behavior: 'smooth',
+        });
+      }, 300);
+    }
+
+    else{
+      setTimeout(() => {
+        const offsetTopMessage=(document.querySelector('.unread-message') as HTMLElement).offsetTop
+      const offsetHeightParent=(document.querySelector('.listMessages') as HTMLElement).offsetHeight
+      console.warn(offsetTopMessage-offsetHeightParent)
+         document.querySelector('.listMessages')?.scrollTo({
+          top: offsetTopMessage-offsetHeightParent,
+          behavior: 'smooth',
+        });
+      }, 300);
+    }
   }
+
   ChangeTitle_SubTitle_Image() {
     if ('courseId' in this.receiver) {
       this.title = this.receiver.name;
@@ -128,16 +141,10 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
     getMessagesFun.subscribe((data: any) => {
       this.msgs = data;
-      let firstMessageToRead=(data as Message[]).find(d=>d.isOpened==false) as any
-      firstMessageToRead['scrollToThis']=true;
-      this.ScrollingDownListMessage();
-     
-      // setTimeout(() => {
-      //   document.querySelector(".scroll-to-this-message")!.scrollIntoView(false)
-      // }, 300);
+        this.ScrollingDownListMessage();
     });
 
-    // this.GetStreamMessages(getMessagesFun);
+    this.GetStreamMessages(getMessagesFun);
   }
 
   SetResiver(obj: any) {
@@ -294,7 +301,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
        image="../../../assets/images/profile.svg"
        else
        {
-   
+
         image="../../../assets/images/group.png"
        }
     if(contact.imageProfile)
@@ -307,12 +314,40 @@ export class MessagesComponent implements OnInit, OnDestroy {
     MyTools.ShowPopUpImageDialog(this.GetImageProfile(receiver));
   }
 
-  CountUnreadMessages(){
-    // const msgs=this.msgs as Message[]
-    // console.warn(msgs)
-    // let count =msgs.filter(d=>!d.isOpened).length
-    // console.warn(count)
-    // return count
+  CountUnreadMessages(senderId:number|undefined){
+    const msgs=MyTools.unreadMsgs.filter(f=>f.senderId==senderId)
+    return msgs.length
   }
 
+  HandelScrollingMessages(){
+    let listMsgs=document.querySelector(".listMessages")
+
+    listMsgs?.
+    addEventListener("scroll",()=>{
+      //how much scrolling
+      const scrollTop=listMsgs!.scrollTop;
+      //the maximum that scrolling can reach
+      const scrollHeight=listMsgs!.scrollHeight;
+      //offset of spesific element in scroller_container
+      const offset=scrollHeight-scrollTop
+
+      listMsgs?.querySelectorAll(".unread-message")
+      .forEach(m=>{
+        const offsetMsg=(m as HTMLElement).offsetTop
+        const heightMsg=(m as HTMLElement).offsetHeight
+        if(offset+heightMsg<=offsetMsg)
+          {
+             console.warn("yes")
+            //  m.classList.remove("unread-message")
+             const idMsg=(m as HTMLElement).getAttribute("id");
+
+             this.httpMessagesService.ReadMessage(parseInt(idMsg!))
+             .subscribe(data=>{
+
+             })
+          }
+      })
+
+    })
+  }
 }

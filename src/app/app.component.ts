@@ -31,7 +31,6 @@ export class AppComponent {
       MyTools.SnackBar=snackBar
       interval(1000).subscribe(()=>{
         this.httpMessagesService.GetAllUnreadMessages().subscribe(msgs=>{
-          console.warn(msgs)
           MyTools.unreadMsgs=msgs
         })
         // MyTools.msgsReader=this.httpMessagesService.GetAllUnreadMessages();

@@ -26,6 +26,9 @@ GetAllUnreadMessages(){
 DeleteMessage(id:number){
   return this.http.delete('https://localhost:44327/api/Messages/DeleteMessage/'+id)
 }
+ReadMessage(id:number){
+  return this.http.get('https://localhost:44327/api/Messages/ReadMessage/'+id)
+}
 
 
 SendGroupMessage(msg:MessageGroup){

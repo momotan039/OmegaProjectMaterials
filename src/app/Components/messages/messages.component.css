@@ -13,7 +13,7 @@
   width: 100%;
 }
 
-.mainContainer .right .listMessages .scroll-to-this-message{
+.mainContainer .right .listMessages .unread-message{
   background: red;
 }
 
