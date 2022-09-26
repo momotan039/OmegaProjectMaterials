@@ -75,9 +75,11 @@ namespace OmegaProject.Controllers
         [Route("GetGroups")]
         public IActionResult GetGroupes()
         {
-            return Ok(db.Groups.Include(g => g.Course).
+            var groups = db.Groups.Include(g => g.Course).
                 Include(g => g.UserGroups).
-                ThenInclude(d => d.User).ToList());
+                ThenInclude(d => d.User).ToList();
+
+            return Ok(groups);
         }
 
         [HttpGet]

@@ -12,10 +12,15 @@ namespace OmegaProject.services
     {
         //wwwroot path
         public static string mainRoot;
+        //images path
+        public static string mainImagesRoot;
         //Files of Teachers path
         public static string mainTeachersRoot;
         //Files of Students path
         public static string mainSubmitedRoot;
+
+        public static MyDbContext db;
+        public static JwtService jwt;
 
         public static string GenerateHashedPassword()
         {

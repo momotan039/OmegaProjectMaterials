@@ -31,7 +31,6 @@
     <Folder Include="wwwroot\HomeWork\NewFolder\" />
     <Folder Include="wwwroot\HomeWork\Submited\" />
     <Folder Include="wwwroot\HomeWork\Teachers\" />
-    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
 

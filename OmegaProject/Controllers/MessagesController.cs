@@ -63,27 +63,23 @@ namespace OmegaProject.Controllers
 
 
         [HttpGet]
-        [Route("GetMessagesBySender")]
-        public IActionResult GetMessagesBySender()
+        [Route("GetMessagesBySender/{idReciver}")]
+        public IActionResult GetMessagesBySender(int idReciver)
         {
             int id = int.Parse(jwt.GetTokenClaims());
             var user = db.Users.FirstOrDefault(d => d.Id == id);
             List<Message> msgs = null;
             if (user.RoleId == 1)
-             
-                msgs = db.Messages
-                    //GroupBy(x => new { x.SenderId, x.Title, x.Contents, x.SendingDate })
-                    .GroupBy(x => new { x.Contents,x.SenderId,x.SendingDate })
-                    .Select(r => new Message
-                    {
-                        SenderId=r.Key.SenderId,
-                        Contents=r.Key.Contents,
-                        SendingDate=r.Key.SendingDate,
-                    }).ToList();
+                msgs = db
+                    .Messages
+                    .OrderByDescending(d => d.SendingDate)
+                    .Where(d=>d.ReciverId==idReciver)
+                    .ToList();
             else
-                msgs = db.Messages.Include(msg=>msg.Reciver).Where(msg => msg.SenderId == id).ToList();
+                msgs = db.Messages.Include(msg=>msg.Reciver)
+                    .OrderByDescending(d=>d.SendingDate)
+                    .Where(msg => msg.SenderId == id).ToList();
 
-            msgs.Reverse();
             return Ok(msgs);
 
         }
@@ -93,18 +89,22 @@ namespace OmegaProject.Controllers
         public IActionResult GetMessagesByReciver(int idReciver)
         {
             int id = int.Parse(jwt.GetTokenClaims());
-            var msgs = db.Messages.Include(q=>q.Sender).Where(x => 
+            //if this a sender or reciver get all messages between each other
+            var msgs = db.Messages.Include(q=>q.Sender)
+                .Where(x => 
             (x.ReciverId == idReciver && x.SenderId == id)||
             (x.ReciverId == id && x.SenderId == idReciver)
             ).ToList();
-            //msgs.Reverse();
             return Ok(msgs);
         }
+
         [HttpGet]
-        [Route("GetAll")]
+        [Route("GetAllUnreadMessages")]
         public IActionResult GetAll()
         {
-            return Ok(db.Messages.Include(q=>q.Sender).Include(q => q.Reciver).First());
+            int id = int.Parse(jwt.GetTokenClaims());
+            return Ok(db.Messages
+                .Where(q=>!q.IsOpened &&q.ReciverId==id));
         }
     }
 }

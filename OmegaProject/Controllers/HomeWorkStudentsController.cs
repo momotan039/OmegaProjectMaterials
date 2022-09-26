@@ -78,7 +78,7 @@ namespace OmegaProject.Controllers
                 var paths = hws.FilesPath.Split('\n').ToArray();
                 try
                 {
-                    SaveFileOnServerStorage(paths, files);
+                    MyTools.SaveFileOnServerStorage(paths, files);
                 }
                 catch (Exception r)
                 {
@@ -92,20 +92,20 @@ namespace OmegaProject.Controllers
             return Ok("Files Submited Successfully");
         }
 
-        private void SaveFileOnServerStorage(string[] paths, IFormFile[] files)
-        {
-            int index = 0;
-            foreach (var file in files)
-            {
-                using (var fs = new FileStream(paths[index++], FileMode.Create))
-                {
-                    if (file != null)
-                    {
-                        file.CopyTo(fs);
-                    }
-                }
-            }
-        }
+        //private void SaveFileOnServerStorage(string[] paths, IFormFile[] files)
+        //{
+        //    int index = 0;
+        //    foreach (var file in files)
+        //    {
+        //        using (var fs = new FileStream(paths[index++], FileMode.Create))
+        //        {
+        //            if (file != null)
+        //            {
+        //                file.CopyTo(fs);
+        //            }
+        //        }
+        //    }
+        //}
 
         private string CustomizeNameFile(string mainRoot, string file)
         {
@@ -262,7 +262,6 @@ namespace OmegaProject.Controllers
                 await stream.CopyToAsync(memory);
             }
             memory.Position = 0;
-
             return  Ok(File(memory, MyTools.GetContentType(url), name)) ;
             //using HttpResponseMessage response = await httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
             //using Stream streamToReadFrom = await response.Content.ReadAsStreamAsync();

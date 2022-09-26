@@ -7,7 +7,7 @@ using System.IO;
 
 namespace OmegaProject.services
 {
-   
+    
     public partial class MyTools
     {
         public static void RemoveFilesOfStudents(List<HomeWorkStudent> homeWorkStudent,string mainRoot)

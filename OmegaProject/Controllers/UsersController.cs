@@ -1,6 +1,7 @@
 ﻿using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MimeKit;
@@ -31,7 +32,8 @@ namespace OmegaProject.Controllers
         [Route("GetUsers")]
         public IActionResult GetUsers()
         {
-            var users = MyDbContext.getInctence().Users.Include(u => u.Messages).Include(u=>u.Role).ToList();
+            var users = MyDbContext.getInctence().Users.
+                Include(u => u.Messages).Include(u=>u.Role).ToList();
             users.Reverse();
             return Ok(users);
         }
@@ -183,6 +185,8 @@ namespace OmegaProject.Controllers
             db.SaveChanges();
             return Ok("User Edited successfully");
         }
+
+        
 
     }
 }

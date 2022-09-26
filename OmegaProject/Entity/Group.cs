@@ -9,7 +9,8 @@ namespace OmegaProject.DTO
         public string Name { get; set; }
         public int CourseId { get; set; }
         public DateTime? OpeningDate { get; set; } 
-        public DateTime? ClosingDate { get; set; } 
+        public DateTime? ClosingDate { get; set; }
+        public string ImageProfile { get; set; }
         public virtual Course Course { get; set; }
         public virtual ICollection<UserGroup> UserGroups { get; set; }
         //public virtual ICollection<User> Users { get; set; }

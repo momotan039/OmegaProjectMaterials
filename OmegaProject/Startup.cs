@@ -17,9 +17,9 @@ namespace OmegaProject
         public Startup(IConfiguration configuration, IWebHostEnvironment hosting)
         {
             Configuration = configuration;
-            MyTools.mainRoot =hosting.WebRootPath;
             MyTools.mainTeachersRoot =hosting.WebRootPath+@"\HomeWork\Teachers";
-            MyTools.mainSubmitedRoot =hosting.WebRootPath + @"\HomeWork\Submited"; ;
+            MyTools.mainSubmitedRoot =hosting.WebRootPath + @"\HomeWork\Submited";
+            MyTools.mainImagesRoot = hosting.WebRootPath + @"\Images";
         }
 
         public IConfiguration Configuration { get; }
@@ -34,7 +34,7 @@ namespace OmegaProject
                 o => o.UseSqlServer(Configuration.GetConnectionString("OmegaDbConnectionString")));
 
             //Configure cors in service
-            services.AddCors(option => option.AddPolicy("myPolicy", builder =>
+            var d=services.AddCors(option => option.AddPolicy("myPolicy", builder =>
             {
                 builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
             }));
@@ -101,6 +101,8 @@ namespace OmegaProject
             //Configure cors in http
 
             app.UseCors("myPolicy");
+            //all to Navigate to wwwroot files
+            app.UseStaticFiles();
 
             app.UseEndpoints(endpoints =>
             {
