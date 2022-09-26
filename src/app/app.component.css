@@ -1,4 +1,4 @@
-*{
+::ng-deep *{
   transition: all .3s;
 }
 
@@ -26,6 +26,7 @@
 @media (max-width:768px) {
   .container{
     padding: 0;
+    /* padding: 0px 0 131px 0; */
   }
 }
 /* End Container Style */
@@ -33,7 +34,9 @@
 /* Start Dialog style */
 ::ng-deep mat-dialog-container {
   height: auto !important;
-  width: 100%;
+  /* width: 100%; */
+  width: 500px !important;
+  position: relative;
 }
 
 ::ng-deep mat-dialog-container mat-form-field{
@@ -80,7 +83,7 @@ width: 100%;
   flex-direction: column !important;
   }
 
- 
+
 
 /* End List Style */
 
@@ -99,6 +102,19 @@ justify-content: center !important;
 }
 /* End Paginator Style */
 
+/* Start SnackBar Style */
+
+::ng-deep snack-bar-container{
+  background-color: var(--warn);
+}
+::ng-deep snack-bar-container simple-snack-bar{
+  color: white;
+}
+::ng-deep snack-bar-container .mat-button-wrapper{
+  color: var(--primary);
+  font-weight: bold;
+}
+/* End SnackBar Style */
 
 
   ::ng-deep .mat-form-field.mat-focused .mat-form-field-ripple {

@@ -1,0 +1,13 @@
+img{
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+
+::ng-deep .rotatePopUpImageDialog{
+    /* transform: rotate(0deg); */
+    transform: rotate(360deg);
+    transition: all .5s;
+}

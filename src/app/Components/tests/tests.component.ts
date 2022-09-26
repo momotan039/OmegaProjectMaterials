@@ -48,7 +48,7 @@ export class TestsComponent implements OnInit {
     })
   }
   AddRow=()=>{
-    debugger
+    
     MyTools.Dialog.open(AddTestComponent,{
       disableClose:true
      })

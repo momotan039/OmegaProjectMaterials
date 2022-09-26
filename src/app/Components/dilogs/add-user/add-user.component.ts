@@ -10,7 +10,7 @@ import { MessageDialogComponent } from "../message-dialog/message-dialog.compone
 @Component({
   selector: 'app-add-user',
   templateUrl: './add-user.component.html',
-  styleUrls: ['./add-user.component.css']
+  styleUrls: ['./add-user.component.css'],
 })
 export class AddUserComponent implements OnInit {
 
@@ -35,7 +35,7 @@ export class AddUserComponent implements OnInit {
 
 SaveUser(){
   console.warn(this.fg.get('email')!.errors)
-  if(!this.fg.valid)
+if(!this.fg.valid)
   return;
   this.httpUsers.PostUser(this.fg.value).subscribe(data=>{
     MyTools.ShowResult200Message(data)

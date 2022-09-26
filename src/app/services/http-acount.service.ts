@@ -14,8 +14,7 @@ export class HttpAcountService {
    }
 
    ResetPassword(user:UserAuth,token:string){
-
-    debugger
+    
     let headers = new HttpHeaders()
     .set('Authorization', 'Bearer ' + token);
 
@@ -31,5 +30,17 @@ export class HttpAcountService {
     return this.httpClient.post(MyTools.UrlRootApi+"/Account/ForgetPassword",user,{
       responseType:"text"
      });
+   }
+
+   EditImageProfile(id:number,image:FormData,isGroup=false){
+
+    if(!isGroup)
+    return this.httpClient.put(MyTools.UrlRootApi+"/Account/EditImageProfile/",image,{
+      responseType:"text",
+    });
+    else
+    return this.httpClient.put(MyTools.UrlRootApi+"/Account/EditImageProfileGroup/",image,{
+      responseType:"text",
+    });
    }
 }

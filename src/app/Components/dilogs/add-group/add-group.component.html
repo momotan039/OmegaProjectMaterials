@@ -28,15 +28,16 @@
   </mat-form-field>
   <mat-divider></mat-divider>
 
-<mat-form-field appearance="fill">
-  <mat-label>Select a Course</mat-label>
-  <mat-select formControlName="courseId"  placeholder="">
-      <mat-option *ngFor="let item of courses" [value]="item.id">{{item.name}}</mat-option>
-  </mat-select>
-  <mat-error *ngIf="AddGroupForm.get('courseId')!.hasError('required')">
-    Please Select a Course</mat-error>
-</mat-form-field>
 
+<app-select-with-search
+#refSelectCourse
+  [label]="'Select a Course'"
+  [config]="{'value':'id',
+            'displayBy':'name'}"
+  [getDataParent]="GetCourses"
+  [messageError]="'Please Select a Course'"
+>
+</app-select-with-search>
 
   <div style="text-align: center;">
     <button style="margin-right: 10px;" mat-raised-button (click)="SaveGroup()"  color="accent">Save</button>

@@ -41,7 +41,7 @@ export class HomeworkDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
-debugger
+
     this.homeWorkService.GetHomeWorks(this.id).subscribe((data) => {
       this.homeWork = data as HomeWork;
 
@@ -124,6 +124,7 @@ debugger
   progress?: number;
   showFilesSizeErorr=false;
   SendStudentFiles(Files: any) {
+
     let files = Files as File[];
     this.showFilesSizeErorr=false;
     if (files.length == 0) return;
@@ -140,7 +141,8 @@ debugger
     fd.append('groupId', this.homeWork.groupId + '');
     fd.append('studentId', this.authService.currentUser.id + '');
 
-    for (let i = 0; i < files.length; i++) fd.append('files', files[i]);
+    for (let i = 0; i < files.length; i++)
+     fd.append('files', files[i]);
 
     this.homeWorkStudentService.Submit(fd).subscribe(
       (event) => {

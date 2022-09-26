@@ -1,17 +1,24 @@
-<h3>Add New Member</h3>
+<h1 class="title">Add New Member</h1>
 
-<mat-form-field>
-  <mat-select [multiple]="true" placeholder="User" #singleSelect>
-    <mat-option *ngFor="let user of _users" [value]="user.id">
-      {{user.firstName}}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
 
-<button mat-fab (click)="AddMember(singleSelect.value)">
-    <mat-icon >add</mat-icon>
-</button>
+<app-select-with-search
+    #refSelectMembers
+      [label]="'Select a Member'"
+      [config]="{'value':'id',
+                'displayBy':'firstName'}"
+      [getDataParent]="GetMembers"
+      [messageError]="'Please Select a Member'"
+      [isMultiSelect]="true"
+    >
+    </app-select-with-search>
 
-<button mat-fab [matDialogClose]="false">
-  <mat-icon >cancel</mat-icon>
-</button>
+
+    <div style="text-align: center;">
+      <button 
+      style="margin-right: 10px;"
+       mat-raised-button (click)="AddMember(mutiSelectMembers?.selectedChekcBoxItems!)"
+         color="accent">Save</button>
+    <button 
+    mat-raised-button [mat-dialog-close]="false"
+     color="primary">Cancel</button>
+    </div>

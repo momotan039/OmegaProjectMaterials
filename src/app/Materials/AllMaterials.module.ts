@@ -18,9 +18,12 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { NgxMatSelectSearchModule } from "ngx-mat-select-search";
 import {MatRadioModule} from '@angular/material/radio';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { EmojiModule } from '@ctrl/ngx-emoji-mart/ngx-emoji';
+import { PopUpImageComponent } from './pop-up-image/pop-up-image.component';
 
 
 const materials=[
@@ -43,13 +46,18 @@ const materials=[
   MatProgressBarModule,
   MatRadioModule,
   MatAutocompleteModule,
+  MatCheckboxModule,
+  MatSnackBarModule,
   PickerModule,
   EmojiModule,
   NgxMatSelectSearchModule
 ]
 @NgModule({
   imports:[materials],
-  exports:[materials]
+  exports:[materials],
+  declarations: [
+    PopUpImageComponent
+  ]
 })
 
 export class AllMaterialsModule{

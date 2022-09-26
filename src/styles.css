@@ -6,6 +6,9 @@
   /* --warn: #1868d8 */
   --warn: #3949ab
 }
+html{
+  scroll-behavior: smooth;
+}
 
 html,
 body {
@@ -16,7 +19,7 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-image:linear-gradient(290deg, black, transparent),
+  background-image:linear-gradient(328deg, black, transparent,black),
     url("../src/assets/images/background.jpg") ;
   background-size: cover;
   background-position: center;
@@ -25,7 +28,7 @@ body {
 }
 
 .mainContainer{
-  min-height: 70vh;
+  min-height: 74vh;
 }
 
 a {
@@ -60,12 +63,12 @@ table,
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #888;
+  background: var(--warn);
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  /* background: #555; */
 }
 
 

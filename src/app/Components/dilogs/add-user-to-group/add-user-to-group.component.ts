@@ -1,3 +1,4 @@
+import { SelectWithSearchComponent } from './../../select-with-search/select-with-search.component';
 import { UserGroup } from 'src/app/models/UsersGroups';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
@@ -19,7 +20,7 @@ import { Router } from '@angular/router';
 })
 export class AddUserToGroupComponent implements OnInit {
 
-  @ViewChild('singleSelect', { static: true }) singleSelect: MatSelect | undefined;
+  @ViewChild('refSelectMembers', { static: true }) mutiSelectMembers: SelectWithSearchComponent | undefined;
   constructor(
     private http:HttpUsersService,
     private httpUserGroup:HttpUserGroupService,
@@ -30,36 +31,37 @@ export class AddUserToGroupComponent implements OnInit {
     users:User[]=[]
     _users:User[]=[]
   ngOnInit(): void {
-
-    this.http.GetUsersNotInThisGroup(this.group.id!).subscribe(users=>{
-      this.users=users
-      this._users=users
-      // this.websiteFilterCtrl.valueChanges
-      // .subscribe((value:string) => {
-      //   this._users=users
-      //   this._users=this._users.filter(f=>f.firstName?.includes(value))
-      // });
-
-    })
-
   }
   FilterUsers() {
 
   }
-  AddMember(elms:number[]){
-   if(!elms)
-   return
+  AddMember(users:User[]){
+
+    let techersNum=users.filter(f=>f.roleId==2).length
+    let studnetsNum=users.filter(f=>f.roleId==3).length
+   if(!users || users.length==0)
+   {
+    this.mutiSelectMembers?.myControl.setValue("")
+    return
+   }
    let temp:UserGroup[]=[];
-   elms.forEach(id => {
-    temp.push(new UserGroup(id,this.group.id!))
+   users.forEach(u => {
+    temp.push(new UserGroup(u.id!,this.group.id!))
    });
    this.httpUserGroup.AddUsersToGroup(temp).subscribe((data) =>{
     MyTools.ShowResult200Message(data)
-     this.dialogRef.close(true)
+     this.dialogRef.close({
+      'teachersNum':techersNum,
+      'studentsNum':studnetsNum
+    })
    },(err)=>{
     MyTools.ShowFialdMessage(err,"Adding User to Group")
     });
 
   }
+
+  GetMembers=()=>{
+    return this.http.GetUsersNotInThisGroup(this.group.id!)
+   }
 }
 

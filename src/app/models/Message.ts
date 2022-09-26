@@ -5,7 +5,7 @@ export class Message {
   reciverId?:number
   senderId?:number
   contents?:string
-  isOpened=false
+  isOpened:boolean=false
   sender?:User
   reciver?:User
   sendingDate?:Date

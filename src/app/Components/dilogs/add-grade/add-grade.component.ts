@@ -62,8 +62,6 @@ export class AddGradeComponent implements OnInit,AfterViewInit {
     
   }
   SaveRecord(){
-    console.log(this.fg.value)
-    console.warn(this.selectStudent.myControl.value)
     if(!this.fg.valid)
     return;
     let grade=new Grade();

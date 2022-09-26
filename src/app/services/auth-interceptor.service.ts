@@ -28,7 +28,7 @@ export class AuthInterceptorService implements HttpInterceptor {
       .pipe(
         catchError((error:HttpResponse<any>) => {
           console.warn(error)
-          debugger
+          
           //token expired or invalid
           // if(error.status==0 || error.status==401)
           if( error.status==401)

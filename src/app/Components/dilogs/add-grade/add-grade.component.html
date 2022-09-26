@@ -24,18 +24,6 @@
     >
     </app-select-with-search>
 
-    <!-- <mat-form-field appearance="fill">
-      <mat-label>Select a Student</mat-label>
-      <mat-select [disabled]="students.length==0" formControlName="studentId"  placeholder="">
-          <mat-option *ngFor="let item of students" [value]="item.id">{{item.firstName}}</mat-option>
-      </mat-select>
-      <mat-error *ngIf="fg.get('studentId')!.hasError('required')">
-        Please Select a Group</mat-error>
-        <mat-error *ngIf="students.length==0">
-          Theres No Students in This Group</mat-error>
-    </mat-form-field> -->
-
-
     <app-select-with-search
     #refSelectTest
       [label]="'Select a Test'"
@@ -46,14 +34,6 @@
     >
     </app-select-with-search>
 
-    <!-- <mat-form-field appearance="fill">
-      <mat-label>Select a Test</mat-label>
-      <mat-select formControlName="testId"  placeholder="">
-          <mat-option *ngFor="let item of tests" [value]="item.id">{{item.name}}</mat-option>
-      </mat-select>
-      <mat-error *ngIf="fg.get('testId')!.hasError('required')">
-        Please Select a Test</mat-error>
-    </mat-form-field> -->
 
 
   <mat-form-field class="m-1" appearance="fill">

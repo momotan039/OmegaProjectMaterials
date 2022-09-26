@@ -19,6 +19,10 @@ GetMessagesByReciver(idReciver:number){
   return this.http.get('https://localhost:44327/api/Messages/GetMessagesByReciver/'+idReciver)
 }
 
+GetAllUnreadMessages(){
+  return this.http.get<Message[]>('https://localhost:44327/api/Messages/GetAllUnreadMessages/')
+}
+
 DeleteMessage(id:number){
   return this.http.delete('https://localhost:44327/api/Messages/DeleteMessage/'+id)
 }

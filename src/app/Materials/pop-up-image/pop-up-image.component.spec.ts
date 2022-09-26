@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SelectWithSearchComponent } from './select-with-search.component';
+import { PopUpImageComponent } from './pop-up-image.component';
 
-describe('SelectWithSearchComponent', () => {
-  let component: SelectWithSearchComponent;
-  let fixture: ComponentFixture<SelectWithSearchComponent>;
+describe('PopUpImageComponent', () => {
+  let component: PopUpImageComponent;
+  let fixture: ComponentFixture<PopUpImageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SelectWithSearchComponent ]
+      declarations: [ PopUpImageComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SelectWithSearchComponent);
+    fixture = TestBed.createComponent(PopUpImageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -56,7 +56,7 @@ export class HomeworkTeacherComponent implements OnInit {
    }
 
    DeleteRow=()=>{
-    debugger
+    
      const hw=this.myTable?.selectedRow;
      MyTools.Dialog.open(DeleteUserComponent).afterClosed()
      .subscribe(success=>{

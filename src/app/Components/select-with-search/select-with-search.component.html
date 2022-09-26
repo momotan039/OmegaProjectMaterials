@@ -1,11 +1,40 @@
  <mat-form-field aria-disabled="true" appearance="fill">
       <mat-label>{{label}}</mat-label>
-      <input [value]="GetSelectedOptionName()" class="inputStudent" #refInput matInput [formControl]="myControl" [matAutocomplete]="auto">
-      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-        <mat-option  *ngFor="let option of filteredOptions | async" [value]="option[value]">
-          {{option[displayBy]}}
+
+      <input (blur)="OnUnFocus()" [value]="GetSelectedOptionName()" class="inputStudent"
+       #refInput matInput [formControl]="myControl" [matAutocomplete]="auto">
+
+      <mat-autocomplete 
+      #auto="matAutocomplete" 
+      [displayWith]="displayFn" 
+      (optionSelected)="SelectOption($event)"
+      >
+      <div
+      *ngIf="!isMultiSelect else multiSelect"
+      >
+      <mat-option 
+      [value]="option[config.value]"
+      *ngFor="let option of filteredOptions | async" >
+       {{option[displayBy]}}
+     </mat-option>
+      </div>
+
+       <ng-template #multiSelect>
+        <mat-option class="hidden">
         </mat-option>
+        <mat-checkbox 
+        *ngFor="let option of filteredOptions | async"
+         [value]="option"
+          color="primary"
+          (change)="SelectCheckBox($event,refInput)"
+          >
+          {{option[displayBy]}}
+        </mat-checkbox>
+       </ng-template>
+       
       </mat-autocomplete>
+
       <mat-error *ngIf="myControl!.hasError('required')">
        {{messageError}}</mat-error>
+
     </mat-form-field> 

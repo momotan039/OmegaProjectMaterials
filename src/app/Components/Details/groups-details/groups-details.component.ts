@@ -1,3 +1,4 @@
+import { HttpAcountService } from 'src/app/services/http-acount.service';
 import { HttpGroupsService } from 'src/app/services/http-groups.service';
 import { DeleteUserComponent } from './../../dilogs/delete-user/delete-user.component';
 import { HttpUsersService } from 'src/app/services/http-users.service';
@@ -27,11 +28,14 @@ export class GroupsDetailsComponent implements OnInit {
   displayedNameColumns: any;
   @ViewChild(MyTableComponent) myTable: MyTableComponent | undefined;
 
+  totalTeachers=0;
+  totalStudents=0;
   constructor(
     private route: ActivatedRoute,
      public httpUsersService: HttpUsersService,
      private httpUserGroupService: HttpUserGroupService,
      private HttpGroupsService: HttpGroupsService,
+     private httpAccountService:HttpAcountService
      ) {}
   ngOnInit() {
      this.group.id= Number(this.route.snapshot.paramMap.get('id')!);
@@ -54,6 +58,8 @@ export class GroupsDetailsComponent implements OnInit {
     ];
     this.HttpGroupsService.GetGroupByID(this.group.id+"").subscribe(data=>{
       this.group=data
+      this.totalTeachers=this.group.userGroups.filter(f=>f.user.roleId==2).length
+      this.totalStudents=this.group.userGroups.filter(f=>f.user.roleId==3).length
     })
   }
   DeleteRow=()=>{
@@ -68,6 +74,10 @@ export class GroupsDetailsComponent implements OnInit {
           this.myTable!.FillTableData();
           MyTools.ShowResult200Message(d)
         })
+        if(this.myTable?.selectedRow.roleId==2)
+          this.totalTeachers--;
+          else
+            this.totalStudents--;
       }
     })
   }
@@ -76,9 +86,13 @@ export class GroupsDetailsComponent implements OnInit {
       data:this.group,
       disableClose:true
      })
-    .afterClosed().subscribe(success=>{
-      if(success)
-        this.myTable?.FillTableData();
+    .afterClosed().subscribe(data=>{
+      if(data)
+        {
+          this.myTable?.FillTableData();
+           this.totalTeachers+=data['teachersNum'];
+          this.totalStudents+=data['studentsNum'];
+        }
     })
   }
 
@@ -91,4 +105,29 @@ export class GroupsDetailsComponent implements OnInit {
           data.phone.toLowerCase().includes(filter)||
           data.idCard.toLowerCase().includes(filter)
 }
+
+GetImageProfile(){
+  if(this.group.imageProfile)
+      return MyTools.domainNameServer+this.group.imageProfile
+  else
+      return "../../../../assets/images/group.png"
+}
+
+UploadImageProfile(refFile:HTMLInputElement,refImg:HTMLImageElement){
+  let fd=new FormData();
+  fd.append("image",refFile.files?.item(0)!)
+  fd.append("idGroup",this.group.id+"")
+  this.httpAccountService.EditImageProfile(this.group.id!,fd,true).subscribe(res=>{
+    MyTools.ShowSnackBarMessage(res,"Ok")
+    //reset selected image input
+    refFile.value=""
+    refImg.src=this.GetImageProfile()+"?t="+new Date().getMilliseconds();
+  },(err)=>MyTools.ShowFialdMessage(err,"Changing Profile Image"))
+}
+// GetTotalTeachers(){
+//   return this.group.userGroups.filter(f=>f.user.roleId==2).length
+// }
+// GetTotalStudents(){
+//   return this.group.userGroups.filter(f=>f.user.roleId==3).length
+// }
 }

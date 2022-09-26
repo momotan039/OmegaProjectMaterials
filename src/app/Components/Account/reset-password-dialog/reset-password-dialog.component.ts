@@ -32,7 +32,7 @@ export class ResetPasswordDialogComponent implements OnInit {
   ngOnInit(): void {
     //cheack token of password reset Request
     this.token=this.activatedRoute.snapshot.paramMap.get('token')!
-    debugger
+    
     if(MyLocalStorage.IsExpiredToken(this.token))
         this.router.navigate([HomeComponent])
 
@@ -60,8 +60,9 @@ export class ResetPasswordDialogComponent implements OnInit {
       refButton.disabled=true
       let model=new UserAuth();
       model.password=this.fg.get('password')?.value
-      debugger
+      
       this.httpAcountService.ResetPassword(model,this.token).subscribe(data=>{
+        debugger
         this.router.navigate([LogInComponent])
         MyTools.ShowResult200Message(data)
       },(err)=>{

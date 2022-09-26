@@ -6,22 +6,34 @@
 .mainContainer{
   display: flex;
   width: 100%;
-  height: 67vh;
   gap: 10px;
 }
+
 .mainContainer .welcomeContainer{
   width: 100%;
 }
+
+.mainContainer .right .listMessages .scroll-to-this-message{
+  background: red;
+}
+
 .mainContainer .right .listMessages{
   overflow-y: auto;
   overflow-x: hidden;
   height: 50vh;
   padding: 16px 9px ;
 }
-.mainContainer .right .listMessages mat-card h3,
-.mainContainer .right .listMessages mat-card mat-card-subtitle
+.mainContainer .right .listMessages mat-card h3
 {
   color: white;
+}
+.mainContainer .right .listMessages mat-card mat-card-subtitle{
+  color: #3949ab;
+  background: #ffffff;
+  padding: 0 9px;
+  border-radius: 10px;
+  text-align: center;
+  margin-top: 5px;
 }
 .mainContainer .welcomeContainer mat-card{
   width: 100%;
@@ -48,7 +60,7 @@
   gap: 10px;
   overflow-y: auto;
   overflow-x: hidden;
-  height: 89%;
+  height: 77vh;
 }
 .mainContainer .left mat-list mat-list-item{
   margin-bottom: 2rem;
@@ -66,11 +78,36 @@ padding: 0 !important
   width: 100%;
 }
 
+.mainContainer .left mat-list mat-list-item mat-card mat-card-header{
+  padding: 5px 0 0 5px;
+  border-radius: 15px;
+  color: var(--warn);
+  position: relative;
+}
+::ng-deep .mainContainer .left mat-list mat-list-item mat-card mat-card-header .num-unread-messages{
+  position: absolute;
+  right: 0;
+  top: 28px;
+  padding: 5px;
+  background: var(--warn);
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+  border-radius: 19px;
+}
+.mainContainer .left mat-list mat-list-item mat-card mat-card-header .avatar-image{
+  width: 60px;
+  height: 60px;
+}
+.mainContainer .left mat-list mat-list-item mat-card mat-card-header .avatar-image img{
+  border-radius: 50px;
+}
 
 .mainContainer .left mat-list mat-list-item button{
   line-height: 1;
   width: 100%;
 }
+
 
 
 /* Start right container Message */
@@ -94,6 +131,15 @@ padding: 0 !important
   padding: 5px 0 0 5px;
   border-radius: 15px;
   color: var(--warn);
+  margin-bottom: 5px;
+  align-items: center;
+}
+.mainContainer .right .messages mat-card mat-card-header .avatar-image{
+  width: 100px;
+  height: 100px;
+}
+.mainContainer .right .messages mat-card mat-card-header .avatar-image img{
+  border-radius: 50px;
 }
 .mainContainer .right .messages mat-card mat-card-actions{
   padding: 0 !important;
@@ -137,11 +183,10 @@ padding: 0 !important
 
 .mainContainer .right .messages .message .content {
   margin: 0;
-  font-weight: bold;
+  font-size: 20px;
 }
 
 .mainContainer .right .messages .message .mail {
-  font-weight: bold;
   margin: 0;
 }
 
@@ -187,7 +232,7 @@ padding: 0 !important
 /* Start Emoji Tables */
 .mainContainer .right emoji-mart{
   position: absolute;
-  bottom: 88px;
+  bottom: 132px;
   padding: 10px;
   right: 0;
 }
@@ -213,7 +258,7 @@ padding: 0 !important
     overflow-y: auto !important;
   }
   .mainContainer{
-    display: unset;
+    display: block;
   }
   .mainContainer .left{
     height: auto;
@@ -221,6 +266,7 @@ padding: 0 !important
   .mainContainer .left mat-list{
     display: flex;
     overflow: auto;
+    height: auto;
   }
   .mainContainer .right mat-card mat-card-content{
     height: 42vh;
@@ -228,4 +274,16 @@ padding: 0 !important
   .mainContainer .right emoji-mart{
     bottom: 129px;
   }
+  .mainContainer .welcomeContainer{
+    height: 500px;
+  }
+}
+
+@media(max-width:768px){
+
+  .mainContainer .right .messages mat-card mat-card-header .avatar-image{
+    width: 80px;
+    height: 80px;
+  }
+
 }

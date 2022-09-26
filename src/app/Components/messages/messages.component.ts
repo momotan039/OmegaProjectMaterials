@@ -1,5 +1,5 @@
 import { MessageGroup } from './../../models/MessageGroup';
-import { Router } from '@angular/router';
+import { Router, Data } from '@angular/router';
 import { HttpMessagesService } from './../../services/HttpMessages.service';
 import { HttpUserGroupService } from './../../services/http-user-group.service';
 import { User } from 'src/app/models/User';
@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthService } from 'src/app/services/auth.service';
 import { Message } from 'src/app/models/Message';
-import { interval, Subscription, Observable } from 'rxjs';
+import { interval, Subscription, Observable, filter } from 'rxjs';
 import { MessageDialogComponent } from '../dilogs/message-dialog/message-dialog.component';
 import { DeleteUserComponent } from '../dilogs/delete-user/delete-user.component';
 import { HttpGroupsService } from 'src/app/services/http-groups.service';
@@ -17,6 +17,7 @@ import {
   Component,
   OnInit,
   OnDestroy,
+  ViewChild,
 } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { EmojiService } from '@ctrl/ngx-emoji-mart/ngx-emoji';
@@ -31,9 +32,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
   fg = new FormGroup({});
   title = '';
   subTitle = '';
-  image = '';
-  // receiverUser=new User()
-  // receiverGroup=new Group()
+  imageContact = '';
   receiver: any;
   groups: Group[] = [];
   filteredGroups: Group[] = [];
@@ -43,7 +42,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
   msgObs?: Subscription;
   emoji:EmojiService | undefined;
   hideEmojiTable=true
-
+  @ViewChild('refListMessages')ListMessagesContainer:HTMLElement | undefined
   constructor(
     private fb: FormBuilder,
     private httpGroupsService: HttpGroupsService,
@@ -55,6 +54,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
     // //remove scroller body
     // document.body.classList.add('removeScroller');
   }
+ 
 
   ngOnDestroy(): void {
     this.msgObs?.unsubscribe();
@@ -63,6 +63,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    console.warn(MyTools.unreadMsgs)
     this.fg = this.fb.group({
       message: ['', Validators.required],
     });
@@ -76,15 +77,20 @@ export class MessagesComponent implements OnInit, OnDestroy {
       this.freinds = data;
       this.filteredFreinds=this.freinds
     });
+
+    
   }
   isReciverGroup() {
     return 'courseId' in this.receiver;
   }
   ScrollingDownListMessage() {
+    const offsetTopMessage=(document.querySelector('.scroll-to-this-message') as HTMLElement).offsetTop
+    const offsetHeightParent=(document.querySelector('.listMessages') as HTMLElement).offsetHeight
+    console.warn(offsetTopMessage-offsetHeightParent)
     //scroll down to bottom list Message
     setTimeout(() => {
-      document.querySelector('.listMessages')?.scrollTo({
-        top: document.querySelector('.listMessages')?.scrollHeight,
+       document.querySelector('.listMessages')?.scrollTo({
+        top: offsetTopMessage-offsetHeightParent,
         behavior: 'smooth',
       });
     }, 300);
@@ -93,12 +99,20 @@ export class MessagesComponent implements OnInit, OnDestroy {
     if ('courseId' in this.receiver) {
       this.title = this.receiver.name;
       this.subTitle = this.receiver.course.name;
-      this.image = './../../assets/images/group.png';
     } else {
       this.title = this.receiver.firstName + ' ' + this.receiver.lastName;
       this.subTitle = this.receiver.email;
-      this.image = './../../assets/images/profile.svg';
     }
+    this.imageContact = this.GetImageProfile(this.receiver);
+
+  }
+
+  GetStreamMessages(getMessagesFun:any){
+    this.msgObs = interval(1000).subscribe(() => {
+      getMessagesFun.subscribe((data: any) => {
+        this.msgs = data;
+      });
+    });
   }
   ShowConversation() {
     this.msgObs?.unsubscribe();
@@ -111,16 +125,19 @@ export class MessagesComponent implements OnInit, OnDestroy {
       getMessagesFun = this.httpMessagesService.GetMessagesByReciver(
         this.receiver.id
       );
+
     getMessagesFun.subscribe((data: any) => {
       this.msgs = data;
+      let firstMessageToRead=(data as Message[]).find(d=>d.isOpened==false) as any
+      firstMessageToRead['scrollToThis']=true;
       this.ScrollingDownListMessage();
+     
+      // setTimeout(() => {
+      //   document.querySelector(".scroll-to-this-message")!.scrollIntoView(false)
+      // }, 300);
     });
 
-    // this.msgObs = interval(1000).subscribe(() => {
-    //   getMessagesFun.subscribe((data) => {
-    //     this.msgs = data;
-    //   });
-    // });
+    // this.GetStreamMessages(getMessagesFun);
   }
 
   SetResiver(obj: any) {
@@ -129,13 +146,11 @@ export class MessagesComponent implements OnInit, OnDestroy {
     this.ShowConversation();
   }
 
-  GetCustomDate(date: Date) {
+  IsMessageSentToday(date: Date) {
     const now = new Date(date);
     const current = now.getHours() + ':' + now.getMinutes();
     const strDate = now.toLocaleDateString();
-    if (new Date().toLocaleDateString() != strDate)
-      return current + '~' + strDate;
-    return current;
+    return new Date().toLocaleDateString() == strDate
   }
 
   SendMessage(inputMessage: any) {
@@ -185,7 +200,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
       if (success) {
         let deleteFun;
 
-        debugger;
+        ;
         if (!this.isReciverGroup())
           deleteFun = this.httpMessagesService.DeleteMessage(id);
         else deleteFun = this.httpMessagesService.DeleteGroupMessage(id);
@@ -272,4 +287,32 @@ export class MessagesComponent implements OnInit, OnDestroy {
     this.hideEmojiTable=false
     else this.hideEmojiTable=true
   }
+
+  GetImageProfile(contact:User|Group){
+    let image;
+    if("roleId" in contact)
+       image="../../../assets/images/profile.svg"
+       else
+       {
+   
+        image="../../../assets/images/group.png"
+       }
+    if(contact.imageProfile)
+        return MyTools.domainNameServer+contact.imageProfile
+    else
+        return image
+  }
+
+  ShowPopUPImage(receiver:any){
+    MyTools.ShowPopUpImageDialog(this.GetImageProfile(receiver));
+  }
+
+  CountUnreadMessages(){
+    // const msgs=this.msgs as Message[]
+    // console.warn(msgs)
+    // let count =msgs.filter(d=>!d.isOpened).length
+    // console.warn(count)
+    // return count
+  }
+
 }

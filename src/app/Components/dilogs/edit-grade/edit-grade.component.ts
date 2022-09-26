@@ -59,7 +59,7 @@ export class EditGradeComponent implements OnInit,AfterViewInit {
 
     //get students when change group
     this.fg.get("groupId")?.valueChanges.subscribe(data=>{
-      debugger
+      
       this.ChangeStudentsList(data)
       this.selectStudent.RefreshData();
       //Start clear Student selection
@@ -85,7 +85,7 @@ export class EditGradeComponent implements OnInit,AfterViewInit {
         this.students.push(ug.user)
        }
     })
-    debugger
+    
     this.studentsObserv.next(this.students)
   }
 

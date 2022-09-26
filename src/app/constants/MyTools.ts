@@ -1,19 +1,30 @@
+import { Message } from 'src/app/models/Message';
+import { PopUpImageComponent } from './../Materials/pop-up-image/pop-up-image.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MyLocalStorage } from './../services/MyLocalStorage';
 import { MatDialog, MatDialogContainer, _MatDialogBase } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { MessageDialogComponent } from "../Components/dilogs/message-dialog/message-dialog.component";
 import { User } from "../models/User";
+import { Component, Input } from '@angular/core';
+import { Subscription, Observable } from 'rxjs';
+
+
 
 export class MyTools {
 
   static Dialog:MatDialog
   static currentUser=new User()
   static router:Router
+  static domainNameServer="https://localhost:44327/"
   static UrlRootApi="https://localhost:44327/api"
   static passwordValidationRegex="^[A-Z](?=.*\d)(?=.*[a-z]).{7,}$"
+  static SnackBar: MatSnackBar;
+  static msgsReader?: Observable<Message[]>;
+  static unreadMsgs: Message[];
+
   constructor(
   ){
-
   }
 
   FilterDataTable(input:any,dataSource:any){
@@ -55,6 +66,25 @@ static ShowResult200Message(content:any){
       "icon":"error"
     }
   })
+}
+
+
+
+
+static ShowSnackBarMessage(msg:string,action:string){
+ 
+  this.SnackBar.open(msg,action,{
+   verticalPosition:"bottom",
+   horizontalPosition:"center",
+duration:1500
+  })
+}
+
+static ShowPopUpImageDialog(image:string){
+this.Dialog.open(PopUpImageComponent,{
+  data:image,
+  panelClass:"rotatePopUpImageDialog",
+})
 }
 }
 

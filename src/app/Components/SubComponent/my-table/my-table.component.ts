@@ -27,6 +27,7 @@ export class MyTableComponent implements OnInit {
   @Input() operations:boolean[]=[]
   @Input() detailsComonentUrl=""
   @Input() title=""
+  @Input() singleTitle=""
   @Input() enableAddRow=true
   @Input() disableFilterOverride=false
   @Input() disableSortOverride=false

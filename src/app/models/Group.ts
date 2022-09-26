@@ -6,6 +6,7 @@ export class Group {
  courseId?:number//name object
  openingDate?:Date
  closingDate?:Date
+ imageProfile?:string
  course?:Course
  userGroups:UserGroup[]=[]
 }

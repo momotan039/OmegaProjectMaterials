@@ -12,5 +12,6 @@ export class User{
   id?:number
   roleId?:number
   confirmPassword?:boolean
+  imageProfile?:string
   messages?:Message[]
 }

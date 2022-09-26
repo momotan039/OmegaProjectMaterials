@@ -35,7 +35,7 @@ export class HomeWorkStudentService {
 
   }
   DeleteSubmited(data:any){
-    debugger
+    
     return this.http.delete(MyTools.UrlRootApi+"/HomeWorkStudents/DeleteSubmited",{
       responseType:"text",
       body:data

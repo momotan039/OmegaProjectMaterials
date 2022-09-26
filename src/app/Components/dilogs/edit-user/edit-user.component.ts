@@ -41,7 +41,7 @@ export class EditUserComponent implements OnInit {
     this.user=this.data
   }
   EditUser(){
-    debugger
+    
     if(!this.EditUserForm.valid || !this.ChangedInputs())
     {
       this.dialogRef.close();

@@ -1,6 +1,7 @@
- <p>home works!</p>
-<h1>Welcome {{auth.currentUser.firstName}}</h1>
-<h1>{{auth.currentUser.role!.description}}</h1>
+<app-user-details
+[showCurrentUserDetails]="true"
+>
+</app-user-details>
 
 <!-- <app-select-with-search
 [label]="'Test Search'"

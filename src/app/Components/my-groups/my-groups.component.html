@@ -1,4 +1,3 @@
-<h1 class="title">My Groups</h1>
 
 <app-my-table
 [enableAddRow]="false"
@@ -6,6 +5,7 @@
 [displayedColumns]="['name','openingDate','course.name','userGroups.length']"
 [getDataTable]="this.httpGroupsService.GetGroupsByUserId()"
 [FilterPredicateParent]="FilterPredicateParent"
+[singleTitle]="'My Groups'"
 >
 
 </app-my-table>

@@ -1,5 +1,6 @@
+import { SelectWithSearchComponent } from './../../select-with-search/select-with-search.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MyTools } from 'src/app/constants/MyTools';
 import { MessageDialogComponent } from '../message-dialog/message-dialog.component';
@@ -14,26 +15,30 @@ import { Router } from '@angular/router';
   templateUrl: './add-group.component.html',
   styleUrls: ['./add-group.component.css']
 })
-export class AddGroupComponent implements OnInit {
+export class AddGroupComponent implements OnInit , AfterViewInit {
   courses:any
+  @ViewChild("refSelectCourse") selectCourse=new SelectWithSearchComponent()
+
   constructor(
     private httpGroups:HttpGroupsService,
     private courseService:HttpCoursesService,
     private dialogRef:MatDialogRef<GroupsComponent>,
     private fb:FormBuilder,
+    
 
     ) { }
+  ngAfterViewInit(): void {
+    this.AddGroupForm.addControl("courseId",this.selectCourse.myControl)
+
+  }
     AddGroupForm=this.fb.group({
       name:['',Validators.required],
-      courseId:['',Validators.required],
       openingDate:['',Validators.required],
       closingDate:['',Validators.required]
     })
 
   ngOnInit(): void {
-    this.courseService.GetCourses().subscribe(data=>{
-      this.courses=data
-    })
+   
   }
 
   SaveGroup(){
@@ -45,5 +50,9 @@ export class AddGroupComponent implements OnInit {
   },(err)=>{
     MyTools.ShowFialdMessage(err,"Adding Group")
     })
+  }
+
+  GetCourses=()=>{
+    return  this.courseService.GetCourses()
   }
 }
