@@ -21,7 +21,7 @@ export class MyTools {
   static passwordValidationRegex="^[A-Z](?=.*\d)(?=.*[a-z]).{7,}$"
   static SnackBar: MatSnackBar;
   static msgsReader?: Observable<Message[]>;
-  static unreadMsgs: Message[];
+  static unreadMsgs: Message[]=[];
 
   constructor(
   ){

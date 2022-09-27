@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
@@ -44,3 +45,10 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+=======
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/OmegaProject/wwwroot/HomeWork
+>>>>>>> 5c10855bc1693ef2ac2d7ca0b2bbda665f1f129f

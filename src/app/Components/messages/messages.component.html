@@ -106,9 +106,15 @@
               <div class="arrow" [ngClass]="msg.senderId==httpAuth.currentUser.id?'sender-arrow':'reciver-arrow'"></div>
             </mat-card>
           </div>
-          <div *ngIf="msgs.length==0">
+          <!-- <div *ngIf="!msgs.length">
             Start Chat Now
-          </div>
+            
+          </div> -->
+          <mat-spinner
+              *ngIf="ShowSpinner"
+              [diameter]="50"
+            >
+            </mat-spinner>
         </mat-card-content>
         <mat-card-actions class="actions">
           <form [formGroup]="fg">

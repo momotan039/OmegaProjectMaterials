@@ -16,11 +16,19 @@ SendMessageToFreind(msg:Message){
 return this.http.post(MyTools.UrlRootApi+"/Messages/SendMessage",msg)
 }
 GetMessagesByReciver(idReciver:number){
-  return this.http.get('https://localhost:44327/api/Messages/GetMessagesByReciver/'+idReciver)
+  return this.http.get('https://localhost:44327/api/Messages/GetMessagesByReciver/'+idReciver,{
+    observe:"events",
+    reportProgress:true,
+  })
 }
+
 
 GetAllUnreadMessages(){
   return this.http.get<Message[]>('https://localhost:44327/api/Messages/GetAllUnreadMessages/')
+}
+
+GetUnreadMessages(senderId:number){
+  return this.http.get<Message[]>('https://localhost:44327/api/Messages/GetUnreadMessages/'+senderId)
 }
 
 DeleteMessage(id:number){
@@ -35,7 +43,10 @@ SendGroupMessage(msg:MessageGroup){
   return this.http.post(MyTools.UrlRootApi+"/GroupMessages/SendMessage",msg)
   }
   GetGroupMessagesByReciver(idReciver:number){
-    return this.http.get('https://localhost:44327/api/GroupMessages/GetMessagesByReciver/'+idReciver)
+    return this.http.get('https://localhost:44327/api/GroupMessages/GetMessagesByReciver/'+idReciver,{
+      reportProgress:true,
+      observe:"events"
+    })
   }
 
   DeleteGroupMessage(id:number){
