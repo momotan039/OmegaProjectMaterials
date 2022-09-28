@@ -81,7 +81,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
       this.filteredFreinds=this.freinds
     });
 
-    // this.HandelScrollingMessages();
+    this.HandelScrollingMessages();
   }
   isReciverGroup() {
     return 'courseId' in this.receiver;
@@ -124,35 +124,35 @@ export class MessagesComponent implements OnInit, OnDestroy {
   }
 
  
-  GetStreamMessages(){
-    // this.msgObs = this.InitStreamMessages(getMessagesFun)
-      interval(1000).subscribe(()=>{
-       this.httpMessagesService.GetUnreadMessages(this.receiver.id).subscribe(data=>{
-          data.forEach(d=>{
-            this.msgs.push(d)
-          })
-       })
-      })
-      
+  GetStreamMessages(getMessagesFun:Observable<HttpEvent<Object>>,idContact:number){
+          if(idContact!=this.receiver.id)
+            return
+          setTimeout(() => {
+            this.msgObs=getMessagesFun.subscribe(event=>{
+              if (event.type==HttpEventType.Response)
+            {
+             this.msgs=event.body
+            //  this.GetStreamMessages(getMessagesFun,idContact)
+            }
+         })
+          }, 2000);            
   }
+
   InitStreamMessages(getMessagesFun:Observable<HttpEvent<Object>>){
-    return interval(1000).subscribe(() => {
-      getMessagesFun.subscribe(event => {
-        if(event.type==HttpEventType.DownloadProgress)
+    return interval(1000).subscribe(()=>{
+      getMessagesFun.subscribe(event=>{
+        console.warn(event.type)
+        if(event.type==HttpEventType.Sent)
           this.msgObs?.unsubscribe()
-        if(event.type==HttpEventType.Response)
-          {
-          this.msgs = event.body;
+        else if(event.type==HttpEventType.Response)
+          this.msgs=event.body
           this.msgObs=this.InitStreamMessages(getMessagesFun)
-          }
-      });
-    });
+      })
+    })
   }
 
   ShowConversation() {
-
-    // this.msgObs?.unsubscribe();
-    this.lastConversation?.unsubscribe();
+   
 
     //get Messages By Contact
     let getMessagesFun:Observable<HttpEvent<Object>>;
@@ -170,8 +170,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
       this.lastConversation=getMessagesFun.subscribe((event) => {
       if(event.type==HttpEventType.Response)
         {
-           this.GetStreamMessages();
-          //  this.statusGetMessages=event
+           this.GetStreamMessages(getMessagesFun,this.receiver.id);
            this.msgs = event.body;
            this.ScrollingDownListMessage();
            this.ShowSpinner=false
@@ -181,6 +180,12 @@ export class MessagesComponent implements OnInit, OnDestroy {
   }
 
   SetResiver(obj: any) {
+
+    if(this.receiver && obj.id==this.receiver.id)
+    return
+
+    this.msgObs?.unsubscribe();
+    this.lastConversation?.unsubscribe();
     this.receiver = obj;
     this.ChangeTitle_SubTitle_Image();
     this.ShowConversation();
@@ -209,11 +214,8 @@ export class MessagesComponent implements OnInit, OnDestroy {
         this.httpAuth.currentUser.id!,
         this.fg.value.message
       );
+
       SendMessageFun = this.httpMessagesService.SendMessageToFreind(msg);
-      const newMessage=Object.assign({},msg)
-      newMessage.reciver=this.receiver
-      console.warn(newMessage)
-      this.msgs.push(newMessage)
     }
 
     SendMessageFun.subscribe({
@@ -358,25 +360,23 @@ export class MessagesComponent implements OnInit, OnDestroy {
   HandelScrollingMessages(){
     let listMsgs=document.querySelector(".listMessages")
 
-    listMsgs?.
-    addEventListener("scroll",()=>{
+    listMsgs!.addEventListener("scroll",()=>{
       //how much scrolling
-      const scrollTop=listMsgs!.scrollTop;
-      //the maximum that scrolling can reach
-      const scrollHeight=listMsgs!.scrollHeight;
-      //offset of spesific element in scroller_container
-      const offset=scrollHeight-scrollTop
-
+    const scrollTop=listMsgs!.scrollTop;
+      // const m=listMsgs?.querySelectorAll(".unread-message")[0] as HTMLElement
       listMsgs?.querySelectorAll(".unread-message")
-      .forEach(m=>{
-        const offsetMsg=(m as HTMLElement).offsetTop
-        const heightMsg=(m as HTMLElement).offsetHeight
-
-        const idMsg=parseInt((m as HTMLElement).getAttribute("id")!);
-        const mJson=MyTools.unreadMsgs.find(f=>f.id==idMsg)
-        if(offset+heightMsg<=offsetMsg)
+       .forEach(m=>{
+        const idMsg=parseInt(m.getAttribute("id")!);
+        console.warn(`
+              y Msg=>${m.getBoundingClientRect().y}
+              Height listMsgs=>${listMsgs?.getBoundingClientRect().height}
+              offsetTop Msg=>${(m as HTMLElement).offsetTop}
+              scrollTop=>${scrollTop}
+            `)
+        if(m.getBoundingClientRect().y<=listMsgs?.getBoundingClientRect().height!)
           {
              m.classList.remove("unread-message")
+             console.warn("reach to msg :",idMsg)
             //  this.httpMessagesService.ReadMessage(idMsg).subscribe(d=>{
             //  })
           }
