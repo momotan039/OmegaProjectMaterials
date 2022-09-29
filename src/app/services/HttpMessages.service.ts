@@ -9,6 +9,7 @@ import { MyTools } from '../constants/MyTools';
   providedIn: 'root'
 })
 export class HttpMessagesService {
+  
 
 constructor(private http:HttpClient) { }
 
@@ -24,7 +25,7 @@ GetMessagesByReciver(idReciver:number){
 
 
 GetAllUnreadMessages(){
-  return this.http.get<Message[]>('https://localhost:44327/api/Messages/GetAllUnreadMessages/')
+  return this.http.get<any[]>('https://localhost:44327/api/Messages/GetAllUnreadMessages/')
 }
 
 GetUnreadMessages(senderId:number){
@@ -38,6 +39,9 @@ ReadMessage(id:number){
   return this.http.get('https://localhost:44327/api/Messages/ReadMessage/'+id)
 }
 
+ReadGroupMessage(idMsg: number, idSeer: number | undefined) {
+  return this.http.get(`https://localhost:44327/api/GroupMessages/ReadMessage/${idMsg}/${idSeer}`)
+}
 
 SendGroupMessage(msg:MessageGroup){
   return this.http.post(MyTools.UrlRootApi+"/GroupMessages/SendMessage",msg)

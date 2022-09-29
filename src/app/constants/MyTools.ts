@@ -7,7 +7,7 @@ import { Router } from "@angular/router";
 import { MessageDialogComponent } from "../Components/dilogs/message-dialog/message-dialog.component";
 import { User } from "../models/User";
 import { Component, Input } from '@angular/core';
-import { Subscription, Observable } from 'rxjs';
+import { Subscription, Observable, BehaviorSubject } from 'rxjs';
 
 
 
@@ -21,7 +21,8 @@ export class MyTools {
   static passwordValidationRegex="^[A-Z](?=.*\d)(?=.*[a-z]).{7,}$"
   static SnackBar: MatSnackBar;
   static msgsReader?: Observable<Message[]>;
-  static unreadMsgs: Message[]=[];
+  static unreadMsgs: any[]=[];
+  static NumUnreadMsgs:BehaviorSubject<number>=new BehaviorSubject(0)
 
   constructor(
   ){

@@ -21,8 +21,32 @@ export class HeaderComponent implements OnInit {
   }
   ngOnInit(): void {
      this.authService.currentUserSub!.asObservable().subscribe(user=>{
-      this.menuItems=Menu.getItemsByUserRole(user.roleId)
+      const _user=user
+      MyTools.NumUnreadMsgs.subscribe(num=>{
+        this.CreateMenuItems(_user,num);
+      })
     })
+  }
+
+  CreateMenuItems(user:any,unreadMsgs:number){
+    this.menuItems=Menu.getItemsByUserRole(user.roleId)
+
+    this.menuItems.forEach(f=>{
+      if(f.icon=='mail'||f.icon=='mark_email_unread')
+      {
+        if(unreadMsgs)
+        {
+         f.value=unreadMsgs
+        f.icon='mark_email_unread'
+        }
+        else{
+          f.value=unreadMsgs
+          f.icon='mail'
+        }
+
+      }
+    })
+    return  this.menuItems
   }
 
 }

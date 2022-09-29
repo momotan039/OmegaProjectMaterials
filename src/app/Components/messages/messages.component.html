@@ -24,12 +24,14 @@
               </div>
               <mat-card-title>{{user.firstName+" "+user.lastName}}</mat-card-title>
               <mat-card-subtitle>{{user.email}}</mat-card-subtitle>
-              <div
-               class="num-unread-messages"
-               *ngIf="CountUnreadMessages(user.id)"
-              >
-              {{CountUnreadMessages(user.id)}}
-            </div>
+              <div class="num-unread-messages" *ngIf="CountUnreadMessages(user)">
+                {{CountUnreadMessages(user)}}
+                 <mat-icon style="font-size:19px">
+                  mark_email_unread
+                  </mat-icon>
+              </div>
+              
+              
             </mat-card-header>
           </button>
         </mat-card>
@@ -44,11 +46,12 @@
               </div>
               <mat-card-title>{{group.name}}</mat-card-title>
               <mat-card-subtitle>{{group.course!.name}}</mat-card-subtitle>
-              <div
-               class="num-unread-messages"
-               [ngStyle]="{'display':true?'none':''}"
-
-              ></div>
+              <div class="num-unread-messages" *ngIf="CountUnreadMessages(group)">
+                {{CountUnreadMessages(group)}}
+                 <mat-icon style="font-size:19px">
+                  mark_email_unread
+                  </mat-icon>
+              </div>
             </mat-card-header>
           </button>
         </mat-card>
@@ -56,31 +59,24 @@
     </mat-list>
   </div>
 
-  <div
-  [ngClass]="!receiver?'hidden':''"
-  class="right">
+  <div [ngClass]="!receiver?'hidden':''" class="right">
     <div class="messages">
       <mat-card>
         <mat-card-header>
           <div mat-card-avatar class="avatar-image">
-            <img (click)="ShowPopUPImage(receiver)"  [src]="imageContact" alt="User Avatar">
+            <img (click)="ShowPopUPImage(receiver)" [src]="imageContact" alt="User Avatar">
           </div>
           <mat-card-title>{{title}}</mat-card-title>
           <mat-card-subtitle>{{subTitle}}</mat-card-subtitle>
         </mat-card-header>
-        <mat-card-content  #refListMessages class="listMessages">
-          <div
-          [ngStyle]="{'direction':msg.senderId==httpAuth.currentUser.id?'rtl':'ltr'}"
-          *ngFor="let msg of msgs"
-          [ngClass]="{'unread-message':!msg.isOpened && msg.senderId!=httpAuth.currentUser.id}"
-          data-id="{{msg.id}}"
+        <mat-card-content #refListMessages class="listMessages">
+          <div [ngStyle]="{'direction':msg.senderId==httpAuth.currentUser.id?'rtl':'ltr'}" *ngFor="let msg of msgs"
+            [ngClass]="{'unread-message':!msg.isOpened && msg.senderId!=httpAuth.currentUser.id}" data-id="{{msg.id}}"
             class="containerMessage">
-            <mat-card
-            [ngClass]="{
+            <mat-card [ngClass]="{
               'sender-message': msg.senderId==httpAuth.currentUser.id,
               'reciver-message':msg.senderId!=httpAuth.currentUser.id
-            }"
-              class="message">
+            }" class="message">
               <button (click)="DeleteMesssage(msg.id!)" *ngIf="msg.senderId==httpAuth.currentUser.id"
                 class="mat-fab mat-accent deleteMessage">
                 <mat-icon>close</mat-icon>
@@ -88,16 +84,12 @@
               <h3 class="mail" *ngIf="msg.senderId!=httpAuth.currentUser.id">
                 {{msg.sender!.firstName+"~"+msg.sender!.email}}
               </h3>
-              <h3
-              [ngStyle]="{'direction':msg.senderId==httpAuth.currentUser.id?'ltr':'ltr'}"
-              class="content"
+              <h3 [ngStyle]="{'direction':msg.senderId==httpAuth.currentUser.id?'ltr':'ltr'}" class="content"
                 *ngFor="let content of msg.contents?.split('\n')">
                 {{content}}
               </h3>
-              <mat-card-subtitle
-              [ngStyle]="{'direction':msg.senderId==httpAuth.currentUser.id?'rtl':'ltr'}"
-              >
-              {{
+              <mat-card-subtitle [ngStyle]="{'direction':msg.senderId==httpAuth.currentUser.id?'rtl':'ltr'}">
+                {{
                 IsMessageSentToday(msg.sendingDate)?
                 (msg.sendingDate!|date:'shortTime'):
                 (msg.sendingDate!|date:'short')
@@ -110,11 +102,17 @@
             Start Chat Now
             
           </div> -->
-          <mat-spinner
-              *ngIf="ShowSpinner"
-              [diameter]="50"
-            >
-            </mat-spinner>
+          <mat-spinner *ngIf="ShowSpinner" [diameter]="50">
+          </mat-spinner>
+
+          <div *ngIf="receiver && CountUnreadMessages(receiver)" class="scroll-down-to-unread-messages">
+            <button (click)="ScrollingDownListMessage()" color="primary" mat-fab>
+              {{CountUnreadMessages(receiver)}}
+              <mat-icon>
+                markunread
+              </mat-icon>
+            </button>
+          </div>
         </mat-card-content>
         <mat-card-actions class="actions">
           <form [formGroup]="fg">

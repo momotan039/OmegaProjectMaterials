@@ -1,11 +1,19 @@
 <mat-toolbar [ngClass]="{'justyCenter':!authService.IsLogIn()}" color="primary">
-
       <img routerLink="home" class="logo" src="../../../assets/images/logo.png" alt="Omega Academy">
       <!-- <a routerLink="home"><h1 class="logo">Omega Academy</h1></a> -->
-
     <div *ngIf="authService.IsLogIn()"  class="menuItems">
-      <a (click)="item.title=='Logout'?authService.LogOut():{}" *ngFor="let item of menuItems" mat-button routerLink="{{item.href}}">
-        {{item.title}}<mat-icon>{{item.icon}}</mat-icon></a>
+      <a 
+      (click)="item.title=='Logout'?authService.LogOut():{}"
+       *ngFor="let item of menuItems"
+        mat-button routerLink="{{item.href}}"
+        [ngStyle]="{'color':item.value?'black':''}"
+        >
+        {{item.title}}
+        <mat-icon>{{item.icon}}</mat-icon>
+        <span class="num-unread-messages" *ngIf="item.value">
+          {{item.value}}
+        </span>
+      </a>
 
       <!-- <a mat-button>About Us<mat-icon>contact_support</mat-icon></a> -->
 

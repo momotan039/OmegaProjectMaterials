@@ -8,6 +8,16 @@
 .menuItems a{
   font-weight: bold;
 }
+
+.menuItems a .num-unread-messages{
+  position: absolute;
+  top: 1px;
+  right: -10px;
+  text-align: center;
+  font-size: 15px;
+  width: 32px;
+  height: 26px;
+}
 .menuItems .btnSmallMenu{
 display: none;
 }

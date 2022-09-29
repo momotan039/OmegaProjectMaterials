@@ -13,8 +13,29 @@
   width: 100%;
 }
 
+.mainContainer .right .listMessages .scroll-down-to-unread-messages{
+  position: absolute;
+  top: 13%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+}
+.mainContainer .right .listMessages .scroll-down-to-unread-messages ::ng-deep  .mat-button-wrapper{
+  font-weight: bold;
+  font-size: 24px;
+  color: white;
+}
 .mainContainer .right .listMessages .unread-message{
-  background: red;
+  position: relative;
+}
+.mainContainer .right .listMessages .unread-message::after{
+  position: absolute;
+  content: "";
+  background: var(--primary);
+  width: 10px;
+  height: 10px;
+  top: 9px;
+  left: 19px;
+  border-radius: 5px;
 }
 
 .mainContainer .right .listMessages{
@@ -92,15 +113,17 @@ padding: 0 !important
 }
 ::ng-deep .mainContainer .left mat-list mat-list-item mat-card mat-card-header .num-unread-messages{
   position: absolute;
-  right: 0;
-  top: 28px;
-  padding: 5px;
-  background: var(--warn);
+  background: var(--primary);
   color: white;
   font-weight: bold;
-  font-size: 1.2rem;
-  border-radius: 19px;
+  font-size: 1rem;
+  bottom: -4px;
+  right: 0;
+  width: 18%;
+  height: 20px;
+  padding: 0 6px;
 }
+
 .mainContainer .left mat-list mat-list-item mat-card mat-card-header .avatar-image{
   width: 60px;
   height: 60px;
