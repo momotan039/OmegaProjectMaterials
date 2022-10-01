@@ -47,6 +47,9 @@ export class MessagesComponent implements OnInit, OnDestroy {
   @ViewChild('refListMessages')ListMessagesContainer:HTMLElement | undefined
   ShowSpinner=false;
   lastConversation: Subscription | undefined;
+  msgInterval: Subscription | undefined;
+  found_previous=false;
+  previousMsgs: any;
   constructor(
     private fb: FormBuilder,
     private httpGroupsService: HttpGroupsService,
@@ -62,6 +65,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.msgObs?.unsubscribe();
+    this.msgInterval?.unsubscribe()
     //remove scroller body
     // document.body.classList.remove('removeScroller');
   }
@@ -87,8 +91,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
     return 'courseId' in this.receiver;
   }
   ScrollingDownListMessage() {
-    if(this.msgs.length==0)
-    return
+  
     //scroll down to bottom list Message
     if(!this.CountUnreadMessages(this.receiver))
     {
@@ -125,69 +128,73 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
   }
 
- 
-  GetStreamMessages(getMessagesFun:Observable<HttpEvent<Object>>,idContact:number){
-          if(idContact!=this.receiver.id)
-            return
-          setTimeout(() => {
-            this.msgObs=getMessagesFun.subscribe(event=>{
+  GetStreamMessages(getMessagesFun:Observable<HttpEvent<any>>,idContact:number){
+         this.msgInterval=interval(2000).subscribe(num=>{
+               this.msgObs=getMessagesFun.subscribe(event=>{
               if (event.type==HttpEventType.Response)
             {
-             this.msgs=event.body
-             if(this.msgs[this.msgs.length-1].senderId==this.httpAuth.currentUser.id)
-             this.ScrollingDownListMessage();
+             this.msgs=event.body['messages'].concat(this.previousMsgs)
+             this.found_previous=event.body['found_previous']
              this.ReadMessages(document.querySelector(".listMessages")!)
-             this.GetStreamMessages(getMessagesFun,idContact)
             }
          })
-          }, 2000);            
+         })
   }
-
-  InitStreamMessages(getMessagesFun:Observable<HttpEvent<Object>>){
-    return interval(1000).subscribe(()=>{
-      getMessagesFun.subscribe(event=>{
-        console.warn(event.type)
-        if(event.type==HttpEventType.Sent)
-          this.msgObs?.unsubscribe()
-        else if(event.type==HttpEventType.Response)
-          this.msgs=event.body
-          this.msgObs=this.InitStreamMessages(getMessagesFun)
-      })
+  GetPreviousMessages(){
+    this.httpMessagesService.GetPreviousMessages(
+      this.receiver.id,
+      this.msgs.length
+    ).subscribe(event=>{
+      if (event.type==HttpEventType.Response)
+      {
+       this.previousMsgs=event.body['messages'].concat(this.previousMsgs)
+       this.found_previous=event.body['found_previous']
+       this.ReadMessages(document.querySelector(".listMessages")!)
+      }
     })
   }
 
+ 
   ShowConversation() {
     //get Messages By Contact
-    let getMessagesFun:Observable<HttpEvent<Object>>;
+    let getMessagesFun:Observable<HttpEvent<any>>;
     if (this.isReciverGroup())
       getMessagesFun = this.httpMessagesService.GetGroupMessagesByReciver(
         this.receiver.id
       );
     else
       getMessagesFun = this.httpMessagesService.GetMessagesByReciver(
-        this.receiver.id
+        this.receiver.id,
+        this.msgs.length
       );
       
       this.ShowSpinner=true;
-      this.lastConversation=getMessagesFun.subscribe((event) => {
-      if(event.type==HttpEventType.Response)
-        {
-          debugger
-           this.GetStreamMessages(getMessagesFun,this.receiver.id);
-           this.msgs = event.body;
-           this.ScrollingDownListMessage();
-           this.ShowSpinner=false
-        }
-    });
+        //to show spinner for half second
+        setTimeout(() => {
+          this.lastConversation=getMessagesFun.subscribe((event) => {
+            if(event.type==HttpEventType.Response)
+              {
+                 this.GetStreamMessages(getMessagesFun,this.receiver.id);
+                 this.msgs = event.body['messages'];
+                 this.found_previous=event.body['found_previous']
+                 this.ScrollingDownListMessage();
+                 this.ShowSpinner=false
+              }
+          });
+        }, 500);
   }
 
   SetResiver(obj: any) {
 
     if(this.receiver && obj.id==this.receiver.id)
     return
-
+    //empty it to display spinner clearly
+    this.msgs=[]
+    //stop interval of call messages
+    this.msgInterval?.unsubscribe();
+    //stop get Current request messages
     this.msgObs?.unsubscribe();
-    this.lastConversation?.unsubscribe();
+    // this.lastConversation?.unsubscribe();
     this.receiver = obj;
     
     this.ChangeTitle_SubTitle_Image();
@@ -203,6 +210,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
   SendMessage(inputMessage: any) {
     if (!this.fg.valid) return;
+    
     let SendMessageFun;
     if (this.isReciverGroup()) {
       let msg = new MessageGroup(
@@ -223,7 +231,9 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
     SendMessageFun.subscribe({
       complete: () => {
-          this.ScrollingDownListMessage()
+          setTimeout(() => {
+            this.ScrollingDownListMessage()
+          }, 1000);
       },
       error: () => {
         MyTools.ShowExpiredSessionMessage();
@@ -373,7 +383,6 @@ export class MessagesComponent implements OnInit, OnDestroy {
      if(m.getBoundingClientRect().y<=720)
        {
           m.classList.remove("unread-message")
-          console.warn("reach to msg :",idMsg)
           if(this.isReciverGroup())
           this.httpMessagesService.ReadGroupMessage(idMsg,this.httpAuth.currentUser.id)
           .subscribe(d=>{
@@ -386,7 +395,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
   }
   HandelScrollingMessages(){
     let listMsgs=document.querySelector(".listMessages")
-    this.ReadMessages(listMsgs!)
+    // this.ReadMessages(listMsgs!)
 
     listMsgs!.addEventListener("scroll",()=>{
       //how much scrolling

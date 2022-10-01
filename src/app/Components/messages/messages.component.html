@@ -1,7 +1,6 @@
 <h1 class="title">
   Messages
 </h1>
-
 <div class="mainContainer">
   <div class="left ">
     <mat-form-field class="input-full-width" appearance="fill">
@@ -60,6 +59,7 @@
   </div>
 
   <div [ngClass]="!receiver?'hidden':''" class="right">
+<h1 >{{found_previous}}</h1>
     <div class="messages">
       <mat-card>
         <mat-card-header>
@@ -70,6 +70,8 @@
           <mat-card-subtitle>{{subTitle}}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content #refListMessages class="listMessages">
+        <button mat-raised-button color="primary"
+         (click)="GetPreviousMessages()">Get Previous Messages</button>
           <div [ngStyle]="{'direction':msg.senderId==httpAuth.currentUser.id?'rtl':'ltr'}" *ngFor="let msg of msgs"
             [ngClass]="{'unread-message':!msg.isOpened && msg.senderId!=httpAuth.currentUser.id}" data-id="{{msg.id}}"
             class="containerMessage">

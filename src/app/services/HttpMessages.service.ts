@@ -9,6 +9,8 @@ import { MyTools } from '../constants/MyTools';
   providedIn: 'root'
 })
 export class HttpMessagesService {
+
+  
   
 
 constructor(private http:HttpClient) { }
@@ -16,13 +18,19 @@ constructor(private http:HttpClient) { }
 SendMessageToFreind(msg:Message){
 return this.http.post(MyTools.UrlRootApi+"/Messages/SendMessage",msg)
 }
-GetMessagesByReciver(idReciver:number){
-  return this.http.get('https://localhost:44327/api/Messages/GetMessagesByReciver/'+idReciver,{
+
+GetMessagesByReciver(idReciver:number,current_messages_count:number){
+  return this.http.get('https://localhost:44327/api/Messages/GetMessagesByReciver/'+idReciver+'/'+current_messages_count,{
     observe:"events",
     reportProgress:true,
   })
 }
-
+GetPreviousMessages(idReciver:number,current_messages_count:number) {
+  return this.http.get<any>('https://localhost:44327/api/Messages/GetPreviousMessages/'+idReciver+'/'+current_messages_count,{
+    observe:"events",
+    reportProgress:true,
+  })
+}
 
 GetAllUnreadMessages(){
   return this.http.get<any[]>('https://localhost:44327/api/Messages/GetAllUnreadMessages/')

@@ -26,6 +26,9 @@
 }
 .mainContainer .right .listMessages .unread-message{
   position: relative;
+  background: #e3e3e3;
+  width: 50%;
+  padding-left: 33px;
 }
 .mainContainer .right .listMessages .unread-message::after{
   position: absolute;
