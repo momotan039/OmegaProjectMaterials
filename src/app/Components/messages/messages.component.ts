@@ -10,7 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthService } from 'src/app/services/auth.service';
 import { Message } from 'src/app/models/Message';
-import { interval, Subscription, Observable, filter, Subject } from 'rxjs';
+import { interval, Subscription, Observable, filter, Subject, timeout } from 'rxjs';
 import { MessageDialogComponent } from '../dilogs/message-dialog/message-dialog.component';
 import { DeleteUserComponent } from '../dilogs/delete-user/delete-user.component';
 import { HttpGroupsService } from 'src/app/services/http-groups.service';
@@ -47,6 +47,9 @@ export class MessagesComponent implements OnInit, OnDestroy {
   @ViewChild('refListMessages')ListMessagesContainer:HTMLElement | undefined
   ShowSpinner=false;
   lastConversation: Subscription | undefined;
+  msgInterval: Subscription | undefined;
+  found_previous=false;
+  previousMsgs=[];
   constructor(
     private fb: FormBuilder,
     private httpGroupsService: HttpGroupsService,
@@ -62,6 +65,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.msgObs?.unsubscribe();
+    this.msgInterval?.unsubscribe()
     //remove scroller body
     // document.body.classList.remove('removeScroller');
   }
@@ -74,21 +78,40 @@ export class MessagesComponent implements OnInit, OnDestroy {
     this.httpGroupsService.GetGroupsByUserId().subscribe((data) => {
       this.groups = data;
       this.filteredGroups=this.groups
+        //filter contact friends when recive new messages
+        MyTools.msgsReader?.subscribe(data=>{
+          this.filteredGroups=this.groups.sort((a,b)=>{
+             return MyTools.unreadMsgs.filter(f=>f.reciverId==b.id).length
+             -MyTools.unreadMsgs.filter(f=>f.reciverId==a.id).length
+         })
+        })
+
     });
+
+    
 
     this.httpUserGroupService.GetFreindsByUser().subscribe((data) => {
       this.freinds = data;
-      this.filteredFreinds=this.freinds
+      //filter contact friends when recive new messages
+      MyTools.msgsReader?.subscribe(data=>{
+      this.filteredFreinds=this.freinds.sort((a,b)=>{
+         return MyTools.unreadMsgs.filter(f=>f.senderId==b.id).length
+         -MyTools.unreadMsgs.filter(f=>f.senderId==a.id).length
+     })
+    })
     });
 
-    // this.HandelScrollingMessages();
+    
+
+    this.HandelScrollingMessages();
   }
   isReciverGroup() {
     return 'courseId' in this.receiver;
   }
   ScrollingDownListMessage() {
+  
     //scroll down to bottom list Message
-    if(!this.CountUnreadMessages(this.receiver.id))
+    if(!this.CountUnreadMessages(this.receiver))
     {
       setTimeout(() => {
          document.querySelector('.listMessages')?.scrollTo({
@@ -112,7 +135,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
   }
 
   ChangeTitle_SubTitle_Image() {
-    if ('courseId' in this.receiver) {
+    if (this.isReciverGroup()) {
       this.title = this.receiver.name;
       this.subTitle = this.receiver.course.name;
     } else {
@@ -123,65 +146,97 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
   }
 
- 
-  GetStreamMessages(){
-    // this.msgObs = this.InitStreamMessages(getMessagesFun)
-      interval(1000).subscribe(()=>{
-       this.httpMessagesService.GetUnreadMessages(this.receiver.id).subscribe(data=>{
-          data.forEach(d=>{
-            this.msgs.push(d)
-          })
-       })
-      })
-      
+  GetStreamMessages(_idContact:number){
+    const getMessagesFun=this.SelectModeMessages();
+         this.msgInterval=interval(2000).subscribe(_num=>{
+               this.msgObs=getMessagesFun.subscribe(event=>{
+              if (event.type==HttpEventType.Response)
+            {
+             this.msgs=this.previousMsgs.concat(event.body['messages'])
+             this.ReadMessages(document.querySelector(".listMessages")!)
+            }
+         })
+         })
   }
-  InitStreamMessages(getMessagesFun:Observable<HttpEvent<Object>>){
-    return interval(1000).subscribe(() => {
-      getMessagesFun.subscribe(event => {
-        if(event.type==HttpEventType.DownloadProgress)
-          this.msgObs?.unsubscribe()
-        if(event.type==HttpEventType.Response)
-          {
-          this.msgs = event.body;
-          this.msgObs=this.InitStreamMessages(getMessagesFun)
-          }
-      });
-    });
-  }
+  
+  GetPreviousMessages(){
+    if(!this.found_previous)
+    return
 
-  ShowConversation() {
+    let getPreviousMessagesFun: Observable<HttpEvent<any>>
 
-    // this.msgObs?.unsubscribe();
-    this.lastConversation?.unsubscribe();
-
-    //get Messages By Contact
-    let getMessagesFun:Observable<HttpEvent<Object>>;
-    if (this.isReciverGroup())
-      getMessagesFun = this.httpMessagesService.GetGroupMessagesByReciver(
-        this.receiver.id
-      );
+    if(this.isReciverGroup())
+        getPreviousMessagesFun=this.httpMessagesService.GetPreviousMessagesGroup(
+          this.receiver.id,this.msgs.length)
     else
-      getMessagesFun = this.httpMessagesService.GetMessagesByReciver(
-        this.receiver.id
-      );
+    getPreviousMessagesFun=this.httpMessagesService.GetPreviousMessages(
+      this.receiver.id,this.msgs.length)
+
+    this.ShowSpinner=true
+    setTimeout(() => {
+      getPreviousMessagesFun.subscribe(event=>{
+        if (event.type==HttpEventType.Response)
+        {
+         this.previousMsgs=event.body['messages'].concat(this.previousMsgs)
+         this.found_previous=event.body['found_previous']
+         this.ReadMessages(document.querySelector(".listMessages")!)
+         this.ShowSpinner=false
+        }
+      })
+    }, 500);
+    
+  }
+
+  SelectModeMessages(){
+  //get Messages By Contact
+  let getMessagesFun:Observable<HttpEvent<any>>;
+  if (this.isReciverGroup())
+    getMessagesFun = this.httpMessagesService.GetGroupMessagesByReciver(
+      this.receiver.id,
+      this.msgs.length
+    );
+  else
+    getMessagesFun = this.httpMessagesService.GetMessagesByReciver(
+      this.receiver.id,
+      this.msgs.length
+    );
+    return getMessagesFun
+  }
+ 
+  ShowConversation() {
+  
+      const getMessagesFun=this.SelectModeMessages()
       
       this.ShowSpinner=true;
-      
-      this.lastConversation=getMessagesFun.subscribe((event) => {
-      if(event.type==HttpEventType.Response)
-        {
-           this.GetStreamMessages();
-          //  this.statusGetMessages=event
-           this.msgs = event.body;
-           this.ScrollingDownListMessage();
-           this.ShowSpinner=false
-        }
-    });
-
+        //to show spinner for half second
+        setTimeout(() => {
+          this.lastConversation=getMessagesFun.subscribe((event) => {
+            if(event.type==HttpEventType.Response)
+              {
+                 this.GetStreamMessages(this.receiver.id);
+                 this.msgs = event.body['messages'];
+                 this.found_previous=event.body['found_previous']
+                 this.ScrollingDownListMessage();
+                 this.ShowSpinner=false
+              }
+          });
+        }, 500);
   }
 
   SetResiver(obj: any) {
+
+    if(this.receiver && obj.id==this.receiver.id)
+    return
+    //empty it to display spinner clearly
+    this.msgs=[]
+    this.previousMsgs=[]
+    //stop interval of call messages
+    this.msgInterval?.unsubscribe();
+    //stop get Current request messages
+    this.msgObs?.unsubscribe();
+    // this.lastConversation?.unsubscribe();
     this.receiver = obj;
+    
     this.ChangeTitle_SubTitle_Image();
     this.ShowConversation();
   }
@@ -195,6 +250,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
   SendMessage(inputMessage: any) {
     if (!this.fg.valid) return;
+    
     let SendMessageFun;
     if (this.isReciverGroup()) {
       let msg = new MessageGroup(
@@ -209,16 +265,15 @@ export class MessagesComponent implements OnInit, OnDestroy {
         this.httpAuth.currentUser.id!,
         this.fg.value.message
       );
+
       SendMessageFun = this.httpMessagesService.SendMessageToFreind(msg);
-      const newMessage=Object.assign({},msg)
-      newMessage.reciver=this.receiver
-      console.warn(newMessage)
-      this.msgs.push(newMessage)
     }
 
     SendMessageFun.subscribe({
       complete: () => {
-        this.ScrollingDownListMessage()
+          setTimeout(() => {
+            this.ScrollingDownListMessage()
+          }, 1000);
       },
       error: () => {
         MyTools.ShowExpiredSessionMessage();
@@ -249,7 +304,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
         else deleteFun = this.httpMessagesService.DeleteGroupMessage(id);
 
         deleteFun.subscribe(
-          (data) => {
+          (_data) => {
             MyTools.Dialog.open(MessageDialogComponent, {
               data: {
                 title: 'Success',
@@ -325,7 +380,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
     this.fg.controls['message'].setValue(textarea.value)
   }
 
-  ShowEmogiTable(emojiTable:PickerComponent){
+  ShowEmogiTable(_emojiTable:PickerComponent){
    if(this.hideEmojiTable)
     this.hideEmojiTable=false
     else this.hideEmojiTable=true
@@ -350,38 +405,47 @@ export class MessagesComponent implements OnInit, OnDestroy {
     MyTools.ShowPopUpImageDialog(this.GetImageProfile(receiver));
   }
 
-  CountUnreadMessages(senderId:number|undefined){
-    const msgs=MyTools.unreadMsgs.filter(f=>f.senderId==senderId)
+  CountUnreadMessages(object:any){
+    let msgs
+    if(object && 'courseId' in object)
+     msgs=MyTools.unreadMsgs.filter(f=>f.reciverId==object.id)
+       else
+     msgs=MyTools.unreadMsgs.filter(f=>f.senderId==object.id
+       && !f.isGroup)
+       
     return msgs.length
+  }
+
+  ReadMessages(listMsgs:Element){
+    listMsgs?.querySelectorAll(".unread-message")
+    .forEach(m=>{
+     const idMsg=parseInt(m.getAttribute("id")!);
+     if(m.getBoundingClientRect().y<=720)
+       {
+          m.classList.remove("unread-message")
+          if(this.isReciverGroup())
+          this.httpMessagesService.ReadGroupMessage(idMsg,this.httpAuth.currentUser.id)
+          .subscribe(_d=>{
+          })
+          else
+          this.httpMessagesService.ReadMessage(idMsg).subscribe(_d=>{
+          })
+       }
+   })
   }
 
   HandelScrollingMessages(){
     let listMsgs=document.querySelector(".listMessages")
+    this.ReadMessages(listMsgs!)
 
-    listMsgs?.
-    addEventListener("scroll",()=>{
+    listMsgs!.addEventListener("scroll",()=>{
       //how much scrolling
-      const scrollTop=listMsgs!.scrollTop;
-      //the maximum that scrolling can reach
-      const scrollHeight=listMsgs!.scrollHeight;
-      //offset of spesific element in scroller_container
-      const offset=scrollHeight-scrollTop
+    const scrollTop=listMsgs!.scrollTop;
+      //if scrollTop=0 its mean get previous messages
+      if(scrollTop==0)
+      this.GetPreviousMessages();
 
-      listMsgs?.querySelectorAll(".unread-message")
-      .forEach(m=>{
-        const offsetMsg=(m as HTMLElement).offsetTop
-        const heightMsg=(m as HTMLElement).offsetHeight
-
-        const idMsg=parseInt((m as HTMLElement).getAttribute("id")!);
-        const mJson=MyTools.unreadMsgs.find(f=>f.id==idMsg)
-        if(offset+heightMsg<=offsetMsg)
-          {
-             m.classList.remove("unread-message")
-            //  this.httpMessagesService.ReadMessage(idMsg).subscribe(d=>{
-            //  })
-          }
-      })
-
+      this.ReadMessages(listMsgs!)
     })
   }
 }

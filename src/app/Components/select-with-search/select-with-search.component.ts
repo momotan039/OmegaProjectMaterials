@@ -3,7 +3,7 @@ import { HttpUsersService } from './../../services/http-users.service';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ControlContainer, FormControl, Validators } from '@angular/forms';
 import { MatSelect } from '@angular/material/select';
-import { startWith, map, Observable, Subscriber, observable } from 'rxjs';
+import { startWith, map, Observable, Subscriber, observable, BehaviorSubject } from 'rxjs';
 import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { MatAutocomplete } from '@angular/material/autocomplete';
 import { User } from 'src/app/models/User';
@@ -29,12 +29,13 @@ export class SelectWithSearchComponent implements OnInit {
   myControl = new FormControl('',Validators.required);
   filteredOptions:any;
   options: any[] = []
+  optionsObs: BehaviorSubject<any[]> = new BehaviorSubject<any[]> ([])
   @Input() label="My Label"
   @Input() config:any={}
   @Input() getDataParent:any
+  @Input() printValueParent:any
   @Input() messageError=""
   @Input() isMultiSelect=false
-  data:any
   inputVal:any
   value=""
   displayBy=""
@@ -55,7 +56,19 @@ export class SelectWithSearchComponent implements OnInit {
 
   private _filter(name: string): any[] {
     const filterValue = name.toLowerCase();
+    if(!this.printValueParent)
     return this.options.filter(option => option[this.displayBy].toLowerCase().includes(filterValue));
+    
+    return this.options.filter(option => {
+      const arrProp=this.printValueParent?.() as [];
+      debugger
+      let res=false;
+       arrProp.forEach(prop=>{
+        res=res||option[prop].toLowerCase().includes(filterValue)
+      })
+      return res
+    }
+      );
   }
 
   //Get selected option if it edit mode Selection
@@ -77,6 +90,7 @@ export class SelectWithSearchComponent implements OnInit {
   RefreshData(){
     this.getDataParent?.().subscribe((data: any[])=>{
       this.options=data
+      this.optionsObs.next(data)
       this.filteredOptions = this.myControl.valueChanges.pipe(
         startWith(''),
         map(value => {
@@ -109,5 +123,18 @@ export class SelectWithSearchComponent implements OnInit {
             refinput.value=inputValues
   }
 
+  PrintValue(option:any){
+    debugger
+    if(!this.printValueParent)
+    return false
+
+    const arrProp=this.printValueParent?.() as []
+    let value="";
+    arrProp.forEach(prop=>{
+        value=value+"~"+option[prop]
+    })
+    value=value.slice(1)
+    return value
+  }
   
 }

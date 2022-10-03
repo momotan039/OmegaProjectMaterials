@@ -10,13 +10,32 @@ import { MyTools } from '../constants/MyTools';
 })
 export class HttpMessagesService {
 
+  
+  
+
 constructor(private http:HttpClient) { }
 
 SendMessageToFreind(msg:Message){
 return this.http.post(MyTools.UrlRootApi+"/Messages/SendMessage",msg)
 }
-GetMessagesByReciver(idReciver:number){
-  return this.http.get('https://localhost:44327/api/Messages/GetMessagesByReciver/'+idReciver,{
+
+GetMessagesByReciver(idReciver:number,current_messages_count:number){
+  return this.http.get('https://localhost:44327/api/Messages/GetMessagesByReciver/'+idReciver+'/'+current_messages_count,{
+    observe:"events",
+    reportProgress:true,
+  })
+}
+GetPreviousMessages(idReciver:number,current_messages_count:number) {
+  return this.http.get<any>('https://localhost:44327/api/Messages/GetPreviousMessages/'
+  +idReciver+'/'+current_messages_count,{
+    observe:"events",
+    reportProgress:true,
+  })
+}
+
+GetPreviousMessagesGroup(idReciver:number,current_messages_count:number) {
+  return this.http.get<any>('https://localhost:44327/api/GroupMessages/GetPreviousMessages/'
+  +idReciver+'/'+current_messages_count,{
     observe:"events",
     reportProgress:true,
   })
@@ -24,7 +43,7 @@ GetMessagesByReciver(idReciver:number){
 
 
 GetAllUnreadMessages(){
-  return this.http.get<Message[]>('https://localhost:44327/api/Messages/GetAllUnreadMessages/')
+  return this.http.get<any[]>('https://localhost:44327/api/Messages/GetAllUnreadMessages/')
 }
 
 GetUnreadMessages(senderId:number){
@@ -38,12 +57,15 @@ ReadMessage(id:number){
   return this.http.get('https://localhost:44327/api/Messages/ReadMessage/'+id)
 }
 
+ReadGroupMessage(idMsg: number, idSeer: number | undefined) {
+  return this.http.get(`https://localhost:44327/api/GroupMessages/ReadMessage/${idMsg}/${idSeer}`)
+}
 
 SendGroupMessage(msg:MessageGroup){
   return this.http.post(MyTools.UrlRootApi+"/GroupMessages/SendMessage",msg)
   }
-  GetGroupMessagesByReciver(idReciver:number){
-    return this.http.get('https://localhost:44327/api/GroupMessages/GetMessagesByReciver/'+idReciver,{
+  GetGroupMessagesByReciver(idReciver:number,current_messages:number){
+    return this.http.get('https://localhost:44327/api/GroupMessages/GetMessagesByReciver/'+idReciver+'/'+current_messages,{
       reportProgress:true,
       observe:"events"
     })

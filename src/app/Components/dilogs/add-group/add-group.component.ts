@@ -44,6 +44,15 @@ export class AddGroupComponent implements OnInit , AfterViewInit {
   SaveGroup(){
       if(!this.AddGroupForm.valid)
   return;
+
+    //Start change dates to current offset of timezone
+  let date=this.AddGroupForm.get("openingDate")?.value as Date
+this.AddGroupForm.get("openingDate")?.setValue(date.toLocaleDateString())
+
+date=this.AddGroupForm.get("closingDate")?.value as Date
+this.AddGroupForm.get("closingDate")?.setValue(date.toLocaleDateString())
+   //End change dates to current offset of timezone
+
   this.httpGroups.PostGroups(this.AddGroupForm.value).subscribe(data=>{
     MyTools.ShowResult200Message(data)
     this.dialogRef.close(true);

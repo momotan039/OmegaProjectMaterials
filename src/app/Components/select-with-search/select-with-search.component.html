@@ -15,7 +15,9 @@
       <mat-option 
       [value]="option[config.value]"
       *ngFor="let option of filteredOptions | async" >
-       {{option[displayBy]}}
+       {{
+        !PrintValue(option)?option[displayBy]:PrintValue(option)
+      }}
      </mat-option>
       </div>
 

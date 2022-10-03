@@ -6,6 +6,8 @@ export class Menu {
   icon = '';
   href = '';
   roles:number[] = [];
+  value?:number
+  Child?:HTMLElement
 
     static Items: Menu[] = [
     {
@@ -64,7 +66,7 @@ export class Menu {
     },
     {
       title: 'Messages',
-      icon: 'mark_email_unread',
+      icon: 'mail',
       href: 'messages',
       roles: [1,2,3],
     },
