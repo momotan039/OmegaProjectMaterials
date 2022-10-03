@@ -20,7 +20,7 @@ export class MyTools {
   static UrlRootApi="https://localhost:44327/api"
   static passwordValidationRegex="^[A-Z](?=.*\d)(?=.*[a-z]).{7,}$"
   static SnackBar: MatSnackBar;
-  static msgsReader?: Observable<Message[]>;
+  static msgsReader= new BehaviorSubject<Message[]>([]);
   static unreadMsgs: any[]=[];
   static NumUnreadMsgs:BehaviorSubject<number>=new BehaviorSubject(0)
 

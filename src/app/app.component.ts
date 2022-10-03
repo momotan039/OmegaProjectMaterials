@@ -32,6 +32,7 @@ export class AppComponent {
       interval(1000).subscribe(()=>{
         this.httpMessagesService.GetAllUnreadMessages().subscribe(msgs=>{
           MyTools.unreadMsgs=msgs
+          MyTools.msgsReader.next(msgs)
           MyTools.NumUnreadMsgs.next(msgs.length)
         })
       })

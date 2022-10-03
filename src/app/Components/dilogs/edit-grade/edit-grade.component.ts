@@ -14,7 +14,7 @@ import { HttpGradesService } from 'src/app/services/http-grades.service';
 import { GradesComponent } from '../../grades/grades.component';
 import { MessageDialogComponent } from '../message-dialog/message-dialog.component';
 import { SelectWithSearchComponent } from '../../select-with-search/select-with-search.component';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-edit-grade',
@@ -29,7 +29,7 @@ export class EditGradeComponent implements OnInit,AfterViewInit {
   @ViewChild("refSelectTest") selectTest=new SelectWithSearchComponent()
   @ViewChild("refSelectGroup") selectGroup=new SelectWithSearchComponent()
   @ViewChild("refSelectStudent") selectStudent=new SelectWithSearchComponent()
-  studentsObserv: any;
+  studentsObserv: BehaviorSubject<User[]>=new BehaviorSubject<User[]>([]);
   constructor(
     private httpGroupsService:HttpGroupsService,
     private httpGradesService:HttpGradesService,
@@ -45,40 +45,52 @@ export class EditGradeComponent implements OnInit,AfterViewInit {
       sumGrade:[data.sumGrade,Validators.required],
       note:[data.note]
     })
-
+    
   }
   ngAfterViewInit(): void {
+   
     //set value of controls by passed data 
     this.selectTest.myControl.setValue(this.data.testId)
     this.selectGroup.myControl.setValue(this.data.groupId)
-    this.selectStudent.myControl.setValue(this.data.studentId)
     //append select controls to my form group controls
     this.fg.addControl("testId",this.selectTest.myControl)
     this.fg.addControl("groupId",this.selectGroup.myControl)
+    
+     //get students list by selected group when start component
+     this.selectGroup.optionsObs.subscribe(data=>{
+      data.find(f=>f.id==this.fg.get("groupId")?.value)?.userGroups.forEach((ug: { user: User; })=>{
+       if(ug.user.roleId==3)
+        {
+         this.students.push(ug.user)
+        }
+     })
+     this.studentsObserv.next(this.students)
+    this.selectStudent.myControl.setValue(this.data.studentId)
     this.fg.addControl("studentId",this.selectStudent.myControl)
-
+   })
+   
     //get students when change group
     this.fg.get("groupId")?.valueChanges.subscribe(data=>{
-      
-      this.ChangeStudentsList(data)
-      this.selectStudent.RefreshData();
-      //Start clear Student selection
-      this.selectStudent.myControl.setValue("");
-      let inputStudent=document.querySelectorAll(".inputStudent")[1] as any
-      inputStudent.value=""
-      //End clear Student selection
+      //set delaytion time to get  group id
+        setTimeout(() => {
+          this.ChangeStudentsList(this.selectGroup.selectedItem)
+          this.selectStudent.RefreshData()
+          //Start clear Student selection
+          this.selectStudent.myControl.setValue("");
+          let inputStudent=document.querySelectorAll(".inputStudent")[1] as any
+          inputStudent.value=""
+          //End clear Student selection
+        }, 100);
      })
-
   }
 
   ngOnInit(): void {
-    
   }
   
   ChangeStudentsList(val:any){
+    console.warn()
     this.students=[]
     this.studentsObserv=new BehaviorSubject<User[]>([]);
-
     this.selectGroup.options.find(f=>f.id==val)?.userGroups.forEach((ug: { user: User; })=>{
       if(ug.user.roleId==3)
        {
@@ -90,9 +102,6 @@ export class EditGradeComponent implements OnInit,AfterViewInit {
   }
 
   SaveRecord(){
-    // console.warn(this.fg.value)
-    // console.warn(this.selectStudent.autocomplete)
-    // return
     if(!this.fg.valid)
     return;
     let grade=new Grade();
@@ -112,15 +121,19 @@ export class EditGradeComponent implements OnInit,AfterViewInit {
 
   }
   
+  PrintValueStudents=()=>{
+    return ['firstName','idCard','email']
+  }
 
   GetStudents=()=>{
     return  this.studentsObserv.asObservable();
    }
+
    GetTests=()=>{
     return this.httpTestsService.GetTests()
    }
+
    GetGroups=()=>{
     return this.httpGroupsService.GetGroups()
    }
-
 }

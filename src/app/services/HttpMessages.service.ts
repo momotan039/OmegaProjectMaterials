@@ -26,11 +26,21 @@ GetMessagesByReciver(idReciver:number,current_messages_count:number){
   })
 }
 GetPreviousMessages(idReciver:number,current_messages_count:number) {
-  return this.http.get<any>('https://localhost:44327/api/Messages/GetPreviousMessages/'+idReciver+'/'+current_messages_count,{
+  return this.http.get<any>('https://localhost:44327/api/Messages/GetPreviousMessages/'
+  +idReciver+'/'+current_messages_count,{
     observe:"events",
     reportProgress:true,
   })
 }
+
+GetPreviousMessagesGroup(idReciver:number,current_messages_count:number) {
+  return this.http.get<any>('https://localhost:44327/api/GroupMessages/GetPreviousMessages/'
+  +idReciver+'/'+current_messages_count,{
+    observe:"events",
+    reportProgress:true,
+  })
+}
+
 
 GetAllUnreadMessages(){
   return this.http.get<any[]>('https://localhost:44327/api/Messages/GetAllUnreadMessages/')
@@ -54,8 +64,8 @@ ReadGroupMessage(idMsg: number, idSeer: number | undefined) {
 SendGroupMessage(msg:MessageGroup){
   return this.http.post(MyTools.UrlRootApi+"/GroupMessages/SendMessage",msg)
   }
-  GetGroupMessagesByReciver(idReciver:number){
-    return this.http.get('https://localhost:44327/api/GroupMessages/GetMessagesByReciver/'+idReciver,{
+  GetGroupMessagesByReciver(idReciver:number,current_messages:number){
+    return this.http.get('https://localhost:44327/api/GroupMessages/GetMessagesByReciver/'+idReciver+'/'+current_messages,{
       reportProgress:true,
       observe:"events"
     })

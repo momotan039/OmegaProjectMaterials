@@ -40,6 +40,15 @@ export class EditGroupComponent implements OnInit {
 
   SaveGroup() {
     if (!this.EditGroupForm.valid) return;
+
+     //Start change dates to current offset of timezone
+  let date=this.EditGroupForm.get("openingDate")?.value as Date
+  this.EditGroupForm.get("openingDate")?.setValue(date.toLocaleDateString())
+  
+  date=this.EditGroupForm.get("closingDate")?.value as Date
+  this.EditGroupForm.get("closingDate")?.setValue(date.toLocaleDateString())
+     //End change dates to current offset of timezone
+
     this.httpGroups.EditingGroups(this.EditGroupForm.value).subscribe(
       (data) => {
        MyTools.ShowResult200Message(data)

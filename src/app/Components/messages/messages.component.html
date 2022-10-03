@@ -12,8 +12,28 @@
 
     </mat-form-field>
 
-    <mat-divider></mat-divider>
     <mat-list>
+      <mat-list-item *ngFor="let group of filteredGroups">
+        <mat-card>
+          <button mat-button (click)="SetResiver(group)">
+            <mat-card-header>
+              <div mat-card-avatar class="avatar-image">
+                <img [src]="GetImageProfile(group)" alt="User Avatar">
+              </div>
+              <mat-card-title>{{group.name}}</mat-card-title>
+              <mat-card-subtitle>{{group.course!.name}}</mat-card-subtitle>
+              <div class="num-unread-messages" *ngIf="CountUnreadMessages(group)">
+                {{CountUnreadMessages(group)}}
+                 <mat-icon style="font-size:19px">
+                  mark_email_unread
+                  </mat-icon>
+              </div>
+            </mat-card-header>
+          </button>
+        </mat-card>
+      </mat-list-item>
+    <mat-divider></mat-divider>
+      
       <mat-list-item *ngFor="let user of filteredFreinds">
         <mat-card>
           <button mat-button (click)="SetResiver(user)">
@@ -36,30 +56,12 @@
         </mat-card>
       </mat-list-item>
 
-      <mat-list-item *ngFor="let group of filteredGroups">
-        <mat-card>
-          <button mat-button (click)="SetResiver(group)">
-            <mat-card-header>
-              <div mat-card-avatar class="avatar-image">
-                <img [src]="GetImageProfile(group)" alt="User Avatar">
-              </div>
-              <mat-card-title>{{group.name}}</mat-card-title>
-              <mat-card-subtitle>{{group.course!.name}}</mat-card-subtitle>
-              <div class="num-unread-messages" *ngIf="CountUnreadMessages(group)">
-                {{CountUnreadMessages(group)}}
-                 <mat-icon style="font-size:19px">
-                  mark_email_unread
-                  </mat-icon>
-              </div>
-            </mat-card-header>
-          </button>
-        </mat-card>
-      </mat-list-item>
+    
+      
     </mat-list>
   </div>
 
   <div [ngClass]="!receiver?'hidden':''" class="right">
-<h1 >{{found_previous}}</h1>
     <div class="messages">
       <mat-card>
         <mat-card-header>
@@ -70,11 +72,17 @@
           <mat-card-subtitle>{{subTitle}}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content #refListMessages class="listMessages">
-        <button mat-raised-button color="primary"
-         (click)="GetPreviousMessages()">Get Previous Messages</button>
+         <!-- <div class="spinner-previous-messages-container">
+          <mat-spinner
+        >
+        </mat-spinner>
+         </div> -->
+
           <div [ngStyle]="{'direction':msg.senderId==httpAuth.currentUser.id?'rtl':'ltr'}" *ngFor="let msg of msgs"
-            [ngClass]="{'unread-message':!msg.isOpened && msg.senderId!=httpAuth.currentUser.id}" data-id="{{msg.id}}"
-            class="containerMessage">
+            [ngClass]="{'unread-message':!msg.isOpened && msg.senderId!=httpAuth.currentUser.id}" 
+            class="containerMessage"
+            id="{{msg.id}}"
+            >
             <mat-card [ngClass]="{
               'sender-message': msg.senderId==httpAuth.currentUser.id,
               'reciver-message':msg.senderId!=httpAuth.currentUser.id
@@ -104,7 +112,8 @@
             Start Chat Now
             
           </div> -->
-          <mat-spinner *ngIf="ShowSpinner" [diameter]="50">
+          <mat-spinner class="spinner-messages" 
+          *ngIf="ShowSpinner" [diameter]="50">
           </mat-spinner>
 
           <div *ngIf="receiver && CountUnreadMessages(receiver)" class="scroll-down-to-unread-messages">

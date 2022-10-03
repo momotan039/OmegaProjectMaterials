@@ -26,9 +26,15 @@
 }
 .mainContainer .right .listMessages .unread-message{
   position: relative;
-  background: #e3e3e3;
+  /* background: #e3e3e3; */
   width: 50%;
   padding-left: 33px;
+  animation: PopUpMessage 1s 1;
+}
+@keyframes PopUpMessage{
+  from{
+    transform: scale(0) rotate(90deg);
+  }
 }
 .mainContainer .right .listMessages .unread-message::after{
   position: absolute;
@@ -59,11 +65,15 @@
   text-align: center;
   margin-top: 5px;
 }
-.mainContainer .right .listMessages mat-spinner{
+.mainContainer .right .listMessages .spinner-messages{
   position: absolute;
     top: 50%;
     right: 50%;
     transform: translate(50%, -50%);
+}
+.mainContainer .right .listMessages .spinner-previous-messages-container{
+  display: flex;
+  justify-content: center;
 }
 .mainContainer .welcomeContainer mat-card{
   width: 100%;
@@ -196,6 +206,8 @@ padding: 0 !important
   font-weight: bold !important;
 }
 
+
+
 .mainContainer .right .messages .message .deleteMessage {
   width: 24px !important;
   height: 23px !important;
@@ -233,18 +245,18 @@ padding: 0 !important
 }
 
 .mainContainer .right .messages .message .reciver-arrow {
-  bottom: 1px;
-  left: -38px;
-  border: solid 19px var(--reciver-message-color);
+  bottom: 0px;
+  left: -25px;
+  border: solid 13px var(--reciver-message-color);
   border-bottom-color: transparent;
   border-top-color: transparent;
   border-left-color: transparent;
 }
 
 .mainContainer .right .messages .message .sender-arrow {
-  bottom: 1px;
-  right: -38px;
-  border: solid 19px var(--sender-message-color);
+  bottom: 0px;
+  right: -25px;
+  border: solid 13px var(--sender-message-color);
   border-bottom-color: transparent;
   border-top-color: transparent;
   border-right-color: transparent;

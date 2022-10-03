@@ -49,7 +49,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
   lastConversation: Subscription | undefined;
   msgInterval: Subscription | undefined;
   found_previous=false;
-  previousMsgs: any;
+  previousMsgs=[];
   constructor(
     private fb: FormBuilder,
     private httpGroupsService: HttpGroupsService,
@@ -78,12 +78,30 @@ export class MessagesComponent implements OnInit, OnDestroy {
     this.httpGroupsService.GetGroupsByUserId().subscribe((data) => {
       this.groups = data;
       this.filteredGroups=this.groups
+        //filter contact friends when recive new messages
+        MyTools.msgsReader?.subscribe(data=>{
+          this.filteredGroups=this.groups.sort((a,b)=>{
+             return MyTools.unreadMsgs.filter(f=>f.reciverId==b.id).length
+             -MyTools.unreadMsgs.filter(f=>f.reciverId==a.id).length
+         })
+        })
+
     });
+
+    
 
     this.httpUserGroupService.GetFreindsByUser().subscribe((data) => {
       this.freinds = data;
-      this.filteredFreinds=this.freinds
+      //filter contact friends when recive new messages
+      MyTools.msgsReader?.subscribe(data=>{
+      this.filteredFreinds=this.freinds.sort((a,b)=>{
+         return MyTools.unreadMsgs.filter(f=>f.senderId==b.id).length
+         -MyTools.unreadMsgs.filter(f=>f.senderId==a.id).length
+     })
+    })
     });
+
+    
 
     this.HandelScrollingMessages();
   }
@@ -128,45 +146,66 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
   }
 
-  GetStreamMessages(getMessagesFun:Observable<HttpEvent<any>>,idContact:number){
-         this.msgInterval=interval(2000).subscribe(num=>{
+  GetStreamMessages(_idContact:number){
+    const getMessagesFun=this.SelectModeMessages();
+         this.msgInterval=interval(2000).subscribe(_num=>{
                this.msgObs=getMessagesFun.subscribe(event=>{
               if (event.type==HttpEventType.Response)
             {
-             this.msgs=event.body['messages'].concat(this.previousMsgs)
-             this.found_previous=event.body['found_previous']
+             this.msgs=this.previousMsgs.concat(event.body['messages'])
              this.ReadMessages(document.querySelector(".listMessages")!)
             }
          })
          })
   }
+  
   GetPreviousMessages(){
-    this.httpMessagesService.GetPreviousMessages(
-      this.receiver.id,
-      this.msgs.length
-    ).subscribe(event=>{
-      if (event.type==HttpEventType.Response)
-      {
-       this.previousMsgs=event.body['messages'].concat(this.previousMsgs)
-       this.found_previous=event.body['found_previous']
-       this.ReadMessages(document.querySelector(".listMessages")!)
-      }
-    })
+    if(!this.found_previous)
+    return
+
+    let getPreviousMessagesFun: Observable<HttpEvent<any>>
+
+    if(this.isReciverGroup())
+        getPreviousMessagesFun=this.httpMessagesService.GetPreviousMessagesGroup(
+          this.receiver.id,this.msgs.length)
+    else
+    getPreviousMessagesFun=this.httpMessagesService.GetPreviousMessages(
+      this.receiver.id,this.msgs.length)
+
+    this.ShowSpinner=true
+    setTimeout(() => {
+      getPreviousMessagesFun.subscribe(event=>{
+        if (event.type==HttpEventType.Response)
+        {
+         this.previousMsgs=event.body['messages'].concat(this.previousMsgs)
+         this.found_previous=event.body['found_previous']
+         this.ReadMessages(document.querySelector(".listMessages")!)
+         this.ShowSpinner=false
+        }
+      })
+    }, 500);
+    
   }
 
+  SelectModeMessages(){
+  //get Messages By Contact
+  let getMessagesFun:Observable<HttpEvent<any>>;
+  if (this.isReciverGroup())
+    getMessagesFun = this.httpMessagesService.GetGroupMessagesByReciver(
+      this.receiver.id,
+      this.msgs.length
+    );
+  else
+    getMessagesFun = this.httpMessagesService.GetMessagesByReciver(
+      this.receiver.id,
+      this.msgs.length
+    );
+    return getMessagesFun
+  }
  
   ShowConversation() {
-    //get Messages By Contact
-    let getMessagesFun:Observable<HttpEvent<any>>;
-    if (this.isReciverGroup())
-      getMessagesFun = this.httpMessagesService.GetGroupMessagesByReciver(
-        this.receiver.id
-      );
-    else
-      getMessagesFun = this.httpMessagesService.GetMessagesByReciver(
-        this.receiver.id,
-        this.msgs.length
-      );
+  
+      const getMessagesFun=this.SelectModeMessages()
       
       this.ShowSpinner=true;
         //to show spinner for half second
@@ -174,7 +213,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
           this.lastConversation=getMessagesFun.subscribe((event) => {
             if(event.type==HttpEventType.Response)
               {
-                 this.GetStreamMessages(getMessagesFun,this.receiver.id);
+                 this.GetStreamMessages(this.receiver.id);
                  this.msgs = event.body['messages'];
                  this.found_previous=event.body['found_previous']
                  this.ScrollingDownListMessage();
@@ -190,6 +229,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
     return
     //empty it to display spinner clearly
     this.msgs=[]
+    this.previousMsgs=[]
     //stop interval of call messages
     this.msgInterval?.unsubscribe();
     //stop get Current request messages
@@ -264,7 +304,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
         else deleteFun = this.httpMessagesService.DeleteGroupMessage(id);
 
         deleteFun.subscribe(
-          (data) => {
+          (_data) => {
             MyTools.Dialog.open(MessageDialogComponent, {
               data: {
                 title: 'Success',
@@ -340,7 +380,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
     this.fg.controls['message'].setValue(textarea.value)
   }
 
-  ShowEmogiTable(emojiTable:PickerComponent){
+  ShowEmogiTable(_emojiTable:PickerComponent){
    if(this.hideEmojiTable)
     this.hideEmojiTable=false
     else this.hideEmojiTable=true
@@ -385,22 +425,26 @@ export class MessagesComponent implements OnInit, OnDestroy {
           m.classList.remove("unread-message")
           if(this.isReciverGroup())
           this.httpMessagesService.ReadGroupMessage(idMsg,this.httpAuth.currentUser.id)
-          .subscribe(d=>{
+          .subscribe(_d=>{
           })
           else
-          this.httpMessagesService.ReadMessage(idMsg).subscribe(d=>{
+          this.httpMessagesService.ReadMessage(idMsg).subscribe(_d=>{
           })
        }
    })
   }
+
   HandelScrollingMessages(){
     let listMsgs=document.querySelector(".listMessages")
-    // this.ReadMessages(listMsgs!)
+    this.ReadMessages(listMsgs!)
 
     listMsgs!.addEventListener("scroll",()=>{
       //how much scrolling
     const scrollTop=listMsgs!.scrollTop;
-      // const m=listMsgs?.querySelectorAll(".unread-message")[0] as HTMLElement
+      //if scrollTop=0 its mean get previous messages
+      if(scrollTop==0)
+      this.GetPreviousMessages();
+
       this.ReadMessages(listMsgs!)
     })
   }

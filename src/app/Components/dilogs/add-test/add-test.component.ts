@@ -28,6 +28,8 @@ export class AddTestComponent implements OnInit {
   SaveRecord(){
     if(!this.fg.valid)
 return;
+let date=this.fg.get("date")?.value as Date
+this.fg.get("date")?.setValue(date.toLocaleDateString())
 this.httpTestsService.PostTest(this.fg.value).subscribe(data=>{
   MyTools.ShowResult200Message(data)
   this.dialogRef.close(true);
