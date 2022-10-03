@@ -17,7 +17,8 @@
   position: absolute;
   top: 13%;
   left: 50%;
-  transform: translate(-50%, 0%);
+  /* transform: translate(-50%, 0%); */
+  animation: ScrollDownMessageBtn 3s infinite;
 }
 .mainContainer .right .listMessages .scroll-down-to-unread-messages ::ng-deep  .mat-button-wrapper{
   font-weight: bold;
@@ -34,6 +35,21 @@
 @keyframes PopUpMessage{
   from{
     transform: scale(0) rotate(90deg);
+  }
+}
+@keyframes ScrollDownMessageBtn{
+
+  25%{
+
+  }
+  50%{
+    transform: translateY(10px)
+  }
+  75%{
+
+  }
+  100%{
+
   }
 }
 .mainContainer .right .listMessages .unread-message::after{

@@ -1,5 +1,5 @@
 <div class="mainContainer">
-  
+
   <!-- <h1 class="title" *ngIf="title">{{title}}s</h1> -->
 
   <div class="titleContainer">
@@ -21,7 +21,7 @@
     <input #refSearch (keyup)="FilterDataTable(refSearch)" matInput >
   </mat-form-field>
 
-  <table   #table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <table #table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8 myTable">
 
     <ng-container *ngFor="let col of displayedColumns;let i=index"  matColumnDef="{{displayedNameColumns[i]}}">
       <th mat-header-cell mat-sort-header *matHeaderCellDef>{{displayedNameColumns[i]}}</th>

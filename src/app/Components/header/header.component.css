@@ -9,7 +9,7 @@
   font-weight: bold;
 }
 
-.menuItems a .num-unread-messages{
+a .num-unread-messages{
   position: absolute;
   top: 1px;
   right: -10px;

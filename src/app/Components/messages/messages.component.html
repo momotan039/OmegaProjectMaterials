@@ -33,7 +33,7 @@
         </mat-card>
       </mat-list-item>
     <mat-divider></mat-divider>
-      
+
       <mat-list-item *ngFor="let user of filteredFreinds">
         <mat-card>
           <button mat-button (click)="SetResiver(user)">
@@ -49,15 +49,15 @@
                   mark_email_unread
                   </mat-icon>
               </div>
-              
-              
+
+
             </mat-card-header>
           </button>
         </mat-card>
       </mat-list-item>
 
-    
-      
+
+
     </mat-list>
   </div>
 
@@ -79,7 +79,7 @@
          </div> -->
 
           <div [ngStyle]="{'direction':msg.senderId==httpAuth.currentUser.id?'rtl':'ltr'}" *ngFor="let msg of msgs"
-            [ngClass]="{'unread-message':!msg.isOpened && msg.senderId!=httpAuth.currentUser.id}" 
+            [ngClass]="{'unread-message':!msg.isOpened && msg.senderId!=httpAuth.currentUser.id}"
             class="containerMessage"
             id="{{msg.id}}"
             >
@@ -110,14 +110,14 @@
           </div>
           <!-- <div *ngIf="!msgs.length">
             Start Chat Now
-            
+
           </div> -->
-          <mat-spinner class="spinner-messages" 
+          <mat-spinner class="spinner-messages"
           *ngIf="ShowSpinner" [diameter]="50">
           </mat-spinner>
 
           <div *ngIf="receiver && CountUnreadMessages(receiver)" class="scroll-down-to-unread-messages">
-            <button (click)="ScrollingDownListMessage()" color="primary" mat-fab>
+            <button (click)="ScrollingDownListMessage()"  mat-fab>
               {{CountUnreadMessages(receiver)}}
               <mat-icon>
                 markunread

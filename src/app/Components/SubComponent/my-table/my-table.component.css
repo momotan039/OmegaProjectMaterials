@@ -17,20 +17,20 @@ font-weight: bold ;
   top: -29px;
   color: white;
 }
-table thead tr {
+table.myTable thead tr {
   /* background: grey !important; */
 }
 
-table tr {
+table.myTable tr {
   /* background: crimson; */
 }
 
-table tr:hover {
+table.myTable tr:hover {
   /* background: cornflowerblue;
   cursor: pointer; */
 }
 
-table td textarea {
+table.myTable td textarea {
   color: black;
   resize: none;
   max-width: calc(100% - 160px);
@@ -39,22 +39,22 @@ table td textarea {
 @media (max-width:992px) {
 
   /* remove hover  */
-  table tr:hover {}
+  table.myTable tr:hover {}
 
-  ::ng-deep table thead {
+  ::ng-deep table.myTable thead {
     display: none !important;
   }
 
-  ::ng-deep table tbody tr,
-  ::ng-deep table tbody td {
+  ::ng-deep table.myTable tbody tr,
+  ::ng-deep table.myTable tbody td {
     display: block;
   }
 
-  ::ng-deep table tbody td {
+  ::ng-deep table.myTable tbody td {
     position: relative;
   }
 
-  ::ng-deep table tbody tr {
+  ::ng-deep table.myTable tbody tr {
     /* position: relative; */
     height: auto !important;
     border: grey solid;
@@ -63,7 +63,7 @@ table td textarea {
   }
 
   /* show title before td */
-  ::ng-deep table tbody tr td::before {
+  ::ng-deep table.myTable tbody tr td::before {
     content: attr(data-title);
     position: absolute;
     left: 0;
@@ -72,33 +72,33 @@ table td textarea {
     font-weight: bold;
   }
 
-  ::ng-deep table tbody tr td {
+  ::ng-deep table.myTable tbody tr td {
     padding: 0 !important;
     text-align: center;
   }
 
-  ::ng-deep table tbody tr td button *,
-  ::ng-deep table tbody tr td button,
-  ::ng-deep table tbody tr td a {
+  ::ng-deep table.myTable tbody tr td button *,
+  ::ng-deep table.myTable tbody tr td button,
+  ::ng-deep table.myTable tbody tr td a {
     width: 30px !important;
     height: 30px !important;
     /* line-height: 0 !important; */
   }
 
-  ::ng-deep table tbody tr td .mat-fab .mat-button-wrapper {
+  ::ng-deep table.myTable tbody tr td .mat-fab .mat-button-wrapper {
     display: inline;
   }
 
-  ::ng-deep table tbody tr td a span {
+  ::ng-deep table.myTable tbody tr td a span {
     padding: 0 !important;
   }
 
-  ::ng-deep table tbody tr:not(table tbody tr:last-child) {
+  ::ng-deep table.myTable tbody tr:not(table.myTable tbody tr:last-child) {
     margin-bottom: 1rem;
   }
 }
 
 
 @media (max-width:768px) {
-  table {}
+  table.myTable {}
 }
