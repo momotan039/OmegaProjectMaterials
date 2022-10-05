@@ -64,8 +64,5 @@ export class AddUserToGroupComponent implements OnInit {
     return this.http.GetUsersNotInThisGroup(this.group.id!)
    }
 
-   printValueParent=()=>{
-    return ['firstName','idCard']
-   }
 }
 

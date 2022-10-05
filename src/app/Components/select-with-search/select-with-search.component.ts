@@ -33,7 +33,8 @@ export class SelectWithSearchComponent implements OnInit {
   @Input() label="My Label"
   @Input() config:any={}
   @Input() getDataParent:any
-  @Input() printValueParent:any
+  //which property do you wnat to display
+  @Input() propsArr:string[]=[]
   @Input() messageError=""
   @Input() isMultiSelect=false
   inputVal:any
@@ -56,11 +57,11 @@ export class SelectWithSearchComponent implements OnInit {
 
   private _filter(name: string): any[] {
     const filterValue = name.toLowerCase();
-    if(!this.printValueParent)
+    if(!this.propsArr)
     return this.options.filter(option => option[this.displayBy].toLowerCase().includes(filterValue));
     
     return this.options.filter(option => {
-      const arrProp=this.printValueParent?.() as [];
+      const arrProp=this.propsArr;
       debugger
       let res=false;
        arrProp.forEach(prop=>{
@@ -125,10 +126,10 @@ export class SelectWithSearchComponent implements OnInit {
 
   PrintValue(option:any){
     debugger
-    if(!this.printValueParent)
+    if(!this.propsArr)
     return false
 
-    const arrProp=this.printValueParent?.() as []
+    const arrProp=this.propsArr
     let value="";
     arrProp.forEach(prop=>{
         value=value+"~"+option[prop]

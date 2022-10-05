@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { Group } from './../../../models/Group';
 import { HttpGroupsService } from '../../../services/http-groups.service';
 import { HttpCoursesService } from 'src/app/services/http-courses.service';
@@ -14,21 +15,22 @@ export class CourseDetailsComponent implements OnInit {
   constructor(
     private route:ActivatedRoute,
     private http:HttpCoursesService,
-    private httpGroup:HttpGroupsService,
+    public httpGroup:HttpGroupsService,
     ) { }
   course=new Course();
   groups:Group[]=[]
   ngOnInit(): void {
-
+    
     let id=this.route.snapshot.paramMap.get("id")
   this.http.GetCourseById(id!).subscribe(c=>{
   this.course=c;
-
-  this.httpGroup.GetGroupsByCourseId(this.course.id).subscribe(data=>{
-    this.groups=data
-      })
   })
 
+  }
+
+
+  GetGroupsByCourseId=()=>{
+    return this.httpGroup.GetGroupsByCourseId(this.course.id)
   }
 
 }

@@ -51,7 +51,6 @@ export class MyTableComponent implements OnInit {
     if(_prop.includes("date")||_prop.includes("Date")){
       return new Date(elm).toDateString()
     }
-    
     return elm
     }
 
@@ -75,6 +74,7 @@ FilterDataTable(input:any){
 
 FillTableData(){
 this.getDataTable!.subscribe((data: any)=>{
+  debugger
   this.dataSource=new MatTableDataSource(data)
   this.dataSource.paginator=this.paginator
   this.dataSource.sort=this.sort

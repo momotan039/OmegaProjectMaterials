@@ -121,9 +121,6 @@ export class EditGradeComponent implements OnInit,AfterViewInit {
 
   }
   
-  PrintValueStudents=()=>{
-    return ['firstName','idCard','email']
-  }
 
   GetStudents=()=>{
     return  this.studentsObserv.asObservable();

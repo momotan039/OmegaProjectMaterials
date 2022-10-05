@@ -21,11 +21,25 @@
       <mat-divider>
       </mat-divider>
     <mat-card-content>
-        <div>
-            <div class="title">General Info</div>
-            <h1>Total Teachers:{{totalTeachers}}</h1>
-            <h1>Total Students:{{totalStudents}}</h1>
-        </div>
+      <div class="left">
+        <h1 class="title">Basic Info</h1>
+        <h2>Group:{{group.name}}</h2>
+        <mat-divider>
+        </mat-divider>
+        <h2>Opening Date:{{group.openingDate|date}}</h2>
+        <mat-divider>
+        </mat-divider>
+        <h2>Closing Date:{{group.closingDate|date}}</h2>
+      </div>
+      <div class="right">
+        <h1 class="title">General Info</h1>
+        <h2>Total Teachers:{{totalTeachers}}</h2>
+        <mat-divider>
+        </mat-divider>
+        <h2>Total Students:{{totalStudents}}</h2>
+      </div>
+           
+
     </mat-card-content>
 </mat-card>
 <app-my-table

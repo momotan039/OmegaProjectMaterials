@@ -1,6 +1,9 @@
-<h3>All Related Groups</h3>
-<mat-selection-list [multiple]="false">
-  <mat-list-option *ngFor="let group of groups" [value]="group.name">
-    <a mat-button routerLink="/groupDetails/{{group.id}}">{{group.name}}</a>
-  </mat-list-option>
-</mat-selection-list>
+<app-my-table
+[detailsComonentUrl]="'courseDetails'"
+[displayedColumns]="['name']"
+[displayedNameColumns]="['Group','Operations']"
+[operations]="[true,true,true]"
+[getDataTable]="httpGroup.GetGroupsByCourseId(course.id)"
+[singleTitle]="course.name"
+[enableAddRow]="false"
+></app-my-table>
