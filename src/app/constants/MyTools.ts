@@ -16,8 +16,10 @@ export class MyTools {
   static Dialog:MatDialog
   static currentUser=new User()
   static router:Router
-  static domainNameServer="https://localhost:44327/"
-  static UrlRootApi="https://localhost:44327/api"
+  // static domainNameServer="https://localhost:44327/"
+  // static UrlRootApi="https://localhost:44327/api"
+  static domainNameServer="http://mohammed039-001-site1.itempurl.com/"
+  static UrlRootApi="http://mohammed039-001-site1.itempurl.com/api"
   static passwordValidationRegex="^[A-Z](?=.*\d)(?=.*[a-z]).{7,}$"
   static SnackBar: MatSnackBar;
   static msgsReader= new BehaviorSubject<Message[]>([]);
@@ -73,7 +75,7 @@ static ShowResult200Message(content:any){
 
 
 static ShowSnackBarMessage(msg:string,action:string){
- 
+
   this.SnackBar.open(msg,action,{
    verticalPosition:"bottom",
    horizontalPosition:"center",
