@@ -10,12 +10,16 @@
   font-weight: bold;
   overflow-y: auto;
 }
-
+@media (max-width:768px) {
+  .PostHomeWork mat-radio-group{
+    flex-direction: column;
+  }
+}
 mat-list mat-list-item{
   background: #bfbfbf;
   border-radius: 5px;
   margin: 5px 0;
-} 
+}
 
 .BtnFilesContainer{
   margin-bottom: 10px;

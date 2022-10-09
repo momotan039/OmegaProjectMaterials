@@ -1,3 +1,6 @@
+import { MyLocalStorage } from './../../../services/MyLocalStorage';
+import { StudentsComponent } from './../../admin/students/students.component';
+import { HomeComponent } from './../../home/home.component';
 import { MyTools } from 'src/app/constants/MyTools';
 import { MessageDialogComponent } from './../../dilogs/message-dialog/message-dialog.component';
 import { AuthService } from './../../../services/auth.service';
@@ -8,7 +11,7 @@ import { HttpGroupsService } from '../../../services/http-groups.service';
 import { Group } from './../../../models/Group';
 import { User } from './../../../models/User';
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Course } from 'src/app/models/Course';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -30,10 +33,11 @@ export class UserDetailsComponent implements OnInit {
     private httpCoursesService:HttpCoursesService,
     public authService:AuthService,
     private httpAcountService:HttpAcountService,
-    private matSnackBar:MatSnackBar
+    private matSnackBar:MatSnackBar,
+    private router:Router
     ) { }
   ngOnInit(): void {
-    
+
     let id=this.route.snapshot.paramMap.get("id")
     user:User
 
@@ -49,7 +53,7 @@ export class UserDetailsComponent implements OnInit {
         })
       })
     }
-    // show detials by parmeter of url 
+    // show detials by parmeter of url
     else
     {
      this.httpUsersService.GetUserById(id+"").subscribe(user=>{
@@ -86,7 +90,9 @@ export class UserDetailsComponent implements OnInit {
       MyTools.ShowSnackBarMessage(res,"Ok")
       //reset selected image input
       refFile.value=""
-      refImg.src=this.GetImageProfile()+"?t="+new Date().getMilliseconds();
+      // refImg.src=this.GetImageProfile()
+      refImg.src=this.GetImageProfile()
+      this.authService.LoadUserByToken();
     },(err)=>MyTools.ShowFialdMessage(err,"Changing Profile Image"))
   }
 

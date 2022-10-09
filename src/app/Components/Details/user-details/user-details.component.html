@@ -9,11 +9,11 @@
             <mat-icon>edit</mat-icon>
           <input mat-button  class="hidden BtnFiles" formControlName="files" #refFile type="file">
         </button>
-        <button 
+        <button
           *ngIf="refFile.files?.length"
           class="apply-image-profile"
-          color="primary" 
-            mat-mini-fab 
+          color="primary"
+            mat-mini-fab
           (click)="UploadImageProfile(refFile,refImg)">
             <mat-icon >done</mat-icon>
         </button>
@@ -21,14 +21,14 @@
 
         <ng-template #ShowBasicImage>
           <div class="container-image-profile">
-            <img (click)="ShowPopUPImage()"  
-             mat-card-lg-image 
-             matCardAvatar 
+            <img (click)="ShowPopUPImage()"
+             mat-card-lg-image
+             matCardAvatar
              [src]="GetImageProfile()">
           </div>
         </ng-template>
-        
-       
+
+
       </mat-card-header>
       <mat-divider>
       </mat-divider>

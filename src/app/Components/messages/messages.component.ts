@@ -88,7 +88,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
     });
 
-    
+
 
     this.httpUserGroupService.GetFreindsByUser().subscribe((data) => {
       this.freinds = data;
@@ -101,7 +101,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
     })
     });
 
-    
+
 
     this.HandelScrollingMessages();
   }
@@ -109,7 +109,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
     return 'courseId' in this.receiver;
   }
   ScrollingDownListMessage() {
-  
+
     //scroll down to bottom list Message
     if(!this.CountUnreadMessages(this.receiver))
     {
@@ -158,7 +158,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
          })
          })
   }
-  
+
   GetPreviousMessages(){
     if(!this.found_previous)
     return
@@ -184,7 +184,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
         }
       })
     }, 500);
-    
+
   }
 
   SelectModeMessages(){
@@ -202,11 +202,11 @@ export class MessagesComponent implements OnInit, OnDestroy {
     );
     return getMessagesFun
   }
- 
+
   ShowConversation() {
-  
+
       const getMessagesFun=this.SelectModeMessages()
-      
+
       this.ShowSpinner=true;
         //to show spinner for half second
         setTimeout(() => {
@@ -236,7 +236,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
     this.msgObs?.unsubscribe();
     // this.lastConversation?.unsubscribe();
     this.receiver = obj;
-    
+
     this.ChangeTitle_SubTitle_Image();
     this.ShowConversation();
   }
@@ -250,7 +250,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
   SendMessage(inputMessage: any) {
     if (!this.fg.valid) return;
-    
+
     let SendMessageFun;
     if (this.isReciverGroup()) {
       let msg = new MessageGroup(
@@ -390,18 +390,25 @@ export class MessagesComponent implements OnInit, OnDestroy {
     let image;
     if("roleId" in contact)
        image="../../../assets/images/profile.svg"
-       else
-       {
-
+    else
         image="../../../assets/images/group.png"
-       }
+
     if(contact.imageProfile)
         return MyTools.domainNameServer+contact.imageProfile
+
+
     else
         return image
   }
 
   ShowPopUPImage(receiver:any){
+    // var xhr = new XMLHttpRequest();
+    // xhr.open('HEAD', this.GetImageProfile(receiver), false);
+    // xhr.send();
+
+    // if (xhr.status == 404)
+    //     alert("not found Image")
+
     MyTools.ShowPopUpImageDialog(this.GetImageProfile(receiver));
   }
 
@@ -412,7 +419,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
        else
      msgs=MyTools.unreadMsgs.filter(f=>f.senderId==object.id
        && !f.isGroup)
-       
+
     return msgs.length
   }
 
@@ -447,5 +454,19 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
       this.ReadMessages(listMsgs!)
     })
+  }
+
+
+  ShowDefultImage(image:HTMLImageElement,isgroup=true,byReciver=false){
+
+    if(byReciver){
+        image.src=this.isReciverGroup()?"../../../assets/images/group.png":"../../../assets/images/profile.svg"
+        return
+    }
+
+    if(isgroup)
+    image.src="../../../assets/images/group.png"
+    else
+    image.src="../../../assets/images/profile.svg"
   }
 }

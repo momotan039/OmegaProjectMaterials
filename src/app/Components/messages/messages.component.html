@@ -18,7 +18,10 @@
           <button mat-button (click)="SetResiver(group)">
             <mat-card-header>
               <div mat-card-avatar class="avatar-image">
-                <img [src]="GetImageProfile(group)" alt="User Avatar">
+                <img #refImage [src]="GetImageProfile(group)"
+                      alt="User Avatar"
+                     (error)="ShowDefultImage(refImage)"
+                      >
               </div>
               <mat-card-title>{{group.name}}</mat-card-title>
               <mat-card-subtitle>{{group.course!.name}}</mat-card-subtitle>
@@ -39,7 +42,12 @@
           <button mat-button (click)="SetResiver(user)">
             <mat-card-header>
               <div mat-card-avatar class="avatar-image">
-                <img [src]="GetImageProfile(user)" alt="User Avatar">
+                <img
+                #refImage
+                [src]="GetImageProfile(user)"
+                alt="User Avatar"
+                (error)="ShowDefultImage(refImage,false)"
+                >
               </div>
               <mat-card-title>{{user.firstName+" "+user.lastName}}</mat-card-title>
               <mat-card-subtitle>{{user.email}}</mat-card-subtitle>
@@ -66,7 +74,11 @@
       <mat-card>
         <mat-card-header>
           <div mat-card-avatar class="avatar-image">
-            <img (click)="ShowPopUPImage(receiver)" [src]="imageContact" alt="User Avatar">
+            <img #refImage (click)="ShowPopUPImage(receiver)"
+            [src]="imageContact"
+            alt="User Avatar"
+            (error)="ShowDefultImage(refImage,false,true)"
+            >
           </div>
           <mat-card-title>{{title}}</mat-card-title>
           <mat-card-subtitle>{{subTitle}}</mat-card-subtitle>

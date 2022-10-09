@@ -29,13 +29,13 @@ export class AppComponent {
       // handel function after opened Dialogs
       MyTools.Dialog=dialog
       MyTools.SnackBar=snackBar
-      // interval(1000).subscribe(()=>{
-      //   this.httpMessagesService.GetAllUnreadMessages().subscribe(msgs=>{
-      //     MyTools.unreadMsgs=msgs
-      //     MyTools.msgsReader.next(msgs)
-      //     MyTools.NumUnreadMsgs.next(msgs.length)
-      //   })
-      // })
+      interval(1000).subscribe(()=>{
+        this.httpMessagesService.GetAllUnreadMessages().subscribe(msgs=>{
+          MyTools.unreadMsgs=msgs
+          MyTools.msgsReader.next(msgs)
+          MyTools.NumUnreadMsgs.next(msgs.length)
+        })
+      })
   }
 
 }
