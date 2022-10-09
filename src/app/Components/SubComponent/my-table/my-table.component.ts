@@ -74,7 +74,7 @@ FilterDataTable(input:any){
 
 FillTableData(){
 this.getDataTable!.subscribe((data: any)=>{
-  debugger
+  console.warn(data)
   this.dataSource=new MatTableDataSource(data)
   this.dataSource.paginator=this.paginator
   this.dataSource.sort=this.sort

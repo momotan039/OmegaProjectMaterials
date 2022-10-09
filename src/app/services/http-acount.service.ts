@@ -33,7 +33,6 @@ export class HttpAcountService {
    }
 
    EditImageProfile(id:number,image:FormData,isGroup=false){
-
     if(!isGroup)
     return this.httpClient.put(MyTools.UrlRootApi+"/Account/EditImageProfile/",image,{
       responseType:"text",

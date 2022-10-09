@@ -12,6 +12,8 @@ import { HttpGroupsService } from 'src/app/services/http-groups.service';
 import { MyTools } from 'src/app/constants/MyTools';
 import { MatRadioGroup } from '@angular/material/radio';
 import { MatList, MatListItem } from '@angular/material/list';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-edit-homework',
@@ -46,7 +48,7 @@ export class EditHomeworkComponent implements OnInit {
     console.warn(this.getFileNameFromPath(this.data.filesPath))
   }
 
-  EditHomeWork(Files:any){
+  EditHomeWork(Files:any,containerProgress:HTMLElement,refProgress:MatProgressBar){
     if(!this.fg.valid)
     return
 
@@ -69,9 +71,16 @@ export class EditHomeworkComponent implements OnInit {
   for(let i=0;i<files.length;i++)
    fd.append("files",files[i])
 
-   this.homeWorkService.EditHomeWork(fd).subscribe(d=>{
-    MyTools.ShowResult200Message(d)
-    this.dialogRef.close(true)
+   containerProgress.classList.remove("hidden")
+
+   this.homeWorkService.EditHomeWork(fd).subscribe(data=>{
+    if (data.type === HttpEventType.UploadProgress) {
+      refProgress.value=Math.round((100 * data.loaded) / data.total!);
+    }
+    if (data.type === HttpEventType.Response) {
+      MyTools.ShowResult200Message(data.body)
+      this.dialogRef.close(true)
+    }
    },(error)=>{
     MyTools.ShowFialdMessage(error,"Editing Home Work")
  })

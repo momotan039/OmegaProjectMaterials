@@ -81,6 +81,7 @@ export class UserDetailsComponent implements OnInit {
   UploadImageProfile(refFile:HTMLInputElement,refImg:HTMLImageElement){
     let fd=new FormData();
     fd.append("image",refFile.files?.item(0)!)
+
     this.httpAcountService.EditImageProfile(this.user.id!,fd).subscribe(res=>{
       MyTools.ShowSnackBarMessage(res,"Ok")
       //reset selected image input
@@ -90,6 +91,7 @@ export class UserDetailsComponent implements OnInit {
   }
 
   ShowPopUPImage(){
-    MyTools.ShowPopUpImageDialog(this.GetImageProfile());
+    MyTools.ShowPopUpImageDialog(
+      this.GetImageProfile());
   }
 }

@@ -56,8 +56,13 @@
 
     </div>
 
+    <div #refContainer class="progress hidden">
+      <mat-progress-bar  #ref></mat-progress-bar>
+      <span>{{ref.value}}%</span>
+    </div>
+
       <div class="Actions">
-        <button color="accent"  mat-raised-button (click)="EditHomeWork(refFiles.files)">
+        <button color="accent"  mat-raised-button (click)="EditHomeWork(refFiles.files,refContainer,ref)">
           <mat-icon>save</mat-icon>
           Save
       </button>

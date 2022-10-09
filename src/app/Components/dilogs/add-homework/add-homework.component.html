@@ -29,10 +29,7 @@
         Please Fill this Field</mat-error>
     </mat-form-field>
 
-    <div #refContainer class="progress hidden">
-      <mat-progress-bar  #ref></mat-progress-bar>
-      <span>{{ref.value}}%</span>
-    </div>
+    
     
   <mat-radio-group color="primary"  formControlName="requiredSubmit" >
     <mat-radio-button [value]="false">Without Submit</mat-radio-button>
@@ -45,11 +42,19 @@
     <input class="BtnFiles" formControlName="files" #refFiles multiple type="file">
   </div>
 
+  <div #refContainer class="progress hidden">
+    <mat-progress-bar  #ref></mat-progress-bar>
+    <span>{{ref.value}}%</span>
+  </div>
+
     <div class="Actions">
+
       <button color="accent"  mat-raised-button (click)="AddHomeWork(refFiles.files,refContainer,ref)">
         <mat-icon>add</mat-icon>
         Add
     </button>
+    
+
    <button color="primary"  mat-raised-button [matDialogClose]="false" >Cancel</button>
     </div>
     <!-- <button (click)="AddHomeWork(refSelect.value,refFiles.files)" class="btn btn-primary mt-2 mb-2">Add new Home Work</button> -->

@@ -15,6 +15,7 @@ import { MessageDialogComponent } from '../dilogs/message-dialog/message-dialog.
 export class LogInComponent implements OnInit {
   user=new UserAuth()
   fg=new FormGroup({})
+  showSpinner=false
   constructor(
     private auth:AuthService,
     private fb:FormBuilder,
@@ -38,14 +39,19 @@ this.fg=this.fb.group({
     return
     this.user.email=this.fg.get("email")?.value.trim()
     this.user.password=this.fg.get("password")?.value
+    this.showSpinner=true
 
-    this.auth.Login(this.user).subscribe(token=>{
-      MyLocalStorage.SetToken(token)
-      this.auth.LoadUserByToken()
-      this.router.navigate(["/home"]);
-    },err=>{
-      MyTools.ShowFialdMessage(err,"LogIn")
-    })
+      setTimeout(() => {
+        this.auth.Login(this.user).subscribe(token=>{
+          MyLocalStorage.SetToken(token)
+          this.auth.LoadUserByToken()
+          this.router.navigate(["/home"]);
+          this.showSpinner=false
+        },err=>{
+          MyTools.ShowFialdMessage(err,"LogIn")
+          this.showSpinner=false
+        })
+      }, 300);
   }
 
   ForgetPassWord(){

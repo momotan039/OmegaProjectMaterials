@@ -33,9 +33,8 @@
 
 /* Start Dialog style */
 ::ng-deep mat-dialog-container {
-  height: auto !important;
-  /* width: 100%; */
-  width: 500px !important;
+  max-height: 86vh !important;
+  width: 80vw !important;
   position: relative;
 }
 

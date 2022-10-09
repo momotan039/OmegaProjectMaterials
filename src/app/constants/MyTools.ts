@@ -16,10 +16,9 @@ export class MyTools {
   static Dialog:MatDialog
   static currentUser=new User()
   static router:Router
-  // static domainNameServer="https://localhost:44327/"
-  // static UrlRootApi="https://localhost:44327/api"
-  static domainNameServer="http://mohammed039-001-site1.itempurl.com/"
-  static UrlRootApi="http://mohammed039-001-site1.itempurl.com/api"
+  static domainNameServer="https://localhost:44327/"
+  // static domainNameServer="http://testshiblys-001-site1.dtempurl.com/"
+  static UrlRootApi=this.domainNameServer+"api"
   static passwordValidationRegex="^[A-Z](?=.*\d)(?=.*[a-z]).{7,}$"
   static SnackBar: MatSnackBar;
   static msgsReader= new BehaviorSubject<Message[]>([]);
@@ -86,7 +85,7 @@ duration:1500
 static ShowPopUpImageDialog(image:string){
 this.Dialog.open(PopUpImageComponent,{
   data:image,
-  panelClass:"rotatePopUpImageDialog",
+  panelClass:["rotatePopUpImageDialog","MyWidth"],
 })
 }
 }

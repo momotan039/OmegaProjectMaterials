@@ -16,9 +16,7 @@ export class MyGroupsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.httpGroupsService.GetGroupsByUserId().subscribe(data=>{
-      this.groups=data
-    })
+   
   }
 
   FilterPredicateParent=(data: any, filter: string)=>{

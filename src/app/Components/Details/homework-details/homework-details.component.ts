@@ -1,3 +1,6 @@
+import { MatButton } from '@angular/material/button';
+import { DeleteUserComponent } from './../../dilogs/delete-user/delete-user.component';
+import { style } from '@angular/animations';
 import { ShowSubmitedFilesStudentComponent } from './../../dilogs/show-submited-files-student/show-submited-files-student.component';
 import { AuthService } from './../../../services/auth.service';
 import { HomeWorkStudentService } from './../../../services/home-work-student.service';
@@ -15,6 +18,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { HttpEventType } from '@angular/common/http';
 import { MyTableComponent } from '../../SubComponent/my-table/my-table.component';
 import { MatProgressBar } from '@angular/material/progress-bar';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 
 @Component({
@@ -31,7 +35,6 @@ export class HomeworkDetailsComponent implements OnInit {
   submitedStudents = 0;
   homeWork = new HomeWork();
   currentStudent?: any;
-  showProgressBarContainer = false;
   constructor(
     private route: ActivatedRoute,
     private homeWorkService: HomeWorkService,
@@ -90,16 +93,20 @@ export class HomeworkDetailsComponent implements OnInit {
       this.homeWork.group?.id!,
       this.homeWork.teacher?.id!
     );
-
-
+      containerProgress.classList.remove("hidden")
     this.homeWorkStudentService.DownloadFileByPath(path).subscribe(
       (data) => {
-        this.showProgressBarContainer = true;
         if (data.type === HttpEventType.DownloadProgress) {
           refProgress.value=Math.round((100 * data.loaded) / data.total!);
           console.warn(data.loaded)
         }
         if (data.type === HttpEventType.Response) {
+
+          setTimeout(() => {
+            refProgress.value=0
+          containerProgress.classList.add("hidden")
+          }, 300);
+          
           const blob = new Blob([data.body as BlobPart]);
           // saveAs(blob, hwf.name);
           const url = window.URL.createObjectURL(blob);
@@ -123,13 +130,15 @@ export class HomeworkDetailsComponent implements OnInit {
   }
   progress?: number;
   showFilesSizeErorr=false;
-  SendStudentFiles(Files: any) {
 
+  SendStudentFiles(Files: any,containerProgress:HTMLElement,
+    refProgress:MatProgressBar,btnCancel:MatButton) {
+     
     let files = Files as File[];
     this.showFilesSizeErorr=false;
     if (files.length == 0) return;
 
-     //Check Size of files
+    //Check Size of files
      if(!this.IsValidSizeFiles(files))
      {
       this.showFilesSizeErorr=true;
@@ -144,13 +153,19 @@ export class HomeworkDetailsComponent implements OnInit {
     for (let i = 0; i < files.length; i++)
      fd.append('files', files[i]);
 
+     containerProgress.classList.remove("hidden")
+     btnCancel.disabled=true
+
     this.homeWorkStudentService.Submit(fd).subscribe(
       (event) => {
-        this.showProgressBarContainer = true;
         {
           if (event.type === HttpEventType.UploadProgress) {
-            this.progress = Math.round((100 * event.loaded) / event.total!);
+            refProgress.value = Math.round((100 * event.loaded) / event.total!);
           } else if (event.type === HttpEventType.Response) {
+            setTimeout(() => {
+              refProgress.value=0
+              containerProgress.classList.add("hidden")
+            }, 300);
             MyTools.ShowResult200Message(event.body);
             //if it is a student get info about submitaion homework
             this.homeWorkStudentService
@@ -161,37 +176,49 @@ export class HomeworkDetailsComponent implements OnInit {
               .subscribe((data) => {
                 this.currentStudent = data;
               });
-            //  this.showProgressBarContainer=false
           }
         }
       },
       (error) => {
         MyTools.ShowFialdMessage(error, 'Submiting Home Work');
+        btnCancel.disabled=false
       }
     );
   }
   CancelSubmitation() {
-    let data = {
-      id: this.currentStudent.homeWorkStudentId,
-      groupId: this.homeWork.groupId,
-    };
-    this.homeWorkStudentService.DeleteSubmited(data).subscribe(
-      (data) => {
-        MyTools.ShowResult200Message('Cancel Submitation');
-        //if it is a student get info about submitaion homework
-        this.homeWorkStudentService
-          .GetSubmitStudentByself(
-            this.authService.currentUser.id!,
-            this.homeWork.id
-          )
-          .subscribe((data) => {
-            this.currentStudent = data;
-          });
-      },
-      (error) => {
-        MyTools.ShowFialdMessage(error, 'Cancel Submitation');
-      }
-    );
+
+
+    MyTools.Dialog.open(DeleteUserComponent,{
+      data:{}
+    })
+    .afterClosed().subscribe(res=>{
+        if(!res)
+        return
+
+        let data = {
+          id: this.currentStudent.homeWorkStudentId,
+          groupId: this.homeWork.groupId,
+        };
+        this.homeWorkStudentService.DeleteSubmited(data).subscribe(
+          (data) => {
+            MyTools.ShowResult200Message('Delete Submitation');
+            //if it is a student get info about submitaion homework
+            this.homeWorkStudentService
+              .GetSubmitStudentByself(
+                this.authService.currentUser.id!,
+                this.homeWork.id
+              )
+              .subscribe((data) => {
+                this.currentStudent = data;
+              });
+          },
+          (error) => {
+            MyTools.ShowFialdMessage(error, 'Delete Submitation');
+          }
+        );
+    })
+
+   
   }
 
   ShowViewDialogParent=()=>{

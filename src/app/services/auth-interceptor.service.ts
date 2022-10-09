@@ -19,13 +19,13 @@ export class AuthInterceptorService implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token =MyLocalStorage.GetToken();
     if(token){
-
       const cloned=req.clone({
-        headers:req.headers.set("Authorization",token)
+        headers:req.headers.set("Authorization",token).set('Access-Control-Allow-Origin', '*')
       })
 
       return next.handle(cloned)
       .pipe(
+        
         catchError((error:HttpResponse<any>) => {
           console.warn(error)
           

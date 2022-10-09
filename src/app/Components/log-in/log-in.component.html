@@ -17,7 +17,18 @@
         <mat-error *ngIf="fg.get('password')!.errors?.['required']">
           Please Fill this Field</mat-error>
       </mat-form-field>
-        <button mat-raised-button color="primary" (click)="LogIn()">Submit</button>
+        <button
+        *ngIf="!showSpinner"
+         mat-raised-button 
+         color="primary" (click)="LogIn()">Submit</button>
+
+        <mat-spinner
+        *ngIf="showSpinner"
+       color="accent"
+       [diameter]="35"
+       >
+       </mat-spinner>
+
         <div class="forget_password">
           <button (click)="ForgetPassWord()" color="accent"  mat-raised-button>Forgot your password?</button>
         </div>

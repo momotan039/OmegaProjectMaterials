@@ -70,8 +70,7 @@ export class AddHomeworkComponent implements OnInit {
      
      this.homeWorkService.SendHomeWork(fd).subscribe(data=>{
 
-      if (data.type === HttpEventType.DownloadProgress) {
-        console.warn(data)
+      if (data.type === HttpEventType.UploadProgress) {
         refProgress.value=Math.round((100 * data.loaded) / data.total!);
       }
       if (data.type === HttpEventType.Response) {

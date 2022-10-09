@@ -8,6 +8,8 @@
   .container-image-profile{
     position: relative;
   }
+
+
   .mainContainer mat-card mat-card-header
   .container-image-profile .edit-image-profile{
     position: absolute;
@@ -30,6 +32,11 @@
   background-repeat: no-repeat;
   border-radius: 50px;
 }
+.mainContainer mat-card mat-card-header
+.container-image-profile img:hover{
+  cursor: zoom-in;
+}
+
 .mainContainer mat-card mat-card-content{
   padding-top: 10px;
 display: flex;

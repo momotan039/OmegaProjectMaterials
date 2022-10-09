@@ -1,5 +1,5 @@
 import { HomeWorkFile } from './../models/HomeWorkFile';
-import { Observable } from 'rxjs';
+import { Observable, Observer } from 'rxjs';
 import { HomeWork } from './../models/HomeWork';
 import { HttpClient, HttpParams, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -37,7 +37,12 @@ DeleteHomeWork(hw: HomeWork) {
 EditHomeWork(homeWork:FormData){
   return this.http.put(MyTools.UrlRootApi+"/HomeWork/EditHomeWork",
    homeWork,
-   {withCredentials:false,responseType:"text"})
+   {
+    withCredentials:false,
+    responseType:"text",
+    observe:"events",
+    reportProgress:true
+  })
 }
 
  GetHomeWorks(id=-1):Observable<HomeWork|HomeWork[]>{

@@ -2,19 +2,19 @@
   <!-- Show info about homework -->
 <div class="flexContainer">
   <mat-card>
-    <mat-card-title>HomeWork Details</mat-card-title>
+    <mat-label>HomeWork Details</mat-label>
     <mat-divider>
     </mat-divider>
-    <h2>Group:{{homeWork.group!.name}}</h2>
+    <h3>Group:{{homeWork.group!.name}}</h3>
     <mat-divider>
     </mat-divider>
-    <h2>Teacher:{{homeWork.teacher!.firstName+" "+homeWork.teacher!.lastName}}</h2>
+    <h3>Teacher:{{homeWork.teacher!.firstName+" "+homeWork.teacher!.lastName}}</h3>
     <mat-divider>
     </mat-divider>
-    <h2>Sending Date:{{homeWork.sendingDate|date}}</h2>
+    <h3>Sending Date:{{homeWork.sendingDate|date}}</h3>
   </mat-card>
 
-  <mat-form-field *ngIf="homeWork.contents" ngClass="FullHeight" appearance="fill">
+  <mat-form-field *ngIf="homeWork.contents" ngClass="homeworkContent" appearance="fill">
     <mat-label>HomeWork Content</mat-label>
     <textarea  placeholder="asf" disabled rows="9"  matInput [value]="homeWork.contents"></textarea>
   </mat-form-field>
@@ -25,14 +25,14 @@
 <!-- Show files of Homework -->
 <mat-card *ngIf="this.homeWork.filesPath">
 
-  <h2 class="subTitle">
+  <h2 class="title">
     File List:
   </h2>
 
   <mat-divider></mat-divider>
   <mat-list class="file-list">
     <mat-list-item *ngFor="let item of convertPathsToArray(homeWork.filesPath)">
-      <div #refContainer class="progress">
+      <div #refContainer class="progress hidden">
         <mat-progress-bar  color="accent" #ref></mat-progress-bar>
         <span>{{ref.value}}%</span>
       </div>
@@ -53,15 +53,8 @@
 *ngIf="homeWork.requiredSubmit && this.authService.currentUser.roleId==2"
 class="submitedStudents"
 >
-<br>
 <mat-card>
-    <h2 class="subTitle">
-       Submited Students:{{submitedStudents}}/{{students.length}}
-    </h2>
-    <mat-divider>
-    </mat-divider>
     <mat-card-content>
-      <br>
   <app-my-table
   #refTable
   [enableAddRow]="false"
@@ -72,6 +65,7 @@ class="submitedStudents"
   [disableSortOverride]="true"
   [EnableShowViewDialog]="true"
   [ShowViewDialogParent]="ShowViewDialogParent"
+  [singleTitle]="'Submited Students:'+submitedStudents+'/'+students.length"
   >
   </app-my-table>
     </mat-card-content>
@@ -86,31 +80,36 @@ class="submitedStudents"
 <div *ngIf="this.authService.currentUser.roleId==3 &&
 homeWork.requiredSubmit" class="submitFiles">
 <mat-card>
-      <h1 class="subTitle">Submited Files</h1>
+      <h1 class="title">Submited Files</h1>
 
       <mat-card-content>
 
    <!-- Show Add Files -->
+        
         <div class="BtnFilesContainer" *ngIf="!this.currentStudent else showCancel">
           <input class="BtnFiles" #refFiles multiple type="file" value="Send Files">
           <h3 *ngIf="showFilesSizeErorr" class="error-message">Size Files Must Be < 2Gb</h3>
-          <button color="primary" mat-raised-button (click)="SendStudentFiles(refFiles.files)">Submit</button>
+          
+          <button #refBtn color="primary" mat-raised-button 
+          (click)="SendStudentFiles(refFiles.files,refContainer2,ref2,refBtn)">
+          Submit
+        </button>
+
         </div>
-        
+        <div #refContainer2 class="progress hidden">
+          <mat-progress-bar  color="accent" #ref2></mat-progress-bar>
+          <span>{{ref2.value}}%</span>
+        </div>
         
       <mat-divider></mat-divider>
       <ng-template #showCancel>
-         <!-- Show Cancel submitation -->
-         <button  class="cancelSubmitation" color="accent"  mat-raised-button (click)="CancelSubmitation()">Cancel Submitation</button>
 
-        <!-- Show all files list -->
-      <!-- <h3 style="padding:5px" *ngFor="let i=index;let path of convertPathsToArray(currentStudent.pathFiles)">
-        {{getFileNameFromPath(path)}}
-        <button (click)="donwloadFile(path,true)" mat-button>
-          <mat-icon>file_download</mat-icon>
-        </button>
-        <mat-divider *ngIf="i<convertPathsToArray(currentStudent.pathFiles).length-1"></mat-divider>
-      </h3> -->
+         <!-- Show Cancel submitation -->
+         <button
+          class="cancelSubmitation" 
+         color="warn"
+          mat-raised-button
+           (click)="CancelSubmitation()">Cancel Submitation</button>
 
       <mat-list class="file-list">
         <mat-list-item *ngFor="let item of convertPathsToArray(currentStudent.pathFiles)">

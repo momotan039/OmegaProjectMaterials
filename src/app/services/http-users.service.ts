@@ -8,7 +8,6 @@ import { MyTools } from 'src/app/constants/MyTools';
   providedIn: 'root'
 })
 export class HttpUsersService {
- headers=new HttpHeaders()
   constructor(private http:HttpClient) { }
 
    GetUsers():Observable<User[]>{

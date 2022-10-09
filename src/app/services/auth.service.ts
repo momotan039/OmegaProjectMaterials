@@ -18,6 +18,7 @@ export class AuthService {
    }
 
  Login(user:UserAuth){
+  
    return this.http.post(MyTools.UrlRootApi+"/Authentication/Login",user,{
    responseType:"text"
   });
