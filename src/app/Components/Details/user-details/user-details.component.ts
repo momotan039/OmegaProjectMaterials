@@ -91,13 +91,19 @@ export class UserDetailsComponent implements OnInit {
       //reset selected image input
       refFile.value=""
       // refImg.src=this.GetImageProfile()
-      refImg.src=this.GetImageProfile()
+      refImg.src=this.GetImageProfile()+"?t="+new Date().getSeconds()
       this.authService.LoadUserByToken();
     },(err)=>MyTools.ShowFialdMessage(err,"Changing Profile Image"))
   }
 
   ShowPopUPImage(){
     MyTools.ShowPopUpImageDialog(
-      this.GetImageProfile());
+      this.GetImageProfile()+"?t="+new Date().getSeconds());
   }
+
+  ShowDefultImage(image:HTMLImageElement){
+    debugger
+    image.src="../../../assets/images/profile.svg"
+  }
+
 }

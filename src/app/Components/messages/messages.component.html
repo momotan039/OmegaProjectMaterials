@@ -5,12 +5,19 @@
   <div class="left ">
     <mat-form-field class="input-full-width" appearance="fill">
       <mat-label>Search for Contact...</mat-label>
-      <input #refSearch (keyup)="FilterContacts(refSearch,refClearIcon,refSearchIcon)" matInput>
+      <input class="search-contact" #refSearch (keyup)="FilterContacts(refSearch,refClearIcon,refSearchIcon)" matInput>
       <mat-icon #refSearchIcon matPrefix>search</mat-icon>
       <mat-icon (click)="ClearSearchContact(refSearch,refClearIcon,refSearchIcon)" class="hidden" #refClearIcon
         matPrefix>clear</mat-icon>
 
     </mat-form-field>
+
+    <div *ngIf="showSpinnerContacts" class="spinner-loading-contacts">
+      <mat-spinner
+      [diameter]="35"
+    ></mat-spinner>
+    </div>
+   
 
     <mat-list>
       <mat-list-item *ngFor="let group of filteredGroups">
@@ -129,7 +136,9 @@
           </mat-spinner>
 
           <div *ngIf="receiver && CountUnreadMessages(receiver)" class="scroll-down-to-unread-messages">
-            <button (click)="ScrollingDownListMessage()"  mat-fab>
+            <button
+            color="primary"
+             (click)="ScrollingDownListMessage()"  mat-fab>
               {{CountUnreadMessages(receiver)}}
               <mat-icon>
                 markunread

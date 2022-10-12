@@ -11,7 +11,7 @@
     <input #refSearch (keyup)="FilterDataTable(refSearch)" matInput >
   </mat-form-field>
 
-  <table  #table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <table  #table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8 myTable">
 
     <ng-container matColumnDef="firstName">
       <th mat-header-cell mat-sort-header *matHeaderCellDef>FirstName</th>

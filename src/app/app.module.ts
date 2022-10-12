@@ -51,6 +51,7 @@ import { EditHomeworkComponent } from './Components/dilogs/edit-homework/edit-ho
 import { ShowSubmitedFilesStudentComponent } from './Components/dilogs/show-submited-files-student/show-submited-files-student.component';
 import { SelectWithSearchComponent } from './Components/select-with-search/select-with-search.component';
 import { FooterComponent } from './Components/footer/footer.component';
+import { ChartComponent } from './Components/SubComponent/chart/chart.component';
 
 @NgModule({
   declarations: [
@@ -102,6 +103,7 @@ import { FooterComponent } from './Components/footer/footer.component';
     ShowSubmitedFilesStudentComponent,
     SelectWithSearchComponent,
     FooterComponent,
+    ChartComponent,
   ],
   imports: [
     BrowserModule,

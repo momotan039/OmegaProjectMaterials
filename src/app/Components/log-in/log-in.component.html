@@ -7,6 +7,8 @@
         <input formControlName="email" matInput placeholder="Enter your Email">
         <mat-error *ngIf="fg.get('email')!.errors?.['required']">
           Please Fill this Field</mat-error>
+          <mat-error *ngIf="fg.get('email')!.errors?.['email']">
+            Invalid Email</mat-error>
         </mat-form-field>
         <mat-form-field color="primary"  appearance="fill">
         <mat-label>Password</mat-label>

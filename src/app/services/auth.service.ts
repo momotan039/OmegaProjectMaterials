@@ -12,7 +12,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
   providedIn: 'root'
 })
 export class AuthService {
-    currentUser=new User()
+    currentUser!:User;
     currentUserSub:BehaviorSubject<any>=new BehaviorSubject(false)
   constructor(private http:HttpClient) {
    }
@@ -27,6 +27,7 @@ export class AuthService {
 
  LogOut(){
    MyLocalStorage.RemoveToken();
+   MyTools.intervalMsgs.unsubscribe();
  }
 
  LoadUserByToken(){

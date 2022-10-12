@@ -34,7 +34,7 @@
 /* Start Dialog style */
 ::ng-deep mat-dialog-container {
   max-height: 86vh !important;
-  width: 80vw !important;
+  width: 800px !important;
   position: relative;
 }
 

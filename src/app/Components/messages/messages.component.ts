@@ -50,6 +50,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
   msgInterval: Subscription | undefined;
   found_previous=false;
   previousMsgs=[];
+  showSpinnerContacts=false
   constructor(
     private fb: FormBuilder,
     private httpGroupsService: HttpGroupsService,
@@ -74,12 +75,16 @@ export class MessagesComponent implements OnInit, OnDestroy {
     this.fg = this.fb.group({
       message: ['', Validators.required],
     });
+    let searchContactInput=document.querySelector(".search-contact") as HTMLInputElement
+
 
     this.httpGroupsService.GetGroupsByUserId().subscribe((data) => {
       this.groups = data;
       this.filteredGroups=this.groups
-        //filter contact friends when recive new messages
+      console.warn(this.groups)
+        //filter contact Groups when recive new messages
         MyTools.msgsReader?.subscribe(data=>{
+          if(!searchContactInput.value)
           this.filteredGroups=this.groups.sort((a,b)=>{
              return MyTools.unreadMsgs.filter(f=>f.reciverId==b.id).length
              -MyTools.unreadMsgs.filter(f=>f.reciverId==a.id).length
@@ -88,20 +93,20 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
     });
 
-
+    this.showSpinnerContacts=true
 
     this.httpUserGroupService.GetFreindsByUser().subscribe((data) => {
       this.freinds = data;
       //filter contact friends when recive new messages
       MyTools.msgsReader?.subscribe(data=>{
+        if(!searchContactInput.value)
       this.filteredFreinds=this.freinds.sort((a,b)=>{
          return MyTools.unreadMsgs.filter(f=>f.senderId==b.id).length
          -MyTools.unreadMsgs.filter(f=>f.senderId==a.id).length
      })
     })
+    this.showSpinnerContacts=false
     });
-
-
 
     this.HandelScrollingMessages();
   }
@@ -305,21 +310,10 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
         deleteFun.subscribe(
           (_data) => {
-            MyTools.Dialog.open(MessageDialogComponent, {
-              data: {
-                title: 'Success',
-                content: 'Message Deleted Successfully',
-              },
-            });
+            MyTools.ShowResult200Message("Message Deleted Successfully")
           },
           (err) => {
-            MyTools.Dialog.open(MessageDialogComponent, {
-              data: {
-                title: 'Faild',
-                content: `${err.error}`,
-                icon: 'faild',
-              },
-            });
+            MyTools.ShowFialdMessage(err,"Deleting Message")
           }
         );
       }
@@ -327,7 +321,10 @@ export class MessagesComponent implements OnInit, OnDestroy {
   }
 
   FilterContacts(input:HTMLInputElement,clearIcon:MatIcon,serachIcon:MatIcon){
-    let value=input.value.toLowerCase();
+    this.showSpinnerContacts=true
+    
+    setTimeout(() => {
+      let value=input.value.toLowerCase();
     // show clear icon if not empty value
     if(!value)
        {
@@ -361,6 +358,9 @@ export class MessagesComponent implements OnInit, OnDestroy {
       }
     })
     this.filteredGroups=_filteredGroups
+    this.showSpinnerContacts=false
+    }, 300);
+    
   }
 
   ClearSearchContact(input:HTMLInputElement,clearIcon:MatIcon,serachIcon:MatIcon){

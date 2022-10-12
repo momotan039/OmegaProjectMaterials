@@ -29,7 +29,7 @@ export class LogInComponent implements OnInit {
       return
     }
 this.fg=this.fb.group({
-  email:['',Validators.required],
+  email:['',Validators.compose([Validators.required,Validators.email])],
   password:['',Validators.required]
 })
   }

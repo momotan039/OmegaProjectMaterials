@@ -33,9 +33,11 @@ export class TestsComponent implements OnInit {
     })
   }
   DeleteRow=()=>{
-    let dialogRef = MyTools.Dialog.open(DeleteUserComponent, {
-      disableClose:true
-    });
+    let dialogRef = MyTools.Dialog.open(DeleteUserComponent,
+       {
+        width:"300px", disableClose:true
+       }
+      );
 
     dialogRef.afterClosed().subscribe((success: any)=>{
       if(success)

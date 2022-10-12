@@ -107,11 +107,17 @@
 }
 .mainContainer .left{
   height: auto;
+  margin-bottom: 10px;
 }
 .mainContainer .left .contacts{
   padding: 8px;
   border-bottom: 1px solid;
 }
+
+.mainContainer .left .spinner-loading-contacts{
+  text-align: -webkit-center;
+}
+
 .mainContainer .left mat-list{
   gap: 10px;
   overflow-y: auto;
@@ -119,7 +125,7 @@
   height: 77vh;
 }
 .mainContainer .left mat-list mat-list-item{
-  margin-bottom: 2rem;
+  margin-bottom: 2.6rem;
 }
 
 ::ng-deep .mainContainer .left mat-list mat-list-item .mat-list-item-content{
@@ -327,10 +333,15 @@ mat-card mat-card-header .avatar-image :hover{
   .mainContainer .left{
     height: auto;
   }
+  
   .mainContainer .left mat-list{
     display: flex;
-    overflow: auto;
+    overflow-x: auto;
+    overflow-y: hidden;
     height: auto;
+  }
+  .mainContainer .left mat-list mat-list-item{
+    margin-bottom: 1rem;
   }
   .mainContainer .right mat-card mat-card-content{
     height: 42vh;

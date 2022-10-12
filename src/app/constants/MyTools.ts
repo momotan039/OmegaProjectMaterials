@@ -24,6 +24,7 @@ export class MyTools {
   static msgsReader= new BehaviorSubject<Message[]>([]);
   static unreadMsgs: any[]=[];
   static NumUnreadMsgs:BehaviorSubject<number>=new BehaviorSubject(0)
+  static intervalMsgs: Subscription;
 
   constructor(
   ){
@@ -45,7 +46,8 @@ export class MyTools {
       "title":"Session Expired",
       "content":"Please Sign in Again",
       "icon":"alarm"
-    }
+    },
+    width:"300px"
   })
   MyTools.router.navigate(["/login"])
 }
@@ -55,8 +57,9 @@ static ShowFialdMessage(error:any,title:string){
     data:{
       "title":"Faild "+title,
       "content":`${error.error}`,
-      "icon":"error"
-    }
+      "icon":"assignment_late"
+    },
+    width:"350px"
   })
 }
 
@@ -65,8 +68,9 @@ static ShowResult200Message(content:any){
     data:{
       "title":"Success",
       "content":`${content}`,
-      "icon":"error"
-    }
+      "icon":"task_alt"
+    },
+    width:"300px"
   })
 }
 

@@ -1,15 +1,25 @@
-<app-my-table *ngIf="test" #refTable
+<app-chart
+[IdChart]="'chart2'"
+[Type]="'line'"
+[ParentBuildData]="BuildDataChart1"
+>
+</app-chart>
+
+<li *ngFor="let item of namesGroups">
+    {{item}}
+</li>
+<app-my-table #refTable
 
 [displayedColumns]="['student.idCard','group.name','sumGrade']"
 
-[displayedNameColumns]="['Student Id Card','Group\'s Name','Grade']"
+[displayedNameColumns]="['Student Id Card','Group','Grade']"
 
 [getDataTable]="httpGradesService.GetGradesByTest(test.id)"
 
-[title]="test.name"
+[singleTitle]="test.name"
 
 [enableAddRow]="false"
-
+[FilterPredicateParent]="FilterPredicateParent"
 >
 
 </app-my-table>

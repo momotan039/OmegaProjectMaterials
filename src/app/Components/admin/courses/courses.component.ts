@@ -51,7 +51,8 @@ DeleteRow=()=>{
       'icon':"warning",
       "content":"All Related Groups will Deleted !!",
       'cancel':true
-    }
+    },
+    width:"300px"
   })
 
   // let dialogRef = MyTools.Dialog.open(DeleteUserComponent, {

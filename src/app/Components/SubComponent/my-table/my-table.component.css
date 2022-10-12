@@ -1,6 +1,3 @@
-:host {
-  background-color: red;
-}
 
 .titleContainer{
   padding: 30px !important;
@@ -17,6 +14,7 @@ font-weight: bold ;
   top: -29px;
   color: white;
 }
+
 table.myTable thead tr {
   /* background: grey !important; */
 }
@@ -44,6 +42,10 @@ table.myTable td textarea {
   ::ng-deep table.myTable thead {
     display: none !important;
   }
+  ::ng-deep table.myTable thead tr th{
+    font-size: 18px ;
+    font-weight: bold;
+  }
 
   ::ng-deep table.myTable tbody tr,
   ::ng-deep table.myTable tbody td {
@@ -55,11 +57,10 @@ table.myTable td textarea {
   }
 
   ::ng-deep table.myTable tbody tr {
-    /* position: relative; */
     height: auto !important;
-    border: grey solid;
-    border-radius: 5px;
+    border-bottom: var(--warn) dashed;
     padding: 10px;
+   
   }
 
   /* show title before td */

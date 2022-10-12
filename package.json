@@ -27,6 +27,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.2.0",
     "@fortawesome/free-brands-svg-icons": "^6.2.0",
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
+    "chart.js": "^3.9.1",
     "file-saver": "^2.0.5",
     "ngx-mat-select-search": "^4.2.1",
     "rxjs": "~7.4.0",

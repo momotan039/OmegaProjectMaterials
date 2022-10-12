@@ -51,18 +51,19 @@ export class SelectWithSearchComponent implements OnInit {
   }
 
   displayFn=(item: any)=>{
+    
     let _item=this.options.find(f=>f[this.value]==item)
     return _item&&_item[this.displayBy] ? _item[this.displayBy] : '';
   }
 
   private _filter(name: string): any[] {
+    
     const filterValue = name.toLowerCase();
-    if(!this.propsArr)
+    if(this.propsArr.length==0)
     return this.options.filter(option => option[this.displayBy].toLowerCase().includes(filterValue));
     
     return this.options.filter(option => {
       const arrProp=this.propsArr;
-      debugger
       let res=false;
        arrProp.forEach(prop=>{
         res=res||option[prop].toLowerCase().includes(filterValue)
@@ -125,7 +126,6 @@ export class SelectWithSearchComponent implements OnInit {
   }
 
   PrintValue(option:any){
-    debugger
     if(!this.propsArr)
     return false
 

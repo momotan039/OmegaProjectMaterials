@@ -63,9 +63,11 @@ export class GroupsDetailsComponent implements OnInit {
     })
   }
   DeleteRow=()=>{
-    MyTools.Dialog.open(DeleteUserComponent, {
-      disableClose:true
-    }).afterClosed().subscribe((success: any)=>{
+    MyTools.Dialog.open(DeleteUserComponent,
+       {
+        width:"300px", disableClose:true
+       }
+      ).afterClosed().subscribe((success: any)=>{
       if(success)
       {
         this.httpUserGroupService.

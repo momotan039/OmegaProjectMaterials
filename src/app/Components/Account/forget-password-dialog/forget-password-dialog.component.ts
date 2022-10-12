@@ -30,6 +30,8 @@ export class ForgetPasswordDialogComponent implements OnInit {
     })
   }
   ForgetPassword(refButton:MatButton){
+    if(!this.fg.valid)
+    return
     this.showprogressBar=true
     refButton.disabled=true
     this.httpAcountService.ForgetPassword(this.fg.get('email')?.value).subscribe((data)=>{

@@ -4,7 +4,13 @@
         <div
           *ngIf="this.authService.currentUser.id==user.id else ShowBasicImage"
         class="container-image-profile">
-           <img (click)="ShowPopUPImage()"  #refImg mat-card-lg-image matCardAvatar [src]="GetImageProfile()">
+           <img (click)="ShowPopUPImage()" 
+            #refImg mat-card-lg-image
+             matCardAvatar
+              [src]="GetImageProfile()"
+             (error)="ShowDefultImage(refImg)"
+              
+              >
         <button color="accent" class="edit-image-profile" mat-mini-fab (click)="refFile.click()">
             <mat-icon>edit</mat-icon>
           <input mat-button  class="hidden BtnFiles" formControlName="files" #refFile type="file">
@@ -21,7 +27,7 @@
 
         <ng-template #ShowBasicImage>
           <div class="container-image-profile">
-            <img (click)="ShowPopUPImage()"
+            <img   (click)="ShowPopUPImage()"
              mat-card-lg-image
              matCardAvatar
              [src]="GetImageProfile()">
