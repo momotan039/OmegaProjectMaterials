@@ -218,7 +218,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
           this.lastConversation=getMessagesFun.subscribe((event) => {
             if(event.type==HttpEventType.Response)
               {
-                 this.GetStreamMessages(this.receiver.id);
+                //  this.GetStreamMessages(this.receiver.id);
                  this.msgs = event.body['messages'];
                  this.found_previous=event.body['found_previous']
                  this.ScrollingDownListMessage();
@@ -322,7 +322,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
   FilterContacts(input:HTMLInputElement,clearIcon:MatIcon,serachIcon:MatIcon){
     this.showSpinnerContacts=true
-    
+
     setTimeout(() => {
       let value=input.value.toLowerCase();
     // show clear icon if not empty value
@@ -360,7 +360,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
     this.filteredGroups=_filteredGroups
     this.showSpinnerContacts=false
     }, 300);
-    
+
   }
 
   ClearSearchContact(input:HTMLInputElement,clearIcon:MatIcon,serachIcon:MatIcon){
@@ -381,6 +381,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
   }
 
   ShowEmogiTable(_emojiTable:PickerComponent){
+    (document.querySelector(".faceIcon") as HTMLElement).classList.toggle("faceIconUp")
    if(this.hideEmojiTable)
     this.hideEmojiTable=false
     else this.hideEmojiTable=true

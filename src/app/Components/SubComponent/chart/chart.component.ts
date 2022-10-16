@@ -13,7 +13,7 @@ export class ChartComponent implements OnInit,AfterViewInit {
 
   @ViewChild("refcontainerChart") containerChart!:ElementRef;
   constructor() { }
-  
+
    Data:any
   @Input() IdChart=""
   @Input() Type:any
@@ -28,7 +28,7 @@ export class ChartComponent implements OnInit,AfterViewInit {
   ngOnInit(): void {
   }
 
-  
+
   RenderChart(){
     const backgroundColor=[
       'rgba(255, 99, 132, 0.2)',
@@ -45,7 +45,7 @@ export class ChartComponent implements OnInit,AfterViewInit {
       'rgba(75, 192, 192, 1)',
       'rgba(153, 102, 255, 1)',
       'rgba(255, 159, 64, 1)'
-    ] 
+    ]
     const borderWidth=4
 
   //Append Style to DataSetes
