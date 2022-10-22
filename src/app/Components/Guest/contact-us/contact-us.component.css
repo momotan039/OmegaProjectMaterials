@@ -1,0 +1,88 @@
+.card{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card .info{
+    background-color: white;
+    flex: 1;
+    padding: 20px 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.card .info .location{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    padding-bottom: 30px;
+
+}
+.card .info .location mat-icon{
+    color: var(--primary);
+    width: 150px;
+    font-size: 150px;
+    flex: 1;
+}
+.card .info mat-icon{
+    vertical-align: middle;
+}
+.card .info .text{
+
+}
+.card .info .data
+{
+    font-size: 17px;
+    color: black;
+}
+.card .form{
+    background-color: black;
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.card .form .black-title{
+    color: white;
+}
+.card .form mat-form-field{
+    text-align: right;
+}
+.card .form mat-form-field input{
+    color: white;
+    text-align: right;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+::ng-deep .card .form
+.mat-form-field-appearance-legacy
+ .mat-form-field-underline{
+    background-color: grey;
+ }
+ ::ng-deep 
+ .mat-form-field-appearance-legacy 
+ .mat-form-field-label
+ {
+    color: white;
+    font-weight: bold;
+ }
+
+ .card .form .message{
+    height:180px;
+    background-color: transparent;
+    color: white;
+    border-right: 0px;
+    border-left: 0px;
+    border-top: 0px;
+    resize: none;
+    font-size: 18px;
+    font-weight: bold;
+ }
+ 
+

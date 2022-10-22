@@ -16,7 +16,6 @@ import { Router } from '@angular/router';
 })
 export class GradesComponent implements OnInit{
   @ViewChild("refTable") myTable: MyTableComponent | undefined;
-
   displayedColumns=['test.name','sumGrade','student.idCard','group.name','note']
   displayedNameColumns=['Test','Grade','Id Card Student','Group','Note','Operations']
 

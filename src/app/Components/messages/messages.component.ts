@@ -77,7 +77,6 @@ export class MessagesComponent implements OnInit, OnDestroy {
     });
     let searchContactInput=document.querySelector(".search-contact") as HTMLInputElement
 
-
     this.httpGroupsService.GetGroupsByUserId().subscribe((data) => {
       this.groups = data;
       this.filteredGroups=this.groups
@@ -218,7 +217,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
           this.lastConversation=getMessagesFun.subscribe((event) => {
             if(event.type==HttpEventType.Response)
               {
-                //  this.GetStreamMessages(this.receiver.id);
+                 this.GetStreamMessages(this.receiver.id);
                  this.msgs = event.body['messages'];
                  this.found_previous=event.body['found_previous']
                  this.ScrollingDownListMessage();

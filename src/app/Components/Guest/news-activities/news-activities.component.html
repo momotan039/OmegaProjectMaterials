@@ -1,0 +1,22 @@
+
+<app-top-page title="اخبارنا و نشاطاتنا"></app-top-page>
+<div class="news-activities containerGuest">
+    <div class="new" *ngFor="let item of news">
+        <div class="thumbnail">
+            <img [src]="item.img">
+        </div>
+        <div class="date">
+            <div class="summary">
+                {{item.date}}
+            </div>
+        </div>
+        <div class="black-title">
+            {{item.title}}
+        </div>
+        <div class="describe summary">
+            {{item.describe}}
+        </div>
+        <mat-divider>
+        </mat-divider>
+    </div>
+</div>

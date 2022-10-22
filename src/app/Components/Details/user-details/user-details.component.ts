@@ -102,7 +102,7 @@ export class UserDetailsComponent implements OnInit {
   }
 
   ShowDefultImage(image:HTMLImageElement){
-    debugger
+    
     image.src="../../../assets/images/profile.svg"
   }
 

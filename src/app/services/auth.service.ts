@@ -28,6 +28,7 @@ export class AuthService {
  LogOut(){
    MyLocalStorage.RemoveToken();
    MyTools.intervalMsgs.unsubscribe();
+   this.currentUserSub.next(false)
  }
 
  LoadUserByToken(){

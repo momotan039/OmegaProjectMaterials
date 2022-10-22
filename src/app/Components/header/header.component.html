@@ -1,7 +1,8 @@
-<mat-toolbar [ngClass]="{'justyCenter':!authService.IsLogIn()}" color="primary">
+<!-- <mat-toolbar [ngClass]="{'justyCenter':!authService.IsLogIn()}" color="primary"> -->
+<mat-toolbar color="primary">
   <img routerLink="home" class="logo" src="../../../assets/images/logo.png" alt="Omega Academy">
-  <!-- <a routerLink="home"><h1 class="logo">Omega Academy</h1></a> -->
-  <div *ngIf="authService.IsLogIn()" class="menuItems">
+  <div *ngIf="authService.currentUserSub|async" class="menuItems">
+
     <a (click)="item.title=='Logout'?authService.LogOut():{}" *ngFor="let item of menuItems" mat-button
       routerLink="{{item.href}}" [ngStyle]="{'color':item.value?'black':''}">
       {{item.title}}
@@ -10,9 +11,6 @@
         {{item.value}}
       </span>
     </a>
-
-    <!-- <a mat-button>About Us<mat-icon>contact_support</mat-icon></a> -->
-
     <button *ngIf="menuItems!=[]" class="btnSmallMenu" mat-fab (click)="drawer.toggle()">
       <mat-icon class="mat-18">menu</mat-icon>
     </button>

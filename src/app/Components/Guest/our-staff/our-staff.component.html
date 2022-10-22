@@ -1,0 +1,37 @@
+<app-top-page title="الطاقم الأكاديمي"></app-top-page>
+
+<div class="our-staff">
+    <div class="black-title">
+        نسعى دائما للقمة مع كوكبة من معلمينا
+    </div>
+    <div class="summary">
+        يعمل في معهد أوميغا اليوم 18 معلم ومعلمة لغة عبرية أصحاب خبرة، جميعهم لغتهم الأم هي العبرية وحاصلون على شهادة تأهيل لتعليم اللغة العبرية كلغة ثانية من الجامعة العبرية أو من كليات مختصة أخرى.
+    </div>
+    <div class="container-staff show-me">
+        <!-- <div class="selected-member">
+            <div class="details">
+                <div class="black-title">
+                    {{staff[0].name}
+                </div>
+                <div class="work">
+                    {{staff[0].work}
+                </div>
+                <div class="summary">
+                    {{staff[0].about}
+                </div>
+            </div>
+        </div> -->
+        <div class="staff " *ngFor="let person of staff">
+        <a href="#">
+            <div class="thumbnail">
+              <img [src]="person.img">
+            </div>
+            <div class="name ">{{person.name}}</div>
+            <div class="work orange-title ">{{person.work}}</div>
+            <div class="about ">{{person.about}}</div>
+        </a>
+          </div>
+    </div>
+</div>
+
+

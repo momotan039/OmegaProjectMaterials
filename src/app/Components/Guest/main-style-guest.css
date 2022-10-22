@@ -1,0 +1,81 @@
+::ng-deep .orange-title{
+    color: var(--primary);
+    font-size: 21px;
+    position: relative;
+    width: fit-content;
+}
+::ng-deep  .orange-title::after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    background: #da7a1b42;
+    height: 10px;
+    right: -1px;
+    bottom: -1px;
+}
+
+::ng-deep  .black-title{
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 13px;
+    margin-top: 23px;
+    color: black;
+    line-height: 1;
+}
+::ng-deep  .container-color{
+    background-color: #ededed;
+}
+::ng-deep .summary{
+ font-size: 16px;
+}
+
+@keyframes ShowUp{
+    from{
+        transform: translateY(30px);
+    }
+    to{
+        /* visibility: visible; */
+        opacity: 1;
+    }
+}
+
+::ng-deep .show-me{
+    opacity: 0;
+}
+::ng-deep .show-up-1{
+    opacity: 0;
+    animation: ShowUp 1s ease-in forwards;
+}
+
+::ng-deep  .show-up-2{
+    opacity: 0;
+    animation: ShowUp 1s .5s ease-in forwards;
+}
+::ng-deep .show-up-3{
+    opacity: 0;
+    animation: ShowUp 1s 1s ease-in forwards;
+}
+
+
+::ng-deep .main-button{
+    background: #fe8d34;
+    color: white;
+    font-size: 26px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+::ng-deep .second-button{
+    background: black;
+    color: white;
+    font-size: 26px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+::ng-deep  div svg{
+    margin-bottom: -6%;
+}
+
+/* ::ng-deep .container{
+    padding: 25px 20% ;
+} */
+

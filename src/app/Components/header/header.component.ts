@@ -1,14 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Menu } from '../../constants/Menu';
 import { AuthService } from '../../services/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewEncapsulation } from '@angular/core';
 import { MyTools } from '../../constants/MyTools';
 import { User } from '../../models/User';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
+  encapsulation:ViewEncapsulation.Emulated
 })
 export class HeaderComponent implements OnInit {
   menuItems:Menu[]=[]
@@ -23,7 +24,8 @@ export class HeaderComponent implements OnInit {
      this.authService.currentUserSub!.asObservable().subscribe(user=>{
       const _user=user
       MyTools.NumUnreadMsgs.subscribe(num=>{
-        this.CreateMenuItems(_user,num);
+       this.CreateMenuItems(_user,num);
+        console.warn(this.menuItems)
       })
     })
   }
@@ -46,7 +48,8 @@ export class HeaderComponent implements OnInit {
 
       }
     })
-    return  this.menuItems
+    
   }
+
 
 }

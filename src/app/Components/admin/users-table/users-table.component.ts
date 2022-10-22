@@ -42,6 +42,10 @@ role=new Role()
     this.httpClient.get(MyTools.UrlRootApi+"/Role/GetRoles/"+this.roleBy).subscribe(data=>{
       this.role=data
     })
+
+    this.authService.currentUserSub.subscribe(user=>{
+      this.user=user
+    })
   }
 
   FilterDataTable(input:any){

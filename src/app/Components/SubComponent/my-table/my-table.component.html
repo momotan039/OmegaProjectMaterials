@@ -52,11 +52,10 @@
         >
       <mat-icon>visibility</mat-icon>
     </a>
-
     <button *ngIf="EnableShowViewDialog"
     (click)="ShowViewDialog(element)"
       mat-fab color="primary"
-      [disabled]="!element.pathFiles"
+      [disabled]="PropDisableShowViewDialog &&!element[PropDisableShowViewDialog]"
       >
       <mat-icon>visibility</mat-icon>
     </button>

@@ -3,11 +3,13 @@ import { MyTools } from './MyTools';
 
 export class Menu {
   title = '';
-  icon = '';
+  icon? = '';
   href = '';
-  roles:number[] = [];
+  roles?:number[] = [];
   value?:number
   Child?:HTMLElement
+  forGuest?:boolean
+  childs?:Array<any>
 
     static Items: Menu[] = [
     {
@@ -76,10 +78,86 @@ export class Menu {
       href: 'login',
       roles: [1,2,3],
     },
+    {
+      title: 'الرئيسية',
+      href: 'main',
+      forGuest:true
+    },
+    {
+      title: 'من نحن',
+      href: 'about-us',
+      forGuest:true
+    },
+    {
+      title: 'اخبارنا ونشاطاتنا',
+      href: 'news',
+      forGuest:true
+    },
+    {
+      title: 'دوراتنا',
+      href: '#',
+      forGuest:true,
+      childs:[
+        {
+          'name':'دورات البسيخومتري',
+          'link':'/our-courses/دورات البسيخومتري'
+        }
+        ,
+        {
+          'name':'أوميغا جولد – السنة التحضيرية',
+          'link':'/our-courses/أوميغا جولد – السنة التحضيرية'
+        }
+        ,
+        {
+          'name': 'دورات اللغة العبرية',
+          'link':'/main',
+          childs:[{
+            'name':'دورة اللغة العبرية – مستوى רמה א',
+            'link':'/our-courses/دورة اللغة العبرية – مستوى רמה א',
+          }
+          ,
+          {
+            'name':'دورة اللغة العبرية – مستوى רמה ב',
+            'link':'/our-courses/دورة اللغة العبرية – مستوى רמה ב',
+          }
+          ,
+          {
+            'name':'دورة اللغة العبرية – مستوى רמה ג',
+            'link':'/our-courses/دورة اللغة العبرية – مستوى רמה ג',
+          }
+          ,
+          {
+            'name':'دورة اللغة العبرية – مستوى רמה ד',
+            'link':'/our-courses/دورة اللغة العبرية – مستوى רמה ד',
+          }
+          ,
+          {
+            'name':'إمتحان مستوى اللغة العبرية',
+            'link':'https://docs.google.com/forms/d/e/1FAIpQLSdCwOPeLJFbZi3aDUp5bDwG-PIVE5QzTvhpjTMevA3I7XIE7Q/viewform',
+            'external':true
+          }]
+        }
+        
+      ]
+    },
+    {
+      title: 'الطاقم الأكاديمي',
+      href: 'our-staff',
+      forGuest:true
+    },
+   
+    {
+      title: 'اتصل بنا',
+      href: 'contact-us',
+      forGuest:true
+    },
   ];
 
   static getItemsByUserRole(roleId:number){
-  return Menu.Items.filter(i=>i.roles.find(v=>v==roleId))
+  return Menu.Items.filter(i=>!i.forGuest&& i.roles!.find(v=>v==roleId))
   }
 
+  static getGuestItem(){
+    return Menu.Items.filter(i=>i.forGuest)
+    }
 }

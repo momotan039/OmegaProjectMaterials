@@ -28,10 +28,10 @@ export class LogInComponent implements OnInit {
       this.router.navigate(['/home']);
       return
     }
-this.fg=this.fb.group({
-  email:['',Validators.compose([Validators.required,Validators.email])],
-  password:['',Validators.required]
-})
+    this.fg=this.fb.group({
+      email:['',Validators.compose([Validators.required,Validators.email])],
+      password:['',Validators.required]
+    })
   }
   LogIn(){
     // this.auth.Login()
@@ -55,7 +55,9 @@ this.fg=this.fb.group({
   }
 
   ForgetPassWord(){
-    MyTools.Dialog.open(ForgetPasswordDialogComponent)
+    MyTools.Dialog.open(ForgetPasswordDialogComponent,{
+      width:"540px"
+    })
   }
 
 

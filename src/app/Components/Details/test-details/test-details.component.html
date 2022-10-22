@@ -8,16 +8,12 @@
 <li *ngFor="let item of namesGroups">
     {{item}}
 </li>
+
 <app-my-table #refTable
-
 [displayedColumns]="['student.idCard','group.name','sumGrade']"
-
 [displayedNameColumns]="['Student Id Card','Group','Grade']"
-
 [getDataTable]="httpGradesService.GetGradesByTest(test.id)"
-
 [singleTitle]="test.name"
-
 [enableAddRow]="false"
 [FilterPredicateParent]="FilterPredicateParent"
 >

@@ -1,0 +1,18 @@
+
+.course{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 60px;
+    margin-top: 60px;
+}
+.course .right .summary{
+    max-width: 600px;
+    margin-bottom: 20px;
+}
+
+.course .left {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}

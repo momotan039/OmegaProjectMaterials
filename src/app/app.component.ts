@@ -1,3 +1,4 @@
+import { User } from './models/User';
 import { HttpMessagesService } from './services/HttpMessages.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MyLocalStorage } from './services/MyLocalStorage';
@@ -10,15 +11,15 @@ import { interval } from 'rxjs';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css','../app/Components/Guest/main-style-guest.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'app';
   // faCoffee = faCoffee;
 
   constructor(
     private dialog:MatDialog,
-    private auth:AuthService,
+    public auth:AuthService,
     private router:Router,
     private snackBar:MatSnackBar,
     private httpMessagesService:HttpMessagesService
@@ -39,7 +40,11 @@ export class AppComponent {
         })
       })
       })
-     
   }
-
+  ngOnInit(): void {
+    
+  }
+OnloadDiv(){
+  alert("loaded")
+}
 }

@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
     public http:HttpUsersService
   ) {
   }
-
   ngOnInit(): void {
   }
+  
 }

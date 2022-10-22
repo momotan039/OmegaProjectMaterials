@@ -1,3 +1,4 @@
+<div class="mainContainer">
   <h1 class="title">{{homeWork.title}}</h1>
   <!-- Show info about homework -->
 <div class="flexContainer">
@@ -64,6 +65,7 @@ class="submitedStudents"
   [disableFilterOverride]="true"
   [disableSortOverride]="true"
   [EnableShowViewDialog]="true"
+  [PropDisableShowViewDialog]="'pathFiles'"
   [ShowViewDialogParent]="ShowViewDialogParent"
   [singleTitle]="'Submited Students:'+submitedStudents+'/'+students.length"
   >
@@ -133,3 +135,5 @@ homeWork.requiredSubmit" class="submitFiles">
 <!-- Show Files of Current Student if login -->
 
 
+
+</div>

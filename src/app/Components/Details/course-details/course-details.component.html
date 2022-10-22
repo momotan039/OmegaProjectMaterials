@@ -3,7 +3,8 @@
 [displayedColumns]="['name']"
 [displayedNameColumns]="['Group','Operations']"
 [operations]="[true,true,true]"
-[getDataTable]="httpGroup.GetGroupsByCourseId(course.id)"
+[getDataTable]="httpGroup.GetGroupsByCourseId(idCourse)"
 [singleTitle]="course.name"
 [enableAddRow]="false"
+
 ></app-my-table>

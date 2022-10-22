@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, AfterViewInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { Chart,registerables } from 'node_modules/chart.js'
 import { Subscription, Observable } from 'rxjs';
 
@@ -9,17 +9,19 @@ Chart.register(...registerables);
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.css']
 })
-export class ChartComponent implements OnInit,AfterViewInit {
+export class ChartComponent implements OnInit,AfterViewInit,OnDestroy {
 
   @ViewChild("refcontainerChart") containerChart!:ElementRef;
   constructor() { }
+  ngOnDestroy(): void {
+  }
 
    Data:any
   @Input() IdChart=""
   @Input() Type:any
   @Input() ParentBuildData!:()=>Observable<any>
   ngAfterViewInit(): void {
-   this.ParentBuildData().subscribe(data=>{
+  this.ParentBuildData().subscribe(data=>{
     this.Data=data
     this.RenderChart()
    })
@@ -51,7 +53,6 @@ export class ChartComponent implements OnInit,AfterViewInit {
   //Append Style to DataSetes
   this.ConfigeStyleDataSet(backgroundColor,borderColor,borderWidth)
   const fs=this.Data
-  debugger
     let myChart = new Chart(this.IdChart, {
       type: this.Type,
       // data: {

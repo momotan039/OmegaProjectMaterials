@@ -1,0 +1,99 @@
+<app-top-page title="اتصل بنا"></app-top-page>
+
+
+<div class="card containerGuest">
+    <div class="info">
+        <div class="location">
+            <mat-icon >share_location</mat-icon>
+            <div class="describe">
+                <div class="black-title">
+                    معهد أوميغا التعليمي
+                </div>
+                <div class="summary">
+                    القدس - الشيخ جراح - مبنى الشابات - الطابق الرابع - بجانب كلية هند الحسيني
+                </div>
+            </div>
+        </div>
+        <div class="phone">
+            <span class="text">
+                رقم الهاتف :
+            </span>
+            <a class="data" href="tel:025326484">
+                <span>
+                    <mat-icon  color="primary">phone_in_talk</mat-icon>
+                    025326484
+                </span>
+            </a>
+            
+           </div>
+           <div class="mail">
+            <span class="text">
+                البريد الإلكتروني :
+            </span>
+            <a class="data" href="mailto:info@omega-academy.net">
+                <span>
+                    <mat-icon color="primary">contact_support</mat-icon>
+                    info@omega-academy.net
+                </span>
+            </a>
+           </div>
+    </div>
+
+    <form  [formGroup]="fg!">
+    <div class="form show-me">
+            <div class="black-title">
+                للتواصل والمزيد من المعلومات
+            </div>
+            <div class="summary">
+                لا تتردد بالتواصل معنا وارسال لنا أي استفساراتك
+            </div>
+       
+        <mat-form-field >
+                <input formControlName="name" matInput 
+                       placeholder="الاسم">
+                       <mat-error *ngIf="fg.get('name')!.hasError('required')">
+                        يجب ملئ هذه الخانة
+                    </mat-error>
+        </mat-form-field>
+
+        <mat-form-field >
+            <input formControlName="phone" matInput 
+                   required
+                   placeholder="رقم الهاتف">
+                   <mat-error *ngIf="fg.get('phone')!.hasError('required')">
+                    يجب ملئ هذه الخانة
+                </mat-error>
+                    <mat-error *ngIf="fg.get('phone')!.errors?.['maxlength']">
+                      رقم الهاتف الهاتف يحب ان يتكون من 10 ارقام
+                    </mat-error>
+                
+                    <mat-error *ngIf="fg.get('phone')!.errors?.['minlength']">
+                        رقم الهاتف الهاتف يحب ان يتكون من 10 ارقام
+                      </mat-error>
+    </mat-form-field>
+    
+    <mat-form-field >
+        <input formControlName="email" matInput 
+               required
+               placeholder="البريد الاكتروني">
+               <mat-error *ngIf="fg.get('email')!.hasError('required')">
+                يجب ملئ هذه الخانة
+            </mat-error>
+</mat-form-field>
+
+<mat-form-field class="container-message" >
+    <mat-label>الرسالة</mat-label>
+    <textarea 
+    required
+    formControlName="message"
+       matInput
+        class="message" 
+           placeholder="الرسالة"></textarea>
+           <mat-error *ngIf="fg.get('message')!.hasError('required')">
+            يجب ملئ هذه الخانة
+        </mat-error>
+  </mat-form-field>
+  
+    <button (click)="Send()" class="main-button" mat-raised-button>راسلنا</button>           
+</div>
+</form>

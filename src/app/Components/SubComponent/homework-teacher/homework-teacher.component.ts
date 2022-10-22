@@ -50,7 +50,7 @@ export class HomeworkTeacherComponent implements OnInit {
       disableClose:true
      }).afterClosed()
      .subscribe(success=>{
-      debugger
+      
        if(success)
          this.myTable?.FillTableData();
      })

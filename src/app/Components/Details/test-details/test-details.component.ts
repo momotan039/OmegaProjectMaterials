@@ -28,8 +28,17 @@ export class TestDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.httpTestsService.GetTestById(this.activatedRoute.snapshot.params['id'])
+    let id=this.activatedRoute.snapshot.params['id']
+    if(isNaN(id))
+    {
+    MyTools.router.navigateByUrl('/home')
+      return
+    }
+    
+    this.httpTestsService.GetTestById(id)
       .subscribe(data => {
+        if(!data)
+           MyTools.router.navigateByUrl('/home')
         this.test = data
       })
     // this.GetLabel();
@@ -86,14 +95,11 @@ export class TestDetailsComponent implements OnInit {
           //Get All Datasets Data
           let i = 0;
           this.namesGroups.forEach(n => {
-            debugger
             const fialdData = grades.filter(f => f.group?.name == n && f.sumGrade! < 100).length
             const PassData = grades.filter(f => f.group?.name == n && f.sumGrade! >= 100).length
             dataChart1.datasets[0].data.push(fialdData)
             dataChart1.datasets[1].data.push(PassData)
           });
-
-
           //  this.labels.push(f.student!.idCard + "~" + f.student?.firstName);
           //  this.grades.push(f.sumGrade!);
           obs.next(dataChart1)

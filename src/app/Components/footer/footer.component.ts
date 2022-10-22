@@ -12,7 +12,8 @@ export class FooterComponent implements OnInit {
   faWhatsapp = faWhatsapp;
   configuration_Site={
     'facebookPage':"https://www.facebook.com/OmegaAca/",
-    'WhatsAppPhone':"0544832191",
+    'WhatsAppPhone':"025326484",
+    'mail':'info@omega-academy.net'
   }
   constructor() { }
 

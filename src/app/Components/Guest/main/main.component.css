@@ -1,0 +1,393 @@
+/* start slider Section */
+::ng-deep .ng-image-slider{
+    height: 100% !important;
+}
+::ng-deep .ng-image-slider .ng-image-slider-container .main{
+    height: 100% !important;
+}
+::ng-deep .ng-image-slider .ng-image-slider-container .main .next,
+::ng-deep.ng-image-slider .ng-image-slider-container .main .prev
+{
+    background-color: var(--primary) !important;
+    color: white;
+}
+.slider{
+    direction: ltr;
+    height: 500px;
+}
+/* end slider Section */
+
+
+/* Start about-us section */
+  .about-us{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .about-us .photo img{
+    height: 380px;
+    border-radius: 20px;
+  }
+  .about-us .text{
+    margin-right: 10px;
+    padding-right: 17px;
+  }
+  .about-us .text .summary{
+    max-width: 535px;
+  }
+  
+  .about-us .achevment{
+    display: flex;
+    position: relative;
+    margin-top: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .about-us .achevment::after{
+    position: absolute;
+    content: '';
+    background-color: #80808047;
+    height: 100%;
+    width: 10px;
+    left: 0;
+  }
+
+  .about-us .achevment .graduates{
+    display: flex;
+    color: black;
+  }
+  .about-us .achevment .graduates mat-icon{
+    font-size: 65px;
+    width: 65px;
+  }
+  .about-us .achevment .graduates .details{
+    text-align: center;
+    padding-top: 12px;
+
+  }
+  .about-us .achevment .graduates .details .num{
+    font-size: 45px;
+    font-weight: 700;
+  }
+  .about-us .achevment .graduates .details .sub-title{
+    font-weight: bold;
+    margin-top: 5px;
+  }
+  .about-us .achevment .staff{
+    text-align: center;
+    width: 300px;
+  }
+/* End about-us section */
+
+
+/* Start Our Services Section */
+
+.our-services{
+    margin-top: 50px;
+    text-align: center;
+    padding-bottom: 60px;
+}
+
+.our-services .summary{
+    padding: 0 25%;
+    margin-bottom: 50px;
+}
+.our-services .services{
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+
+.our-services .services .service{
+    width: 368px;
+    cursor: pointer;
+    position: relative;
+}
+.our-services .services .service .left-border,
+.our-news .news .new .left-border{
+    position: absolute;
+    content: '';
+    height: 0;
+    width: 4px;
+    background: var(--primary);
+    top: 0;
+    left: 0;
+    transition: .5s ease-in-out ;
+    z-index:1
+}
+.our-services .services .service .bottom-border,
+.our-news .news .new .bottom-border{
+    position: absolute;
+    content: '';
+    width: 0;
+    height: 4px;
+    background: var(--primary);
+    left: 0;
+    bottom: 0;
+    transition: .5s ease-in-out 0.2s;
+    z-index:1
+}
+.our-services .services .service .right-border,
+.our-news .news .new .right-border{
+    position: absolute;
+    content: '';
+    width: 4px;
+    height: 0;
+    background: var(--primary);
+    right: 0;
+    bottom: 0;
+    transition: .5s ease-in-out 0.4s;
+    z-index:1
+}
+.our-services .services .service .top-border,
+.our-news .news .new .top-border{
+    position: absolute;
+    content: '';
+    width: 0;
+    height: 4px;
+    background: var(--primary);
+    top: 0;
+    right: 0;
+    transition: .5s ease-in-out 0.6s;
+    z-index:1
+}
+
+.our-services .services .service:hover 
+.explain  mat-icon{
+    transform: translateX(10px);
+}
+.our-services .services .service:hover .left-border,
+.our-news .news .new:hover .left-border
+{
+    height: 100%;
+}
+.our-services .services .service:hover .bottom-border,
+.our-news .news .new:hover .bottom-border{
+    width: 100%;
+}
+.our-services .services .service:hover .right-border,
+.our-news .news .new:hover .right-border
+{
+    height: 100%;
+}
+.our-services .services .service:hover .top-border,
+.our-news .news .new:hover .top-border
+{
+    width: 100%;
+}
+.our-services .services .service .thumbnail{
+    position: relative;
+}
+.our-services .services .service .thumbnail::after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 98%;
+    top: 0;
+    right: 0;
+    background-color: #000000a1;
+}
+.our-services .services .service .thumbnail img{
+    width: 100%;
+    background-size: cover;
+    height: 300px;
+}
+.our-services .services .service .thumbnail .title-service{
+    position: absolute;
+    bottom: 37%;
+    left: 24px;
+    color: white;
+    z-index: 1;
+}
+.our-services .services .service .explain{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 20px 0;
+}
+.our-services .services .service .explain mat-icon{
+    color: var(--primary);
+    font-size: 56px;
+    width: 56px;
+    height: auto;
+}
+.our-services .services .service .explain .text{
+    padding-top: 10px;
+}
+/* End Our Services Section */
+
+
+/* Start  Our news Section*/
+.our-news{
+    text-align: center;
+}
+.our-news>.summary{
+    margin:20px 0 30px 0;
+}
+.our-news .news{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.our-news .news .new{
+    width: 450px;
+    cursor: pointer;
+    position: relative;
+}
+.our-news .news .new:hover .explain{
+    padding-right: 10px;
+}
+.our-news .news .new .thumbnail{
+    position: relative;
+}
+.our-news .news .new .thumbnail img{
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+}
+.our-news .news .new .thumbnail .day{
+    font-family: 'Changa';
+    letter-spacing: 2px;
+}
+.our-news .news .new .thumbnail .month{
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+.our-news .news .new .thumbnail button{
+    position: absolute;
+    left: 0;
+    margin: auto;
+    right: 0;
+    bottom: 26px;
+    height: 56px;
+    width: 82%;
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+}
+.our-news .news .new .thumbnail 
+ button ::ng-deep .mat-button-wrapper{
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    width: 100%;
+}
+.our-news .news .new .explain{
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    background: #ededed;
+}
+.our-news .news .new .explain .black-title{
+    font-size: 20px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+.our-news .news .new .explain .black-title:hover{
+    color: var(--primary);
+}
+.our-news .news .new .explain .read-more{
+color: var(--primary);
+}
+.our-news .news .new .explain .read-more span{
+    vertical-align: super;
+}
+/* End  Our news Section*/
+
+/* Start Our Staff Section */
+.our-staff{
+    text-align: center;
+    margin-top: 60px;
+}
+.our-staff .slider-staff{
+    margin-top: 60px;
+}
+.our-staff .slider-staff .staff{
+    position: relative;
+    height: 500px;
+    padding: 0 8px;
+}
+.our-staff .slider-staff .staff:hover 
+.thumbnail img{
+    transform: scale(1.05);
+}
+.our-staff .slider-staff .staff:hover 
+.name{
+   background-color: black;
+}
+.our-staff .slider-staff .staff .thumbnail {
+    width: 100%;
+    height: 100%;
+}
+.our-staff .slider-staff .staff .thumbnail img{
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+}
+.our-staff .slider-staff .staff .name{
+    position: absolute;
+    bottom: 20px;
+    right: 10px;
+    margin: auto;
+    background: rgba(33,37,41,0.8);
+    height: fit-content;
+    padding: 19px;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    letter-spacing: 2px;
+}
+
+.our-staff .slider-staff .staff .work{
+    position: absolute;
+    bottom: 5px;
+    right: 42px;
+    background: var(--primary);
+    padding: 5px;
+    color: white;
+    font-weight: bold;
+    font-size: 13px;
+}
+/* change slider dots color */
+::ng-deep .owl-theme .owl-dots .owl-dot.active span{
+    background-color: var(--primary);
+}
+
+/* End Our Staff Section */
+
+/* Start Students opinions section */
+.students-opinions{
+    margin-top: 60px;
+    padding-bottom: 30px;
+    text-align: center;
+}
+
+.students-opinions .container-opinions{
+    max-width: 900px;
+    margin: auto;
+    background-color: white;
+}
+.students-opinions .container-opinions .opinion{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+.students-opinions .container-opinions .opinion mat-icon{
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+}
+.students-opinions .container-opinions .opinion .describe{
+    width: 80%;
+    font-size: 20px;
+    color: black;
+    line-height: 1.3;
+    margin: 21px 0;
+}
+/* End Students opinions section */

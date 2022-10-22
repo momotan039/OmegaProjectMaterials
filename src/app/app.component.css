@@ -3,7 +3,7 @@
 }
 
 .main{
-  padding-bottom: 150px;
+  /* padding-bottom: 150px; */
 }
 
 ::ng-deep .btn_add_row_table{
@@ -11,25 +11,7 @@
 }
 
 
-/* Start Container Style */
-.container{
-  padding: 50px;
-}
 
-@media (max-width:992px) {
-  .container{
-    padding: 20px;
-  }
-}
-
-
-@media (max-width:768px) {
-  .container{
-    padding: 0;
-    /* padding: 0px 0 131px 0; */
-  }
-}
-/* End Container Style */
 
 /* Start Dialog style */
 ::ng-deep mat-dialog-container {

@@ -12,20 +12,20 @@ import { Course } from 'src/app/models/Course';
   styleUrls: ['./course-details.component.css']
 })
 export class CourseDetailsComponent implements OnInit {
+  idCourse=-1
   constructor(
-    private route:ActivatedRoute,
+    public route:ActivatedRoute,
     private http:HttpCoursesService,
     public httpGroup:HttpGroupsService,
     ) { }
   course=new Course();
   groups:Group[]=[]
+
   ngOnInit(): void {
-    
-    let id=this.route.snapshot.paramMap.get("id")
-  this.http.GetCourseById(id!).subscribe(c=>{
+    this.idCourse=parseInt(this.route.snapshot.paramMap.get("id")!)
+  this.http.GetCourseById(this.idCourse+"").subscribe(c=>{
   this.course=c;
   })
-
   }
 
 

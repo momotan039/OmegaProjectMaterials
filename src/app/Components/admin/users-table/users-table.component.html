@@ -52,7 +52,7 @@
         <button (click)="EditUser(element)"  mat-fab color="primary" >
           <mat-icon>edit</mat-icon>
         </button>
-        <button (click)="DeleteUser(element.id)"  mat-fab color="accent" >
+        <button [disabled]="user?.id==element.id" (click)="DeleteUser(element.id)"  mat-fab color="accent" >
           <mat-icon>delete</mat-icon>
         </button>
         <a *ngIf="roleBy!=1" mat-button routerLink="/userDetails/{{element.id}}"  mat-fab color="primary" >

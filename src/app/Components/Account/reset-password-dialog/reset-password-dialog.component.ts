@@ -62,7 +62,7 @@ export class ResetPasswordDialogComponent implements OnInit {
       model.password=this.fg.get('password')?.value
       
       this.httpAcountService.ResetPassword(model,this.token).subscribe(data=>{
-        debugger
+        
         this.router.navigate([LogInComponent])
         MyTools.ShowResult200Message(data)
       },(err)=>{

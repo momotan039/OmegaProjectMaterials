@@ -97,7 +97,9 @@
         </mat-spinner>
          </div> -->
 
-          <div [ngStyle]="{'direction':msg.senderId==httpAuth.currentUser.id?'rtl':'ltr'}" *ngFor="let msg of msgs"
+          <div 
+          [ngStyle]="{'direction':msg.senderId==httpAuth.currentUser.id?'rtl':'ltr'}"
+           *ngFor="let msg of msgs"
             [ngClass]="{'unread-message':!msg.isOpened && msg.senderId!=httpAuth.currentUser.id}"
             class="containerMessage"
             id="{{msg.id}}"
@@ -113,7 +115,9 @@
               <h3 class="mail" *ngIf="msg.senderId!=httpAuth.currentUser.id">
                 {{msg.sender!.firstName+"~"+msg.sender!.email}}
               </h3>
-              <h3 [ngStyle]="{'direction':msg.senderId==httpAuth.currentUser.id?'ltr':'ltr'}" class="content"
+              <h3
+              style="direction:rtl"
+                class="content"
                 *ngFor="let content of msg.contents?.split('\n')">
                 {{content}}
               </h3>

@@ -1,18 +1,21 @@
 .flex{
   display: inline-flex;
   flex-direction: column;
-  width: 500px;
-  background: #0000005e;
+  width: 600px;
+  height: 400px;
+  background-color: black;
+  justify-content: center;
   padding: 20px;
   border-radius: 10px;
 }
 
 .mainContainer{
-  height: calc(100vh - 100px);
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+  direction: ltr;
+
 }
 
 .header{
@@ -20,6 +23,8 @@
   font-family: 'Rubik Mono One';
   color: var(--primary);
   text-align: center;
+  padding: 20px;
+  font-size: 50px;
 }
 
 mat-spinner{

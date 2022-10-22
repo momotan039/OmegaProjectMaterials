@@ -39,7 +39,7 @@ export class EditGroupComponent implements OnInit {
   ngOnInit(): void {}
 
   SaveGroup() {
-    debugger
+    
     if (!this.EditGroupForm.valid) return;
 
      //Start change dates to current offset of timezone

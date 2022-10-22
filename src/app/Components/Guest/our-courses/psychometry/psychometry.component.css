@@ -1,0 +1,34 @@
+
+.course{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 60px;
+    margin-top: 60px;
+}
+.course .right .black-title{
+    padding: 0 20px;
+}
+.course .right .summary{
+    max-width: 600px;
+    margin-bottom: 20px;
+    padding: 0 20px;
+}
+
+.course .right .sub-title{
+    color: black;
+    font-weight: bold;
+    font-size: 17px;
+    margin-bottom: 4px;
+    padding: 0 20px;
+}
+
+.course .left {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 20px;
+}
+.course .left img{
+    height: 300px;
+}

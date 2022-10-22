@@ -19,11 +19,11 @@ this.refDialog.addPanelClass('hidden');
     MyTools.Dialog.open(MessageDialogComponent,{
       data:{
         'title':"Delete",
-        'content':'You Will Confirm Process !!',
+        'content':'Would You Like To Confirm Process !!',
         'icon':'delete_forever',
         'cancel':true
       },
-      width:"300px"
+      width:"330px"
     }).afterClosed().subscribe((success)=>{
     this.refDialog.close(success)
     })

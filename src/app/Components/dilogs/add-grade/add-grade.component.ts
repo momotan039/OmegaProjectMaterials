@@ -82,14 +82,20 @@ export class AddGradeComponent implements OnInit,AfterViewInit {
   ChangeStudentsList(val:any){
     this.students=[]
     this.studentsObserv=new BehaviorSubject<User[]>([]);
-
-    this.selectGroup.options.find(f=>f.id==val)?.userGroups.forEach((ug: { user: User; })=>{
-      if(ug.user.roleId==3)
-       {
-        this.students.push(ug.user)
-       }
-    })
-    this.studentsObserv.next(this.students)
+    
+    setTimeout(() => {
+      
+      this.selectGroup.options.find(f=>f.id==this.selectGroup.myControl.value)
+      ?.userGroups.forEach((ug: { user: User; })=>{
+        
+        if(!this.students.find(f=>f.id==ug.user.id)  && ug.user.roleId==3)
+         {
+          this.students.push(ug.user)
+         }
+      })
+      this.studentsObserv.next(this.students)
+    }, 100);
+   
   }
 
  
@@ -97,6 +103,7 @@ export class AddGradeComponent implements OnInit,AfterViewInit {
  GetStudents=()=>{
   return  this.studentsObserv.asObservable();
  }
+
  GetTests=()=>{
   return this.httpTestsService.GetTests()
  }

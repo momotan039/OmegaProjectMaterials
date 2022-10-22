@@ -1,0 +1,72 @@
+.about .summary{
+    margin: 24px 0;
+    padding: 0 20px;
+}
+
+.about .achevment{
+    display: flex;
+    position: relative;
+    margin-top: 10px;
+    align-items: center;
+    justify-content:space-evenly;
+    flex-wrap: wrap;
+  }
+
+  .about .achevment .graduates{
+    display: flex;
+    color: black;
+  }
+  .about .achevment .graduates mat-icon{
+    font-size: 65px;
+    width: 65px;
+  }
+  .about .achevment .graduates .details{
+    text-align: center;
+    padding-top: 12px;
+
+  }
+  .about .achevment .graduates .details .num{
+    font-size: 45px;
+    font-weight: 700;
+  }
+  .about .achevment .graduates .details .sub-title{
+    font-weight: bold;
+    margin-top: 5px;
+  }
+  .about .achevment .staff{
+    text-align: center;
+    width: 300px;
+    position: relative;
+    padding: 0 20px;
+  }
+  .about .achevment .staff::after{
+    position: absolute;
+    content: '';
+    background-color: #80808047;
+    height: 100%;
+    width: 10px;
+    left: -7px;
+    top: 0;
+  }
+
+  .about .achevment .contact .second-button{
+    margin: 0 20px;
+  }
+
+  .about .achevment .contact .phone{
+    color: black;
+    color: black;
+    font-weight: bold;
+  }
+  .about .achevment .contact .phone mat-icon{
+    vertical-align: bottom;
+  }
+  .about .achevment .contact .phone span:hover{
+    color: var(--primary);
+  }
+
+  .about .wallpaper img{
+    width: 100%;
+    background-size: cover;
+    margin-top: 60px;
+  }

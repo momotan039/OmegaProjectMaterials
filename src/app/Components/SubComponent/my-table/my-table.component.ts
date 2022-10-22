@@ -32,6 +32,7 @@ export class MyTableComponent implements OnInit {
   @Input() disableFilterOverride=false
   @Input() disableSortOverride=false
   @Input() EnableShowViewDialog=false
+  @Input() PropDisableShowViewDialog: any;
   selectedRow:any
   dataSource:any
 
@@ -74,7 +75,6 @@ FilterDataTable(input:any){
 
 FillTableData(){
 this.getDataTable!.subscribe((data: any)=>{
-  console.warn(data)
   this.dataSource=new MatTableDataSource(data)
   this.dataSource.paginator=this.paginator
   this.dataSource.sort=this.sort

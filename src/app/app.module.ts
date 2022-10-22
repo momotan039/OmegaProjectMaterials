@@ -44,7 +44,6 @@ import { EditTestComponent } from './Components/dilogs/edit-test/edit-test.compo
 import { ConfirmRegistrationComponent } from './Components/Account/confirm-registration/confirm-registration.component';
 import { ForgetPasswordDialogComponent } from './Components/Account/forget-password-dialog/forget-password-dialog.component';
 import { ResetPasswordDialogComponent } from './Components/Account/reset-password-dialog/reset-password-dialog.component';
-import { TestComponent } from './test/test.component';
 import { TestDetailsComponent } from './Components/Details/test-details/test-details.component';
 import { AddHomeworkComponent } from './Components/dilogs/add-homework/add-homework.component';
 import { EditHomeworkComponent } from './Components/dilogs/edit-homework/edit-homework.component';
@@ -52,6 +51,28 @@ import { ShowSubmitedFilesStudentComponent } from './Components/dilogs/show-subm
 import { SelectWithSearchComponent } from './Components/select-with-search/select-with-search.component';
 import { FooterComponent } from './Components/footer/footer.component';
 import { ChartComponent } from './Components/SubComponent/chart/chart.component';
+import { MainComponent } from './Components/Guest/main/main.component';
+import { NgImageSliderModule } from 'ng-image-slider';
+import { CarouselModule } from 'ngx-owl-carousel-o';
+import { AboutUsComponent } from './Components/Guest/about-us/about-us.component';
+import { GuestHeaderComponent } from './Components/Guest/guest-header/guest-header.component';
+import { TopPageComponent } from './Components/Guest/top-page/top-page.component';
+import { ContactUsComponent } from './Components/Guest/contact-us/contact-us.component';
+import { NewsActivitiesComponent } from './Components/Guest/news-activities/news-activities.component';
+import { OurStaffComponent } from './Components/Guest/our-staff/our-staff.component';
+import { OurCoursesComponent } from './Components/Guest/our-courses/our-courses.component';
+import { PsychometryComponent } from './Components/Guest/our-courses/psychometry/psychometry.component';
+import { OmegaGoldComponent } from './Components/Guest/our-courses/omega-gold/omega-gold.component';
+import { HebrewAComponent } from './Components/Guest/our-courses/hebrew-a/hebrew-a.component';
+import { HebrewBComponent } from './Components/Guest/our-courses/hebrew-b/hebrew-b.component';
+import { HebrewCComponent } from './Components/Guest/our-courses/hebrew-c/hebrew-c.component';
+import { HebrewDComponent } from './Components/Guest/our-courses/hebrew-d/hebrew-d.component';
+import { GuestAppComponent } from './Components/Guest/guest-app/guest-app.component';
+import { GuestFooterComponent } from './Components/Guest/guest-footer/guest-footer.component';
+import { NotFoundPageComponent } from './Components/not-found-page/not-found-page.component';
+import { InquiriesComponent } from './Components/admin/inquiries/inquiries.component';
+import { ContactUsDialogComponent } from './Components/dilogs/contact-us-dialog/contact-us-dialog.component';
+import { StaffComponent } from './Components/admin/staff/staff.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +117,6 @@ import { ChartComponent } from './Components/SubComponent/chart/chart.component'
     ConfirmRegistrationComponent,
     ForgetPasswordDialogComponent,
     ResetPasswordDialogComponent,
-    TestComponent,
     TestDetailsComponent,
     AddHomeworkComponent,
     EditHomeworkComponent,
@@ -104,6 +124,26 @@ import { ChartComponent } from './Components/SubComponent/chart/chart.component'
     SelectWithSearchComponent,
     FooterComponent,
     ChartComponent,
+    MainComponent,
+    AboutUsComponent,
+    GuestHeaderComponent,
+    TopPageComponent,
+    ContactUsComponent,
+    NewsActivitiesComponent,
+    OurStaffComponent,
+    OurCoursesComponent,
+    PsychometryComponent,
+    OmegaGoldComponent,
+    HebrewAComponent,
+    HebrewBComponent,
+    HebrewCComponent,
+    HebrewDComponent,
+    GuestAppComponent,
+    GuestFooterComponent,
+    NotFoundPageComponent,
+    InquiriesComponent,
+    ContactUsDialogComponent,
+    StaffComponent,
   ],
   imports: [
     BrowserModule,
@@ -113,6 +153,8 @@ import { ChartComponent } from './Components/SubComponent/chart/chart.component'
     AllMaterialsModule,
     FormsModule,
     ReactiveFormsModule,
+    NgImageSliderModule,
+    CarouselModule,
   ],
   providers: [
     {
