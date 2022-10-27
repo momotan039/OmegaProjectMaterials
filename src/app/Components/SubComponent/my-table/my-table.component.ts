@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { Data } from '@angular/router';
 import { Test } from 'src/app/models/Test';
+import { MyTools } from 'src/app/constants/MyTools';
 
 @Component({
   selector: 'app-my-table',
@@ -17,7 +18,7 @@ export class MyTableComponent implements OnInit {
 
   @Input() displayedColumns:string[]=[]
   @Input() displayedNameColumns:string[]=[]
-  @Input() getDataTable:Observable<any> | undefined
+  @Input() getDataTable:any
   @Input() AddRowParent:(() => void) | undefined
   @Input() EditRowParent:(() => void) | undefined
   @Input() DeleteRowParent:(() => void) | undefined
@@ -33,9 +34,12 @@ export class MyTableComponent implements OnInit {
   @Input() disableSortOverride=false
   @Input() EnableShowViewDialog=false
   @Input() PropDisableShowViewDialog: any;
+  @Input() HandelSaveAllRecords: any;
   selectedRow:any
   dataSource:any
-
+  showSpinnerLoad=false
+  subsDataTable=Subscription
+  subsGetDataTable: any;
   ngOnInit(): void {
     this.FillTableData();
   }
@@ -52,6 +56,8 @@ export class MyTableComponent implements OnInit {
     if(_prop.includes("date")||_prop.includes("Date")){
       return new Date(elm).toDateString()
     }
+    if(_prop.includes("image"))
+    return MyTools.domainNameServer+elm
     return elm
     }
 
@@ -74,7 +80,10 @@ FilterDataTable(input:any){
 }
 
 FillTableData(){
-this.getDataTable!.subscribe((data: any)=>{
+  this.showSpinnerLoad=true
+this.subsGetDataTable= this.getDataTable!.subscribe((data: any)=>{
+  this.showSpinnerLoad=false
+  console.warn(data)
   this.dataSource=new MatTableDataSource(data)
   this.dataSource.paginator=this.paginator
   this.dataSource.sort=this.sort
@@ -112,6 +121,15 @@ ShowViewDialog(row:any){
   this.ShowViewDialogParent?.();
 }
 
+ShowPopUPImage(imgPath:string){
+  MyTools.ShowPopUpImageDialog(
+    imgPath);
+}
+
+
+SaveAllRecords(){
+  this.HandelSaveAllRecords?.();
+}
 
 }
 

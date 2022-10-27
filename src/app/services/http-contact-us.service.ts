@@ -14,9 +14,11 @@ export class HttpContactUsService {
   GetAll(){
   return  this.http.get<any>(MyTools.UrlRootApi+"/ContactUsMessages/GetAll");
 }
+
 AddOne(cum:ContactUsMessage){
   return this.http.post(MyTools.UrlRootApi+"/ContactUsMessages/Add",cum,{
     responseType:"text"
    });
 }
+
 }

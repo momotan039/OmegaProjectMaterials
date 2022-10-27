@@ -22,6 +22,7 @@ export class AuthService {
    return this.http.post(MyTools.UrlRootApi+"/Authentication/Login",user,{
    responseType:"text"
   });
+
  }
 
 

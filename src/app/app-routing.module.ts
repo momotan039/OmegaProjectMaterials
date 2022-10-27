@@ -1,3 +1,5 @@
+import { UserAttendanceComponent } from './Components/user-attendance/user-attendance.component';
+import { AttendanceComponent } from './Components/attendance/attendance.component';
 import { StaffComponent } from './Components/admin/staff/staff.component';
 import { NotFoundPageComponent } from './Components/not-found-page/not-found-page.component';
 import { OmegaGoldComponent } from './Components/Guest/our-courses/omega-gold/omega-gold.component';
@@ -36,6 +38,7 @@ import { HebrewBComponent } from './Components/Guest/our-courses/hebrew-b/hebrew
 import { HebrewCComponent } from './Components/Guest/our-courses/hebrew-c/hebrew-c.component';
 import { HebrewDComponent } from './Components/Guest/our-courses/hebrew-d/hebrew-d.component';
 import { InquiriesComponent } from './Components/admin/inquiries/inquiries.component';
+import { ActivitiesComponent } from './Components/admin/activities/activities.component';
 
 const routes: Routes = [
   {
@@ -48,6 +51,7 @@ const routes: Routes = [
     path: 'students',
     canActivate: [AuthGuardService],
   },
+  
   {
     component: TeachersComponent,
     path: 'teachers',
@@ -89,6 +93,54 @@ const routes: Routes = [
     canActivate: [AuthGuardService],
   },
   {
+    component: StaffComponent,
+    path: 'staff',
+    canActivate: [AuthGuardService],
+  },
+  {
+    component: InquiriesComponent,
+    path: 'inquiries',
+    canActivate: [AuthGuardService],
+  },
+  {
+    component: ActivitiesComponent,
+    path: 'activites',
+    canActivate: [AuthGuardService],
+  },
+
+  {
+    component: AttendanceComponent,
+    path: 'attendance',
+    canActivate: [AuthGuardService],
+  },
+  {
+    component: AttendanceComponent,
+    path: 'attendance/:groupId',
+    canActivate: [AuthGuardService],
+  },
+  {
+    component: AttendanceComponent,
+    path: 'attendance/:groupId/:date',
+    canActivate: [AuthGuardService],
+  },
+
+  {
+    component: UserAttendanceComponent,
+    path: 'userAttendance',
+    canActivate: [AuthGuardService],
+  },
+  {
+    component: UserAttendanceComponent,
+    path: 'userAttendance/:groupId',
+    canActivate: [AuthGuardService],
+  },
+  {
+    component: UserAttendanceComponent,
+    path: 'userAttendance/:groupId/:date',
+    canActivate: [AuthGuardService],
+  },
+
+  {
     component: ConfirmRegistrationComponent,
     path: 'ConfirmRegistration/:id',
   },
@@ -97,8 +149,6 @@ const routes: Routes = [
     component: ResetPasswordDialogComponent,
     path: 'ResetPassword/:token',
   },
-
-
   {
     component: UserDetailsComponent,
     path: 'userDetails/:id',
@@ -134,8 +184,7 @@ const routes: Routes = [
   { component: ContactUsComponent, path: 'contact-us'},
   { component: NewsActivitiesComponent, path: 'news'},
   { component: OurStaffComponent, path: 'our-staff'},
-  { component: InquiriesComponent, path: 'inquiries'},
-  { component: StaffComponent, path: 'staff'},
+
   // { component: OurCoursesComponent, path: 'our-courses/:string'},
   { component: PsychometryComponent, path: 'our-courses/دورات البسيخومتري'},
   { component: OmegaGoldComponent, path: 'our-courses/أوميغا جولد – السنة التحضيرية'},

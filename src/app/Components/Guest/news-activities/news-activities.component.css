@@ -4,3 +4,8 @@
     align-items: center;
     margin-bottom: 60px;
 }
+
+
+.news-activities .new .thumbnail img{
+    width: 100%;
+}

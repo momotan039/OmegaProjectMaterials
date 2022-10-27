@@ -75,7 +75,7 @@ export class AddHomeworkComponent implements OnInit {
       }
       if (data.type === HttpEventType.Response) {
         MyTools.ShowResult200Message(data.body)
-        this.MatDialogRef.close()
+        this.MatDialogRef.close(true)
       }
      },(error)=>{
       MyTools.ShowFialdMessage(error,"Adding Home Work")

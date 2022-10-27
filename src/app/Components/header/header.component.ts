@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
       const _user=user
       MyTools.NumUnreadMsgs.subscribe(num=>{
        this.CreateMenuItems(_user,num);
-        console.warn(this.menuItems)
+        
       })
     })
   }

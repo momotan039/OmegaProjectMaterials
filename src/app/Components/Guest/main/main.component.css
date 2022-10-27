@@ -228,21 +228,21 @@
     margin:20px 0 30px 0;
 }
 .our-news .news{
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
+    text-align: center;
+    margin-bottom: 22px;
 }
 .our-news .news .new{
-    width: 450px;
     cursor: pointer;
     position: relative;
+    height: 480px;
+    margin: 0 5px;
 }
 .our-news .news .new:hover .explain{
     padding-right: 10px;
 }
 .our-news .news .new .thumbnail{
     position: relative;
+    height: 84%;
 }
 .our-news .news .new .thumbnail img{
     width: 100%;

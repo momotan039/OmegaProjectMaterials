@@ -15,8 +15,11 @@ export class HttpGroupsService {
     GetGroups():Observable<Group[]>{
     return  this.http.get<Group[]>(MyTools.UrlRootApi+"/Groups/GetGroups");
   }
-  GetGroupByID(id:string){
+  GetGroupByID(id:string,Include=true){
+    if(Include)
     return this.http.get<Group>(MyTools.UrlRootApi+"/Groups/GetGroupByID/"+id);
+    
+    return this.http.get<Group>(MyTools.UrlRootApi+"/Groups/GetGroupByID/"+id+"/"+false);
   }
     GetGroupsByUserId(id=-1){
     return  this.http.get<Group[]>(MyTools.UrlRootApi+"/Groups/GetGroupsByUserId/"+id);

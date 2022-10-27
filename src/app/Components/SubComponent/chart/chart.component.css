@@ -1,3 +1,7 @@
 .containerChart{
     max-width: 600px;
 }
+
+.containerChart canvas{
+    transition: all 0s
+}

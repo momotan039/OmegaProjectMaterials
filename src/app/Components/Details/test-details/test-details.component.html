@@ -1,13 +1,12 @@
-<app-chart
-[IdChart]="'chart2'"
+<div class="chart-container">
+    <app-chart
+[IdChart]="'chart1'"
 [Type]="'line'"
+[Title]="'No. Passing Students By Group'"
 [ParentBuildData]="BuildDataChart1"
 >
 </app-chart>
-
-<li *ngFor="let item of namesGroups">
-    {{item}}
-</li>
+</div>
 
 <app-my-table #refTable
 [displayedColumns]="['student.idCard','group.name','sumGrade']"

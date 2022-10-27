@@ -1,0 +1,10 @@
+.chart-container{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 45px;
+}
+
+::ng-deep .chart-container app-chart mat-card{
+    width: 100%;
+}

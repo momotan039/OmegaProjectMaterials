@@ -12,16 +12,22 @@
 
 
 
-
 /* Start Dialog style */
 ::ng-deep mat-dialog-container {
   max-height: 86vh !important;
   width: 800px !important;
   position: relative;
 }
-
+::ng-deep .dark-dialog mat-dialog-container
+{
+  background: rgb(0 0 0 / 90%) !important;
+  color: white !important;
+}
 ::ng-deep mat-dialog-container mat-form-field{
 width: 100%;
+}
+::ng-deep mat-dialog-container .mat-form-field-subscript-wrapper{
+top: 7px;
 }
 /* End Dialog style */
 

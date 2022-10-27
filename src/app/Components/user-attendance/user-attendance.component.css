@@ -1,0 +1,17 @@
+.container-search-date-button{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    padding-top: 21px;
+    gap: 10px;
+    background: #283479;
+    border-radius: 10px;
+}
+
+::ng-deep .container-search-date-button button.search span{
+    color: white;
+}
+
+.container-search-date-button mat-form-field {
+    width: 50%;
+}

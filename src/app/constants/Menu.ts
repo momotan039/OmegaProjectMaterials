@@ -73,6 +73,21 @@ export class Menu {
       roles: [1,2,3],
     },
     {
+      title: 'Attendance',
+      // icon: 'history_toggle_off',
+      icon: 'how_to_reg',
+      href: 'attendance',
+      roles: [1,2],
+    },
+
+    {
+      title: 'My Attendance',
+      // icon: 'history_toggle_off',
+      icon: 'how_to_reg',
+      href: 'userAttendance',
+      roles: [3],
+    },
+    {
       title: 'Logout',
       icon: 'logout',
       href: 'login',

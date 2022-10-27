@@ -61,7 +61,7 @@
     العلامة المرجوة التي تؤهّلهم الالتحاق بالمواضيع التي يرغبونها في الجامعات والمعاهد العليا.
   </div>
   <div class="services show-me">
-    <div class="service">
+    <div routerLink='/our-courses/دورة اللغة العبرية – مستوى רמה א'  class="service">
       <div class="border">
         <span class="left-border"></span>
         <span class="bottom-border"></span>
@@ -81,7 +81,7 @@
         <mat-icon>arrow_right_alt</mat-icon>
       </div>
     </div>
-    <div class="service">
+    <div routerLink='/our-courses/دورة اللغة العبرية – مستوى רמה ב' class="service">
       <div class="border">
         <span class="left-border"></span>
         <span class="bottom-border"></span>
@@ -102,7 +102,7 @@
       </div>
 
     </div>
-    <div class="service">
+    <div routerLink='/our-courses/دورة اللغة العبرية – مستوى רמה ג' class="service">
       <div class="border">
         <span class="left-border"></span>
         <span class="bottom-border"></span>
@@ -123,7 +123,7 @@
       </div>
 
     </div>
-    <div class="service">
+    <div routerLink='/our-courses/دورة اللغة العبرية – مستوى רמה ד' class="service">
       <div class="border">
         <span class="left-border"></span>
         <span class="bottom-border"></span>
@@ -144,7 +144,7 @@
       </div>
 
     </div>
-    <div class="service">
+    <div routerLink="/our-courses/دورات البسيخومتري" class="service">
       <div class="border">
         <span class="left-border"></span>
         <span class="bottom-border"></span>
@@ -165,7 +165,7 @@
       </div>
 
     </div>
-    <div class="service">
+    <div routerLink='/our-courses/أوميغا جولد – السنة التحضيرية' class="service">
       <div class="border">
         <span class="left-border"></span>
         <span class="bottom-border"></span>
@@ -207,90 +207,44 @@
     <div class="summary show-me">
       نقدم لكم كل ما هو جديد بخصوصنا من أخبار وجميع نشاطاتنا التعليمية والاجتماعية
     </div>
-    <div class="news show-me">
-      <div class="new">
-        <div class="border">
-          <span class="left-border"></span>
-          <span class="bottom-border"></span>
-          <span class="right-border"></span>
-          <span class="top-border"></span>
-        </div>
-        <div class="thumbnail">
-          <img src="../../../../assets/images-guest/new1.png">
-          <button class="main-button" mat-raised-button (click)="{}">
-            <span class="day">24</span>
-            <span class="month">يوليو</span>
-          </button>
-        </div>
-        <div class="explain">
-          <span class="summary">
-            اخبارنا و نشاطاتنا
-          </span>
-          <a href="#" class="black-title">
-            محطات وإنجازات 2021/2022
-          </a>
-          <div class="read-more">
-            <span>Read More</span>
-            <mat-icon>arrow_right_alt</mat-icon>
-          </div>
-        </div>
-      </div>
-      <div class="new">
-        <div class="border">
-          <span class="left-border"></span>
-          <span class="bottom-border"></span>
-          <span class="right-border"></span>
-          <span class="top-border"></span>
-        </div>
-        <div class="thumbnail">
-          <img src="../../../../assets/images-guest/new2.jpg">
-          <button class="main-button" mat-raised-button (click)="{}">
-            <span class="day">08</span>
-            <span class="month">فبراير</span>
-          </button>
-        </div>
-        <div class="explain">
-          <span class="summary">
-            اخبارنا و نشاطاتنا
-          </span>
-          <a href="#" class="black-title">
-            بدأنا التسجيل للفصل الجديد
-          </a>
-          <div class="read-more">
-            <span>Read More</span>
-            <mat-icon>arrow_right_alt</mat-icon>
-          </div>
-        </div>
-      </div>
-      <div class="new">
-        <div class="border">
-          <span class="left-border"></span>
-          <span class="bottom-border"></span>
-          <span class="right-border"></span>
-          <span class="top-border"></span>
-        </div>
-        <div class="thumbnail">
-          <img src="../../../../assets/images-guest/new3.jpg">
-          <button class="main-button" mat-raised-button (click)="{}">
-            <span class="day">18</span>
-            <span class="month">يناير</span>
-          </button>
-        </div>
-        <div class="explain">
-          <span class="summary">
-            اخبارنا و نشاطاتنا
-          </span>
-          <a href="#" class="black-title">
-            جولات استخدام اللغة العبرية على أرض الواقع
-          </a>
-          <div class="read-more">
-            <span>Read More</span>
-            <mat-icon>arrow_right_alt</mat-icon>
-          </div>
-        </div>
-      </div>
+    <div class="news  show-me">
+    
+      <owl-carousel-o  [options]="options">
+        <ng-container>
+          <ng-template carouselSlide *ngFor="let item of news">
+            <div class="new">
+              <div class="border">
+                <span class="left-border"></span>
+                <span class="bottom-border"></span>
+                <span class="right-border"></span>
+                <span class="top-border"></span>
+              </div>
+              <div class="thumbnail">
+                <img [src]="domain+item.imageUrl">
+                <button class="main-button" mat-raised-button (click)="{}">
+                  <span class="day">{{item.date|date:'d'}}</span>
+                  <span class="month">{{item.date|date:'MMM':'':'ar'}}</span>
+                </button>
+              </div>
+              <div class="explain">
+                <span class="summary">
+                  اخبارنا و نشاطاتنا
+                </span>
+                <a href="#" class="black-title">
+                 {{item.title}}
+                </a>
+                <div class="read-more">
+                  <span>Read More</span>
+                  <mat-icon>arrow_right_alt</mat-icon>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </ng-container>
+      </owl-carousel-o>
     </div>
-  
+    <button class="main-button" routerLink="/news" mat-raised-button>نشاطات واخبار</button>
+
 </div>
 
 
@@ -319,7 +273,7 @@
         <ng-template carouselSlide *ngFor="let person of staff">
           <div class="staff">
             <div class="thumbnail">
-              <img [src]="person.img">
+              <img [src]="domain+person.imageUrl">
             </div>
             <div class="name show-me">{{person.name}}</div>
             <div class="work show-me">{{person.work}}</div>

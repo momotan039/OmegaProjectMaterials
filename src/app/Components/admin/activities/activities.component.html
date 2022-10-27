@@ -1,0 +1,15 @@
+<app-my-table #refTable
+[displayedColumns]="['title','describe','date','imageUrl']"
+[displayedNameColumns]="['Name','About','Created Date','Image','Operations']"
+[getDataTable]="httpActivityService.GetAll()"
+[singleTitle]="'Ativities And News'"
+[enableAddRow]="false"
+[operations]="[true,true,false]"
+[DeleteRowParent]="DeleteRow"
+[enableAddRow]="true"
+[AddRowParent]="AddRow"
+[EditRowParent]="EditRow"
+[FilterPredicateParent]="FilterPredicateParent"
+>
+</app-my-table>
+

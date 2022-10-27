@@ -5,7 +5,10 @@
   <div class="titleContainer">
     <h1 *ngIf="title">{{title}}s</h1>
     <h1 *ngIf="singleTitle">{{singleTitle}}</h1>
-    <button *ngIf="enableAddRow" (click)="AddRow()" color="primary" mat-fab><mat-icon>add</mat-icon></button>
+    <button *ngIf="enableAddRow" (click)="AddRow()" color="primary" mat-fab>
+      <mat-icon>add</mat-icon>
+    </button>
+
   </div>
 
   <!-- <div *ngIf="enableAddRow" class="btnAddRowContainer">
@@ -16,61 +19,104 @@
       </mat-divider>
   </div> -->
 
-  <mat-form-field  class="input-full-width" appearance="fill">
+  <mat-form-field class="input-full-width" appearance="fill">
     <mat-label>Search for...</mat-label>
-    <input #refSearch (keyup)="FilterDataTable(refSearch)" matInput >
+    <input #refSearch (keyup)="FilterDataTable(refSearch)" matInput>
   </mat-form-field>
 
   <table #table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8 myTable">
 
-    <ng-container *ngFor="let col of displayedColumns;let i=index"  matColumnDef="{{displayedNameColumns[i]}}">
+    <ng-container *ngFor="let col of displayedColumns;let i=index" matColumnDef="{{displayedNameColumns[i]}}">
       <th mat-header-cell mat-sort-header *matHeaderCellDef>{{displayedNameColumns[i]}}</th>
-      <td  attr.data-title="{{displayedNameColumns[i]}}" mat-cell *matCellDef="let elm">
-        <textarea [disabled]="true" *ngIf="displayedNameColumns[i]=='Note'; else other" matInput  required
-                      placeholder="">{{GetdataByProp(elm,col)}}</textarea>
-            <ng-template #other>
-              {{GetdataByProp(elm,col)}}
-            </ng-template>
+      <td attr.data-title="{{displayedNameColumns[i]}}" mat-cell *matCellDef="let elm">
+        <ng-container 
+        [ngSwitch]="displayedNameColumns[i]=='Note'||displayedNameColumns[i]=='About'?1
+        :displayedNameColumns[i]=='Image'?2
+        :displayedNameColumns[i]=='Status Attendance'?3
+        :displayedNameColumns[i]=='Note Delay'?4
+        :-1">
+
+          <ng-container *ngSwitchCase="1">
+            <textarea [disabled]="true"  matInput required
+            placeholder="">{{GetdataByProp(elm,col)}}</textarea>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="2">
+
+            <img (click)="ShowPopUPImage(GetdataByProp(elm,col))"
+            #refImg mat-card-lg-image
+             matCardAvatar
+             width="130px"
+             height="100px"
+             [src]="GetdataByProp(elm,col)"
+              >
+          </ng-container>
+
+          <ng-container *ngSwitchCase="3">
+            <mat-radio-group color="primary" [(ngModel)]="elm.status">
+              <mat-radio-button [value]="true">Present</mat-radio-button>
+              <mat-radio-button [value]="false">Absent</mat-radio-button>
+            </mat-radio-group>
+            <td mat-footer-cell *matFooterCellDef> fasdfasdfasdf </td>
+          </ng-container>
+
+          
+          <ng-container *ngSwitchCase="4">
+            <textarea [(ngModel)]="elm.note"  matInput required
+            placeholder="">{{GetdataByProp(elm,col)}}</textarea>
+          </ng-container>
+
+          <ng-container *ngSwitchDefault>
+           {{GetdataByProp(elm,col)}}
+          </ng-container>
+
+        </ng-container>
+      </td>
+      <td mat-footer-cell *matFooterCellDef> 2134 </td>
+    </ng-container>
+
+    <!-- operations Column -->
+    <ng-container matColumnDef="Operations">
+      <th mat-header-cell *matHeaderCellDef>Operations</th>
+      <td data-title="Operations" mat-cell *matCellDef="let element">
+        <button *ngIf="operations[0]" (click)="EditRow(element)" mat-fab color="primary">
+          <mat-icon>edit</mat-icon>
+        </button>
+
+        <button *ngIf="operations[1]" (click)="DeleteRow(element)" mat-fab color="accent">
+          <mat-icon>delete</mat-icon>
+        </button>
+
+        <a *ngIf="operations[2]" mat-button [routerLink]="'/'+detailsComonentUrl+'/'+element.id" mat-fab
+          color="primary">
+          <mat-icon>visibility</mat-icon>
+        </a>
+        <button *ngIf="EnableShowViewDialog" (click)="ShowViewDialog(element)" mat-fab color="primary"
+          [disabled]="PropDisableShowViewDialog &&!element[PropDisableShowViewDialog]">
+          <mat-icon>visibility</mat-icon>
+        </button>
+
       </td>
     </ng-container>
 
-<!-- operations Column -->
-<ng-container   matColumnDef="Operations">
-  <th mat-header-cell *matHeaderCellDef>Operations</th>
-  <td data-title="Operations" mat-cell *matCellDef="let element">
-    <button *ngIf="operations[0]" (click)="EditRow(element)"  mat-fab color="primary" >
-      <mat-icon>edit</mat-icon>
-    </button>
 
-    <button *ngIf="operations[1]" (click)="DeleteRow(element)"  mat-fab color="accent" >
-      <mat-icon>delete</mat-icon>
-    </button>
-
-      <a *ngIf="operations[2]"   mat-button
-      [routerLink]="'/'+detailsComonentUrl+'/'+element.id"
-       mat-fab color="primary"
-        >
-      <mat-icon>visibility</mat-icon>
-    </a>
-    <button *ngIf="EnableShowViewDialog"
-    (click)="ShowViewDialog(element)"
-      mat-fab color="primary"
-      [disabled]="PropDisableShowViewDialog &&!element[PropDisableShowViewDialog]"
-      >
-      <mat-icon>visibility</mat-icon>
-    </button>
-
-  </td>
-</ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedNameColumns;sticky:true"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedNameColumns;"></tr>
+
   </table>
 
-  <mat-paginator #refpag [length]="100"
-  [pageSize]="10"
-  [pageSizeOptions]="[5,20,50,100]"
-  aria-label="Select page">
-</mat-paginator>
-
+   <div *ngIf="showSpinnerLoad"  class="container-spinner">
+    <mat-spinner
+       color="primary"
+       [diameter]="88"
+       >
+       </mat-spinner>
+   </div>
+  <mat-paginator #refpag [length]="100" [pageSize]="10" [pageSizeOptions]="[5,20,50,100]" aria-label="Select page">
+  </mat-paginator>
+  
+  <div class="container-saveAllButton">
+  <button *ngIf="HandelSaveAllRecords" (click)="SaveAllRecords()" class="title" mat-button>Save Changes</button>
+  </div>
 
 </div>

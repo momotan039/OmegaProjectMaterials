@@ -1,0 +1,49 @@
+<h1 class="title"  matDialogTitle>Edit This Member</h1>
+<div matDialogContent>
+  <form [formGroup]="fg!">
+
+
+  <mat-form-field class="m-1" appearance="fill">
+    <mat-label>Name</mat-label>
+    <input formControlName="name"  matInput>
+    <mat-error *ngIf=" fg.get('name')!.hasError('required')">
+      Please Fill this Field</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="m-1" appearance="fill">
+    <mat-label>Work</mat-label>
+    <input formControlName="work"  matInput>
+    <mat-error *ngIf=" fg.get('work')!.hasError('required')">
+      Please Fill this Field</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>About Member</mat-label>
+    <textarea 
+    required
+    formControlName="about"
+       matInput
+        class="about" 
+          ></textarea>
+           <mat-error *ngIf="fg.get('about')!.hasError('required')">
+            Please Fill this Field
+        </mat-error>
+  </mat-form-field>
+
+  <div *ngIf="data.imageUrl" class="image-container">
+    <img width="150px" height="150px" [src]="domain+data.imageUrl">
+    <h3>Current Image</h3>
+  </div>
+
+  <div class="BtnFilesContainer" >
+    <input class="BtnFiles" #refFiles multiple type="file" value="Send Files">
+  </div>
+
+  <div style="text-align: center;">
+    <button style="margin-right: 10px;" mat-raised-button (click)="SaveUser(refFiles.files)"  color="accent">Save</button>
+  <button mat-raised-button [mat-dialog-close]="false" color="primary">Cancel</button>
+  </div>
+</form>
+
+</div>
+

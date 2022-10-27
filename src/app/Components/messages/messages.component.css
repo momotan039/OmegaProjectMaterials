@@ -174,6 +174,7 @@ padding: 0 !important
 
 
 
+
 /* Start right container Message */
 .mainContainer .right {
   width: 100%;
@@ -343,12 +344,20 @@ color: var(--primary);
 
   .mainContainer .left mat-list{
     display: flex;
-    overflow-x: auto;
+    flex-direction: column;
+    gap: 39px;
     overflow-y: hidden;
     height: auto;
   }
   .mainContainer .left mat-list mat-list-item{
     margin-bottom: 1rem;
+  }
+  .mainContainer .left mat-list >div{
+    display: flex;
+    gap: 5px;
+    overflow: hidden;
+    overflow-x: auto;
+    padding-top: 10px;
   }
   .mainContainer .right mat-card mat-card-content{
     height: 42vh;

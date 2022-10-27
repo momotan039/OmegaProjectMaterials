@@ -73,6 +73,17 @@ import { NotFoundPageComponent } from './Components/not-found-page/not-found-pag
 import { InquiriesComponent } from './Components/admin/inquiries/inquiries.component';
 import { ContactUsDialogComponent } from './Components/dilogs/contact-us-dialog/contact-us-dialog.component';
 import { StaffComponent } from './Components/admin/staff/staff.component';
+import { AddMemberToStaffComponent } from './Components/dilogs/add-member-to-staff/add-member-to-staff.component';
+import { EditMemberToStaffComponent } from './Components/dilogs/edit-member-to-staff/edit-member-to-staff.component';
+import { AddActivityComponent } from './Components/dilogs/add-activity/add-activity.component';
+import { ActivitiesComponent } from './Components/admin/activities/activities.component';
+import { EditActivityComponent } from './Components/dilogs/edit-activity/edit-activity.component';
+import myLocaleAr from '@angular/common/locales/ar'
+import {registerLocaleData} from '@angular/common';
+import { AttendanceComponent } from './Components/attendance/attendance.component';
+import { UserAttendanceComponent } from './Components/user-attendance/user-attendance.component';
+registerLocaleData(myLocaleAr)
+
 
 @NgModule({
   declarations: [
@@ -144,6 +155,13 @@ import { StaffComponent } from './Components/admin/staff/staff.component';
     InquiriesComponent,
     ContactUsDialogComponent,
     StaffComponent,
+    AddMemberToStaffComponent,
+    EditMemberToStaffComponent,
+    AddActivityComponent,
+    ActivitiesComponent,
+    EditActivityComponent,
+    AttendanceComponent,
+    UserAttendanceComponent,
   ],
   imports: [
     BrowserModule,

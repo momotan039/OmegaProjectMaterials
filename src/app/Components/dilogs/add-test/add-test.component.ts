@@ -16,6 +16,8 @@ export class AddTestComponent implements OnInit {
   fg=this.fb.group({
     name:['',Validators.required],
     date:['',Validators.required],
+    minGrade:['',Validators.required],
+    fullGrade:['',Validators.required],
   })
   constructor(
     private httpTestsService:HttpTestsService,

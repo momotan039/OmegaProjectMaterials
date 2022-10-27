@@ -19,9 +19,11 @@ export class ChartComponent implements OnInit,AfterViewInit,OnDestroy {
    Data:any
   @Input() IdChart=""
   @Input() Type:any
-  @Input() ParentBuildData!:()=>Observable<any>
+  @Input() Title:any
+  @Input() ParentBuildData!:()=>Promise<any>
   ngAfterViewInit(): void {
-  this.ParentBuildData().subscribe(data=>{
+  this.ParentBuildData().then((data: any)=>{
+    debugger
     this.Data=data
     this.RenderChart()
    })
@@ -49,22 +51,10 @@ export class ChartComponent implements OnInit,AfterViewInit,OnDestroy {
       'rgba(255, 159, 64, 1)'
     ]
     const borderWidth=4
-
   //Append Style to DataSetes
   this.ConfigeStyleDataSet(backgroundColor,borderColor,borderWidth)
-  const fs=this.Data
     let myChart = new Chart(this.IdChart, {
       type: this.Type,
-      // data: {
-      //   labels: this.Labels,
-      //   datasets: [{
-      //     label: this.Label,
-      //     data:this.Data,
-      //     backgroundColor:backgroundColor ,
-      //     borderColor:borderColor,
-      //     borderWidth: 3
-      //   }],
-      // },
       data:this.Data,
       options: {
         scales: {
@@ -88,7 +78,12 @@ export class ChartComponent implements OnInit,AfterViewInit,OnDestroy {
               font: {
                 weight: 'bold',
               },
-            }
+            },
+            ticks: {
+              format: {
+                  style: 'percent'
+              }
+          }
           }
         }
       }
@@ -101,6 +96,17 @@ export class ChartComponent implements OnInit,AfterViewInit,OnDestroy {
     d.backgroundColor=backgroundColor
     d.borderColor=borderColor
     d.borderWidth=borderWidth
+    //fill mode
+    d.fill=true
+    //activate animations
+    d.animations={
+      tension: {
+        duration: 1000,
+        easing: 'linear',
+        from: 1,
+        to: 0,
+        loop: true
+      }}
    })
   }
 

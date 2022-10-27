@@ -15,6 +15,7 @@ export class GuestFooterComponent implements OnInit {
    'WhatsAppPhone':"025326484",
    'mail':'info@omega-academy.net'
  }
+ currentDate=new Date().toLocaleString()
   constructor() { }
 
   ngOnInit(): void {

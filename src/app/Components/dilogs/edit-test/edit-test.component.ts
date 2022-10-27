@@ -23,6 +23,8 @@ export class EditTestComponent implements OnInit {
     this.fg=this.fb.group({
       name:[data.name,Validators.required],
       date:[data.date,Validators.required],
+      fullGrade:[data.fullGrade,Validators.required],
+      minGrade:[data.minGrade,Validators.required],
       id:[data.id]
     })
   }
@@ -32,8 +34,10 @@ export class EditTestComponent implements OnInit {
   SaveRecord(){
     if(!this.fg.valid)
 return;
-let date=this.fg.get("date")?.value as Date
+
+let date=new Date(this.fg.get("date")?.value)
 this.fg.get("date")?.setValue(date.toLocaleDateString())
+
 this.httpTestsService.EditTest(this.fg.value).subscribe(data=>{
   MyTools.ShowResult200Message(data)
   this.dialogRef.close(true);
