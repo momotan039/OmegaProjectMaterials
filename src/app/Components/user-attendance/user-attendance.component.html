@@ -27,12 +27,9 @@ Title="Attendance per month"
 
 
 <div class="container-search-date-button">
-<button (click)="SearchByDate(refinput)" class="search" color="primary" mat-fab >
-      <mat-icon >search</mat-icon>
-  </button>
-  
+    <h3>Choose Date of a Attendance:</h3>
   <mat-form-field  appearance="fill">
-      <mat-label>Choose Date of a Attendance</mat-label>
+      <mat-label>select a month</mat-label>
       <input  [max]="maxDate"  [min]="group.openingDate" #refinput autocomplete="off"  matInput [matDatepicker]="picker">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker  startView="multi-year" (monthSelected)="closeDatePicker($event,refinput, picker)"  touchUi #picker></mat-datepicker>

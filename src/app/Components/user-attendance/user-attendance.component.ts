@@ -31,9 +31,7 @@ export class UserAttendanceComponent implements OnInit {
     this.httpGroupsService.GetGroupByID(this.groupId+"",false).subscribe(data=>{
      this.group=data
      this.SetMaxValueDate()    
-     this.httpAttendanceService.GetAttendanceStatistics(this.groupId).forEach(data=>{
-      console.warn(data)
-     })
+    
     })
 
     
@@ -59,8 +57,23 @@ export class UserAttendanceComponent implements OnInit {
 
 
 closeDatePicker(eventData: any,refInput:HTMLInputElement, dp?:MatDatepicker<any>) {
-  const date=new Date(eventData);
-  refInput.value=(date.getMonth()+1)+"/"+date.getFullYear()
+  const ndate=new Date(eventData);
+  refInput.value=(ndate.getMonth()+1)+"/"+ndate.getFullYear()
+  const date=refInput.value
+  let _date=""
+  for(let i=0;i<date.length;i++)
+      {
+        if(date[i]=='/')
+        _date+=date[i].replace('/','-')
+        else
+        _date+=date[i]
+      }
+  this.date=_date
+
+  setTimeout(() => {
+    this.GroupTable?.FillTableData()
+  }, 10);
+
   dp!.close();    
 }
 SetMaxValueDate(){
@@ -74,15 +87,20 @@ SetMaxValueDate(){
 
 MyFunc=async ():Promise<any>=>{
   let dataChart1:any = {
-    labels: ['May','Feb'],
     datasets: [
       {
-        label: 'Absent',
-        data:[0.5,2]
+        label: 'Presents',
       },
     ]
   }
-  return await dataChart1
+   setTimeout(async () => {
+   this.httpAttendanceService.GetAttendanceStatistics(this.groupId).forEach(data=>{
+        dataChart1.labels=data.months
+    dataChart1.datasets.data=data.counts
+   })
+  }, 1000);
+
+  return  dataChart1
  }
 
 BuildDataChart1=()=> {
