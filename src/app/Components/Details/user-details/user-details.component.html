@@ -74,4 +74,22 @@
          </div>
         </mat-card-content>
   </mat-card>
+
+  <app-chart
+  *ngIf="user.roleId==3"
+  IdChart="chart1"
+  Type="bar"
+  Title="Done Homeworks By Group"
+  [ParentBuildData]="GetDataChart1"
+  >
+  </app-chart>
+  
+  <app-chart
+  *ngIf="user.roleId==3"
+  IdChart="chart2"
+  Type="line"
+  Title="Attendances By Group"
+  [ParentBuildData]="GetDataChart2"
+  >
+  </app-chart>
  </div>

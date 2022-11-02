@@ -1,22 +1,48 @@
-
+<ng-container *ngIf="!id else showNew">
+    
 <app-top-page title="اخبارنا و نشاطاتنا"></app-top-page>
 <div class="news-activities containerGuest">
+
     <div class="new" *ngFor="let item of news">
-        <div class="thumbnail">
-            <img [src]="domain+item.imageUrl">
-        </div>
-        <div class="date">
-            <div class="summary">
-                {{item.date|date: "fullDate":"":"ar" }}
+        <a [routerLink]="'/news/'+item.id">
+            <div class="thumbnail">
+                <img [src]="domain+item.imageUrl">
             </div>
+            <div class="date">
+                <div class="summary">
+                    {{item.date|date: "fullDate":"":"ar" }}
+                </div>
+            </div>
+            <div class="black-title">
+                {{item.title}}
         </div>
-        <div class="black-title">
-            {{item.title}}
-    </div>
-        <div class="describe summary">
-            {{item.describe}}
-        </div>
-        <mat-divider>
-        </mat-divider>
+            <div class="describe summary">
+                {{item.describe}}
+            </div>
+            <div class="border">
+                <span class="left-border"></span>
+                <span class="bottom-border"></span>
+                <span class="right-border"></span>
+                <span class="top-border"></span>
+              </div>
+        </a>
+        
     </div>
 </div>
+</ng-container>
+
+<ng-template #showNew>
+    <div class="new containerGuest">
+        <div class="black-title">
+            {{new.title}}
+        </div>
+        <div class="row">
+            <img [src]="domain+new.imageUrl">
+            <div class="describe summary">
+                {{new.describe}}
+            </div>
+        </div>
+    </div>
+    
+  
+</ng-template>

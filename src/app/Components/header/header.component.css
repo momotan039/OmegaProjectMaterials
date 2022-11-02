@@ -7,9 +7,14 @@
   width: 100%;
   flex-direction: row-reverse;
   color: white;
+  transition: none;
 }
 .menuItems a{
   font-weight: bold;
+  transition: none;
+}
+.menuItems a mat-icon{
+  transition: none;
 }
 
 a .num-unread-messages{
@@ -36,6 +41,19 @@ mat-drawer {
   width: 250px;
   height: 100%;
 }
+
+::ng-deep mat-drawer .num-unread-messages-phone{
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+  width: 57px;
+  color: white;
+  background: var(--primary);
+}
+
 mat-drawer .mat-drawer-backdrop{
 width: 100%;
 }
@@ -46,6 +64,8 @@ width: 100%;
 ::ng-deep mat-drawer .mat-drawer-inner-container a{
   text-align: end;
 }
+
+
 .example-sidenav-content {
   display: flex;
   height: 100%;
@@ -78,6 +98,17 @@ h1.logo{
   font-size: 1.5rem;
   cursor: pointer;
 }
+
+.active-link{
+  background-color: white;
+  color: var(--primary);
+  font-size: 18px;
+  transition: none;
+}
+.active-link.active-phone-link{
+  background-color: rgb(96 125 139 / 20%);
+}
+
 
 @media screen and (max-width:1324px) {
   .menuItems>*{

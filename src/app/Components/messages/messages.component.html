@@ -130,13 +130,12 @@
               <div class="arrow" [ngClass]="msg.senderId==httpAuth.currentUser.id?'sender-arrow':'reciver-arrow'"></div>
             </mat-card>
           </div>
-          <!-- <div *ngIf="!msgs.length">
-            Start Chat Now
 
-          </div> -->
-          <mat-spinner class="spinner-messages"
-          *ngIf="ShowSpinner" [diameter]="50">
-          </mat-spinner>
+          <div *ngIf="ShowSpinner" class="loading-chat-spinner-container">
+            <mat-spinner class="spinner-messages"
+            [diameter]="50">
+           </mat-spinner>
+          </div>
 
           <div *ngIf="receiver && CountUnreadMessages(receiver)" class="scroll-down-to-unread-messages">
             <button

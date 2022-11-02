@@ -55,6 +55,7 @@ table.myTable td img{
 }
 mat-radio-group{
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
 }
 mat-radio-group mat-radio-button{

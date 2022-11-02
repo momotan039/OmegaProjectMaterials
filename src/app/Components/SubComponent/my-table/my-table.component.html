@@ -24,6 +24,14 @@
     <input #refSearch (keyup)="FilterDataTable(refSearch)" matInput>
   </mat-form-field>
 
+  <div *ngIf="showSpinnerLoad"  class="container-spinner">
+    <mat-spinner
+       color="primary"
+       [diameter]="88"
+       >
+       </mat-spinner>
+   </div>
+   
   <table #table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8 myTable">
 
     <ng-container *ngFor="let col of displayedColumns;let i=index" matColumnDef="{{displayedNameColumns[i]}}">
@@ -34,6 +42,7 @@
         :displayedNameColumns[i]=='Image'?2
         :displayedNameColumns[i]=='Status Attendance'?3
         :displayedNameColumns[i]=='Note Delay'?4
+        :displayedNameColumns[i]=='Required Submit'?5
         :-1">
 
           <ng-container *ngSwitchCase="1">
@@ -57,13 +66,17 @@
               <mat-radio-button [value]="true">Present</mat-radio-button>
               <mat-radio-button [value]="false">Absent</mat-radio-button>
             </mat-radio-group>
-            <td mat-footer-cell *matFooterCellDef> fasdfasdfasdf </td>
           </ng-container>
 
           
           <ng-container *ngSwitchCase="4">
             <textarea [(ngModel)]="elm.note"  matInput required
             placeholder="">{{GetdataByProp(elm,col)}}</textarea>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="5">
+            <td *ngIf="elm.requiredSubmit">Yes</td>
+            <td *ngIf="!elm.requiredSubmit">No</td>
           </ng-container>
 
           <ng-container *ngSwitchDefault>
@@ -105,13 +118,7 @@
 
   </table>
 
-   <div *ngIf="showSpinnerLoad"  class="container-spinner">
-    <mat-spinner
-       color="primary"
-       [diameter]="88"
-       >
-       </mat-spinner>
-   </div>
+
   <mat-paginator #refpag [length]="100" [pageSize]="10" [pageSizeOptions]="[5,20,50,100]" aria-label="Select page">
   </mat-paginator>
   

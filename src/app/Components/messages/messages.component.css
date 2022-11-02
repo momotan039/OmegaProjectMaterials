@@ -13,25 +13,6 @@
   width: 100%;
 }
 
-.mainContainer .right .listMessages .scroll-down-to-unread-messages{
-  position: absolute;
-  top: 13%;
-  left: 50%;
-  /* transform: translate(-50%, 0%); */
-  animation: ScrollDownMessageBtn 3s infinite;
-}
-.mainContainer .right .listMessages .scroll-down-to-unread-messages ::ng-deep  .mat-button-wrapper{
-  font-weight: bold;
-  font-size: 24px;
-  color: white;
-}
-.mainContainer .right .listMessages .unread-message{
-  position: relative;
-  /* background: #e3e3e3; */
-  width: 50%;
-  padding-left: 33px;
-  animation: PopUpMessage 1s 1;
-}
 @keyframes PopUpMessage{
   from{
     transform: scale(0) rotate(90deg);
@@ -52,6 +33,24 @@
 
   }
 }
+
+
+.mainContainer .right .listMessages{
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 50vh;
+  padding: 16px 9px ;
+  position: relative;
+
+}
+
+.mainContainer .right .listMessages .unread-message{
+  position: relative;
+  /* background: #e3e3e3; */
+  width: 50%;
+  padding-left: 33px;
+  animation: PopUpMessage 1s 1;
+}
 .mainContainer .right .listMessages .unread-message::after{
   position: absolute;
   content: "";
@@ -63,12 +62,20 @@
   border-radius: 5px;
 }
 
-.mainContainer .right .listMessages{
-  overflow-y: auto;
-  overflow-x: hidden;
-  height: 50vh;
-  padding: 16px 9px ;
+.mainContainer .right .listMessages .scroll-down-to-unread-messages{
+  position: absolute;
+  top: 13%;
+  left: 50%;
+  /* transform: translate(-50%, 0%); */
+  animation: ScrollDownMessageBtn 3s infinite;
 }
+.mainContainer .right .listMessages .scroll-down-to-unread-messages ::ng-deep  .mat-button-wrapper{
+  font-weight: bold;
+  font-size: 24px;
+  color: white;
+}
+
+
 .mainContainer .right .listMessages mat-card h3
 {
   color: white;
@@ -81,11 +88,20 @@
   text-align: center;
   margin-top: 5px;
 }
-.mainContainer .right .listMessages .spinner-messages{
+.mainContainer .right .listMessages .loading-chat-spinner-container{
   position: absolute;
-    top: 50%;
-    right: 50%;
-    transform: translate(50%, -50%);
+  top: 50%;
+  right: 50%;
+  height: 100%;
+  width: 100%;
+  transform: translate(50%, -50%);
+  background-color: lightgray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.mainContainer .right .listMessages .spinner-messages{
+  
 }
 .mainContainer .right .listMessages .spinner-previous-messages-container{
   display: flex;

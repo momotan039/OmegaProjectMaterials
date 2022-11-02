@@ -7,12 +7,18 @@ import { MyTools } from '../constants/MyTools';
 })
 export class HttpActivityService {
 
+
  
   constructor(private http:HttpClient) { }
 
   GetAll(){
     return  this.http.get<any>(MyTools.UrlRootApi+"/News/GetAll");
   }
+
+  GetOne(id: string) {
+    return  this.http.get<any>(MyTools.UrlRootApi+"/News/GetOne/"+id);
+  }
+
   AddOne(s:FormData){
     return this.http.post(MyTools.UrlRootApi+"/News/Add",s,{
       responseType:"text",

@@ -12,6 +12,10 @@ export class HomeWorkStudentService {
     private http:HttpClient
   ) { }
 
+  GetHomeWorkStatistics(studentId:number){
+    return this.http.get<any>(MyTools.UrlRootApi+"/HomeWorkStudents/GetHomeWorkStatistics/"+studentId)
+  }
+
   GetSubmitStudentByself(sid:number,hid:number) {
     return this.http.get<any[]>(MyTools.UrlRootApi+"/HomeWorkStudents/GetSubmitStudentByself",{
       params:{
@@ -66,6 +70,7 @@ export class HomeWorkStudentService {
       observe:"events",
     })
   }
+
 
 
 }

@@ -18,6 +18,9 @@
   max-height: 150px;
   resize: none;
 }
+::ng-deep .submitedStudents {
+  margin-top: 20px;
+}
 ::ng-deep .submitedStudents .titleContainer{
   margin-top: 0 !important;
   color: white;
@@ -25,7 +28,11 @@
 mat-card-title{
   text-align: center;
 }
-
+.uploaded-file{
+  width: 66%;
+  color: white !important;
+  text-align: center;
+}
 @media (max-width:992px) {
   .flexContainer{
     display: block;

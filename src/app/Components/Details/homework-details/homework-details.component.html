@@ -37,7 +37,7 @@
         <mat-progress-bar  color="accent" #ref></mat-progress-bar>
         <span>{{ref.value}}%</span>
       </div>
-        <h3 class="subTitle">
+        <h3 class="subTitle uploaded-file">
           {{getFileNameFromPath(item)}}
           <button color="accent" mat-icon-button (click)="donwloadFile(item,refContainer,ref)">
             <mat-icon>file_download</mat-icon>

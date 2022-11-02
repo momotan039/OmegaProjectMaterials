@@ -1,3 +1,4 @@
+import { HomeWorkStudentService } from './../../../services/home-work-student.service';
 import { MyLocalStorage } from './../../../services/MyLocalStorage';
 import { StudentsComponent } from './../../admin/students/students.component';
 import { HomeComponent } from './../../home/home.component';
@@ -33,6 +34,7 @@ export class UserDetailsComponent implements OnInit {
     private httpCoursesService:HttpCoursesService,
     public authService:AuthService,
     private httpAcountService:HttpAcountService,
+    private homeWorkStudentService:HomeWorkStudentService,
     private matSnackBar:MatSnackBar,
     private router:Router
     ) { }
@@ -51,6 +53,8 @@ export class UserDetailsComponent implements OnInit {
         this.httpCoursesService.GetCoursesByUserId(u.id).subscribe(data=>{
           this.courses=data
         })
+
+
       })
     }
     // show detials by parmeter of url
@@ -66,6 +70,8 @@ export class UserDetailsComponent implements OnInit {
       })
     })
     }
+
+    
   }
 
   openSnackBar(){
@@ -105,5 +111,48 @@ export class UserDetailsComponent implements OnInit {
     
     image.src="../../../assets/images/profile.svg"
   }
+
+
+  
+GetDataChart1=async ():Promise<any>=>{
+  let dataChart1:any = {
+    datasets: [
+      {
+        label: 'Done',
+      },
+    ]
+  }
+
+  await this.homeWorkStudentService.GetHomeWorkStatistics(this.user.id).forEach(data=>{
+        dataChart1.labels=data.groups
+    dataChart1.datasets[0].data=data.counts
+   })
+
+  return  dataChart1
+ }
+
+
+ GetDataChart2=async ():Promise<any>=>{
+  let dataChart1:any = {
+    labels:['Jen','Feb','Mar','Apr','May','Jun','July','Aug','Sep','Oct','Nov','Dec'],
+    datasets: [
+      {
+        label: 'Presents Group1',
+        data:[1,0.5,0.7,1,0.2]
+      },
+      {
+        label: 'Presents Group2',
+        data:[0.2,1,0.3,0.8,1]
+      },
+      
+    ]
+  }
+  // await this.httpAttendanceService.GetAttendanceStatistics(this.groupId).forEach(data=>{
+  //       dataChart1.labels=data.months
+  //   dataChart1.datasets[0].data=data.counts
+  //  })
+
+  return   dataChart1
+ }
 
 }

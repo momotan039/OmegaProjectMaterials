@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Group } from 'src/app/models/Group';
+import { MatDatepicker } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-attendance',
@@ -62,6 +63,30 @@ export class AttendanceComponent implements OnInit {
     }, 10);
   }
 
+  closeDatePicker(eventData: any,refInput:HTMLInputElement, dp?:MatDatepicker<any>) {
+    debugger
+    if(eventData=="")
+    return
+    let date=eventData
+
+    let _date=""
+    for(let i=0;i<date.length;i++)
+        {
+          if(date[i]=='/')
+          _date+=date[i].replace('/','-')
+          else
+          _date+=date[i]
+        }
+        
+    this.date=_date
+    this.GroupTable!.showSpinnerLoad=true
+    setTimeout(() => {
+      this.GroupTable?.FillTableData()
+    }, 500);
+  
+    dp!.close();    
+  }
+  
   SetMaxValueDate(){
     const closingDate=new Date(this.group!.closingDate?.toString()!)
       const _date=new Date();

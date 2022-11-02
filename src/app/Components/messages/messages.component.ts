@@ -19,6 +19,7 @@ import {
   OnInit,
   OnDestroy,
   ViewChild,
+  AfterViewInit,
 } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { EmojiService } from '@ctrl/ngx-emoji-mart/ngx-emoji';
@@ -30,7 +31,7 @@ import { HttpEvent, HttpEventType, HttpResponse } from '@angular/common/http';
   templateUrl: './messages.component.html',
   styleUrls: ['./messages.component.css'],
 })
-export class MessagesComponent implements OnInit, OnDestroy {
+export class MessagesComponent implements OnInit, OnDestroy,AfterViewInit {
   fg = new FormGroup({});
   title = '';
   subTitle = '';
@@ -44,7 +45,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
   msgObs?: Subscription;
   emoji:EmojiService | undefined;
   hideEmojiTable=true
-  @ViewChild('refListMessages')ListMessagesContainer:HTMLElement | undefined
+  @ViewChild('refListMessages')ListMessagesContainer:any
   ShowSpinner=false;
   lastConversation: Subscription | undefined;
   msgInterval: Subscription | undefined;
@@ -61,6 +62,22 @@ export class MessagesComponent implements OnInit, OnDestroy {
   ) {
     // //remove scroller body
     // document.body.classList.add('removeScroller');
+
+  }
+  ngAfterViewInit(): void {
+    // Configuration Scrolling Events After Loading Messages
+    let msgConainer=this.ListMessagesContainer['nativeElement'];
+    msgConainer.addEventListener("scroll",()=>{
+     //how much scrolling
+   const scrollTop=msgConainer.scrollTop;
+   console.warn(scrollTop)
+
+   this.ReadMessages()
+     //if scrollTop=0 its mean get previous messages
+     if(scrollTop==0)
+      this.GetPreviousMessages();
+     this.ReadMessages()
+   })
   }
 
 
@@ -76,7 +93,6 @@ export class MessagesComponent implements OnInit, OnDestroy {
       message: ['', Validators.required],
     });
     let searchContactInput=document.querySelector(".search-contact") as HTMLInputElement
-
     this.httpGroupsService.GetGroupsByUserId().subscribe((data) => {
       this.groups = data;
       this.filteredGroups=this.groups
@@ -89,11 +105,8 @@ export class MessagesComponent implements OnInit, OnDestroy {
              -MyTools.unreadMsgs.filter(f=>f.reciverId==a.id).length
          })
         })
-
     });
-
     this.showSpinnerContacts=true
-
     this.httpUserGroupService.GetFreindsByUser().subscribe((data) => {
       this.freinds = data;
       //filter contact friends when recive new messages
@@ -107,35 +120,37 @@ export class MessagesComponent implements OnInit, OnDestroy {
     this.showSpinnerContacts=false
     });
 
-    this.HandelScrollingMessages();
   }
   isReciverGroup() {
+    if(!this.receiver)
+    return false
+
     return 'courseId' in this.receiver;
   }
   ScrollingDownListMessage() {
-
     //scroll down to bottom list Message
-    if(!this.CountUnreadMessages(this.receiver))
-    {
-      setTimeout(() => {
-         document.querySelector('.listMessages')?.scrollTo({
-          top: document.querySelector('.listMessages')?.scrollHeight,
-          behavior: 'smooth',
-        });
-      }, 300);
-    }
+    
 
-    else{
       setTimeout(() => {
-        const offsetTopMessage=(document.querySelector('.unread-message') as HTMLElement).offsetTop
-      const offsetHeightParent=(document.querySelector('.listMessages') as HTMLElement).offsetHeight
-      console.warn(offsetTopMessage-offsetHeightParent)
-         document.querySelector('.listMessages')?.scrollTo({
-          top: offsetTopMessage-offsetHeightParent,
-          behavior: 'smooth',
-        });
+        if(!this.CountUnreadMessages(this.receiver))
+        {
+          document.querySelector('.listMessages')?.scrollTo({
+            top: document.querySelector('.listMessages')?.scrollHeight,
+            behavior: 'smooth',
+          }); 
+        }
+       
+        else {
+          const offsetTopMessage=(document.querySelector('.unread-message') as HTMLElement).offsetTop
+          const offsetHeightParent=(document.querySelector('.listMessages') as HTMLElement).offsetHeight
+          console.warn(offsetTopMessage-offsetHeightParent)
+             document.querySelector('.listMessages')?.scrollTo({
+              top: offsetTopMessage-offsetHeightParent,
+              behavior: 'smooth',
+            });
+        }
+        
       }, 300);
-    }
   }
 
   ChangeTitle_SubTitle_Image() {
@@ -157,7 +172,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
               if (event.type==HttpEventType.Response)
             {
              this.msgs=this.previousMsgs.concat(event.body['messages'])
-             this.ReadMessages(document.querySelector(".listMessages")!)
+             this.ReadMessages()
             }
          })
          })
@@ -176,6 +191,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
     getPreviousMessagesFun=this.httpMessagesService.GetPreviousMessages(
       this.receiver.id,this.msgs.length)
 
+    let listMsgs=document.querySelector(".listMessages") as HTMLElement
     this.ShowSpinner=true
     setTimeout(() => {
       getPreviousMessagesFun.subscribe(event=>{
@@ -183,11 +199,13 @@ export class MessagesComponent implements OnInit, OnDestroy {
         {
          this.previousMsgs=event.body['messages'].concat(this.previousMsgs)
          this.found_previous=event.body['found_previous']
-         this.ReadMessages(document.querySelector(".listMessages")!)
-         this.ShowSpinner=false
+         this.ReadMessages()
+          setTimeout(() => {
+            this.ShowSpinner=false
+          }, 900);
         }
       })
-    }, 500);
+    }, 1000);
 
   }
 
@@ -423,7 +441,8 @@ export class MessagesComponent implements OnInit, OnDestroy {
     return msgs.length
   }
 
-  ReadMessages(listMsgs:Element){
+  ReadMessages(){
+    let listMsgs=document.querySelector(".listMessages") as HTMLElement
     listMsgs?.querySelectorAll(".unread-message")
     .forEach(m=>{
      const idMsg=parseInt(m.getAttribute("id")!);
@@ -439,21 +458,6 @@ export class MessagesComponent implements OnInit, OnDestroy {
           })
        }
    })
-  }
-
-  HandelScrollingMessages(){
-    let listMsgs=document.querySelector(".listMessages")
-    this.ReadMessages(listMsgs!)
-
-    listMsgs!.addEventListener("scroll",()=>{
-      //how much scrolling
-    const scrollTop=listMsgs!.scrollTop;
-      //if scrollTop=0 its mean get previous messages
-      if(scrollTop==0)
-      this.GetPreviousMessages();
-
-      this.ReadMessages(listMsgs!)
-    })
   }
 
 

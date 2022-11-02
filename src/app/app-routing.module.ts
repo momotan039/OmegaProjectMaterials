@@ -183,6 +183,7 @@ const routes: Routes = [
   { component: AboutUsComponent, path: 'about-us'},
   { component: ContactUsComponent, path: 'contact-us'},
   { component: NewsActivitiesComponent, path: 'news'},
+  { component: NewsActivitiesComponent, path: 'news/:id'},
   { component: OurStaffComponent, path: 'our-staff'},
 
   // { component: OurCoursesComponent, path: 'our-courses/:string'},

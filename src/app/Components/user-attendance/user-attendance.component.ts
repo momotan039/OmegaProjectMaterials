@@ -37,24 +37,6 @@ export class UserAttendanceComponent implements OnInit {
     
  }
  
- SearchByDate(refinput:any){
-  let date=refinput.value+""
-  if(date=="")
-  return
-  let _date=""
-  for(let i=0;i<date.length;i++)
-      {
-        if(date[i]=='/')
-        _date+=date[i].replace('/','-')
-        else
-        _date+=date[i]
-      }
-  this.date=_date
-  setTimeout(() => {
-    this.GroupTable?.FillTableData()
-  }, 10);
-}
-
 
 closeDatePicker(eventData: any,refInput:HTMLInputElement, dp?:MatDatepicker<any>) {
   const ndate=new Date(eventData);
@@ -69,10 +51,10 @@ closeDatePicker(eventData: any,refInput:HTMLInputElement, dp?:MatDatepicker<any>
         _date+=date[i]
       }
   this.date=_date
-
+  this.GroupTable!.showSpinnerLoad=true
   setTimeout(() => {
     this.GroupTable?.FillTableData()
-  }, 10);
+  }, 500);
 
   dp!.close();    
 }
@@ -93,51 +75,13 @@ MyFunc=async ():Promise<any>=>{
       },
     ]
   }
-   setTimeout(async () => {
-   this.httpAttendanceService.GetAttendanceStatistics(this.groupId).forEach(data=>{
+  await this.httpAttendanceService.GetAttendanceStatistics(this.groupId).forEach(data=>{
         dataChart1.labels=data.months
-    dataChart1.datasets.data=data.counts
+    dataChart1.datasets[0].data=data.counts
    })
-  }, 1000);
 
   return  dataChart1
  }
 
-BuildDataChart1=()=> {
-  let dataChart1:any = {
-    labels: ['May','Feb'],
-    datasets: [
-      {
-        label: 'Absent',
-        data:[1,2,3]
-      },
-      {
-        label: 'Present',
-        data:[1,2,3]
-      }
-    ]
-  }
-
-  //   await this.httpGradesService.GetGradesByTest(this.activatedRoute.snapshot.params['id'])
-  //     .subscribe(data => {
-  //       let grades = data as Grade[];
-  //       //get all labels name
-  //       grades.forEach(f => {
-  //         if (!this.namesGroups.find(r => r == f.group?.name))
-  //           this.namesGroups.push(f.group?.name!);
-  //       });
-  //       dataChart1.labels = this.namesGroups
-
-  //       //Get All Datasets Data
-  //       let i = 0;
-  //       this.namesGroups.forEach(n => {
-  //         const fialdData = grades.filter(f => f.group?.name == n && f.sumGrade! < this.test.minGrade).length
-  //         const PassData = grades.filter(f => f.group?.name == n && f.sumGrade! >= this.test.minGrade).length
-  //         dataChart1.datasets[0].data.push(fialdData)
-  //         dataChart1.datasets[1].data.push(PassData)
-  //       });
-  // })
-  return  dataChart1
-}
 
 }

@@ -4,6 +4,7 @@
   <div *ngIf="authService.currentUserSub|async" class="menuItems">
 
     <a (click)="item.title=='Logout'?authService.LogOut():{}" *ngFor="let item of menuItems" mat-button
+      routerLinkActive="active-link"
       routerLink="{{item.href}}" [ngStyle]="{'color':item.value?'black':''}">
       {{item.title}}
       <mat-icon>{{item.icon}}</mat-icon>
@@ -20,9 +21,9 @@
 <mat-drawer-container [hasBackdrop]="true">
   <mat-drawer #drawer class="example-sidenav" mode="side">
     <a (click)="drawer.toggle()" (click)="item.title=='Logout'?authService.LogOut():{}" *ngFor="let item of menuItems"
-      mat-button routerLink="{{item.href}}">
+      mat-button routerLink="{{item.href}}" routerLinkActive="active-link active-phone-link">
       {{item.title}}<mat-icon>{{item.icon}}</mat-icon>
-      <span class="num-unread-messages" *ngIf="item.value">
+      <span class="num-unread-messages-phone" *ngIf="item.value">
         {{item.value}}
       </span>
     </a>

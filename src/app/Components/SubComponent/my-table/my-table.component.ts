@@ -39,7 +39,6 @@ export class MyTableComponent implements OnInit {
   dataSource:any
   showSpinnerLoad=false
   subsDataTable=Subscription
-  subsGetDataTable: any;
   ngOnInit(): void {
     this.FillTableData();
   }
@@ -81,7 +80,7 @@ FilterDataTable(input:any){
 
 FillTableData(){
   this.showSpinnerLoad=true
-this.subsGetDataTable= this.getDataTable!.subscribe((data: any)=>{
+ this.getDataTable!.subscribe((data: any)=>{
   this.showSpinnerLoad=false
   console.warn(data)
   this.dataSource=new MatTableDataSource(data)
