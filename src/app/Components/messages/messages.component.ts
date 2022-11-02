@@ -192,7 +192,9 @@ export class MessagesComponent implements OnInit, OnDestroy,AfterViewInit {
       this.receiver.id,this.msgs.length)
 
     let listMsgs=document.querySelector(".listMessages") as HTMLElement
+    const offsetTop=listMsgs.offsetTop
     this.ShowSpinner=true
+    listMsgs.style.overflowY="hidden"
     setTimeout(() => {
       getPreviousMessagesFun.subscribe(event=>{
         if (event.type==HttpEventType.Response)
@@ -202,7 +204,12 @@ export class MessagesComponent implements OnInit, OnDestroy,AfterViewInit {
          this.ReadMessages()
           setTimeout(() => {
             this.ShowSpinner=false
+            listMsgs.style.overflowY="auto"
           }, 900);
+          setTimeout(() => {
+            debugger
+            listMsgs.scrollTo(0,offsetTop+150)
+          }, 1000);
         }
       })
     }, 1000);
