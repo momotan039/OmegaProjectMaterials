@@ -7,8 +7,8 @@ export class Menu {
   href = '';
   roles?:number[] = [];
   value?:number
-  Child?:HTMLElement
   forGuest?:boolean
+  forSettings?:boolean
   childs?:Array<any>
 
     static Items: Menu[] = [
@@ -58,28 +58,34 @@ export class Menu {
       title: 'Tests',
       icon: 'quiz',
       href: 'tests',
-      roles: [1,2,3],
+      roles: [2,3],
     },
     {
       title: 'Grades',
       icon: 'grade',
       href: 'grades',
-      roles: [1,2,3],
+      roles: [2,3],
     },
     {
       title: 'Messages',
       icon: 'mail',
       href: 'messages',
       roles: [1,2,3],
+      childs:[
+        {
+          title: 'Messages',
+          icon: 'mail',
+          href: 'messages',
+        }
+      ]
     },
     {
       title: 'Attendance',
       // icon: 'history_toggle_off',
       icon: 'how_to_reg',
       href: 'attendance',
-      roles: [1,2],
+      roles: [2],
     },
-
     {
       title: 'My Attendance',
       // icon: 'history_toggle_off',
@@ -93,6 +99,40 @@ export class Menu {
       href: 'login',
       roles: [1,2,3],
     },
+
+    {
+      title: 'Top Slider',
+      icon: 'web_stories',
+      href: 'top-slider',
+      roles:[1],
+      forSettings:true
+    },
+
+    {
+      title: 'News & Activites',
+      icon: 'celebration',
+      href: 'activites',
+      roles:[1],
+      forSettings:true
+    },
+
+    
+    {
+      title: 'Staff',
+      icon: 'diversity_1',
+      href: 'staff',
+      roles:[1],
+      forSettings:true
+    },
+
+    {
+      title: 'Opinions',
+      icon: 'reviews',
+      href: 'opinions',
+      roles:[1],
+      forSettings:true
+    },
+
     {
       title: 'الرئيسية',
       href: 'main',
@@ -125,7 +165,7 @@ export class Menu {
         ,
         {
           'name': 'دورات اللغة العبرية',
-          'link':'/main',
+          'link':'#',
           childs:[{
             'name':'دورة اللغة العبرية – مستوى רמה א',
             'link':'/our-courses/دورة اللغة العبرية – مستوى רמה א',

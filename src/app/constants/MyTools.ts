@@ -89,7 +89,9 @@ duration:1500
 static ShowPopUpImageDialog(image:string){
 this.Dialog.open(PopUpImageComponent,{
   data:image,
-  panelClass:["rotatePopUpImageDialog","MyWidth"],
+  panelClass:["rotatePopUpImageDialog"
+  // ,"MyWidth"
+],
 })
 }
 }

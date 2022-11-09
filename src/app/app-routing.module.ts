@@ -1,3 +1,5 @@
+import { OpinionsComponent } from './Components/admin/opinions/opinions.component';
+import { TopSliderComponent } from './Components/admin/top-slider/top-slider.component';
 import { UserAttendanceComponent } from './Components/user-attendance/user-attendance.component';
 import { AttendanceComponent } from './Components/attendance/attendance.component';
 import { StaffComponent } from './Components/admin/staff/staff.component';
@@ -175,6 +177,16 @@ const routes: Routes = [
     path: 'testDetails/:id',
     canActivate: [AuthGuardService],
   },
+  {
+    component: TopSliderComponent,
+    path: 'top-slider',
+    canActivate: [AuthGuardService],
+  },
+  {
+    component: OpinionsComponent,
+    path: 'opinions',
+    canActivate: [AuthGuardService],
+  },
   { component: LogInComponent, path: 'login' },
   { component: HomeComponent, path: 'home', canActivate: [AuthGuardService] },
   
@@ -205,7 +217,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{
+    scrollPositionRestoration: 'enabled'
+  })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

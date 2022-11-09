@@ -30,7 +30,7 @@ export class EditMemberToStaffComponent implements OnInit {
   }
 
   SaveUser(file:any){
-    debugger
+    
     if(!this.fg.valid)
       return;
   

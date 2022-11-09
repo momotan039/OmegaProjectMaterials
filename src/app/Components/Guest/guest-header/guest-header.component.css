@@ -68,6 +68,7 @@
     left: -6px;
     bottom: 0;
 }
+
 .menu .menuItems span .sub-menu{
     position: absolute;
     flex-direction: column;
@@ -80,6 +81,7 @@
     transform: translateY(-500px);
     transition: all .4s ease-out;
 }
+
 .menu .menuItems span:hover .sub-menu{
     visibility: visible;
     transform: translateY(20px);
@@ -144,21 +146,97 @@
     visibility: visible;
     transform: none
 }
+
 .menu  button {
     margin-bottom: 5px;
     margin-right: 10px;
     font-size: 20px;
 }
+.menu  .menu-item-button{
+    display: none;
+    background-color: var(--primary);
+}
+
 
 @media (max-width:700px) {
     .times {
       display: none;
     }
 
-    .menu .menuItems,
-    .menu button
+    .menu{
+        justify-content: space-around;
+    }
+
+    .menu .menuItems
+    /* .menu button */
     {
         display: none;
     }
-
+   .menu .menu-item-button{
+    display: inline;
+   }
 }
+
+
+mat-drawer-container{
+    position: absolute;
+    height: fill-available;
+    width: 100%;
+    visibility: hidden;
+    z-index: 999;
+  }
+  mat-drawer {
+    width: 250px;
+    height: 100%;
+  }
+  
+  mat-drawer .mat-drawer-backdrop{
+  width: 100%;
+  }
+  mat-drawer a mat-icon{
+    padding-left:8px;
+    vertical-align: middle;
+  }
+
+ mat-drawer span a{
+    font-size: 18px;
+    display: block;
+    font-family: inherit;
+    text-align: start;
+  }
+  mat-drawer span a.active-link{
+    font-weight: bold;
+  }
+
+  mat-drawer span .sub-menu{
+    visibility: hidden;
+    height: 0;
+    scale: 0;
+    background-color: #d9d9d9;
+    transition: all .3s;
+  }
+  mat-drawer span .sub-menu a{
+    display: none;
+    color: black;
+    font-size: 15px;
+    padding: 10px;
+  }
+ 
+  mat-drawer span:hover>.sub-menu
+  {
+    height: auto;
+    scale: 1;
+    visibility:visible
+  }
+  mat-drawer span:hover>.sub-menu a{
+    display: block;
+  }
+
+  mat-drawer span.has-child:hover .sub-menu-child{
+    display: block;
+    transform: scale(1);
+  }
+
+
+  
+

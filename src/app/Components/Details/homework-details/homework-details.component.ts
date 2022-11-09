@@ -238,6 +238,7 @@ export class HomeworkDetailsComponent implements OnInit {
     return Math.floor(size)<2;
   }
 
+
 }
 
 

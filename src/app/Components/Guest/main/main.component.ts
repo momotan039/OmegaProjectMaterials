@@ -1,3 +1,5 @@
+import { HttpTopSliderService } from './../../../services/http-top-slider.service';
+import { HttpOpinionsService } from './../../../services/http-opinions.service';
 import { MyTools } from 'src/app/constants/MyTools';
 import { Component, OnInit } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
@@ -10,24 +12,6 @@ import { HttpActivityService } from 'src/app/services/http-activity.service';
   styleUrls: ['./main.component.css', '../main-style-guest.css']
 })
 export class MainComponent implements OnInit {
-  imagesSlider = [
-    {
-      image: '../../../../assets/images-guest/sliders1.jpg',
-      thumbImage: '../../../../assets/images-guest/sliders1.jpg',
-    },
-    {
-      image: '../../../../assets/images-guest/sliders2-1.jpg',
-      thumbImage: '../../../../assets/images-guest/sliders2-1.jpg',
-    },
-    {
-      image: '../../../../assets/images-guest/sliders3-1.jpg',
-      thumbImage: '../../../../assets/images-guest/sliders3-1.jpg',
-    },
-    {
-      image: '../../../../assets/images-guest/slider4.jpg',
-      thumbImage: '../../../../assets/images-guest/slider4.jpg',
-    }
-  ]
   
    options: OwlOptions ={
     autoplay:true,
@@ -58,6 +42,9 @@ export class MainComponent implements OnInit {
   }
 
    options2: OwlOptions ={
+    fluidSpeed:true,
+    autoplay:true,
+    loop:true,
     mouseDrag: true,
     touchDrag: true,
     pullDrag: true,
@@ -79,24 +66,33 @@ export class MainComponent implements OnInit {
       }
     },
     nav: false
+  
   }
-
-
   staff: any
   news:any
+  imagesSlider:any
+  opinions:Array<any>=[]
   domain=MyTools.domainNameServer
   constructor(
     private httpStaffService:HttpStaffService,
-    public httpActivityService:HttpActivityService
+    public httpActivityService:HttpActivityService,
+    public httpTopSliderService:HttpTopSliderService,
+    public httpOpinionsService:HttpOpinionsService,
   ) { }
 
   ngOnInit(): void {
-    this.httpStaffService.GetAll().subscribe(data=>{
-      this.staff=data
-    })
-
-    this.httpActivityService.GetAll().subscribe(data=>{
-      this.news=data
+    this.httpStaffService.GetAll().subscribe(data=>this.staff=data)
+    this.httpActivityService.GetAll().subscribe(data=>this.news=data)
+    this.httpOpinionsService.GetAll().subscribe(data=>this.opinions=data)
+    
+    this.httpTopSliderService.GetAll().subscribe(data=>{
+     this.imagesSlider= data.map((item:any)=>{
+          return {
+            'order':item.order,
+            'thumbImage':this.domain+item.thumbImage,
+            'title':item.title
+          }
+      })
     })
   }
 

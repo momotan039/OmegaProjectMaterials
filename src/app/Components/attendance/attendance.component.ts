@@ -64,7 +64,7 @@ export class AttendanceComponent implements OnInit {
   }
 
   closeDatePicker(eventData: any,refInput:HTMLInputElement, dp?:MatDatepicker<any>) {
-    debugger
+    
     if(eventData=="")
     return
     let date=eventData

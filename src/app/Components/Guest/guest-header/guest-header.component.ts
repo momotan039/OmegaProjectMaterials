@@ -1,12 +1,12 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { Menu } from './../../../constants/Menu';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { faFacebook, faInstagram, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 
 @Component({
   selector: 'app-guest-header',
   templateUrl: './guest-header.component.html',
-  styleUrls: ['./guest-header.component.css']
+  styleUrls: ['./guest-header.component.css'],
 })
 export class GuestHeaderComponent implements OnInit {
    faFacebook = faFacebook;

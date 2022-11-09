@@ -140,7 +140,7 @@
           <div *ngIf="receiver && CountUnreadMessages(receiver)" class="scroll-down-to-unread-messages">
             <button
             color="primary"
-             (click)="ScrollingDownListMessage()"  mat-fab>
+             (click)="ScrollingDownListMessageButton()"  mat-fab>
               {{CountUnreadMessages(receiver)}}
               <mat-icon>
                 markunread

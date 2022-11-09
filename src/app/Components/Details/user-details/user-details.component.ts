@@ -144,7 +144,6 @@ GetDataChart1=async ():Promise<any>=>{
         label: 'Presents Group2',
         data:[0.2,1,0.3,0.8,1]
       },
-      
     ]
   }
   // await this.httpAttendanceService.GetAttendanceStatistics(this.groupId).forEach(data=>{

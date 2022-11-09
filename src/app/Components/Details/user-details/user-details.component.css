@@ -71,3 +71,16 @@ margin: 10px 0 0 0  ;
 /* .mainContainer>div mat-card{
   height: 100%;
 } */
+
+
+.charts{
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  justify-content: center;
+
+}
+
+.charts app-chart {
+  flex: 1;
+}

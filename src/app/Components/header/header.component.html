@@ -1,31 +1,64 @@
 <!-- <mat-toolbar [ngClass]="{'justyCenter':!authService.IsLogIn()}" color="primary"> -->
 <mat-toolbar color="primary">
+  <button class="settings-button" mat-mini-fab (click)="drawer2.toggle()"><mat-icon>settings</mat-icon></button>
   <img routerLink="home" class="logo" src="../../../assets/images/logo.png" alt="Omega Academy">
   <div *ngIf="authService.currentUserSub|async" class="menuItems">
 
-    <a (click)="item.title=='Logout'?authService.LogOut():{}" *ngFor="let item of menuItems" mat-button
+    <ng-container *ngFor="let item of menuItems"  >
+      <a
+      *ngIf="!item.forSettings"
+       (click)="item.title=='Logout'?authService.LogOut():{}"
+      mat-button
       routerLinkActive="active-link"
-      routerLink="{{item.href}}" [ngStyle]="{'color':item.value?'black':''}">
+      routerLink="{{item.href}}" 
+      [ngStyle]="{'color':item.value?'black':''}"
+      >
       {{item.title}}
       <mat-icon>{{item.icon}}</mat-icon>
-      <span class="num-unread-messages" *ngIf="item.value">
+      <span *ngIf="item.value" class="num-unread-messages" >
         {{item.value}}
       </span>
     </a>
+    </ng-container>
+
     <button *ngIf="menuItems!=[]" class="btnSmallMenu" mat-fab (click)="drawer.toggle()">
       <mat-icon class="mat-18">menu</mat-icon>
     </button>
+    
   </div>
 
 </mat-toolbar>
 <mat-drawer-container [hasBackdrop]="true">
+
   <mat-drawer #drawer class="example-sidenav" mode="side">
-    <a (click)="drawer.toggle()" (click)="item.title=='Logout'?authService.LogOut():{}" *ngFor="let item of menuItems"
+   <ng-container
+   *ngFor="let item of menuItems"
+   >
+    <a
+     *ngIf="!item.forSettings"
+     (click)="drawer.toggle()" (click)="item.title=='Logout'?authService.LogOut():{}" 
+    mat-button routerLink="{{item.href}}" routerLinkActive="active-link active-phone-link">
+    {{item.title}}<mat-icon>{{item.icon}}</mat-icon>
+    <span class="num-unread-messages-phone" *ngIf="item.value">
+      {{item.value}}
+    </span>
+  </a>
+   </ng-container>
+   
+  </mat-drawer>
+  
+
+  <mat-drawer #drawer2  mode="side">
+    <ng-container
+    *ngFor="let item of menuItems"
+    >
+    <a *ngIf="item.forSettings" (click)="drawer2.close()" (click)="item.title=='Logout'?authService.LogOut():{}" 
       mat-button routerLink="{{item.href}}" routerLinkActive="active-link active-phone-link">
       {{item.title}}<mat-icon>{{item.icon}}</mat-icon>
-      <span class="num-unread-messages-phone" *ngIf="item.value">
-        {{item.value}}
-      </span>
+      
     </a>
+    </ng-container>
+    
   </mat-drawer>
+
 </mat-drawer-container>

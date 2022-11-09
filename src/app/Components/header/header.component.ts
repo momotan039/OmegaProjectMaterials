@@ -25,12 +25,12 @@ export class HeaderComponent implements OnInit {
       const _user=user
       MyTools.NumUnreadMsgs.subscribe(num=>{
        this.CreateMenuItems(_user,num);
-        
       })
     })
   }
 
   CreateMenuItems(user:any,unreadMsgs:number){
+    
     this.menuItems=Menu.getItemsByUserRole(user.roleId)
 
     this.menuItems.forEach(f=>{
@@ -50,6 +50,5 @@ export class HeaderComponent implements OnInit {
     })
     
   }
-
 
 }

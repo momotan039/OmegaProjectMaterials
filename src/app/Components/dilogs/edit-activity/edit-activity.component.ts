@@ -31,7 +31,7 @@ export class EditActivityComponent implements OnInit {
   }
 
   SaveUser(file:any){
-    debugger
+    
     if(!this.fg.valid)
       return;
 

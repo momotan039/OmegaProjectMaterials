@@ -66,17 +66,20 @@ export class MessagesComponent implements OnInit, OnDestroy,AfterViewInit {
   }
   ngAfterViewInit(): void {
     // Configuration Scrolling Events After Loading Messages
-    let msgConainer=this.ListMessagesContainer['nativeElement'];
+    let msgConainer=this.ListMessagesContainer['nativeElement'] as HTMLElement;
     msgConainer.addEventListener("scroll",()=>{
      //how much scrolling
    const scrollTop=msgConainer.scrollTop;
    console.warn(scrollTop)
-
+      //Read Messages While Scrolling
    this.ReadMessages()
      //if scrollTop=0 its mean get previous messages
      if(scrollTop==0)
       this.GetPreviousMessages();
-     this.ReadMessages()
+      
+     const scrollingDownUnreadMsgsBtn= msgConainer.querySelector(".scroll-down-to-unread-messages") as HTMLElement
+     if(scrollingDownUnreadMsgsBtn)
+     scrollingDownUnreadMsgsBtn.style.top=scrollTop+"px"
    })
   }
 
@@ -127,29 +130,25 @@ export class MessagesComponent implements OnInit, OnDestroy,AfterViewInit {
 
     return 'courseId' in this.receiver;
   }
-  ScrollingDownListMessage() {
+  ScrollingDownListMessageButton() {
     //scroll down to bottom list Message
-    
-
       setTimeout(() => {
-        if(!this.CountUnreadMessages(this.receiver))
-        {
-          document.querySelector('.listMessages')?.scrollTo({
-            top: document.querySelector('.listMessages')?.scrollHeight,
-            behavior: 'smooth',
-          }); 
-        }
-       
-        else {
-          const offsetTopMessage=(document.querySelector('.unread-message') as HTMLElement).offsetTop
-          const offsetHeightParent=(document.querySelector('.listMessages') as HTMLElement).offsetHeight
-          console.warn(offsetTopMessage-offsetHeightParent)
-             document.querySelector('.listMessages')?.scrollTo({
-              top: offsetTopMessage-offsetHeightParent,
-              behavior: 'smooth',
-            });
-        }
         
+        const listMsgs=document.querySelector('.listMessages');
+        let top=listMsgs?.scrollHeight
+
+        if(this.CountUnreadMessages(this.receiver))
+          {
+            const offsetTopMessage=(document.querySelector('.unread-message') as HTMLElement).offsetTop
+            const offsetHeightParent=(listMsgs as HTMLElement).offsetHeight
+            top=offsetTopMessage-offsetHeightParent+50
+          }
+        
+
+        listMsgs?.scrollTo({
+          top: top,
+          behavior: 'smooth',
+        });
       }, 300);
   }
 
@@ -207,7 +206,7 @@ export class MessagesComponent implements OnInit, OnDestroy,AfterViewInit {
             listMsgs.style.overflowY="auto"
           }, 900);
           setTimeout(() => {
-            debugger
+            
             listMsgs.scrollTo(0,offsetTop+150)
           }, 1000);
         }
@@ -243,9 +242,10 @@ export class MessagesComponent implements OnInit, OnDestroy,AfterViewInit {
             if(event.type==HttpEventType.Response)
               {
                  this.GetStreamMessages(this.receiver.id);
-                 this.msgs = event.body['messages'];
+                 const unreadMessages=MyTools.unreadMsgs.filter(f=>f.isGroup && f.senderId==this.receiver.id)
+                 this.msgs = unreadMessages.concat(event.body['messages']);
                  this.found_previous=event.body['found_previous']
-                 this.ScrollingDownListMessage();
+                 this.ScrollingDownListMessageButton();
                  this.ShowSpinner=false
               }
           });
@@ -301,7 +301,7 @@ export class MessagesComponent implements OnInit, OnDestroy,AfterViewInit {
     SendMessageFun.subscribe({
       complete: () => {
           setTimeout(() => {
-            this.ScrollingDownListMessage()
+            this.ScrollingDownListMessageButton()
           }, 1000);
       },
       error: () => {

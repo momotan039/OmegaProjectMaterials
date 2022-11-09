@@ -23,7 +23,7 @@
     </div>
 </div>
 <div class="menu">
-    <div class="logo">
+    <div (click)="drawer.close()" class="logo">
     <a routerLink="/main">
         <img src="../../../../assets/images-guest/newlogo.png"
         title="معهد أوميغا التعليمي - تعلم اللغة العبرية ودورات التحضير لامتحان البسيخومتري بأفضل الطرق"
@@ -75,5 +75,60 @@
         </span>
     </div>
 
-    <button routerLink="home" class='main-button' mat-raised-button>بوابة الأعضاء</button>
+    <div class="buttons">
+        <button routerLink="home" class='main-button' mat-raised-button (click)="drawer.close()">بوابة الأعضاء</button>
+    <button  class="menu-item-button" mat-mini-fab (click)="drawer.toggle()"><mat-icon>menu</mat-icon></button>
+
+    </div>
+
 </div>
+    
+<mat-drawer-container [hasBackdrop]="true">
+
+    <mat-drawer #drawer class="example-sidenav" mode="side">
+     <span
+     *ngFor="let item of menuItems"
+     >
+      <a
+       *ngIf="!item.forSettings"
+       (click)="!item.childs?drawer.toggle():{}" 
+      mat-button routerLink="{{item.href}}" routerLinkActive="active-link active-phone-link">
+      {{item.title}}
+      <mat-icon *ngIf="item.childs">arrow_drop_down</mat-icon>
+    </a>
+    <div  *ngIf="item.childs" class="sub-menu">
+        <span  *ngFor="let subItem of item.childs">
+           <a 
+           (click)="!subItem.childs?drawer.toggle():{}" 
+           [routerLink]="subItem.link">
+           {{subItem.name}}
+           <mat-icon *ngIf="subItem.childs">arrow_drop_down</mat-icon>
+         </a>
+         <div *ngIf="subItem.childs" class="sub-menu">
+            <span *ngFor="let subItemChild of subItem.childs"
+            (click)="drawer.close()"
+            >
+                <a
+                 *ngIf="subItemChild.external else internal"
+                [href]="subItemChild.link"
+                >
+                   {{subItemChild.name}}
+               </a>
+               <ng-template #internal>
+                <a
+               [routerLink]="subItemChild.link"
+               >
+                  {{subItemChild.name}}
+              </a>
+               </ng-template>
+               
+            </span>
+          </div>
+        </span>
+        
+      </div>
+     </span>
+     
+    </mat-drawer>
+  
+  </mat-drawer-container>

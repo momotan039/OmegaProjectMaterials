@@ -38,7 +38,9 @@
       <th mat-header-cell mat-sort-header *matHeaderCellDef>{{displayedNameColumns[i]}}</th>
       <td attr.data-title="{{displayedNameColumns[i]}}" mat-cell *matCellDef="let elm">
         <ng-container 
-        [ngSwitch]="displayedNameColumns[i]=='Note'||displayedNameColumns[i]=='About'?1
+        [ngSwitch]="
+        displayedNameColumns[i]=='Content'||
+        displayedNameColumns[i]=='Note'||displayedNameColumns[i]=='About'?1
         :displayedNameColumns[i]=='Image'?2
         :displayedNameColumns[i]=='Status Attendance'?3
         :displayedNameColumns[i]=='Note Delay'?4

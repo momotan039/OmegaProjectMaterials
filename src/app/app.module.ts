@@ -52,7 +52,6 @@ import { SelectWithSearchComponent } from './Components/select-with-search/selec
 import { FooterComponent } from './Components/footer/footer.component';
 import { ChartComponent } from './Components/SubComponent/chart/chart.component';
 import { MainComponent } from './Components/Guest/main/main.component';
-import { NgImageSliderModule } from 'ng-image-slider';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { AboutUsComponent } from './Components/Guest/about-us/about-us.component';
 import { GuestHeaderComponent } from './Components/Guest/guest-header/guest-header.component';
@@ -82,6 +81,12 @@ import myLocaleAr from '@angular/common/locales/ar'
 import {registerLocaleData} from '@angular/common';
 import { AttendanceComponent } from './Components/attendance/attendance.component';
 import { UserAttendanceComponent } from './Components/user-attendance/user-attendance.component';
+import { TopSliderComponent } from './Components/admin/top-slider/top-slider.component';
+import { AddTopSliderImageComponent } from './Components/dilogs/add-top-slider-image/add-top-slider-image.component';
+import { EditTopSliderImageComponent } from './Components/dilogs/edit-top-slider-image/edit-top-slider-image.component';
+import { OpinionsComponent } from './Components/admin/opinions/opinions.component';
+import { AddOpinionComponent } from './Components/dilogs/add-opinion/add-opinion.component';
+import { EditOpinionComponent } from './Components/dilogs/edit-opinion/edit-opinion.component';
 registerLocaleData(myLocaleAr)
 
 
@@ -162,6 +167,12 @@ registerLocaleData(myLocaleAr)
     EditActivityComponent,
     AttendanceComponent,
     UserAttendanceComponent,
+    TopSliderComponent,
+    AddTopSliderImageComponent,
+    EditTopSliderImageComponent,
+    OpinionsComponent,
+    AddOpinionComponent,
+    EditOpinionComponent,
   ],
   imports: [
     BrowserModule,
@@ -171,7 +182,6 @@ registerLocaleData(myLocaleAr)
     AllMaterialsModule,
     FormsModule,
     ReactiveFormsModule,
-    NgImageSliderModule,
     CarouselModule,
   ],
   providers: [

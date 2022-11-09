@@ -1,6 +1,19 @@
 <div class="slider show-up-1">
-  <ng-image-slider [imageSize]="{width: '100%'}" [images]="imagesSlider" [lazyLoading]="true" [paginationShow]="true"
-    [infinite]="true" [autoSlide]="{interval: 5, stopOnHover: false}"></ng-image-slider>
+
+  <!-- <ng-image-slider  [imagePopup]="false" [imageSize]="{width: '100%'}"
+   [images]="imagesSlider" [lazyLoading]="true" [paginationShow]="true"
+    [infinite]="true" [autoSlide]="{interval: 1, stopOnHover: true}"></ng-image-slider> -->
+
+    <owl-carousel-o  [options]="options2">
+      <ng-container>
+        <ng-template carouselSlide *ngFor="let item of imagesSlider">
+          <div class="slider-image">
+            <img [src]="item.thumbImage" [alt]="item.title">
+            <div *ngIf="item.title" class="title-image">{{item.title}}</div>
+          </div>
+        </ng-template>    
+      </ng-container>
+    </owl-carousel-o>
 </div>
 
 
@@ -39,7 +52,7 @@
 </div>
 
 
-<div class="our-services container-color">
+<div  class="our-services container-color">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
     <path fill="#fe8d34" fill-opacity="1"
       d="M0,128L24,138.7C48,149,96,171,144,202.7C192,235,240,277,288,272C336,267,384,213,432,160C480,107,528,53,576,80C624,107,672,213,720,218.7C768,224,816,128,864,90.7C912,53,960,75,1008,96C1056,117,1104,139,1152,160C1200,181,1248,203,1296,186.7C1344,171,1392,117,1416,90.7L1440,64L1440,0L1416,0C1392,0,1344,0,1296,0C1248,0,1200,0,1152,0C1104,0,1056,0,1008,0C960,0,912,0,864,0C816,0,768,0,720,0C672,0,624,0,576,0C528,0,480,0,432,0C384,0,336,0,288,0C240,0,192,0,144,0C96,0,48,0,24,0L0,0Z">
@@ -190,7 +203,7 @@
 </div>
 
 
-<div class="our-news">
+<div *ngIf="news.length!=0" class="our-news">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
     <path fill="#fe8d34" fill-opacity="1"
       d="M0,128L24,138.7C48,149,96,171,144,202.7C192,235,240,277,288,272C336,267,384,213,432,160C480,107,528,53,576,80C624,107,672,213,720,218.7C768,224,816,128,864,90.7C912,53,960,75,1008,96C1056,117,1104,139,1152,160C1200,181,1248,203,1296,186.7C1344,171,1392,117,1416,90.7L1440,64L1440,0L1416,0C1392,0,1344,0,1296,0C1248,0,1200,0,1152,0C1104,0,1056,0,1008,0C960,0,912,0,864,0C816,0,768,0,720,0C672,0,624,0,576,0C528,0,480,0,432,0C384,0,336,0,288,0C240,0,192,0,144,0C96,0,48,0,24,0L0,0Z">
@@ -212,33 +225,35 @@
       <owl-carousel-o  [options]="options">
         <ng-container>
           <ng-template carouselSlide *ngFor="let item of news">
-            <div class="new">
-              <div class="border">
-                <span class="left-border"></span>
-                <span class="bottom-border"></span>
-                <span class="right-border"></span>
-                <span class="top-border"></span>
-              </div>
-              <div class="thumbnail">
-                <img [src]="domain+item.imageUrl">
-                <button class="main-button" mat-raised-button (click)="{}">
-                  <span class="day">{{item.date|date:'d'}}</span>
-                  <span class="month">{{item.date|date:'MMM':'':'ar'}}</span>
-                </button>
-              </div>
-              <div class="explain">
-                <span class="summary">
-                  اخبارنا و نشاطاتنا
-                </span>
-                <a href="#" class="black-title">
-                 {{item.title}}
-                </a>
-                <div class="read-more">
-                  <span>Read More</span>
-                  <mat-icon>arrow_right_alt</mat-icon>
+            <a [routerLink]="'/news/'+item.id">
+              <div class="new">
+                <div class="border">
+                  <span class="left-border"></span>
+                  <span class="bottom-border"></span>
+                  <span class="right-border"></span>
+                  <span class="top-border"></span>
+                </div>
+                <div class="thumbnail">
+                  <img [src]="domain+item.imageUrl">
+                  <button class="main-button" mat-raised-button (click)="{}">
+                    <span class="day">{{item.date|date:'d'}}</span>
+                    <span class="month">{{item.date|date:'MMM':'':'ar'}}</span>
+                  </button>
+                </div>
+                <div class="explain">
+                  <span class="summary">
+                    اخبارنا و نشاطاتنا
+                  </span>
+                  <a href="#" class="black-title">
+                   {{item.title}}
+                  </a>
+                  <div class="read-more">
+                    <span>Read More</span>
+                    <mat-icon>arrow_right_alt</mat-icon>
+                  </div>
                 </div>
               </div>
-            </div>
+            </a>
           </ng-template>
         </ng-container>
       </owl-carousel-o>
@@ -248,7 +263,7 @@
 </div>
 
 
-<div class="our-staff">
+<div *ngIf="staff.length!=0"  class="our-staff">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
     <path fill="#fe8d34" fill-opacity="1"
       d="M0,128L24,138.7C48,149,96,171,144,202.7C192,235,240,277,288,272C336,267,384,213,432,160C480,107,528,53,576,80C624,107,672,213,720,218.7C768,224,816,128,864,90.7C912,53,960,75,1008,96C1056,117,1104,139,1152,160C1200,181,1248,203,1296,186.7C1344,171,1392,117,1416,90.7L1440,64L1440,0L1416,0C1392,0,1344,0,1296,0C1248,0,1200,0,1152,0C1104,0,1056,0,1008,0C960,0,912,0,864,0C816,0,768,0,720,0C672,0,624,0,576,0C528,0,480,0,432,0C384,0,336,0,288,0C240,0,192,0,144,0C96,0,48,0,24,0L0,0Z">
@@ -286,7 +301,7 @@
 </div>
 
 
-<div class="students-opinions container-color">
+<div *ngIf="opinions.length!=0" class="students-opinions container-color">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
         <path fill="#fe8d34" fill-opacity="1"
           d="M0,128L24,138.7C48,149,96,171,144,202.7C192,235,240,277,288,272C336,267,384,213,432,160C480,107,528,53,576,80C624,107,672,213,720,218.7C768,224,816,128,864,90.7C912,53,960,75,1008,96C1056,117,1104,139,1152,160C1200,181,1248,203,1296,186.7C1344,171,1392,117,1416,90.7L1440,64L1440,0L1416,0C1392,0,1344,0,1296,0C1248,0,1200,0,1152,0C1104,0,1056,0,1008,0C960,0,912,0,864,0C816,0,768,0,720,0C672,0,624,0,576,0C528,0,480,0,432,0C384,0,336,0,288,0C240,0,192,0,144,0C96,0,48,0,24,0L0,0Z">
@@ -307,49 +322,14 @@
     <owl-carousel-o   [options]="options2">
         <ng-container>
 
-          <ng-template carouselSlide>
+          <ng-template *ngFor="let item of opinions" carouselSlide>
             <div class="opinion">
                 <mat-icon class="orange-title">format_quote</mat-icon>
                 <div class="describe">
-                    المعهد كتير منيح والجو العام فيه كتير حلو مكان جدا لطيف وبنلاقي فيه جو مريح اجتماعيا واكاديميا، المعلمين جدا متعاونين وبعطوا التعليم حقه، رغم انه التعليم بالعبري حتى من بداية الدورة بس المعلمين اسلوبهم كتير حلو وبوصلوا المعلومة بطريقه حلوة، انا كتير استفدت مع اني لسه بالمستوى الأول، واكيد مكملة.
+                  {{item.content}}
                 </div>
-                <div class="name black-title">شيرين فريتخ</div>
-                <div class="summary">طالبة مستوى أ في المعهد</div>
-             </div>
-          </ng-template>
-
-          <ng-template carouselSlide>
-            <div class="opinion">
-                <mat-icon class="orange-title">format_quote</mat-icon>
-                <div class="describe">
-                    ( اوميجا مش مجرد معهد ، اوميغا  هو بيتك التاني الي يوفر لك كل الأدوات الي بتحتاجها عشان توصل لكل أهدافك)
-                </div>
-                <div class="name black-title">هيفا فحام</div>
-                <div class="summary">خريجة اوميغا / علوم حيوية بكلية هداسا</div>
-             </div>
-          </ng-template>
-
-          <ng-template carouselSlide>
-            <div class="opinion">
-                <mat-icon class="orange-title">format_quote</mat-icon>
-                <div class="describe">
-                    المعهد صراحة ممتاز و رائع من كل النواحي و خصوصي من الناحية التعليم الي هي الاهم و الي احنا موجودين عشانها و من ناحية التعليم عن طريق فعاليات و نشاطات و الي بخلي المعلومات اضل موجودة بمخنا طول الوقت و من ناحية تعامل و روح المحبة و المشاركة و الدعم طول الوقت و جملتنا الاكيدة ( احنا مش معهد احنا عيلة )
-                </div>
-                <div class="name black-title">نور الجولاني</div>
-                <div class="summary">سنة تحضيرية اوميغا جولد</div>
-             </div>
-          </ng-template>
-
-          <ng-template carouselSlide>
-            <div class="opinion">
-                <mat-icon class="orange-title">format_quote</mat-icon>
-                <div class="describe">
-                    اصلا فش حكي ينوصفف 😍  كل شي بجنن فيكم بكفي لطافتكم معناا ❤️ ❤️ وجد جد منحسكم اصدقااء واكتر 
-                    🥰  ومبسووطه كتير اني معكمم  ❤️ 🤍 وطبعا التعليم اشيي تانيي الي بدو يطلع برفكتو بكلشي بس عندكم
-                    🥰 👌🏻  بتمنالكم كمانن وكمانن نجاحح واسمكم يكبر اكتر واكتر ❤️ ❤️
-                </div>
-                <div class="name black-title">مروة ابو خديجة</div>
-                <div class="summary">سنة تحضيرية اوميغا جولد</div>
+                <div class="name black-title">{{item.name}}</div>
+                <div class="summary">{{item.about}}</div>
              </div>
           </ng-template>
         </ng-container>

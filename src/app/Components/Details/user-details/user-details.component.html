@@ -73,16 +73,22 @@
           <h2>Phone:{{user.phone}}</h2>
          </div>
         </mat-card-content>
+
   </mat-card>
 
-  <app-chart
+
+
+  <div class="charts show-up-1">
+    <app-chart
   *ngIf="user.roleId==3"
   IdChart="chart1"
-  Type="bar"
+  Type="doughnut"
   Title="Done Homeworks By Group"
   [ParentBuildData]="GetDataChart1"
+  [enablePercent]="true"
+  [enableOptions]="true"
   >
-  </app-chart>
+  </app-chart> 
   
   <app-chart
   *ngIf="user.roleId==3"
@@ -91,5 +97,8 @@
   Title="Attendances By Group"
   [ParentBuildData]="GetDataChart2"
   >
+
   </app-chart>
+
+  </div>
  </div>

@@ -55,7 +55,7 @@ export class MyTableComponent implements OnInit {
     if(_prop.includes("date")||_prop.includes("Date")){
       return new Date(elm).toDateString()
     }
-    if(_prop.includes("image"))
+    if(_prop.includes("image") ||_prop.includes("Image") )
     return MyTools.domainNameServer+elm
     return elm
     }
