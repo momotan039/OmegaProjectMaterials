@@ -94,7 +94,7 @@ mat-radio-group mat-radio-button{
     height: auto !important;
     border-bottom: var(--warn) dashed;
     padding: 10px;
-    width: 115%;
+    /* width: 115%; */
   }
 
   /* show title before td */

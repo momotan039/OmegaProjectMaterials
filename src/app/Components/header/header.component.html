@@ -1,7 +1,9 @@
 <!-- <mat-toolbar [ngClass]="{'justyCenter':!authService.IsLogIn()}" color="primary"> -->
 <mat-toolbar color="primary">
-  <button class="settings-button" mat-mini-fab (click)="drawer2.toggle()"><mat-icon>settings</mat-icon></button>
+
+  <button *ngIf="authService.currentUser.role==1" class="settings-button" mat-mini-fab (click)="drawer2.toggle()"><mat-icon>settings</mat-icon></button>
   <img routerLink="home" class="logo" src="../../../assets/images/logo.png" alt="Omega Academy">
+
   <div *ngIf="authService.currentUserSub|async" class="menuItems">
 
     <ng-container *ngFor="let item of menuItems"  >

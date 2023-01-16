@@ -8,6 +8,7 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { UserAuth } from 'src/app/models/UserAuth';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { MatButton } from '@angular/material/button';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-forget-password-dialog',
@@ -17,6 +18,7 @@ import { MatButton } from '@angular/material/button';
 export class ForgetPasswordDialogComponent implements OnInit {
   fg=new FormGroup({})
   showprogressBar=false
+  lastRequest?:Subscription 
   constructor(
     private fb:FormBuilder,
     private router:Router,
@@ -29,12 +31,15 @@ export class ForgetPasswordDialogComponent implements OnInit {
       email:['',Validators.compose([Validators.required,Validators.email])],
     })
   }
+
+
   ForgetPassword(refButton:MatButton){
     if(!this.fg.valid)
     return
     this.showprogressBar=true
     refButton.disabled=true
-    this.httpAcountService.ForgetPassword(this.fg.get('email')?.value).subscribe((data)=>{
+
+     this.lastRequest=this.httpAcountService.ForgetPassword(this.fg.get('email')?.value).subscribe((data)=>{
       this.matDialog.close()
       MyTools.ShowResult200Message(data)
     },(err)=>{
@@ -42,6 +47,11 @@ export class ForgetPasswordDialogComponent implements OnInit {
       refButton.disabled=false
       this.showprogressBar=false
     })
+  }
+
+
+  forgetPassword(){
+    this.lastRequest?.unsubscribe()
   }
 
 }

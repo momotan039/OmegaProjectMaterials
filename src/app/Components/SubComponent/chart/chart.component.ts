@@ -62,43 +62,24 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
       type: this.Type,
       data: this.Data,
     });
-    debugger
+
     if (this.enableOptions)
       this.EnableOptions(myChart)
   }
-  EnableOptions(myChart: Chart<any, any[], unknown>) {
+
+
+  EnableOptions(myChart: Chart<any, any[], unknown>)
+   {
     myChart.config.options = {
       scales: {
-        x: {
-          display: true,
-          title: {
-            display: true,
-            text: this.xTitle,
-            color: '#ff6d00',
-            font: {
-              weight: 'bold',
-            },
-          }
-        },
         y: {
-          display: true,
-          title: {
-            display: true,
-            text: this.yTitle,
-            color: '#ff6d00',
-            font: {
-              weight: 'bold',
-            },
-          },
-          ticks: this.enablePercent ? {
-            callback: function (value: any) {
-              return value + "%"
-            },
-          } : {},
+            ticks: {
+                format: {
+                    style: 'percent'
+                }
+            }
         }
-      }
-      // if(this.enablePercent)
-      // myChart.config.options.scales.y.ticks['format']['style']='percent'
+    }
     }
   }
 

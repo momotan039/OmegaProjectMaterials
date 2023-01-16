@@ -79,7 +79,6 @@ MyFunc=async ():Promise<any>=>{
         dataChart1.labels=data.months
     dataChart1.datasets[0].data=data.counts
    })
-
   return  dataChart1
  }
 

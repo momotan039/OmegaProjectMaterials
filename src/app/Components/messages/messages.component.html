@@ -20,6 +20,7 @@
 
     <mat-list>
       <div *ngIf="filteredGroups.length" class="groups-contacts">
+        <h1 class="title">Groups</h1>
         <mat-list-item *ngFor="let group of filteredGroups">
           <mat-card>
             <button mat-button (click)="SetResiver(group)">
@@ -44,6 +45,7 @@
         </mat-list-item>
       </div>
       <div *ngIf="filteredFreinds.length" class="users-contacts">
+      <h1 class="title">Friends</h1>
         <mat-list-item *ngFor="let user of filteredFreinds">
           <mat-card>
             <button mat-button (click)="SetResiver(user)">

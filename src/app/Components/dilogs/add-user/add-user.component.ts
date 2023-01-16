@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs';
 import { Component, Inject, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
@@ -13,7 +14,7 @@ import { MessageDialogComponent } from "../message-dialog/message-dialog.compone
   styleUrls: ['./add-user.component.css'],
 })
 export class AddUserComponent implements OnInit {
-
+ lastRequest?:Subscription
   constructor(
     private httpUsers:HttpUsersService,
     private dialogRef:MatDialogRef<UsersTableComponent>,
@@ -34,15 +35,18 @@ export class AddUserComponent implements OnInit {
 
 
 SaveUser(){
-  console.warn(this.fg.get('email')!.errors)
 if(!this.fg.valid)
   return;
-  this.httpUsers.PostUser(this.fg.value).subscribe(data=>{
+  this.lastRequest=this.httpUsers.PostUser(this.fg.value).subscribe(data=>{
     MyTools.ShowResult200Message(data)
     this.dialogRef.close();
   },(err)=>{
     MyTools.ShowFialdMessage(err,"Adding User")
     })
+}
+
+cancelRequest(){
+  this.lastRequest?.unsubscribe();
 }
 
 }

@@ -29,6 +29,25 @@ width: 100%;
 ::ng-deep mat-dialog-container .mat-form-field-subscript-wrapper{
 top: 7px;
 }
+
+::ng-deep .cdk-overlay-pane{
+  position: relative !important;
+}
+::ng-deep .cdk-overlay-pane::after{
+  content: "close";
+  font-size: 2rem;
+  font-family: 'Material Icons';
+  font-weight: bold;
+  z-index: 9999;
+  position: absolute;
+  right: -19px;
+  top: -23px;
+  padding: 12px;
+  border-radius: 8px;
+  background: var(--primary);
+  pointer-events: none;
+}
+
 /* End Dialog style */
 
 ::ng-deep mat-select mat-option{

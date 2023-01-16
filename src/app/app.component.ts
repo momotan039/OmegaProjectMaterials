@@ -44,7 +44,11 @@ export class AppComponent implements OnInit {
       
   }
   ngOnInit(): void {
-    
+  //  this.dialog.afterOpened.asObservable().subscribe(f=>{
+  //    let t=document.querySelector(".cdk-overlay-pane") as HTMLElement
+  //    let elem = window.getComputedStyle(t, ':after');
+  //    console.log(elem)
+  //  })
   }
 
 }
