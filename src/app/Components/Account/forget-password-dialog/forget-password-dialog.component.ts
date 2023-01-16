@@ -16,6 +16,9 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./forget-password-dialog.component.css']
 })
 export class ForgetPasswordDialogComponent implements OnInit {
+
+
+
   fg=new FormGroup({})
   showprogressBar=false
   lastRequest?:Subscription 
@@ -47,11 +50,11 @@ export class ForgetPasswordDialogComponent implements OnInit {
       refButton.disabled=false
       this.showprogressBar=false
     })
+
   }
 
 
-  forgetPassword(){
+  cancelRequest(){
     this.lastRequest?.unsubscribe()
   }
-
 }

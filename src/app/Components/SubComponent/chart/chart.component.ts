@@ -29,6 +29,9 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() ParentBuildData!: () => Promise<any>
   ngAfterViewInit(): void {
     this.ParentBuildData().then((data: any) => {
+      if(this.Type=="doughnut")
+        data['indexLabel']="#percent%"
+        
       this.Data = data
       this.RenderChart()
     })
@@ -62,9 +65,7 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
       type: this.Type,
       data: this.Data,
     });
-
-    if (this.enableOptions)
-      this.EnableOptions(myChart)
+    this.EnableOptions(myChart)
   }
 
 
