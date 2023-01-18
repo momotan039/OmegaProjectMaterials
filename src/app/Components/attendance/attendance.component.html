@@ -1,5 +1,5 @@
+<ng-container *ngIf="!groupId else selectedGroup">
   <app-my-table
-  *ngIf="!groupId"
   [singleTitle]="'Attendance'"
   [displayedNameColumns]="['Group','Operations']"
   [displayedColumns]="['name']"
@@ -9,14 +9,27 @@
   [enableAddRow]="false"
   >
   </app-my-table>
+</ng-container>
   
-<div
-*ngIf="groupId"
+<ng-template
+#selectedGroup
 class="groupTable">
+
+<app-chart #chart
+IdChart="chart"
+Type="line"
+Title="Attendances By Month ({{date|date:'M'}}-{{date|date:'Y'}})"
+[ParentBuildData]="GetAttendaceStatisticsByMonth"
+[enablePercent]=true
+>
+</app-chart>
+<br>
+
 <div  class="container-search-date-button">
     <button (click)="SearchByDate(refinput)" class="search" color="primary" mat-fab >
         <mat-icon >search</mat-icon>
     </button>
+    
     <mat-form-field appearance="fill">
         <mat-label>Choose Date of a Attendance</mat-label>
         <input  [max]="maxDate"  [min]="group?.openingDate" #refinput autocomplete="off"  matInput [matDatepicker]="picker">
@@ -26,7 +39,7 @@ class="groupTable">
 </div>
 
 
-    <app-my-table
+<app-my-table
 #groupTable
 [enableAddRow]="false"
 [singleTitle]="'Attendance'"
@@ -36,5 +49,5 @@ class="groupTable">
 [HandelSaveAllRecords]="SaveChangesAttendances"
 >
 </app-my-table>
-</div>
+</ng-template>
 

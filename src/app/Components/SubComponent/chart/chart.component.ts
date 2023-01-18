@@ -21,25 +21,36 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() IdChart = ""
   @Input() Type: any
   @Input() Title: any
-  @Input() enablePercent:any;
+  @Input() enablePercent: any;
   @Input() xTitle: any;
   @Input() yTitle: any;
   @Input() enableOptions = true;
-
+   myChart?:Chart;
+   id=0;
   @Input() ParentBuildData!: () => Promise<any>
   ngAfterViewInit(): void {
+    this.build()
+  }
+
+  build() {
+    debugger
+    this.myChart?.destroy()
     this.ParentBuildData().then((data: any) => {
-      if(this.Type=="doughnut")
-        data['indexLabel']="#percent%"
-        
+      debugger
+      if (this.Type == "doughnut")
+        data['indexLabel'] = "#percent%"
+
       this.Data = data
       this.RenderChart()
     })
   }
-
+  
   ngOnInit(): void {
   }
-
+genearteIdChart(){
+  
+return ++this.id
+}
 
   RenderChart() {
     const backgroundColor: any = [
@@ -61,26 +72,26 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
     const borderWidth = 4
     //Append Style to DataSetes
     this.ConfigeStyleDataSet(backgroundColor, borderColor, borderWidth)
-    let myChart = new Chart(this.IdChart, {
+     this.myChart = new Chart(this.IdChart+this.genearteIdChart(), {
       type: this.Type,
       data: this.Data,
     });
-    this.EnableOptions(myChart)
+
+    this.EnableOptions(this.myChart)
   }
 
 
-  EnableOptions(myChart: Chart<any, any[], unknown>)
-   {
+  EnableOptions(myChart: Chart<any, any[], unknown>) {
     myChart.config.options = {
       scales: {
         y: {
-            ticks: {
-                format: {
-                    style: 'percent'
-                }
+          ticks: {
+            format: {
+              style: 'percent'
             }
+          }
         }
-    }
+      }
     }
   }
 

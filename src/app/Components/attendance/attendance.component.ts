@@ -1,3 +1,4 @@
+import { ChartComponent } from './../SubComponent/chart/chart.component';
 import { HttpGroupsService } from 'src/app/services/http-groups.service';
 import { MyTools } from 'src/app/constants/MyTools';
 import { MyTableComponent } from './../SubComponent/my-table/my-table.component';
@@ -18,6 +19,7 @@ export class AttendanceComponent implements OnInit {
   groupId=0
   group:Group | undefined
  @ViewChild("groupTable") GroupTable:MyTableComponent | undefined
+ @ViewChild("chart") chart:ChartComponent | undefined
   maxDate: Date | undefined;
   
   constructor(
@@ -42,7 +44,6 @@ export class AttendanceComponent implements OnInit {
   },(err)=>{
     MyTools.ShowFialdMessage(err,"Saving Changes")
   })
-
   }
 
   SearchByDate(refinput:any){
@@ -60,6 +61,7 @@ export class AttendanceComponent implements OnInit {
     this.date=_date
     setTimeout(() => {
       this.GroupTable?.FillTableData()
+      this.chart?.build()
     }, 10);
   }
 
@@ -96,42 +98,60 @@ export class AttendanceComponent implements OnInit {
           this.maxDate=closingDate
   }
 
-  GetDateTable1=()=>{
+  // GetDateTable1=()=>{
 
-    const data=[
-      {
-        'name':'Adam Karam',
-        'status':'present',
-        'date':'2022-3-15',
-        'note':'',
-        'groupId':1
-      }
-      ,
-      {
-        'name':'Rami Adnan',
-        'status':'absent',
-        'date':'2022-3-15',
-        'note':'',
-        'groupId':1
-      }
-      ,
-      {
-        'name':'Adam Karam',
-        'status':'present',
-        'date':'2022-4-13',
-        'note':'',
-        'groupId':2
-      }
+  //   const data=[
+  //     {
+  //       'name':'Adam Karam',
+  //       'status':'present',
+  //       'date':'2022-3-15',
+  //       'note':'',
+  //       'groupId':1
+  //     }
+  //     ,
+  //     {
+  //       'name':'Rami Adnan',
+  //       'status':'absent',
+  //       'date':'2022-3-15',
+  //       'note':'',
+  //       'groupId':1
+  //     }
+  //     ,
+  //     {
+  //       'name':'Adam Karam',
+  //       'status':'present',
+  //       'date':'2022-4-13',
+  //       'note':'',
+  //       'groupId':2
+  //     }
       
-    ]
-    let filtered:any=[]
-    if(this.groupId)
-      filtered=data.filter(f=>f.groupId==this.groupId)
-    if(this.date && this.groupId)
-     filtered=data.filter(f=>f.groupId==this.groupId&&f.date==this.date)
-    return new Observable<any>((obs)=>{
-      obs.next(filtered)
-      obs.complete()
-    })
-  }
+  //   ]
+  //   let filtered:any=[]
+  //   if(this.groupId)
+  //     filtered=data.filter(f=>f.groupId==this.groupId)
+  //   if(this.date && this.groupId)
+  //    filtered=data.filter(f=>f.groupId==this.groupId&&f.date==this.date)
+  //   return new Observable<any>((obs)=>{
+  //     obs.next(filtered)
+  //     obs.complete()
+  //   }).toPromise()
+
+  // }
+
+  GetAttendaceStatisticsByMonth=async ():Promise<any>=>{
+    let dataChart1:any = {
+      datasets: [
+        {
+          label: 'Presents',
+        },
+      ]
+    }
+    debugger
+    await this.httpAttendanceService.GetAttendanceStatisticsPerMonth(this.groupId,this.date).forEach(data=>{
+      dataChart1.labels=data.labels
+      dataChart1.datasets[0].data=data.data
+     })
+    return  dataChart1
+   }
+
 }

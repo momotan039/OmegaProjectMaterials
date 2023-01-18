@@ -34,6 +34,11 @@ GetAttendanceStatistics(groupId:number){
   return  this.http.get<any>(MyTools.UrlRootApi+"/Attendance/GetAttendanceStatistics/"+groupId+"/"+userId);
 }
 
+GetAttendanceStatisticsPerMonth(groupId:number,date:Date){
+  return  this.http.get<any>(MyTools.UrlRootApi+"/Attendance/GetAllUsersPerMonth/"+groupId+"/"+date);
+}
+
+
 GetGroups(){
   return  this.http.get<any>(MyTools.UrlRootApi+"/Attendance/GetGroups");
 }
