@@ -47,7 +47,7 @@
 }
 .BtnFiles::after{
   position: absolute;
-  content: "Choose Files To Send";
+  content:'fa';
   color: white;
   text-align: center;
   font-size: 1rem;

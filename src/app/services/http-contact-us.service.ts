@@ -21,4 +21,10 @@ AddOne(cum:ContactUsMessage){
    });
 }
 
+DeleteOne(id:number){
+  return  this.http.delete(MyTools.UrlRootApi+"/ContactUsMessages/Delete/"+id,{
+    responseType:'text'
+  });
+}
+
 }

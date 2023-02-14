@@ -132,7 +132,14 @@ export class Menu {
       roles:[1],
       forSettings:true
     },
-
+    {
+      title: 'Inquiries',
+      icon: 'reviews',
+      href: 'inquiries',
+      roles:[1],
+      forSettings:true
+    },
+    
     {
       title: 'الرئيسية',
       href: 'main',

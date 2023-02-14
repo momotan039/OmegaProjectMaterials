@@ -1,10 +1,11 @@
 <app-my-table
-[detailsComonentUrl]="'courseDetails'"
+[detailsComonentUrl]="'groupDetails'"
 [displayedColumns]="['name']"
 [displayedNameColumns]="['Group','Operations']"
 [operations]="[true,true,true]"
 [getDataTable]="httpGroup.GetGroupsByCourseId(idCourse)"
 [singleTitle]="course.name"
 [enableAddRow]="false"
-
+[DeleteRowParent]="DeleteRow"
+[EditRowParent]="EditRow"
 ></app-my-table>

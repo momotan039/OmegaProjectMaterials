@@ -7,7 +7,6 @@ import { MyTools } from '../constants/MyTools';
 })
 export class HttpOpinionsService {
   constructor(private http:HttpClient){
-
   }
   GetAll(){
     return  this.http.get<any>(MyTools.UrlRootApi+"/Opinions/GetAll");

@@ -1,12 +1,13 @@
-<app-my-table #refTable
+<app-my-table 
 [displayedColumns]="['name','phone','email','sendingDate']"
 [displayedNameColumns]="['Name','No. Phone','Email','Sending Date','Operations']"
 [getDataTable]="httpContactUsService.GetAll()"
 [singleTitle]="'Inquiries'"
 [enableAddRow]="false"
 [FilterPredicateParent]="FilterPredicateParent"
-[operations]="[false,false,false]"
+[operations]="[false,true,false]"
 [EnableShowViewDialog]="true"
 [ShowViewDialogParent]="ShowDetailsMessage"
+[DeleteRowParent]="DeleteRow"
 >
 </app-my-table>
