@@ -1,0 +1,15 @@
+<app-my-table #refTable
+[displayedColumns]="['name','about','work','imageUrl']"
+[displayedNameColumns]="['Name','About','Work','Image','Operations']"
+[getDataTable]="httpStaffService.GetAll()"
+[singleTitle]="'Staffs'"
+[enableAddRow]="false"
+[operations]="[true,true,false]"
+[DeleteRowParent]="DeleteRow"
+[enableAddRow]="true"
+[AddRowParent]="AddRow"
+[EditRowParent]="EditRow"
+[FilterPredicateParent]="FilterPredicateParent"
+>
+</app-my-table>
+

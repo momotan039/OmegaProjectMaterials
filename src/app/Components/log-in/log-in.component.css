@@ -1,0 +1,38 @@
+.flex{
+  display: inline-flex;
+  flex-direction: column;
+  width: 600px;
+  height: 400px;
+  background-color: black;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.mainContainer{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  direction: ltr;
+
+}
+
+.header{
+  text-transform: uppercase;
+  font-family: 'Rubik Mono One';
+  color: var(--primary);
+  text-align: center;
+  padding: 20px;
+  font-size: 50px;
+}
+
+mat-spinner{
+  align-self: center;
+}
+
+.forget_password{
+  margin-top: 10px;
+  }
+
+

@@ -1,0 +1,40 @@
+<h1 class="title" matDialogTitle>Add New Test</h1>
+<div matDialogContent>
+  <form [formGroup]="fg">
+
+    <mat-form-field class="m-1" appearance="fill">
+      <mat-label>Name</mat-label>
+      <input autocomplete="off" formControlName="name"  matInput >
+      <mat-error *ngIf="fg.get('name')!.errors?.['required']">
+        Please Fill this Field</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Choose Date of a Test</mat-label>
+      <input autocomplete="off" formControlName="date" matInput [matDatepicker]="picker">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker touchUi #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="m-1" appearance="fill">
+      <mat-label>Full Grade</mat-label>
+      <input type="number" autocomplete="off" formControlName="fullGrade"  matInput >
+      <mat-error *ngIf="fg.get('fullGrade')!.errors?.['required']">
+        Please Fill this Field</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="m-1" appearance="fill">
+      <mat-label>Min Grade</mat-label>
+      <input type="number" autocomplete="off" formControlName="minGrade"  matInput >
+      <mat-error *ngIf="fg.get('minGrade')!.errors?.['required']">
+        Please Fill this Field</mat-error>
+    </mat-form-field>
+
+  <div style="text-align: center;">
+    <button style="margin-right: 10px;" mat-raised-button (click)="SaveRecord()"  color="accent">Save</button>
+  <button mat-raised-button [mat-dialog-close]="false" color="primary">Cancel</button>
+  </div>
+</form>
+
+</div>
+

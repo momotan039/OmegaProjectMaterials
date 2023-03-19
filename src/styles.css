@@ -1,0 +1,204 @@
+/* You can add global styles to this file, and also import other style files */
+
+:root {
+  --primary: #ff6d00;
+  /* --primary: #f62840; */
+  /* --warn: #1868d8 */
+  --warn: #3949ab
+}
+html{
+  scroll-behavior: smooth;
+  /* overflow-y: hidden; */
+}
+
+
+html,
+body {
+  /* height: 100%; */
+  color: white;
+  overflow-x: hidden;
+  font-family: 'Changa',Roboto,sans-serif !important;
+}
+
+ body {
+  margin: 0;
+}
+
+.user-background{
+   background-image:linear-gradient(#00000078,#000000a8,#000000db),
+    url("../src/assets/images/background.jpg") !important;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  height: 100%;
+}
+.mainContainer{
+  min-height: 74vh;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+.btnAddRowContainer {
+  text-align: center !important;
+  margin-bottom: 10px !important;
+}
+.btnAddRowContainer button{
+  margin-bottom: 10px !important;
+}
+table,
+.input-full-width {
+  width: 100%;
+}
+
+.removeScroller {
+  overflow-y: hidden;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--warn);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  /* background: #555; */
+}
+
+/* Start Container Style */
+ .container{
+  padding: 50px;
+}
+
+@media (max-width:992px) {
+ .container{
+    padding: 20px !important;
+  }
+}
+
+
+@media (max-width:768px) {
+ .container{
+    padding: 1px 0 !important;
+    /* padding: 0px 0 131px 0; */
+  }
+}
+/* End Container Style */
+
+/* Start Title Style */
+.title {
+  background-color: var(--warn);
+  padding: 12px 5px;
+  font-weight: bold !important;
+  color: white;
+  border-radius: 5px;
+  font-size: 21px !important;
+  text-align: center;
+}
+.subTitle {
+  background: var(--primary);
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  color: white;
+  font-size: 24px !important;
+  margin-bottom: 3px !important;
+}
+
+@media (max-width:768px) {
+  .title,.subTitle {
+    margin: 15px !important;
+    padding: 5px;
+    font-size: 16px !important;
+  }
+}
+
+/* End Title Style */
+
+/* Start Sub Title */
+
+
+/* End Sub Title */
+
+/* Start Erorr Message */
+mat-error {
+  color: red !important;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;}
+
+.error-message {
+  font-weight: bold !important;
+  background: #e32525;
+  text-align: center;
+  color: white;
+}
+
+/* End Erorr Message */
+
+
+/*Start Input File Style*/
+
+
+.BtnFilesContainer{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+
+.BtnFilesContainer .BtnFiles{
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 5px;
+  padding: 20px;
+  color: white;
+  background: var(--primary);
+  text-align-last: center;
+  position: relative;
+  cursor: pointer;
+  flex: 1;
+}
+.BtnFilesContainer .BtnFiles::after{
+  position: absolute;
+  content: "Choose Files To Send";
+  color: white;
+  text-align: center;
+  font-size: 1rem;
+  left: 0;
+  background:var(--warn);
+  width: 100%;
+  top: 0;
+}
+
+.BtnFilesContainer .BtnFiles::file-selector-button{
+  color: white;
+  font-size: 1rem;
+  background:var(--warn);
+  padding: 10px;
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/*End Input File Style*/
+
+
+.hidden {
+  display: none !important;
+}
+
+

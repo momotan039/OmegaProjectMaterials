@@ -1,0 +1,15 @@
+<app-my-table #refTable
+[displayedColumns]="['name','about','content']"
+[displayedNameColumns]="['Name','About Student','Content','Operations']"
+[getDataTable]="httpOpinionsService.GetAll()"
+[singleTitle]="'Opinions'"
+[enableAddRow]="false"
+[operations]="[true,true,false]"
+[DeleteRowParent]="DeleteRow"
+[enableAddRow]="true"
+[AddRowParent]="AddRow"
+[EditRowParent]="EditRow"
+[FilterPredicateParent]="FilterPredicateParent"
+>
+</app-my-table>
+

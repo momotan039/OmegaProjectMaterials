@@ -1,0 +1,15 @@
+<app-my-table #refTable
+[displayedColumns]="['title','thumbImage','order']"
+[displayedNameColumns]="['Title','Image','Order','Operations']"
+[getDataTable]="httpTopSliderService.GetAll()"
+[singleTitle]="'Top Slider Images'"
+[enableAddRow]="false"
+[operations]="[true,true,false]"
+[DeleteRowParent]="DeleteRow"
+[enableAddRow]="true"
+[AddRowParent]="AddRow"
+[EditRowParent]="EditRow"
+[FilterPredicateParent]="FilterPredicateParent"
+>
+</app-my-table>
+

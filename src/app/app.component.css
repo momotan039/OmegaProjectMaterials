@@ -1,0 +1,129 @@
+::ng-deep *{
+  transition: all .3s;
+}
+
+.main{
+  /* padding-bottom: 150px; */
+}
+
+::ng-deep .btn_add_row_table{
+  font-weight: bold;
+}
+
+
+
+/* Start Dialog style */
+::ng-deep mat-dialog-container {
+  max-height: 86vh !important;
+  width: 800px !important;
+  position: relative;
+}
+::ng-deep .dark-dialog mat-dialog-container
+{
+  background: rgb(0 0 0 / 90%) !important;
+  color: white !important;
+}
+::ng-deep mat-dialog-container mat-form-field{
+width: 100%;
+}
+::ng-deep mat-dialog-container .mat-form-field-subscript-wrapper{
+top: 7px;
+}
+
+::ng-deep .cdk-overlay-pane{
+  position: relative !important;
+}
+::ng-deep .cdk-overlay-pane::after{
+  display: none;
+  content: "close";
+  font-size: 2rem;
+  font-family: 'Material Icons';
+  font-weight: bold;
+  z-index: 9999;
+  position: absolute;
+  right: -19px;
+  top: -23px;
+  padding: 12px;
+  border-radius: 8px;
+  background: var(--primary);
+  pointer-events: none;
+}
+
+/* End Dialog style */
+
+::ng-deep mat-select mat-option{
+  color: red;
+}
+
+/* Start List Style */
+::ng-deep mat-list.file-list{
+  /* background: gray; */
+  border-radius: 4px;
+  margin-bottom: 6px;
+  padding: 0;
+  font-weight: bold;
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+::ng-deep mat-list.file-list mat-list-item:not(
+  ::ng-deep mat-list.file-list mat-list-item:last-child
+  ):after{
+  content: "";
+  width: 100%;
+  border: solid 1px white;
+  bottom: 0;
+  position: absolute;
+}
+
+
+::ng-deep mat-list.file-list mat-list-item{
+  height: auto !important;
+}
+
+::ng-deep mat-list.file-list mat-list-item .progress{
+  width: 100%;
+    text-align: center;
+}
+
+::ng-deep mat-list.file-list mat-list-item .mat-list-item-content{
+  flex-direction: column !important;
+  }
+
+
+
+/* End List Style */
+
+/* Start Form Field Style */
+::ng-deep .mat-form-field-appearance-fill
+ .mat-form-field-flex{
+  background-color: white;
+  color: black;
+ }
+/* End Form Field Style */
+
+
+/* Start Paginator Style */
+::ng-deep .mat-paginator-container{
+justify-content: center !important;
+}
+/* End Paginator Style */
+
+/* Start SnackBar Style */
+
+::ng-deep snack-bar-container{
+  background-color: var(--warn);
+}
+::ng-deep snack-bar-container simple-snack-bar{
+  color: white;
+}
+::ng-deep snack-bar-container .mat-button-wrapper{
+  color: var(--primary);
+  font-weight: bold;
+}
+/* End SnackBar Style */
+
+
+  ::ng-deep .mat-form-field.mat-focused .mat-form-field-ripple {
+    /* background-color: #46a35e !important; */
+  }

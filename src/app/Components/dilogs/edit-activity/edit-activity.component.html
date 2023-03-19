@@ -1,0 +1,51 @@
+<h1 class="title"  matDialogTitle>Edit This Activity And News</h1>
+<div matDialogContent>
+  <form [formGroup]="fg!">
+
+  <mat-form-field class="m-1" appearance="fill">
+    <mat-label>Title</mat-label>
+    <input formControlName="title"  matInput>
+    <mat-error *ngIf=" fg.get('title')!.hasError('required')">
+      Please Fill this Field</mat-error>
+  </mat-form-field>
+
+
+  <mat-form-field appearance="fill">
+    <mat-label>Choose a an Activity Date</mat-label>
+    <input formControlName="date" matInput [matDatepicker]="picker">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker touchUi #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-divider></mat-divider>
+
+
+  <mat-form-field  >
+    <mat-label>Describe</mat-label>
+    <textarea 
+    required
+    formControlName="describe"
+       matInput
+        class="describe" 
+          ></textarea>
+           <mat-error *ngIf="fg.get('describe')!.hasError('required')">
+            Please Fill this Field
+        </mat-error>
+  </mat-form-field>
+
+  <div *ngIf="data.imageUrl" class="image-container">
+    <img width="150px" height="150px" [src]="domain+data.imageUrl">
+    <h3>{{data.imageUrl.split('\\')[data.imageUrl.split('\\').length-1]}}</h3>
+  </div>
+
+  <div class="BtnFilesContainer" >
+    <input class="BtnFiles" #refFiles multiple type="file" value="Send Files">
+  </div>
+
+  <div style="text-align: center;">
+    <button style="margin-right: 10px;" mat-raised-button (click)="SaveUser(refFiles.files)"  color="accent">Save</button>
+  <button mat-raised-button [mat-dialog-close]="false" color="primary">Cancel</button>
+  </div>
+</form>
+
+</div>
+

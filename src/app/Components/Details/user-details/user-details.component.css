@@ -1,0 +1,86 @@
+
+.mainContainer mat-card mat-card-header{
+  justify-content: center;
+  padding-bottom: 15px;
+  }
+  .mainContainer mat-card mat-card-header
+  .container-image-profile{
+    position: relative;
+  }
+
+
+  .mainContainer mat-card mat-card-header
+  .container-image-profile .edit-image-profile{
+    position: absolute;
+    bottom: 3px;
+    right: -5px;
+  }
+  
+  .mainContainer mat-card mat-card-header
+  .container-image-profile .apply-image-profile{
+    position: absolute;
+    bottom: 45px;
+    right: -5px;
+  }
+
+  .mainContainer mat-card mat-card-header
+  .container-image-profile img{
+  width: 250px;
+  height: 300px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 50px;
+}
+.mainContainer mat-card mat-card-header
+.container-image-profile img:hover{
+  cursor: zoom-in;
+}
+
+.mainContainer mat-card mat-card-content{
+  padding-top: 10px;
+display: flex;
+column-gap: 20%;
+}
+
+.mainContainer mat-card mat-card-content>div{
+flex: auto;
+position: relative;
+width: 100%;
+}
+.mainContainer mat-card mat-card-content>div h2,
+.mainContainer mat-card mat-card-content>div h1
+  {
+margin: 10px 0 0 0  ;
+  }
+
+.mainContainer mat-card mat-card-content button{
+  font-size: 20px;
+  color: orangered
+}
+.mainContainer mat-card mat-card-content mat-card-title{
+  text-align: start;
+}
+  @media (max-width:768px) {
+    .mainContainer mat-card mat-card-content{
+      flex-direction: column;
+      align-items: center;
+      gap: 30px 0;
+      text-align: center;
+    }
+  }
+/* .mainContainer>div mat-card{
+  height: 100%;
+} */
+
+
+.charts{
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  justify-content: center;
+
+}
+
+.charts app-chart {
+  flex: 1;
+}

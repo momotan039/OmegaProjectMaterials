@@ -1,0 +1,12 @@
+
+.describe{
+    height:180px;
+    background-color: transparent;
+    color: var(--primary);
+    border-right: 0px;
+    border-left: 0px;
+    border-top: 0px;
+    resize: none;
+    font-size: 18px;
+    font-weight: bold;
+}

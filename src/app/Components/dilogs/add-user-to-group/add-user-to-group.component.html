@@ -1,0 +1,25 @@
+<h1 class="title">Add New Member</h1>
+
+
+<app-select-with-search
+    #refSelectMembers
+      [label]="'Select a Member'"
+      [config]="{'value':'id',
+                'displayBy':'firstName'}"
+      [getDataParent]="GetMembers"
+      [messageError]="'Please Select a Member'"
+      [isMultiSelect]="true"
+      [propsArr]="['firstName','idCard','email']"
+    >
+    </app-select-with-search>
+
+
+    <div style="text-align: center;">
+      <button 
+      style="margin-right: 10px;"
+       mat-raised-button (click)="AddMember(mutiSelectMembers?.selectedChekcBoxItems!)"
+         color="accent">Save</button>
+    <button 
+    mat-raised-button [mat-dialog-close]="false"
+     color="primary">Cancel</button>
+    </div>

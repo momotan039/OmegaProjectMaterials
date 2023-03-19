@@ -1,0 +1,12 @@
+:host{
+    display: flex;
+    justify-content: center;
+}
+.containerChart{
+   width: 900px;
+   max-width: 900px;
+}
+
+.containerChart canvas{
+    transition: all 0s
+}

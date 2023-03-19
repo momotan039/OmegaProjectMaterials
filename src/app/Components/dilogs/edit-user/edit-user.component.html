@@ -1,0 +1,63 @@
+<h1 class="title" matDialogTitle>Edit This User</h1>
+
+<div matDialogContent>
+  <form [formGroup]="EditUserForm!">
+
+  <mat-form-field class="m-1" appearance="fill">
+    <mat-label>Id Card</mat-label>
+    <input formControlName="idCard"  matInput >
+    <mat-error *ngIf="EditUserForm.get('idCard')!.errors?.['required']">
+      Please Fill this Field</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Email</mat-label>
+    <input formControlName="email"  matInput>
+    <mat-error *ngIf="EditUserForm.get('email')!.errors?.['required']">
+      Please Fill this Field</mat-error>
+  </mat-form-field>
+
+  <mat-divider></mat-divider>
+
+  <mat-form-field class="m-1" appearance="fill">
+    <mat-label>First Name</mat-label>
+    <input formControlName="firstName"  matInput>
+    <mat-error *ngIf=" EditUserForm.get('firstName')!.hasError('required')">
+      Please Fill this Field</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Last Name</mat-label>
+    <input formControlName="lastName" matInput>
+    <mat-error *ngIf="EditUserForm.get('lastName')!.hasError('required')">
+      Please Fill this Field</mat-error>
+  </mat-form-field>
+  <mat-divider></mat-divider>
+
+  <mat-form-field class="m-1" appearance="fill" >
+    <mat-label>Phone</mat-label>
+    <input formControlName="phone"  matInput >
+    <mat-error *ngIf="EditUserForm.get('phone')!.hasError('required')">
+      Please Fill this Field</mat-error>
+  </mat-form-field>
+
+<mat-form-field appearance="fill">
+  <mat-label>Select a role</mat-label>
+  <mat-select formControlName="roleId"  placeholder="">
+      <mat-option value="1">Admin</mat-option>
+      <mat-option value="2">Teacher</mat-option>
+      <mat-option value="3">Student</mat-option>
+  </mat-select>
+  <mat-error *ngIf="EditUserForm.get('roleId')!!.hasError('required')">
+    Please Select a Role</mat-error>
+</mat-form-field>
+
+
+  <div style="text-align: center;">
+    <button style="margin-right: 10px;" mat-raised-button (click)="EditUser()"  color="accent">Save</button>
+  <button mat-raised-button [mat-dialog-close]="false" color="primary">Cancel</button>
+  </div>
+</form>
+
+</div>
+

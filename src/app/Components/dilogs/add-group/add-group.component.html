@@ -1,0 +1,49 @@
+<h1 class="title" matDialogTitle>Create New Group</h1>
+
+<div matDialogContent>
+  <form [formGroup]="AddGroupForm">
+
+  <mat-form-field class="m-1" appearance="fill">
+    <mat-label>Name</mat-label>
+    <input formControlName="name"  matInput >
+    <mat-error *ngIf="AddGroupForm.get('name')!.errors?.['required']">
+      Please Fill this Field</mat-error>
+  </mat-form-field>
+
+  <mat-divider></mat-divider>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Choose a an Opening Date</mat-label>
+    <input formControlName="openingDate" matInput [matDatepicker]="picker">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker touchUi #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-divider></mat-divider>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Choose a an Closing Date</mat-label>
+    <input formControlName="closingDate" matInput [matDatepicker]="picker2">
+    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker touchUi #picker2></mat-datepicker>
+  </mat-form-field>
+  <mat-divider></mat-divider>
+
+
+<app-select-with-search
+#refSelectCourse
+  [label]="'Select a Course'"
+  [config]="{'value':'id',
+            'displayBy':'name'}"
+  [getDataParent]="GetCourses"
+  [messageError]="'Please Select a Course'"
+>
+</app-select-with-search>
+
+  <div style="text-align: center;">
+    <button style="margin-right: 10px;" mat-raised-button (click)="SaveGroup()"  color="accent">Save</button>
+  <button mat-raised-button [mat-dialog-close]="false" color="primary">Cancel</button>
+  </div>
+</form>
+
+</div>
+

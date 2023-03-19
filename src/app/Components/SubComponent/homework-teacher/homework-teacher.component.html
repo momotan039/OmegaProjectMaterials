@@ -1,0 +1,17 @@
+
+
+<app-my-table
+#refTable
+[title]="'HomeWork'"
+[AddRowParent]="addRowParent"
+[DeleteRowParent]="DeleteRow"
+[EditRowParent]="EditRow"
+[FilterPredicateParent]="FilterPredicateParent"
+[getDataTable]="this.homeWorkService
+.GetHomeWorkByTeacherId(this.authService.currentUser.id!)"
+[displayedColumns]="displayedColumns"
+[displayedNameColumns]="displayedNameColumns"
+[operations]="[true,true,true]"
+[detailsComonentUrl]="'HomeWorkDetails'"
+>
+</app-my-table>

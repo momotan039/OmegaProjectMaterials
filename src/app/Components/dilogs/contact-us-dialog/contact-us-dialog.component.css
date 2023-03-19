@@ -1,0 +1,8 @@
+textarea{
+    height: 500px;
+    resize: unset;
+    font-size: 20px;
+    color: #ff6d00 !important;
+    font-family: 'Changa';
+    font-weight: bold;
+}

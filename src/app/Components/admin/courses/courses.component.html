@@ -1,0 +1,13 @@
+
+<app-my-table
+[detailsComonentUrl]="'courseDetails'"
+[AddRowParent]="AddRow"
+[DeleteRowParent]="DeleteRow"
+[EditRowParent]="EditRow"
+[displayedColumns]="['name']"
+[displayedNameColumns]="['Name','Operations']"
+[FilterPredicateParent]="FilterPredicateParent"
+[operations]="[true,true,true]"
+[getDataTable]="this.courseService.GetCourses()"
+[title]="'Course'"
+></app-my-table>

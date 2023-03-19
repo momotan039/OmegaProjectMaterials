@@ -1,0 +1,14 @@
+<app-my-table
+#myTable
+[detailsComonentUrl]="'testDetails'"
+[AddRowParent]="AddRow"
+[DeleteRowParent]="DeleteRow"
+[EditRowParent]="EditRow"
+[FilterPredicateParent]="FilterPredicateParent"
+[sortingDataAccessorParent]="sortingDataAccessorParent"
+[displayedColumns]="['name','date','fullGrade','minGrade']"
+[displayedNameColumns]="['Name','Date','Full Grade','Min Grade','Operations']"
+[operations]="[true,true,true]"
+[getDataTable]="this.httpTestsService.GetTests()"
+[title]="'Test'"
+></app-my-table>

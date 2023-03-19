@@ -1,0 +1,242 @@
+.times{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: var(--primary);
+    color: white;
+    font-weight: bold;
+    padding: 25px;
+}
+.times .social{
+    padding-left: 5px;
+}
+.times .social fa-icon{
+ padding: 0 5px;
+}
+.times .days{
+    border-right: 3px solid;
+    border-left: 3px solid;
+    padding: 0 10px;
+}
+.times .contacts{
+    padding-right: 5px;
+}
+.times .contacts span{
+    padding: 0 5px;
+}
+.times .contacts span mat-icon{
+    vertical-align: middle;
+
+}
+.times  a{
+    color: white;
+}
+
+
+.menu{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 24px 0;
+}
+
+.menu .logo img{
+    max-width: 173px;
+}
+.menu .menuItems span{
+    position: relative;
+}
+.menu .menuItems span:not(.menu .menuItems span:last-child){
+    border-bottom: white solid 1px;
+}
+.menu .menuItems span a{
+    font-size: 16px;
+    color: black;
+    font-weight: bold;
+    padding: 0 10px;
+    margin: 0 10px;
+}
+.menu .menuItems span a:hover,
+.menu .menuItems span a.active-link
+{
+    color: var(--primary);
+}
+
+.menu .menuItems span mat-icon{
+    position: absolute;
+    left: -6px;
+    bottom: 0;
+}
+
+.menu .menuItems span .sub-menu{
+    position: absolute;
+    flex-direction: column;
+    right: 0;
+    background-color: #d9d9d9;
+    width: 226px;
+    z-index: 1;
+    display: flex;
+    visibility: hidden;
+    transform: translateY(-500px);
+    transition: all .4s ease-out;
+}
+
+.menu .menuItems span:hover .sub-menu{
+    visibility: visible;
+    transform: translateY(20px);
+    z-index: 1;
+}
+.menu .menuItems span .sub-menu span{
+   padding: 9px 0;
+   position: relative;
+}
+.menu .menuItems span .sub-menu span:hover{
+    background-color: white;
+}
+.menu .menuItems span .sub-menu span a{
+    font-size: 13px;
+    padding: 10px 0;
+    color: black
+}
+.menu .menuItems span .sub-menu span a:hover{
+    color: var(--primary);
+}
+.menu .menuItems span .sub-menu span:first-child{
+    position: relative;
+}
+.menu .menuItems span .sub-menu > span:first-child::after{
+    position: absolute;
+    content: 'arrow_drop_up';
+    font-family: 'Material Icons';
+    color: #d9d9d9;
+    top: -15px;
+    right: -18px;
+    font-size: 69px;
+}
+
+.menu .menuItems span .sub-menu span a.has-child::after{
+    position: absolute;
+    content: 'chevron_left';
+    font-family: 'Material Icons';
+    color: black;
+    font-size: 27px;
+    width: 100%;
+    right: -7px;
+    text-align: left;
+    bottom: 7px;
+}
+.menu .menuItems span .sub-menu  a.has-child:hover::after{
+   transform: translateX(-10px);
+   transition: all .5s ease-in;
+}
+
+.menu .menuItems span .sub-menu span .sub-menu-child{
+    position: absolute;
+    top: 0;
+    width: 300px;
+    flex-direction: column;
+    display: flex;
+    left: -133%;
+    background-color: #bbb;
+    visibility: hidden;
+    transform: translateX(-1000px);
+}
+.menu .menuItems span .sub-menu  span:hover .sub-menu-child{
+    visibility: visible;
+    transform: none
+}
+
+.menu  button {
+    margin-bottom: 5px;
+    margin-right: 10px;
+    font-size: 20px;
+}
+.menu  .menu-item-button{
+    display: none;
+    background-color: var(--primary);
+}
+
+
+@media (max-width:700px) {
+    .times {
+      display: none;
+    }
+
+    .menu{
+        justify-content: space-around;
+    }
+
+    .menu .menuItems
+    /* .menu button */
+    {
+        display: none;
+    }
+   .menu .menu-item-button{
+    display: inline;
+   }
+}
+
+
+mat-drawer-container{
+    position: absolute;
+    height: fill-available;
+    width: 100%;
+    visibility: hidden;
+    z-index: 999;
+  }
+  mat-drawer {
+    width: 250px;
+    height: 100%;
+  }
+  
+  mat-drawer .mat-drawer-backdrop{
+  width: 100%;
+  }
+  mat-drawer a mat-icon{
+    padding-left:8px;
+    vertical-align: middle;
+  }
+
+ mat-drawer span a{
+    font-size: 18px;
+    display: block;
+    font-family: inherit;
+    text-align: start;
+  }
+  mat-drawer span a.active-link{
+    font-weight: bold;
+  }
+
+  mat-drawer span .sub-menu{
+    visibility: hidden;
+    height: 0;
+    scale: 0;
+    background-color: #d9d9d9;
+    transition: all .3s;
+  }
+  mat-drawer span .sub-menu a{
+    display: none;
+    color: black;
+    font-size: 15px;
+    padding: 10px;
+  }
+ 
+  mat-drawer span:hover>.sub-menu
+  {
+    height: auto;
+    scale: 1;
+    visibility:visible
+  }
+  mat-drawer span:hover>.sub-menu a{
+    display: block;
+  }
+
+  mat-drawer span.has-child:hover .sub-menu-child{
+    display: block;
+    transform: scale(1);
+  }
+
+
+  
+

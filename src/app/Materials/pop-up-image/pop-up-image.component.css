@@ -1,0 +1,31 @@
+.ImageContainer{
+    display: block;
+    height: 77vh;
+}
+
+.ImageContainer :hover{
+ }
+
+.ImageContainer img{
+    height: 94%;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.ImageContainer .btnContainer{
+    text-align: center;
+}
+.ImageContainer .btnContainer button{
+    width: 100%;
+}
+
+::ng-deep .rotatePopUpImageDialog{
+    transform: rotate(360deg) ;
+    transition: all .3s;
+}
+
+
+::ng-deep .MyWidth{
+    width: 50vw !important;
+}

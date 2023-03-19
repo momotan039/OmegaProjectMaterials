@@ -1,0 +1,129 @@
+:host{
+}
+
+.menuItems{
+  float: right;
+  display: flex;
+  width: 100%;
+  flex-direction: row-reverse;
+  color: white;
+  transition: none;
+}
+.menuItems a{
+  font-weight: bold;
+  transition: none;
+}
+
+.menuItems a mat-icon{
+  transition: none;
+}
+
+a .num-unread-messages{
+  font-family: 'Changa';
+  vertical-align: middle;
+}
+.menuItems .btnSmallMenu{
+display: none;
+}
+
+mat-drawer-container{
+  position: absolute;
+  height: fill-available;
+  width: 100%;
+  visibility: hidden;
+  z-index: 999;
+}
+mat-drawer {
+  width: 250px;
+  height: 100%;
+}
+::ng-deep mat-drawer.mat-drawer[style*="visibility: hidden"]{
+  display: unset;
+}
+::ng-deep mat-drawer .num-unread-messages-phone{
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+  width: 57px;
+  color: white;
+  background: var(--primary);
+}
+
+mat-drawer .mat-drawer-backdrop{
+width: 100%;
+}
+::ng-deep mat-drawer .mat-drawer-inner-container{
+  display: flex;
+    flex-direction: column;
+}
+::ng-deep mat-drawer .mat-drawer-inner-container a{
+  text-align: end;
+  font-weight: bold;
+}
+
+::ng-deep mat-drawer .mat-drawer-inner-container a mat-icon{
+  padding-left:8px
+}
+
+
+
+.justyCenter{
+  justify-content: center;
+}
+
+.logo{
+  background: white;
+  border-radius: 10px;
+  padding: 0 20px;
+  cursor: pointer;
+  transition: height 2s;
+  margin: 0 4px;
+}
+@media screen and (max-width:599px) {
+  .logo{
+    height: 3rem;
+  }
+}
+
+h1.logo{
+  font-family: 'Rubik Mono One', sans-serif;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.active-link{
+  background-color: white;
+  color: var(--primary);
+  font-size: 18px;
+  transition: none;
+}
+.active-link.active-phone-link{
+  background-color: rgb(96 125 139 / 20%);
+}
+
+
+@media screen and (max-width:1324px) {
+  .menuItems>*{
+    display: none;
+  }
+  .menuItems .btnSmallMenu{
+    display: unset;
+  }
+}
+
+.settings-button{
+  animation: rotateMe 2s infinite ease-in-out;
+}
+
+@keyframes rotateMe{
+  from{
+    transform: rotate(0deg);
+  }
+  to{
+    transform: rotate(720deg);
+  }
+}

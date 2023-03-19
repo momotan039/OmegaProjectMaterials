@@ -1,0 +1,13 @@
+<div class="flex reverse">
+<h1 mat-dialog-title>{{Message.title}}</h1>
+<mat-icon *ngIf="Message.icon">{{Message.icon}}</mat-icon>
+</div>
+<mat-divider>
+</mat-divider>
+<div mat-dialog-content>
+  <h3>{{Message.content}}</h3>
+  <div class="actions">
+    <button color="primary" mat-raised-button [matDialogClose]="true" >Ok</button>
+    <button color="accent" *ngIf="Message.cancel" mat-raised-button [mat-dialog-close]="false" >Cancel</button>
+  </div>
+</div>

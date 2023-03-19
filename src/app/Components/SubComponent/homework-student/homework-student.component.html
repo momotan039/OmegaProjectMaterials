@@ -1,0 +1,12 @@
+<app-my-table #refTable
+[displayedColumns]="displayedColumns"
+[displayedNameColumns]="displayedNameColumns"
+[getDataTable]="this.homeWorkService.GetHomeWorkByStudentId(this.authService.currentUser.id!)"
+[operations]="[false,false,true]"
+[title]="'Homework'"
+[detailsComonentUrl]="'HomeWorkDetails'"
+[enableAddRow]="false"
+[FilterPredicateParent]="FilterPredicateParent"
+>
+</app-my-table>
+

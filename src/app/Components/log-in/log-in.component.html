@@ -1,0 +1,43 @@
+<app-top-page title="بوابة الاعضاء"></app-top-page>
+<form [formGroup]="fg">
+<div  class="mainContainer">
+    <div  class="flex">
+      <h1 class="header">LogIn</h1>
+      <mat-form-field color="primary"  appearance="fill">
+        <mat-label >Email</mat-label>
+        <input formControlName="email" matInput placeholder="Enter your Email">
+        <mat-error *ngIf="fg.get('email')!.errors?.['required']">
+          Please Fill this Field</mat-error>
+          <mat-error *ngIf="fg.get('email')!.errors?.['email']">
+            Invalid Email</mat-error>
+        </mat-form-field>
+        <mat-form-field color="primary"  appearance="fill">
+        <mat-label>Password</mat-label>
+        <input #ref2 formControlName="password"  matInput placeholder="Enter your password" type="password" >
+        <span matSuffix><button mat-icon-button (click)="ShowPass(ref2)">
+          <mat-icon>visibility</mat-icon>
+        </button></span>
+        <mat-error *ngIf="fg.get('password')!.errors?.['required']">
+          Please Fill this Field</mat-error>
+      </mat-form-field>
+        <button
+        *ngIf="!showSpinner"
+         mat-raised-button 
+         color="primary" (click)="LogIn()">Submit</button>
+
+        <mat-spinner
+        *ngIf="showSpinner"
+       color="accent"
+       [diameter]="35"
+       >
+       </mat-spinner>
+
+        <div class="forget_password">
+          <button (click)="ForgetPassWord()" color="accent"  mat-raised-button>Forgot your password ?</button>
+        </div>
+
+    </div>
+</div>
+</form>
+
+

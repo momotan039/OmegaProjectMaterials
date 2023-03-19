@@ -1,0 +1,73 @@
+<div  class="mainContainer">
+
+  <h1 class="title">{{role.description}}s</h1>
+
+  <div class="btnAddRowContainer">
+    <button  mat-raised-button (click)="AddUser()" color="primary"><mat-icon class="mat-18">add</mat-icon>Add New User</button>
+  </div>
+
+  <mat-form-field  class="input-full-width" appearance="fill">
+    <mat-label>Search for...</mat-label>
+    <input #refSearch (keyup)="FilterDataTable(refSearch)" matInput >
+  </mat-form-field>
+
+  <table  #table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8 myTable">
+
+    <ng-container matColumnDef="firstName">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef>FirstName</th>
+      <td data-title="FirstName" mat-cell *matCellDef="let element">{{element.firstName}} </td>
+    </ng-container>
+
+ <ng-container matColumnDef="lastName">
+  <th mat-header-cell mat-sort-header *matHeaderCellDef>LastName</th>
+  <td data-title="LastName" mat-cell *matCellDef="let element">{{element.lastName}} </td>
+</ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef>Email</th>
+      <td mat-cell data-title="Email" *matCellDef="let element"> {{element.email}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="password">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef>Password</th>
+      <td mat-cell data-title="Password" *matCellDef="let element"> {{element.password}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef>Phone</th>
+      <td mat-cell data-title="Phone" *matCellDef="let element"> {{element.phone}} </td>
+    </ng-container>
+
+
+
+    <ng-container matColumnDef="idCard">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef>IdCard</th>
+      <td mat-cell data-title="IdCard" *matCellDef="let element"> {{element.idCard}} </td>
+    </ng-container>
+
+     <!-- operations Column -->
+     <ng-container matColumnDef="operations">
+      <th mat-header-cell *matHeaderCellDef>Operations</th>
+      <td mat-cell data-title="Operations" *matCellDef="let element">
+        <button (click)="EditUser(element)"  mat-fab color="primary" >
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button [disabled]="user?.id==element.id" (click)="DeleteUser(element.id)"  mat-fab color="accent" >
+          <mat-icon>delete</mat-icon>
+        </button>
+        <a *ngIf="roleBy!=1" mat-button routerLink="/userDetails/{{element.id}}"  mat-fab color="primary" >
+          <mat-icon>visibility</mat-icon>
+        </a>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  
+  <mat-paginator #refpag [length]="100"
+  [pageSize]="10"
+  [pageSizeOptions]="[5,20,50,100]"
+  aria-label="Select page">
+</mat-paginator>
+</div>

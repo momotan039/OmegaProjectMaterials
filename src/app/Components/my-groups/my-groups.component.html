@@ -1,0 +1,11 @@
+
+<app-my-table
+[enableAddRow]="false"
+[displayedNameColumns]="['Group','Opening Date','Course','Members']"
+[displayedColumns]="['name','openingDate','course.name','userGroups.length']"
+[getDataTable]="this.httpGroupsService.GetGroupsByUserId()"
+[FilterPredicateParent]="FilterPredicateParent"
+[singleTitle]="'My Groups'"
+>
+
+</app-my-table>

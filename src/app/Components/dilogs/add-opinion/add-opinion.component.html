@@ -1,0 +1,41 @@
+<h1 class="title"  matDialogTitle>Add New Opinion</h1>
+<div matDialogContent>
+  <form [formGroup]="fg!">
+
+
+  <mat-form-field class="m-1" appearance="fill">
+    <mat-label>Name</mat-label>
+    <input autocomplete='off' formControlName="name"  matInput>
+    <mat-error *ngIf=" fg.get('name')!.hasError('required')">
+      Please Fill this Field</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="m-1" appearance="fill">
+    <mat-label>About</mat-label>
+    <input autocomplete='off' formControlName="about"  matInput>
+    <mat-error *ngIf=" fg.get('about')!.hasError('required')">
+      Please Fill this Field</mat-error>
+  </mat-form-field>
+
+
+  <mat-form-field  >
+    <mat-label>Content</mat-label>
+    <textarea 
+    required
+    formControlName="content"
+       matInput
+        class="about" 
+          ></textarea>
+           <mat-error *ngIf="fg.get('about')!.hasError('required')">
+            Please Fill this Field
+        </mat-error>
+  </mat-form-field>
+
+  <div style="text-align: center;">
+    <button style="margin-right: 10px;" mat-raised-button (click)="SaveUser()"  color="accent">Save</button>
+  <button mat-raised-button [mat-dialog-close]="false" color="primary">Cancel</button>
+  </div>
+</form>
+
+</div>
+

@@ -1,0 +1,22 @@
+<div class="chart-container">
+    <app-chart
+[IdChart]="'chart1'"
+[Type]="'line'"
+[Title]="'No. Passing Students By Group'"
+[ParentBuildData]="BuildDataChart1"
+yTitle="Student"
+xTitle="Group"
+
+>
+</app-chart>
+</div>
+
+<app-my-table #refTable
+[displayedColumns]="['student.idCard','group.name','sumGrade']"
+[displayedNameColumns]="['Student Id Card','Group','Grade']"
+[getDataTable]="httpGradesService.GetGradesByTest(test.id)"
+[singleTitle]="test.name"
+[enableAddRow]="false"
+[FilterPredicateParent]="FilterPredicateParent"
+>
+</app-my-table>

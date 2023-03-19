@@ -1,0 +1,139 @@
+<div class="mainContainer">
+  <h1 class="title">{{homeWork.title}}</h1>
+  <!-- Show info about homework -->
+<div class="flexContainer">
+  <mat-card>
+    <mat-label>HomeWork Details</mat-label>
+    <mat-divider>
+    </mat-divider>
+    <h3>Group:{{homeWork.group!.name}}</h3>
+    <mat-divider>
+    </mat-divider>
+    <h3>Teacher:{{homeWork.teacher!.firstName+" "+homeWork.teacher!.lastName}}</h3>
+    <mat-divider>
+    </mat-divider>
+    <h3>Sending Date:{{homeWork.sendingDate|date}}</h3>
+  </mat-card>
+
+  <mat-form-field *ngIf="homeWork.contents" ngClass="homeworkContent" appearance="fill">
+    <mat-label>HomeWork Content</mat-label>
+    <textarea  placeholder="asf" disabled rows="9"  matInput [value]="homeWork.contents"></textarea>
+  </mat-form-field>
+</div>
+  <!-- Show info about homework -->
+
+<br>
+<!-- Show files of Homework -->
+<mat-card *ngIf="this.homeWork.filesPath">
+
+  <h2 class="title">
+    File List:
+  </h2>
+
+  <mat-divider></mat-divider>
+  <mat-list class="file-list">
+    <mat-list-item *ngFor="let item of convertPathsToArray(homeWork.filesPath)">
+      <div #refContainer class="progress hidden">
+        <mat-progress-bar  color="accent" #ref></mat-progress-bar>
+        <span>{{ref.value}}%</span>
+      </div>
+        <h3 class="subTitle uploaded-file">
+          {{getFileNameFromPath(item)}}
+          <button color="accent" mat-icon-button (click)="donwloadFile(item,refContainer,ref)">
+            <mat-icon>file_download</mat-icon>
+          </button>
+        </h3>
+    </mat-list-item>
+  </mat-list>
+</mat-card>
+<!-- Show files of Homework -->
+
+
+<!-- Show all Sumbited Homework students -->
+<div
+*ngIf="homeWork.requiredSubmit && this.authService.currentUser.roleId==2"
+class="submitedStudents"
+>
+<mat-card>
+    <mat-card-content>
+  <app-my-table
+  #refTable
+  [enableAddRow]="false"
+  [displayedColumns]='["idCard","firstName","lastName","email","submited"]'
+  [displayedNameColumns]='["Id Card","First Name","Last Name","Email","Submited","Operations"]'
+  [getDataTable]="students_behavior"
+  [disableFilterOverride]="true"
+  [disableSortOverride]="true"
+  [EnableShowViewDialog]="true"
+  [PropDisableShowViewDialog]="'pathFiles'"
+  [ShowViewDialogParent]="ShowViewDialogParent"
+  [singleTitle]="'Submited Students:'+submitedStudents+'/'+students.length"
+  >
+  </app-my-table>
+    </mat-card-content>
+</mat-card>
+
+</div>
+<!-- Show all Sumbited Homework students -->
+
+
+
+<!-- Show Files of Current Student if login -->
+<div *ngIf="this.authService.currentUser.roleId==3 &&
+homeWork.requiredSubmit" class="submitFiles">
+<mat-card>
+      <h1 class="title">Submited Files</h1>
+
+      <mat-card-content>
+
+   <!-- Show Add Files -->
+        
+        <div class="BtnFilesContainer" *ngIf="!this.currentStudent else showCancel">
+          <input class="BtnFiles" #refFiles multiple type="file" value="Send Files">
+          <h3 *ngIf="showFilesSizeErorr" class="error-message">Size Files Must Be < 2Gb</h3>
+          
+          <button #refBtn color="primary" mat-raised-button 
+          (click)="SendStudentFiles(refFiles.files,refContainer2,ref2,refBtn)">
+          Submit
+        </button>
+
+        </div>
+        <div #refContainer2 class="progress hidden">
+          <mat-progress-bar  color="accent" #ref2></mat-progress-bar>
+          <span>{{ref2.value}}%</span>
+        </div>
+        
+      <mat-divider></mat-divider>
+      <ng-template #showCancel>
+
+         <!-- Show Cancel submitation -->
+         <button
+          class="cancelSubmitation" 
+         color="warn"
+          mat-raised-button
+           (click)="CancelSubmitation()">Cancel Submitation</button>
+
+      <mat-list class="file-list">
+        <mat-list-item *ngFor="let item of convertPathsToArray(currentStudent.pathFiles)">
+          <div #refContainer class="progress hidden">
+            <mat-progress-bar color="accent" #ref></mat-progress-bar>
+            <span>{{ref.value}}%</span>
+          </div>
+            <h3 class="subTitle">
+              {{getFileNameFromPath(item)}}
+              <button color="accent" mat-icon-button (click)="donwloadFile(item,refContainer,ref)">
+                <mat-icon>file_download</mat-icon>
+              </button>
+            </h3>
+        </mat-list-item>
+      </mat-list>
+
+        </ng-template>
+    </mat-card-content>
+</mat-card>
+</div>
+<!-- Show Files of Current Student if login -->
+
+
+
+</div>

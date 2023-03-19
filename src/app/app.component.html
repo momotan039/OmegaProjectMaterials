@@ -1,0 +1,13 @@
+
+<ng-container *ngIf="auth.currentUserSub|async else ShowGuestSite">
+  <app-header ></app-header>
+  <div  class="container main user-background">
+    <router-outlet></router-outlet>
+  </div>
+  <app-footer></app-footer>
+</ng-container>
+
+<ng-template #ShowGuestSite>
+    <app-guest-app></app-guest-app>
+</ng-template>
+

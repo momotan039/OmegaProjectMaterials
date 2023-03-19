@@ -1,0 +1,53 @@
+
+
+<app-my-table
+*ngIf="!groupId"
+[singleTitle]="'Attendance'"
+[displayedNameColumns]="['Group','Operations']"
+[displayedColumns]="['name']"
+[getDataTable]="httpAttendanceService.GetGroups()"
+[operations]="[false,false,true]"
+[detailsComonentUrl]="'userAttendance'"
+[enableAddRow]="false"
+>
+</app-my-table>
+
+<div
+class="groupTable"
+*ngIf="group"
+>
+
+<app-chart
+IdChart="chart1"
+Type="bar"
+Title="Attendance per month"
+[ParentBuildData]="MyFunc"
+>
+</app-chart>
+
+
+<div class="container-search-date-button">
+    <h3>Choose Date of a Attendance:</h3>
+  <mat-form-field  appearance="fill">
+      <mat-label>select a month</mat-label>
+      <input  [max]="maxDate"  [min]="group.openingDate" #refinput autocomplete="off"  matInput [matDatepicker]="picker">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker  startView="multi-year" (monthSelected)="closeDatePicker($event,refinput, picker)"  touchUi #picker></mat-datepicker>
+    </mat-form-field> 
+      
+</div>
+
+<app-my-table
+#groupTable
+[enableAddRow]="false"
+[singleTitle]="'Attendance'"
+[displayedNameColumns]="['Attendance Date','Status Attendances','Note']"
+[displayedColumns]="['date','status','note']"
+[getDataTable]="httpAttendanceService.GetAllForUser(groupId,date)"
+>
+</app-my-table>
+
+
+</div>
+
+

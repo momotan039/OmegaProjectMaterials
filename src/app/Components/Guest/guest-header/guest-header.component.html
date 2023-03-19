@@ -1,0 +1,134 @@
+<div class="times">
+    <span class="social">
+
+        <a target="_blank" [href]="configuration_Site.facebookPage">
+        <fa-icon [size]="'2x'" [icon]="faFacebook"></fa-icon>
+        </a>
+
+        <a target="_blank" [href]="configuration_Site.instaPage">
+        <fa-icon  [size]="'2x'" [icon]="faInstagram"></fa-icon>
+        </a>
+        
+    </span>
+   <span class="days">السبت - الخميس | التاسعة صباحا - السابعة مساءا</span>
+    <div class="contacts">
+        <span class="phone">
+            <mat-icon>phone_in_talk</mat-icon>
+            <a href="tel:025326484">025326484</a>
+        </span>
+        <span class="mail">
+            <mat-icon>contact_support</mat-icon>
+            <a href="mailto:info@omega-academy.net">info@omega-academy.net</a>
+        </span>
+    </div>
+</div>
+<div class="menu">
+    <div (click)="drawer.close()" class="logo">
+    <a routerLink="/main">
+        <img src="../../../../assets/images-guest/newlogo.png"
+        title="معهد أوميغا التعليمي - تعلم اللغة العبرية ودورات التحضير لامتحان البسيخومتري بأفضل الطرق"
+         alt="معهد أوميغا التعليمي">
+    </a>
+    </div>
+
+    <div class="menuItems">
+        <span 
+         *ngFor="let item of menuItems"
+         >
+         <a
+         routerLinkActive="active-link" 
+         [routerLink]="item.href"
+         [class.disabled]="true ? true: null"
+         >
+         {{item.title}}
+         <mat-icon *ngIf="item.childs">arrow_drop_down</mat-icon>
+        </a>
+                
+            <div  *ngIf="item.childs" class="sub-menu">
+               <span *ngFor="let subItem of item.childs">
+                  <a   [ngClass]="subItem.childs?'has-child':''"
+                  [routerLink]="subItem.link">
+                  {{subItem.name}}
+                </a>
+
+                  <div *ngIf="subItem.childs" class="sub-menu-child">
+                    <span *ngFor="let subItemChild of subItem.childs">
+                        <a
+                         *ngIf="subItemChild.external else internal"
+                        [href]="subItemChild.link"
+                        >
+                           {{subItemChild.name}}
+                       </a>
+                       <ng-template #internal>
+                        <a
+                       [routerLink]="subItemChild.link"
+                       >
+                          {{subItemChild.name}}
+                      </a>
+                       </ng-template>
+                       
+                    </span>
+                  </div>
+
+                </span>
+            </div>
+        </span>
+    </div>
+
+    <div class="buttons">
+        <button routerLink="home" class='main-button' mat-raised-button (click)="drawer.close()">بوابة الأعضاء</button>
+    <button  class="menu-item-button" mat-mini-fab (click)="drawer.toggle()"><mat-icon>menu</mat-icon></button>
+
+    </div>
+
+</div>
+    
+<mat-drawer-container [hasBackdrop]="true">
+
+    <mat-drawer #drawer class="example-sidenav" mode="side">
+     <span
+     *ngFor="let item of menuItems"
+     >
+      <a
+       *ngIf="!item.forSettings"
+       (click)="!item.childs?drawer.toggle():{}" 
+      mat-button routerLink="{{item.href}}" routerLinkActive="active-link active-phone-link">
+      {{item.title}}
+      <mat-icon *ngIf="item.childs">arrow_drop_down</mat-icon>
+    </a>
+    <div  *ngIf="item.childs" class="sub-menu">
+        <span  *ngFor="let subItem of item.childs">
+           <a 
+           (click)="!subItem.childs?drawer.toggle():{}" 
+           [routerLink]="subItem.link">
+           {{subItem.name}}
+           <mat-icon *ngIf="subItem.childs">arrow_drop_down</mat-icon>
+         </a>
+         <div *ngIf="subItem.childs" class="sub-menu">
+            <span *ngFor="let subItemChild of subItem.childs"
+            (click)="drawer.close()"
+            >
+                <a
+                 *ngIf="subItemChild.external else internal"
+                [href]="subItemChild.link"
+                >
+                   {{subItemChild.name}}
+               </a>
+               <ng-template #internal>
+                <a
+               [routerLink]="subItemChild.link"
+               >
+                  {{subItemChild.name}}
+              </a>
+               </ng-template>
+               
+            </span>
+          </div>
+        </span>
+        
+      </div>
+     </span>
+     
+    </mat-drawer>
+  
+  </mat-drawer-container>

@@ -1,0 +1,106 @@
+ <div class="mainContainer">
+  <mat-card>
+
+    <mat-card-header>
+        <div
+          *ngIf="this.authService.currentUser.id==user.id else ShowBasicImage"
+        class="container-image-profile">
+           <img (click)="ShowPopUPImage()"
+            #refImg mat-card-lg-image
+             matCardAvatar
+              [src]="GetImageProfile()"
+             (error)="ShowDefultImage(refImg)"
+              >
+        <button color="accent" class="edit-image-profile" mat-mini-fab (click)="refFile.click()">
+            <mat-icon>edit</mat-icon>
+          <input mat-button  class="hidden BtnFiles" formControlName="files" #refFile type="file">
+        </button>
+        <button
+          *ngIf="refFile.files?.length"
+          class="apply-image-profile"
+          color="primary"
+            mat-mini-fab
+          (click)="UploadImageProfile(refFile,refImg)">
+            <mat-icon >done</mat-icon>
+        </button>
+        </div>
+
+        <ng-template #ShowBasicImage>
+          <div class="container-image-profile">
+            <img   (click)="ShowPopUPImage()"
+             mat-card-lg-image
+             matCardAvatar
+             [src]="GetImageProfile()">
+          </div>
+        </ng-template>
+
+
+      </mat-card-header>
+      <mat-divider>
+      </mat-divider>
+      <mat-card-content>
+        <div class="left">
+          <h1 class="title">Basic Info</h1>
+          <h2>Id Card:{{user.idCard}}</h2>
+          <mat-divider>
+          </mat-divider>
+          <h2>Role:{{user.role?.description}}</h2>
+          <mat-divider>
+          </mat-divider>
+          <h2 *ngIf="user.roleId!=1 && groups.length">Groups:
+            <button routerLink="/groupDetails/{{item.id}}" mat-button *ngFor="let item of groups">
+              {{item.name}}
+            </button>
+          </h2>
+          <mat-divider>
+          </mat-divider>
+          <h2 *ngIf="courses.length">Courses:
+            <button routerLink="/courseDetails/{{item.id}}" mat-button *ngFor="let item of courses">
+              {{item.name}}
+            </button>
+          </h2>
+        </div>
+         <div  class="right">
+          <h1 class="title">General Info</h1>
+          <h2>First Name:{{user.firstName}}</h2>
+          <mat-divider>
+          </mat-divider>
+          <h2>Last Name:{{user.lastName}}</h2>
+          <mat-divider>
+          </mat-divider>
+          <h2>Email:{{user.email}}</h2>
+          <mat-divider>
+          </mat-divider>
+          <h2>Phone:{{user.phone}}</h2>
+         </div>
+        </mat-card-content>
+
+  </mat-card>
+
+  <div class="charts show-up-1">
+
+    <!-- <app-chart
+  *ngIf="user.roleId==3"
+  IdChart="chart1"
+  Type="doughnut"
+  Title="Done Homeworks By Group"
+  [ParentBuildData]="GetDataChart1"
+  [enablePercent]="true"
+  [enableOptions]="true"
+  >
+
+  </app-chart>  -->
+
+  <app-chart
+  *ngIf="user.roleId==3"
+  IdChart="chart2"
+  Type="line"
+  Title="Attendances By Group"
+  [ParentBuildData]="GetDataChart2"
+  [enablePercent]=true
+  >
+
+  </app-chart>
+
+  </div>
+ </div>

@@ -1,0 +1,40 @@
+  <app-my-table
+  *ngIf="!groupId"
+  [singleTitle]="'Attendance'"
+  [displayedNameColumns]="['Group','Operations']"
+  [displayedColumns]="['name']"
+  [getDataTable]="httpAttendanceService.GetGroups()"
+  [operations]="[false,false,true]"
+  [detailsComonentUrl]="'attendance'"
+  [enableAddRow]="false"
+  >
+  </app-my-table>
+  
+<div
+*ngIf="groupId"
+class="groupTable">
+<div  class="container-search-date-button">
+    <button (click)="SearchByDate(refinput)" class="search" color="primary" mat-fab >
+        <mat-icon >search</mat-icon>
+    </button>
+    <mat-form-field appearance="fill">
+        <mat-label>Choose Date of a Attendance</mat-label>
+        <input  [max]="maxDate"  [min]="group?.openingDate" #refinput autocomplete="off"  matInput [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker  touchUi #picker></mat-datepicker>
+      </mat-form-field>
+</div>
+
+
+    <app-my-table
+#groupTable
+[enableAddRow]="false"
+[singleTitle]="'Attendance'"
+[displayedNameColumns]="['Attendance Date','Id Card\'s Student','Student\'s Name','Status Attendance','Note Delay']"
+[displayedColumns]="['date','idCardStudent','studentName','status','note']"
+[getDataTable]="httpAttendanceService.GetAll(groupId,date)"
+[HandelSaveAllRecords]="SaveChangesAttendances"
+>
+</app-my-table>
+</div>
+

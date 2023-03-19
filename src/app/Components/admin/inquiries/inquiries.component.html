@@ -1,0 +1,12 @@
+<app-my-table #refTable
+[displayedColumns]="['name','phone','email','sendingDate']"
+[displayedNameColumns]="['Name','No. Phone','Email','Sending Date','Operations']"
+[getDataTable]="httpContactUsService.GetAll()"
+[singleTitle]="'Inquiries'"
+[enableAddRow]="false"
+[FilterPredicateParent]="FilterPredicateParent"
+[operations]="[false,false,false]"
+[EnableShowViewDialog]="true"
+[ShowViewDialogParent]="ShowDetailsMessage"
+>
+</app-my-table>

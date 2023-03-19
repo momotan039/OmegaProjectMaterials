@@ -1,0 +1,12 @@
+<app-my-table
+[detailsComonentUrl]="'groupDetails'"
+[AddRowParent]="AddRow"
+[DeleteRowParent]="DeleteRow"
+[EditRowParent]="EditRow"
+[FilterPredicateParent]="FilterPredicateParent"
+[displayedColumns]="this.displayedColumns"
+[displayedNameColumns]="this.displayedNameColumns"
+[operations]="[true,true,true]"
+[getDataTable]="this.groupService.GetGroups()"
+[title]="'Group'"
+></app-my-table>

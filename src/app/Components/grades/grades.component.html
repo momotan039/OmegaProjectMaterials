@@ -1,0 +1,12 @@
+<app-my-table #refTable
+[displayedColumns]="displayedColumns"
+[displayedNameColumns]="displayedNameColumns"
+[getDataTable]="httpGradesService.GetGrades()"
+[AddRowParent]="AddRow"
+[DeleteRowParent]="DeleteRow"
+[EditRowParent]="EditRow"
+[FilterPredicateParent]="FilterPredicateParent"
+[operations]="[true,true,false]"
+[title]="'Grade'"
+>
+</app-my-table>
