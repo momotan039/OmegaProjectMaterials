@@ -42,7 +42,6 @@ export class UserDetailsComponent implements OnInit {
 
     let id=this.route.snapshot.paramMap.get("id")
     user:User
-
     if(!id)
     {
       this.authService.currentUserSub.subscribe(u=>{
@@ -61,6 +60,7 @@ export class UserDetailsComponent implements OnInit {
     else
     {
      this.httpUsersService.GetUserById(id+"").subscribe(user=>{
+      debugger
       this.user=user
       this.httpGroupsService.GetGroupsByUserId(user.id).subscribe(data=>{
         this.groups=data
@@ -71,7 +71,7 @@ export class UserDetailsComponent implements OnInit {
     })
     }
 
-    
+
   }
 
   openSnackBar(){
@@ -108,12 +108,12 @@ export class UserDetailsComponent implements OnInit {
   }
 
   ShowDefultImage(image:HTMLImageElement){
-    
+
     image.src="../../../assets/images/profile.svg"
   }
 
 
-  
+
 GetDataChart1=async ():Promise<any>=>{
   let dataChart1:any = {
     datasets: [
@@ -150,7 +150,6 @@ GetDataChart1=async ():Promise<any>=>{
   //       dataChart1.labels=data.months
   //   dataChart1.datasets[0].data=data.counts
   //  })
-
   return   dataChart1
  }
 

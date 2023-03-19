@@ -1,7 +1,7 @@
+import { ChartItem } from 'chart.js/auto/auto.mjs';
 import { Component, Input, OnInit, AfterViewInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { Chart, registerables } from 'node_modules/chart.js'
 import { Subscription, Observable } from 'rxjs';
-
+import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 
 @Component({
@@ -16,7 +16,7 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor() { }
   ngOnDestroy(): void {
   }
-
+  hero='hi'
   Data: any
   @Input() IdChart = ""
   @Input() Type: any
@@ -33,10 +33,8 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   build() {
-    debugger
     this.myChart?.destroy()
     this.ParentBuildData().then((data: any) => {
-      debugger
       if (this.Type == "doughnut")
         data['indexLabel'] = "#percent%"
 
@@ -44,11 +42,46 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
       this.RenderChart()
     })
   }
-  
+
   ngOnInit(): void {
+     const ctx:any = document.getElementById('myChart');
+    this.myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+          label: '# of Votes',
+          data: [12, 19, 3, 5, 2, 3],
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
   }
+
 genearteIdChart(){
-  
 return ++this.id
 }
 
@@ -71,13 +104,14 @@ return ++this.id
     ]
     const borderWidth = 4
     //Append Style to DataSetes
+    const ctx = document.getElementById('myChart') as ChartItem;
     this.ConfigeStyleDataSet(backgroundColor, borderColor, borderWidth)
-     this.myChart = new Chart(this.IdChart+this.genearteIdChart(), {
+
+     this.myChart = new Chart(ctx, {
       type: this.Type,
       data: this.Data,
     });
-
-    this.EnableOptions(this.myChart)
+    // this.EnableOptions(this.myChart)
   }
 
 
@@ -94,6 +128,7 @@ return ++this.id
       }
     }
   }
+
 
   ConfigeStyleDataSet(backgroundColor: string[], borderColor: string[], borderWidth: number) {
     this.Data.datasets.forEach((d: any) => {
