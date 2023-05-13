@@ -21,7 +21,7 @@ export class AttendanceComponent implements OnInit {
  @ViewChild("groupTable") GroupTable:MyTableComponent | undefined
  @ViewChild("chart") chart:ChartComponent | undefined
   maxDate: Date | undefined;
-  
+  serachType='1'
   constructor(
    private route:ActivatedRoute,
    public httpAttendanceService:HttpAttendanceService,
@@ -66,29 +66,20 @@ export class AttendanceComponent implements OnInit {
   }
 
   closeDatePicker(eventData: any,refInput:HTMLInputElement, dp?:MatDatepicker<any>) {
-    
+
     if(eventData=="")
     return
     let date=eventData
 
-    let _date=""
-    for(let i=0;i<date.length;i++)
-        {
-          if(date[i]=='/')
-          _date+=date[i].replace('/','-')
-          else
-          _date+=date[i]
-        }
-        
-    this.date=_date
+    this.date=date.replace(/\//g, '-');
     this.GroupTable!.showSpinnerLoad=true
     setTimeout(() => {
       this.GroupTable?.FillTableData()
     }, 500);
-  
-    dp!.close();    
+
+    dp!.close();
   }
-  
+
   SetMaxValueDate(){
     const closingDate=new Date(this.group!.closingDate?.toString()!)
       const _date=new Date();
@@ -98,46 +89,6 @@ export class AttendanceComponent implements OnInit {
           this.maxDate=closingDate
   }
 
-  // GetDateTable1=()=>{
-
-  //   const data=[
-  //     {
-  //       'name':'Adam Karam',
-  //       'status':'present',
-  //       'date':'2022-3-15',
-  //       'note':'',
-  //       'groupId':1
-  //     }
-  //     ,
-  //     {
-  //       'name':'Rami Adnan',
-  //       'status':'absent',
-  //       'date':'2022-3-15',
-  //       'note':'',
-  //       'groupId':1
-  //     }
-  //     ,
-  //     {
-  //       'name':'Adam Karam',
-  //       'status':'present',
-  //       'date':'2022-4-13',
-  //       'note':'',
-  //       'groupId':2
-  //     }
-      
-  //   ]
-  //   let filtered:any=[]
-  //   if(this.groupId)
-  //     filtered=data.filter(f=>f.groupId==this.groupId)
-  //   if(this.date && this.groupId)
-  //    filtered=data.filter(f=>f.groupId==this.groupId&&f.date==this.date)
-  //   return new Observable<any>((obs)=>{
-  //     obs.next(filtered)
-  //     obs.complete()
-  //   }).toPromise()
-
-  // }
-
   GetAttendaceStatisticsByMonth=async ():Promise<any>=>{
     let dataChart1:any = {
       datasets: [
@@ -146,7 +97,6 @@ export class AttendanceComponent implements OnInit {
         },
       ]
     }
-    debugger
     await this.httpAttendanceService.GetAttendanceStatisticsPerMonth(this.groupId,this.date).forEach(data=>{
       dataChart1.labels=data.labels
       dataChart1.datasets[0].data=data.data

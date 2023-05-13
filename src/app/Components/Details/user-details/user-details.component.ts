@@ -1,3 +1,4 @@
+import { HttpAttendanceService } from 'src/app/services/http-attendance.service';
 import { HomeWorkStudentService } from './../../../services/home-work-student.service';
 import { MyLocalStorage } from './../../../services/MyLocalStorage';
 import { StudentsComponent } from './../../admin/students/students.component';
@@ -30,6 +31,7 @@ export class UserDetailsComponent implements OnInit {
   constructor(
     private route:ActivatedRoute,
     private httpUsersService:HttpUsersService,
+    private httpAttendanceService:HttpAttendanceService,
     private httpGroupsService:HttpGroupsService,
     private httpCoursesService:HttpCoursesService,
     public authService:AuthService,
@@ -71,7 +73,7 @@ export class UserDetailsComponent implements OnInit {
     })
     }
 
-    
+
   }
 
   openSnackBar(){
@@ -108,12 +110,12 @@ export class UserDetailsComponent implements OnInit {
   }
 
   ShowDefultImage(image:HTMLImageElement){
-    
+
     image.src="../../../assets/images/profile.svg"
   }
 
 
-  
+
 GetDataChart1=async ():Promise<any>=>{
   let dataChart1:any = {
     datasets: [
@@ -133,25 +135,29 @@ GetDataChart1=async ():Promise<any>=>{
 
 
  GetDataChart2=async ():Promise<any>=>{
-  let dataChart1:any = {
-    labels:['Jen','Feb','Mar','Apr','May','Jun','July','Aug','Sep','Oct','Nov','Dec'],
-    datasets: [
-      {
-        label: 'Presents Group1',
-        data:[1,0.5,0.7,1,0.2]
-      },
-      {
-        label: 'Presents Group2',
-        data:[0.2,1,0.3,0.8,1]
-      },
-    ]
-  }
+  this.groups
+  console.log(this.groups);
+
+  // let dataChart1:any = {
+  //   labels:['Jen','Feb','Mar','Apr','May','Jun','July','Aug','Sep','Oct','Nov','Dec'],
+  //   datasets: [
+  //     {
+  //       label: 'Presents Group1',
+  //       data:[1,0.5,0.7,1,0.2]
+  //     },
+  //     {
+  //       label: 'Presents Group2',
+  //       data:[0.2,1,0.3,0.8,1]
+  //     },
+  //   ]
+  // }
+
   // await this.httpAttendanceService.GetAttendanceStatistics(this.groupId).forEach(data=>{
   //       dataChart1.labels=data.months
   //   dataChart1.datasets[0].data=data.counts
   //  })
 
-  return   dataChart1
+  return   []
  }
 
 }

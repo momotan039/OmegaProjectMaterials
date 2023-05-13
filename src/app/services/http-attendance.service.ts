@@ -29,9 +29,9 @@ GetAllForUser(groupId:number,date:any){
   return  this.http.get<any>(MyTools.UrlRootApi+"/Attendance/GetAllUser/"+groupId+"/"+userId);
 }
 
-GetAttendanceStatistics(groupId:number){
+GetAttendanceStatistics(groupId:number,_userId?:number){
   const userId=this.auth.currentUser.id
-  return  this.http.get<any>(MyTools.UrlRootApi+"/Attendance/GetAttendanceStatistics/"+groupId+"/"+userId);
+  return  this.http.get<any>(MyTools.UrlRootApi+"/Attendance/GetAttendanceStatistics/"+groupId+"/"+_userId??userId);
 }
 
 GetAttendanceStatisticsPerMonth(groupId:number,date:Date){

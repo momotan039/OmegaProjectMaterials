@@ -30,18 +30,18 @@ export class AppComponent implements OnInit {
       // handel function after opened Dialogs
       MyTools.Dialog=dialog
       MyTools.SnackBar=snackBar
-      auth.currentUserSub.subscribe(u=>{
-        if(u)
-         MyTools.intervalMsgs=interval(1000).subscribe(()=>{
-        this.httpMessagesService.GetAllUnreadMessages().subscribe(msgs=>{
-          MyTools.unreadMsgs=msgs
-          MyTools.msgsReader.next(msgs)
-          MyTools.NumUnreadMsgs.next(msgs.length)
-        })
-      })
-      })
+      // auth.currentUserSub.subscribe(u=>{
+      //   if(u)
+      //    MyTools.intervalMsgs=interval(1000).subscribe(()=>{
+      //   this.httpMessagesService.GetAllUnreadMessages().subscribe(msgs=>{
+      //     MyTools.unreadMsgs=msgs
+      //     MyTools.msgsReader.next(msgs)
+      //     MyTools.NumUnreadMsgs.next(msgs.length)
+      //   })
+      // })
+      // })
 
-      
+
   }
   ngOnInit(): void {
   //  this.dialog.afterOpened.asObservable().subscribe(f=>{

@@ -16,15 +16,14 @@ export class OpinionsComponent implements OnInit {
   @ViewChild("refTable") myTable: MyTableComponent | undefined;
 
   constructor(
-    public httpOpinionsService:HttpOpinionsService 
+    public httpOpinionsService:HttpOpinionsService
   ) { }
 
   ngOnInit(): void {
-    
+
   }
   DeleteRow=()=>{
     const id=this.myTable?.selectedRow.id;
-    debugger
     MyTools.Dialog.open(DeleteUserComponent).afterClosed()
     .subscribe(success=>{
       if(success)
@@ -35,7 +34,7 @@ export class OpinionsComponent implements OnInit {
     })
   }
 
-  
+
   AddRow=()=>{
     MyTools.Dialog.open(AddOpinionComponent,{
       disableClose:true,
@@ -46,7 +45,7 @@ export class OpinionsComponent implements OnInit {
         this.myTable?.FillTableData();
     })
   }
-  
+
 
   EditRow=() =>{
     MyTools.Dialog.open(EditOpinionComponent,{
@@ -64,7 +63,7 @@ export class OpinionsComponent implements OnInit {
    FilterPredicateParent=(data: any, filter: string)=>{
     return data.name.includes(filter) ||
     data.work.includes(filter) ||
-    data.about.includes(filter) 
+    data.about.includes(filter)
 }
 
 

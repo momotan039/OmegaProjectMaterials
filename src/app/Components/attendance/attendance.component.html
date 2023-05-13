@@ -1,53 +1,45 @@
 <ng-container *ngIf="!groupId else selectedGroup">
-  <app-my-table
-  [singleTitle]="'Attendance'"
-  [displayedNameColumns]="['Group','Operations']"
-  [displayedColumns]="['name']"
-  [getDataTable]="httpAttendanceService.GetGroups()"
-  [operations]="[false,false,true]"
-  [detailsComonentUrl]="'attendance'"
-  [enableAddRow]="false"
-  >
+  <app-my-table [singleTitle]="'Attendance'" [displayedNameColumns]="['Group','Operations']"
+    [displayedColumns]="['name']" [getDataTable]="httpAttendanceService.GetGroups()" [operations]="[false,false,true]"
+    [detailsComonentUrl]="'attendance'" [enableAddRow]="false">
   </app-my-table>
 </ng-container>
-  
-<ng-template
-#selectedGroup
-class="groupTable">
 
-<app-chart #chart
-IdChart="chart"
-Type="line"
-Title="Attendances By Month ({{date|date:'M'}}-{{date|date:'Y'}})"
-[ParentBuildData]="GetAttendaceStatisticsByMonth"
-[enablePercent]=true
->
-</app-chart>
-<br>
+<ng-template #selectedGroup class="groupTable">
+  <app-chart #chart IdChart="chart" Type="line" Title="Attendances Per Month : ({{date|date:'M'}}-{{date|date:'Y'}})"
+    [ParentBuildData]="GetAttendaceStatisticsByMonth" [enablePercent]=true>
+  </app-chart>
+  <br>
 
-<div  class="container-search-date-button">
-    <button (click)="SearchByDate(refinput)" class="search" color="primary" mat-fab >
-        <mat-icon >search</mat-icon>
+  <div class="container-search-date-button">
+    <button (click)="SearchByDate(refinput)" class="search" color="primary" mat-fab>
+      <mat-icon>search</mat-icon>
     </button>
-    
+
     <mat-form-field appearance="fill">
-        <mat-label>Choose Date of a Attendance</mat-label>
-        <input  [max]="maxDate"  [min]="group?.openingDate" #refinput autocomplete="off"  matInput [matDatepicker]="picker">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker  touchUi #picker></mat-datepicker>
-      </mat-form-field>
-</div>
+      <mat-label>Choose Date of a Attendance</mat-label>
+      <input [max]="maxDate" [min]="group?.openingDate" #refinput autocomplete="off" matInput [matDatepicker]="picker">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker touchUi #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-radio-group [(ngModel)]="serachType" color="primary" aria-label="Select an option">
+      <mat-radio-button value="1">By Day</mat-radio-button>
+      <mat-radio-button value="2">By Month</mat-radio-button>
+    </mat-radio-group>
+
+  </div>
 
 
-<app-my-table
-#groupTable
-[enableAddRow]="false"
-[singleTitle]="'Attendance'"
-[displayedNameColumns]="['Attendance Date','Id Card\'s Student','Student\'s Name','Status Attendance','Note Delay']"
-[displayedColumns]="['date','idCardStudent','studentName','status','note']"
-[getDataTable]="httpAttendanceService.GetAll(groupId,date)"
-[HandelSaveAllRecords]="SaveChangesAttendances"
->
-</app-my-table>
+  <app-my-table #groupTable [enableAddRow]="false" [singleTitle]="'Attendance'"
+    [displayedNameColumns]="['Attendance Date','Id Card\'s Student','Student\'s Name','Status Attendance','Note Delay']"
+    [displayedColumns]="['date','idCardStudent','studentName','status','note']"
+    [getDataTable]="httpAttendanceService.GetAll(groupId,date)" [HandelSaveAllRecords]="SaveChangesAttendances">
+  </app-my-table>
+
+  <!-- <app-chart *ngIf="serachType==='2'">
+
+</app-chart> -->
+
+
 </ng-template>
-

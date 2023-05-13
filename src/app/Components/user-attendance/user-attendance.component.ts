@@ -17,26 +17,26 @@ export class UserAttendanceComponent implements OnInit {
   groupId=0
   group:Group | undefined
  @ViewChild("groupTable") GroupTable:MyTableComponent | undefined
-  
+
   constructor(
    private route:ActivatedRoute,
    public httpAttendanceService:HttpAttendanceService,
    private httpGroupsService:HttpGroupsService
   ) { }
-  
- 
+
+
   ngOnInit(): void {
     this.groupId=parseInt(this.route.snapshot.paramMap.get('groupId')!)
     this.date=new Date().toDateString()
     this.httpGroupsService.GetGroupByID(this.groupId+"",false).subscribe(data=>{
      this.group=data
-     this.SetMaxValueDate()    
-    
+     this.SetMaxValueDate()
+
     })
 
-    
+
  }
- 
+
 
 closeDatePicker(eventData: any,refInput:HTMLInputElement, dp?:MatDatepicker<any>) {
   const ndate=new Date(eventData);
@@ -56,7 +56,7 @@ closeDatePicker(eventData: any,refInput:HTMLInputElement, dp?:MatDatepicker<any>
     this.GroupTable?.FillTableData()
   }, 500);
 
-  dp!.close();    
+  dp!.close();
 }
 SetMaxValueDate(){
   const closingDate=new Date(this.group!.closingDate?.toString()!)

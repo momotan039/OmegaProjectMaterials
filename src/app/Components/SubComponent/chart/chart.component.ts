@@ -33,23 +33,23 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   build() {
-    debugger
+    Chart.instances[0]?.destroy()
     this.myChart?.destroy()
     this.ParentBuildData().then((data: any) => {
-      debugger
-      if (this.Type == "doughnut")
-        data['indexLabel'] = "#percent%"
-
+      // if (this.Type == "doughnut")
+      //   data['indexLabel'] = "#percent%"
+      //   debugger
       this.Data = data
       this.RenderChart()
     })
   }
-  
+
   ngOnInit(): void {
   }
 genearteIdChart(){
-  
-return ++this.id
+  ++this.id
+  this.IdChart+=this.id
+  return this.IdChart
 }
 
   RenderChart() {
@@ -72,9 +72,21 @@ return ++this.id
     const borderWidth = 4
     //Append Style to DataSetes
     this.ConfigeStyleDataSet(backgroundColor, borderColor, borderWidth)
-     this.myChart = new Chart(this.IdChart+this.genearteIdChart(), {
+    // this.genearteIdChart()
+    this.myChart = new Chart('ff',{
       type: this.Type,
       data: this.Data,
+      options:{
+        scales: {
+          y: {
+            ticks: {
+              // Define the new y-axis labels and values
+              callback: function(value:number, index:number, values:any) {
+                return  parseFloat((value*100)+'').toFixed(1)+'%';
+              }
+            }
+          }
+      }}
     });
 
     this.EnableOptions(this.myChart)
@@ -82,17 +94,24 @@ return ++this.id
 
 
   EnableOptions(myChart: Chart<any, any[], unknown>) {
-    myChart.config.options = {
-      scales: {
-        y: {
-          ticks: {
-            format: {
-              style: 'percent'
-            }
+    myChart.config.options.plugins = {
+          tooltip: {
+              callbacks: {
+                  label: function(context:any) {
+                      let label = context.dataset.label || '';
+                      if (label) {
+                          label += ': ';
+                      }
+                      if (context.parsed.y !== null) {
+                          label += context.parsed.y*100+'%'
+                      }
+                      return label;
+                  }
+              }
           }
-        }
-      }
-    }
+  }
+
+  myChart.update()
   }
 
   ConfigeStyleDataSet(backgroundColor: string[], borderColor: string[], borderWidth: number) {
