@@ -8,9 +8,9 @@
         <a target="_blank" [href]="configuration_Site.instaPage">
         <fa-icon  [size]="'2x'" [icon]="faInstagram"></fa-icon>
         </a>
-        
+
     </span>
-   <span class="days">السبت - الخميس | التاسعة صباحا - السابعة مساءا</span>
+   <span class="days">السبت22 - الخميس | التاسعة صباحا - السابعة مساءا</span>
     <div class="contacts">
         <span class="phone">
             <mat-icon>phone_in_talk</mat-icon>
@@ -32,18 +32,18 @@
     </div>
 
     <div class="menuItems">
-        <span 
+        <span
          *ngFor="let item of menuItems"
          >
          <a
-         routerLinkActive="active-link" 
+         routerLinkActive="active-link"
          [routerLink]="item.href"
          [class.disabled]="true ? true: null"
          >
          {{item.title}}
          <mat-icon *ngIf="item.childs">arrow_drop_down</mat-icon>
         </a>
-                
+
             <div  *ngIf="item.childs" class="sub-menu">
                <span *ngFor="let subItem of item.childs">
                   <a   [ngClass]="subItem.childs?'has-child':''"
@@ -66,7 +66,7 @@
                           {{subItemChild.name}}
                       </a>
                        </ng-template>
-                       
+
                     </span>
                   </div>
 
@@ -82,7 +82,7 @@
     </div>
 
 </div>
-    
+
 <mat-drawer-container [hasBackdrop]="true">
 
     <mat-drawer #drawer class="example-sidenav" mode="side">
@@ -91,15 +91,15 @@
      >
       <a
        *ngIf="!item.forSettings"
-       (click)="!item.childs?drawer.toggle():{}" 
+       (click)="!item.childs?drawer.toggle():{}"
       mat-button routerLink="{{item.href}}" routerLinkActive="active-link active-phone-link">
       {{item.title}}
       <mat-icon *ngIf="item.childs">arrow_drop_down</mat-icon>
     </a>
     <div  *ngIf="item.childs" class="sub-menu">
         <span  *ngFor="let subItem of item.childs">
-           <a 
-           (click)="!subItem.childs?drawer.toggle():{}" 
+           <a
+           (click)="!subItem.childs?drawer.toggle():{}"
            [routerLink]="subItem.link">
            {{subItem.name}}
            <mat-icon *ngIf="subItem.childs">arrow_drop_down</mat-icon>
@@ -121,14 +121,14 @@
                   {{subItemChild.name}}
               </a>
                </ng-template>
-               
+
             </span>
           </div>
         </span>
-        
+
       </div>
      </span>
-     
+
     </mat-drawer>
-  
+
   </mat-drawer-container>
