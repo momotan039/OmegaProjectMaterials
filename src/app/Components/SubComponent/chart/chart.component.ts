@@ -73,6 +73,7 @@ genearteIdChart(){
     //Append Style to DataSetes
     this.ConfigeStyleDataSet(backgroundColor, borderColor, borderWidth)
     // this.genearteIdChart()
+    const _enablePercent=this.enablePercent
     this.myChart = new Chart('ff',{
       type: this.Type,
       data: this.Data,
@@ -82,7 +83,7 @@ genearteIdChart(){
             ticks: {
               // Define the new y-axis labels and values
               callback: function(value:number, index:number, values:any) {
-                return  parseFloat((value*100)+'').toFixed(1)+'%';
+                return  _enablePercent?parseFloat((value*100)+'').toFixed(1)+'%':value;
               }
             }
           }
@@ -94,6 +95,7 @@ genearteIdChart(){
 
 
   EnableOptions(myChart: Chart<any, any[], unknown>) {
+    const _enablePercent=this.enablePercent
     myChart.config.options.plugins = {
           tooltip: {
               callbacks: {
@@ -103,7 +105,7 @@ genearteIdChart(){
                           label += ': ';
                       }
                       if (context.parsed.y !== null) {
-                          label += context.parsed.y*100+'%'
+                          label += _enablePercent?context.parsed.y*100+'%':context.parsed.y
                       }
                       return label;
                   }

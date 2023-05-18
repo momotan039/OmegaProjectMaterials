@@ -1,3 +1,4 @@
+import { observable, Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -38,6 +39,13 @@ GetAttendanceStatisticsPerMonth(groupId:number,date:Date){
   return  this.http.get<any>(MyTools.UrlRootApi+"/Attendance/GetAllUsersPerMonth/"+groupId+"/"+date);
 }
 
+GetAttendanceStatisticsForGroups(studentId:number,groupsId:number[]):Observable<any[]>{
+  return  this.http.get<any>(MyTools.UrlRootApi+"/Attendance/GetAttendanceStatisticsForGroups/"+studentId,{
+    params:{
+      groups:groupsId
+    }
+  });
+}
 
 GetGroups(){
   return  this.http.get<any>(MyTools.UrlRootApi+"/Attendance/GetGroups");
