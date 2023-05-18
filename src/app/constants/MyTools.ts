@@ -16,7 +16,8 @@ export class MyTools {
   static Dialog:MatDialog
   static currentUser=new User()
   static router:Router
-  static domainNameServer="https://localhost:44327/"
+  // static domainNameServer="https://localhost:44327/"
+  static domainNameServer="http://omega-app.somee.com/"
   // static domainNameServer="http://testshiblys-001-site1.dtempurl.com/"
   static UrlRootApi=this.domainNameServer+"api"
   static passwordValidationRegex="^[A-Z](?=.*\d)(?=.*[a-z]).{7,}$"
