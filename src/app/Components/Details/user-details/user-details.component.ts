@@ -41,7 +41,6 @@ export class UserDetailsComponent implements OnInit {
     private router:Router
     ) { }
   ngOnInit(): void {
-
     let id=this.route.snapshot.paramMap.get("id")
     user:User
 
@@ -62,6 +61,7 @@ export class UserDetailsComponent implements OnInit {
     // show detials by parmeter of url
     else
     {
+
      this.httpUsersService.GetUserById(id+"").subscribe(user=>{
       this.user=user
       this.httpGroupsService.GetGroupsByUserId(user.id).subscribe(data=>{
@@ -135,29 +135,28 @@ GetDataChart1=async ():Promise<any>=>{
 
 
  GetDataChart2=async ():Promise<any>=>{
-  this.groups
-  console.log(this.groups);
 
-  // let dataChart1:any = {
-  //   labels:['Jen','Feb','Mar','Apr','May','Jun','July','Aug','Sep','Oct','Nov','Dec'],
-  //   datasets: [
-  //     {
-  //       label: 'Presents Group1',
-  //       data:[1,0.5,0.7,1,0.2]
-  //     },
-  //     {
-  //       label: 'Presents Group2',
-  //       data:[0.2,1,0.3,0.8,1]
-  //     },
-  //   ]
-  // }
+  return new Promise((res,rej)=>{
+    setTimeout(async () => {
+     const groups=this.groups.map(g=>{return {id:g.id,name:g.name}})
+      this.httpAttendanceService.GetAttendanceStatisticsForGroups(this.user.id,groups.map(f=>f.id??0))
+      .subscribe((data)=>{
+      let dataChart1:any = {
+        labels:['Jen','Feb','Mar','Apr','May','Jun','July','Aug','Sep','Oct','Nov','Dec'],
+        datasets:data.map((d,i)=>{
+          return {
+            label:groups[i].name,
+            data:d.counts
+          }
+        }),
+      }
+          res(dataChart1)
+      })
 
-  // await this.httpAttendanceService.GetAttendanceStatistics(this.groupId).forEach(data=>{
-  //       dataChart1.labels=data.months
-  //   dataChart1.datasets[0].data=data.counts
-  //  })
+      }, 1000);
+  })
 
-  return   []
+
  }
 
 }

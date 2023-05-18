@@ -2,7 +2,7 @@
   <mat-card>
       <mat-card-header>
         <div
-          *ngIf="this.authService.currentUser.id==user.id else ShowBasicImage"
+          *ngIf="this.authService.currentUser?.id==user?.id else ShowBasicImage"
         class="container-image-profile">
            <img (click)="ShowPopUPImage()"
             #refImg mat-card-lg-image
@@ -40,13 +40,13 @@
       <mat-card-content>
         <div class="left">
           <h1 class="title">Basic Info</h1>
-          <h2>Id Card:{{user.idCard}}</h2>
+          <h2>Id Card:{{user?.idCard}}</h2>
           <mat-divider>
           </mat-divider>
-          <h2>Role:{{user.role?.description}}</h2>
+          <h2>Role:{{user?.role?.description}}</h2>
           <mat-divider>
           </mat-divider>
-          <h2 *ngIf="user.roleId!=1 && groups.length">Groups:
+          <h2 *ngIf="user?.roleId!=1 && groups.length">Groups:
             <button routerLink="/groupDetails/{{item.id}}" mat-button *ngFor="let item of groups">
               {{item.name}}
             </button>
@@ -61,16 +61,16 @@
         </div>
          <div  class="right">
           <h1 class="title">General Info</h1>
-          <h2>First Name:{{user.firstName}}</h2>
+          <h2>First Name:{{user?.firstName}}</h2>
           <mat-divider>
           </mat-divider>
-          <h2>Last Name:{{user.lastName}}</h2>
+          <h2>Last Name:{{user?.lastName}}</h2>
           <mat-divider>
           </mat-divider>
-          <h2>Email:{{user.email}}</h2>
+          <h2>Email:{{user?.email}}</h2>
           <mat-divider>
           </mat-divider>
-          <h2>Phone:{{user.phone}}</h2>
+          <h2>Phone:{{user?.phone}}</h2>
          </div>
         </mat-card-content>
 
@@ -91,14 +91,13 @@
   </app-chart>  -->
 
   <app-chart
-  *ngIf="user.roleId==3"
+  *ngIf="user?.roleId==3"
   IdChart="chart2"
   Type="line"
   Title="Attendances By Group"
   [ParentBuildData]="GetDataChart2"
   [enablePercent]=true
   >
-
   </app-chart>
 
   </div>
